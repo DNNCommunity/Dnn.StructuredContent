@@ -1,0 +1,1 @@
+This is a proposed implementation of a structured content solution for DNN Platform.  This is currently in prototype stage of development and should not be used in a production environment.
