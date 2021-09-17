@@ -1,0 +1,2 @@
+﻿app.controller('contentFieldTypeOptionsStaticController', [function () {
+}]);

@@ -1,0 +1,221 @@
+﻿<div class="modal-header">
+    <h5 class="modal-title" ng-if="contentType.id">
+        Edit Content Type - {{contentType.name}}
+    </h5>
+    <h5 class="modal-title" ng-if="!contentType.id">
+        New Content Type
+    </h5>
+    <button type="button" class="btn-close" ng-click="close()"></button>
+</div>
+
+<div class="modal-body">
+
+    <div ng-show="loading" style="font-size: 60px; text-align: center;">
+        <i class="fas fa-cog fa-spin fa-3x fa-fw"></i>
+    </div>
+
+    <div class="form" ng-form="formContentType" name="formContentType" id="formContentType">
+        <div class="form-floating mb-3 ">
+            <input type="text" name="name" class="form-control form-control-lg" ng-model="contentType.name" required placeholder="E.g. Blog Posts" ng-keyup="nameAutoFormat()" ng-class="{'is-invalid': formContentType.name.$invalid && submitted,'is-valid': formContentType.name.$valid && submitted}" />
+            <label for="type" class="form-label">Content Type Name <span class="text-danger">*</span></label>
+            <div class="invalid-feedback" role="alert" ng-messages="formContentType.name.$error" ng-if="formContentType.name.$invalid && submitted" ng-cloak>
+                <div ng-message="required">This field is required</div>
+            </div>
+        </div>
+    </div>
+
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#fields" data-toggle="tab" data-target="#fields" type="button">Fields</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#advanced" data-toggle="tab" data-target="#advanced" type="button">Advanced</button>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="fields">
+
+            <p class="lead">Drag and drop fields onto the canvas to build your content type.</p>
+
+            <div ng-show="contentType.id">
+                <div class="row">
+                    <div class="col-auto ">
+
+                        <ul class="content-field-types ">
+                            <li ng-repeat="content_field_type in content_field_types"
+                                dnd-draggable="content_field_type"
+                                dnd-effect-allowed="copy"
+                                dnd-type="'content_field_type'"
+                                class="d-grid gap-2">
+                                <button type="button" class="btn btn-outline-secondary text-start">
+                                    <span class="{{content_field_type.icon}}"></span>&nbsp;{{content_field_type.name}}
+                                </button>
+                            </li>
+                        </ul>
+
+                    </div>
+
+                    <div class="col canvas">
+
+                        <div ng-form="formPreview" class="form" id="formPreview" name="formPreview">
+
+                            <div class="card shadow">
+                                <div class="card-body">
+
+                                    <div class="d-flex justify-content-end">
+                                        <div class="form-check form-switch">
+                                            <input type="checkbox" class="form-check-input" id="validate" ng-model="validate">
+                                            <label class="form-check-label" for="validate">Test Validation</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="card card-item">
+                                        <div class="card-body">
+                                            <div content-field-type-textbox form="formPreview" content-field="contentFields[1]" submitted="validate" />
+                                        </div>
+                                    </div>
+
+                                    <hr />
+
+                                    <ul class="dropzone rows"
+                                        dnd-list="models.rows"
+                                        dnd-drop="rowDrop(event, index, type, external, dropEffect, callback, item)">
+
+                                        <li ng-repeat="row in canvas.rows" class="row py-2">
+                                            <div class="col">
+
+                                                <ul class="dropzone columns row g-1"
+                                                    dnd-list="row.columns"
+                                                    dnd-drop="columnDrop(event, index, type, dropEffect, item, row)">
+
+                                                    <li ng-repeat="column in row.columns"
+                                                        class="col"
+                                                        dnd-type="'column'"
+                                                        dnd-draggable="column"
+                                                        dnd-effect-allowed="move"
+                                                        dnd-moved="columnMoved(row, $index)">
+
+                                                        <div class="card card-item">
+                                                            <div class="card-body">
+                                                                <div class="content_field_utilities">
+                                                                    <a href="#" class="text-muted" ng-click="editItem(column.data)"><span class="fas fa-edit" /></a>
+                                                                    <a href="#" class="text-muted" ng-click="copyItem(column.data)"><span class="fas fa-copy" /></a>
+                                                                    <a href="#" class="text-danger" ng-click="deleteItem(column.data, column)"><span class="fas fa-trash" /></a>
+                                                                </div>
+                                                                <div content-field-type-textbox form="formPreview" content-field="column.data" submitted="validate" ng-if="column.data.content_field_type.key=='textbox'" />
+                                                                <div content-field-type-textarea form="formPreview" content-field="column.data" submitted="validate" ng-if="column.data.content_field_type.key=='textarea'" />
+                                                                <div content-field-type-rich-text-editor form="formPreview" content-field="column.data" submitted="validate" ng-if="column.data.content_field_type.key=='richtexteditor'" />
+                                                                <div content-field-type-number form="formPreview" content-field="column.data" submitted="validate" ng-if="column.data.content_field_type.key=='number'" />
+                                                                <div content-field-type-email form="formPreview" content-field="column.data" submitted="validate" ng-if="column.data.content_field_type.key=='email'" />
+                                                                <div content-field-type-phone-number form="formPreview" content-field="column.data" submitted="validate" ng-if="column.data.content_field_type.key=='phonenumber'" />
+                                                                <div content-field-type-url form="formPreview" content-field="column.data" submitted="validate" ng-if="column.data.content_field_type.key=='url'" />
+                                                                <div content-field-type-date-time form="formPreview" content-field="column.data" submitted="validate" ng-if="column.data.content_field_type.key=='datetime'" />
+                                                                <div content-field-type-static form="formPreview" content-field="column.data" submitted="validate" ng-if="column.data.content_field_type.key=='static'" />
+                                                                <div content-field-type-checkbox form="formPreview" content-field="column.data" submitted="validate" ng-if="column.data.content_field_type.key=='checkbox'" />
+                                                                <div content-field-type-switch form="formPreview" content-field="column.data" submitted="validate" ng-if="column.data.content_field_type.key=='switch'" />
+                                                                <div content-field-type-drop-down form="formPreview" content-field="column.data" submitted="validate" ng-if="column.data.content_field_type.key=='dropdown'" />
+                                                                <div content-field-type-radio-button-list form="formPreview" content-field="column.data" submitted="validate" ng-if="column.data.content_field_type.key=='radiobuttonlist'" />
+                                                                <div content-field-type-multi-select form="formPreview" content-field="column.data" submitted="validate" ng-if="column.data.content_field_type.key=='multiselect'" />
+                                                                <div content-field-type-checkbox-list form="formPreview" content-field="column.data" submitted="validate" ng-if="column.data.content_field_type.key=='checkboxlist'" />
+
+                                                                <div content-field-type-related-content-single form="formPreview" relationship="column.data" submitted="validate" ng-if="column.data.key=='o2m' && column.data.b_content_type_id==contentType.id"></div>
+                                                                <div content-field-type-related-content-multiple-list form="formPreview" relationship="column.data" submitted="validate" ng-if="column.data.key=='m2m' || (column.data.key=='o2m' && column.data.a_content_type_id==contentType.id)"></div>
+
+                                                            </div>
+                                                        </div>
+
+                                                    </li>
+                                                    <li class="dndPlaceholder col">
+                                                        <div class="card bg-light text-dark">
+                                                            <div class="card-body text-center">
+                                                                <span class="fas fa-plus-circle"></span>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <li class="dndPlaceholder row">
+                                            <div class="col">
+                                                <div class="card bg-light text-dark">
+                                                    <div class="card-body text-center">
+                                                        <span class="fas fa-plus-circle"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="advanced">
+
+            <div class="form" ng-form="formContentType" name="formContentType" id="formContentType">
+
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="plural" class="form-label">Plural Version<span class="text-danger">*</span></label>
+                            <input type="text" name="plural" class="form-control" ng-model="contentType.plural" required placeholder="E.g posts" ng-class="{'is-invalid': formContentType.plural.$invalid && submitted,'is-valid': formContentType.plural.$valid && submitted}" />
+                            <div class="invalid-feedback" role="alert" ng-messages="formContentType.plural.$error" ng-if="formContentType.plural.$invalid && submitted" ng-cloak>
+                                <div ng-message="required">meThis field is requireddi</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="singular" class="form-label">Singular Version<span class="text-danger">*</span></label>
+                            <input type="text" name="singular" class="form-control" ng-model="contentType.singular" required placeholder="E.g post" ng-class="{'is-invalid': formContentType.singular.$invalid && submitted,'is-valid': formContentType.singular.$valid && submitted}" />
+                            <div class="invalid-feedback" role="alert" ng-messages="formContentType.singular.$error" ng-if="formContentType.singular.$invalid && submitted" ng-cloak>
+                                <div ng-message="required">This field is required</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="url_slug" class="form-label">URL Slug <span class="text-danger">*</span></label>
+                            <input type="text" name="url_slug" class="form-control" ng-model="contentType.url_slug" required placeholder="E.g post" ng-blur="urlSlugify()" ng-keyup="urlSlugify()" ng-class="{'is-invalid': formContentType.url_slug.$invalid && submitted,'is-valid': formContentType.url_slug.$valid && submitted}" />
+                            <small class="form-text">API for this content type: <code>/api/content/{{getUrlSlug()}}</code></small>
+                            <div class="invalid-feedback" role="alert" ng-messages="formContentType.url_slug.$error" ng-if="formContentType.url_slug.$invalid && submitted" ng-cloak>
+                                <div ng-message="required">This field is required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="table_name" class="form-label">Database Table Name <span class="text-danger">*</span></label>
+                            <div class="input-group" ng-class="{'is-invalid': formContentType.table_name.$invalid && submitted,'is-valid': formContentType.table_name.$valid && submitted}">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        zz-
+                                    </div>
+                                </div>
+                                <input type="text" name="table_name" class="form-control" ng-model="contentType.table_name" required ng-disabled="contentType.id" />
+                            </div>
+                            <small class="form-text" ng-show="!contentType.id">All table names are automatically prepended with the prefix "sc-"</small>
+                            <small class="form-text" ng-show="contentType.id">The table name cannot be changed</small>
+                            <div class="invalid-feedback" role="alert" ng-messages="formContentType.table_name.$error" ng-if="formContentType.table_name.$invalid && submitted" ng-cloak>
+                                <div ng-message="required">This field is required</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-link" ng-click="close()"><span ng-show="!formContentType.$dirty">Close</span><span ng-show="formContentType.$dirty">Cancel</span></button>
+    <button class="btn btn-primary" ng-click="saveContentType()"><span ng-show="!contentType.id">Create</span><span ng-show="contentType.id">Save</span></button>
+</div>

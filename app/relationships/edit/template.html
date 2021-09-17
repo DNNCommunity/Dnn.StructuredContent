@@ -1,0 +1,174 @@
+﻿<div class="modal-header">
+    <h5 class="modal-title">Edit Relationship</h5>
+    <button type="button" class="btn-close" ng-click="close()"></button>
+</div>
+
+<div class="modal-body">
+
+    <div class="form" ng-form="formRelationship" id="formRelationship" name="formRelationship">
+
+        <p class="lead">Relationships define how Content Types are related to each other. </p>
+
+        <div class="alert alert-danger" ng-show="contentType.id!==relationship.a_content_type_id && contentType.id!==relationship.b_content_type_id">At least one of the content types must be {{contentType.name}}</div>
+
+        <div class="row">
+
+            <div class="col">
+
+                <div class="form-floating mb-3">
+                    <select name="a_content_type_id" class="form-select" required ng-model="relationship.a_content_type_id" convert-to-number ng-change="contentTypeChange()" ng-disabled="relationship.id" ng-class="{'is-invalid': formRelationship.content_type_a.$invalid}">
+                        <option value="">-select-</option>
+                        <option value="{{contentType.id}}" ng-repeat="contentType in contentTypes">{{contentType.name}}</option>
+                    </select>
+                    <label for="a_content_type_id" class="form-label">Content Type <span class="text-danger">*</span></label>
+                    <div ng-messages="formRelationship.a_content_type_id.$error" class="invalid-feedback" role="alert">
+                        <div ng-message="required">This field is required</div>
+                    </div>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="text" name="a_help_text" class="form-control" ng-model="relationship.a_help_text" placeholder=" " />
+                    <label for="a_help_text" class="form-label">Help Text</label>
+                </div>
+
+                <div class="mb-3" ng-show="relationship.key==='o2m'">
+                    <div class="form-check form-switch">
+                        <input type="checkbox" class="form-check-input" id="a_required" ng-model="relationship.a_required">
+                        <label class="form-check-label" for="a_required">Required</label>
+                    </div>
+                </div>
+
+                <div class="mb-3" ng-show="relationship.key!='o2m'">
+                    <label for="" class="form-label">Selection Limit</label>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-floating">
+                                <input type="number" name="min_limit" class="form-control" ng-model="relationship.a_min_limit" min="1" max="{{relationship.a_max_limit}}" placeholder=" " />
+                                <label for="min_limit" class="form-label">Min Limit</label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-floating">
+                                <input type="number" name="max_limit" class="form-control" ng-model="relationship.a_max_limit" min="{{relationship.a_min_limit || 1}}" placeholder=" " />
+                                <label for="max_limit" class="form-label">Max Limit</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col">
+                <div class="form-floating mb-3">
+                    <select name="key" class="form-select" ng-model="relationship.key" ng-disabled="relationship.id">
+                        <option value="o2m">One To Many</option>
+                        <option value="m2m">Many To Many</option>
+                    </select>
+                    <label for="key" class="form-label">Relationship</label>
+                </div>
+            </div>
+
+            <div class="col">
+
+                <div class="form-floating mb-3">
+                    <select name="b_content_type_id" class="form-control custom-select" required ng-model="relationship.b_content_type_id" convert-to-number ng-change="contentTypeChange()" ng-disabled="relationship.id" ng-class="{'is-invalid': relationship.content_type_b.$invalid}">
+                        <option value="">-select-</option>
+                        <option value="{{contentType.id}}" ng-repeat="contentType in contentTypes">{{contentType.name}}</option>
+                    </select>
+                    <label for="b_content_type_id" class="form-label">Content Type <span class="text-danger">*</span></label>
+                    <div ng-messages="formRelationship.b_content_type_id.$error" class="invalid-feedback" role="alert">
+                        <div ng-message="required">This field is required</div>
+                    </div>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="text" name="b_help_text" class="form-control" ng-model="relationship.b_help_text" placeholder=" " />
+                    <label for="b_help_text" class="form-label">Help Text</label>
+                </div>
+
+                <div class="mb-3" ng-show="relationship.key!='m2o'">
+                    <label class="form-label">Selection Limit</label>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-floating">
+                                <input type="number" name="min_limit" class="form-control" ng-model="relationship.b_min_limit" min="1" max="{{relationship.b_max_limit}}" placeholder=" " />
+                                <label for="min_limit" class="form-label">Min Limit</label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-floating">
+                                <input type="number" name="max_limit" class="form-control" ng-model="relationship.b_max_limit" min="{{relationship.b_min_limit || 1}}" placeholder="Max" />
+                                <label for="max_limit" class="form-label">Max Limit</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <hr />
+
+        <div class="card text-center lead">
+            <div class="card-body">
+
+                <span span ng-show="relationship.key=='o2m'">1 <strong>{{aContentType.singular}}</strong></span>
+
+                <span ng-show="relationship.key!='o2m' && (!relationship.a_min_limit && !relationship.a_max_limit)">Multiple</span>
+                <span ng-show="relationship.key!='o2m' && (relationship.a_min_limit || relationship.a_max_limit)">
+                    <span ng-show="relationship.a_min_limit">At least {{relationship.a_min_limit}}</span>
+                    <span ng-show="relationship.a_min_limit && relationship.a_max_limit"> and</span>
+                    <span ng-show="relationship.a_max_limit"> at most {{relationship.a_max_limit}}</span>
+                </span>
+
+
+                <span ng-show="relationship.key!='o2m'">
+                    <span ng-show="(relationship.a_min_limit || relationship.a_max_limit) && relationship.a_min_limit <= 1 && relationship.a_max_limit <=1 ">
+                        <strong>{{aContentType.singular}}</strong>
+                    </span>
+                    <span ng-show="(!relationship.a_min_limit && !relationship.a_max_limit) || (relationship.a_min_limit > 1) || (relationship.a_max_limit > 1)">
+                        <strong>{{aContentType.plural}}</strong>
+                    </span>
+                </span>
+
+
+                <span span ng-show="relationship.key=='o2m'">is </span>
+                <span span ng-show="relationship.key!='o2m'">
+                    <span ng-show="(relationship.a_min_limit || relationship.a_max_limit) && relationship.a_min_limit <= 1 && relationship.a_max_limit <=1 ">
+                        is
+                    </span>
+                    <span ng-show="(!relationship.a_min_limit && !relationship.a_max_limit) || (relationship.a_min_limit > 1) || (relationship.a_max_limit > 1)">
+                        are
+                    </span>
+                </span>
+
+                related to
+
+                <span ng-show="relationship.key=='m2o'">1 <strong>{{bContentType.singular}}</strong></span>
+
+                <span ng-show="relationship.key!='m2o' && (!relationship.b_min_limit && !relationship.b_max_limit)">multiple</span>
+                <span ng-show="relationship.key!='m2o' && (relationship.b_min_limit || relationship.b_max_limit)">
+                    <span ng-show="relationship.b_min_limit"> at least {{relationship.b_min_limit}}</span>
+                    <span ng-show="relationship.b_min_limit && relationship.b_max_limit"> and</span>
+                    <span ng-show="relationship.b_max_limit"> at most {{relationship.b_max_limit}}</span>
+                </span>
+
+
+                <span ng-show="relationship.key!='m2o'">
+                    <span ng-show="(relationship.b_min_limit || relationship.b_max_limit) && relationship.b_min_limit <= 1 && relationship.b_max_limit <=1 ">
+                        <strong>{{bContentType.singular}}</strong>
+                    </span>
+                    <span ng-show="(!relationship.b_min_limit && !relationship.b_max_limit) || (relationship.b_min_limit > 1) || (relationship.b_max_limit > 1)">
+                        <strong>{{bContentType.plural}}</strong>
+                    </span>
+                </span>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-link pull-left" ng-click="close()"><span ng-show="!formRelationship.$dirty">Close</span><span ng-show="formRelationship.$dirty">Cancel</span></button>
+    <button class="btn btn-primary" ng-click="saveRelationship()" ng-disabled="contentType.id!=relationship.a_content_type_id && contentType.id!=relationship.b_content_type_id"><span ng-show="!relationship.id">Create</span><span ng-show="relationship.id">Save</span></button>
+</div>

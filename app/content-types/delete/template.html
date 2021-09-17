@@ -1,0 +1,22 @@
+﻿<div class="modal-header">
+    <h5 class="modal-title">Delete '{{contentType.name}}'</h5>
+    <button type="button" class="btn-close" ng-click="close()"></button>
+</div>
+<div class="modal-body">
+
+    <p class="lead">This will delete the '{{contentType.name}}' table as well as all '{{contentType.name}}' data.<br/>
+    This action is irreversable.</p>
+
+    <div ng-form="formContentTypeDelete" class="form">
+        <div class="form-floating mb-3">
+            <input type="text" name="name" class="form-control" ng-model="content_type_name" />
+            <label for="name" class="form-label">Please enter the name of the table to confirm deletion</label>
+        </div>
+    </div>
+        
+</div>
+<div class="modal-footer">
+    <button class="btn btn-link pull-left" ng-click="close()"><span ng-show="!formContentTypeDelete.$dirty">Close</span><span ng-show="formContentTypeDelete.$dirty">Cancel</span></button>
+    <button class="btn btn-danger" ng-click="delete()" ng-disabled="contentType.name!=content_type_name">Delete</button>
+</div>
+

@@ -1,0 +1,60 @@
+﻿
+<div ng-show="loading" style="font-size: 60px; text-align: center;">
+    <i class="fas fa-cog fa-spin fa-3x fa-fw"></i>
+</div>
+
+<div ng-show="!loading">
+    <div class="row ">
+        <div class="col-6">                        
+            <div class="input-group">
+                <input id="search" name="search" placeholder="Search..." class="form-control" ng-model="name_search" />
+                <span class="input-group-text"><i class="fas fa-search"></i></span>
+            </div>
+        </div>
+    </div>
+    <table class="table table-striped">
+        <colgroup>
+            <col />
+            <col style="width: 1%;" />
+            <col style="width: 1%;" />
+            <col style="width: 1%;" />
+        </colgroup>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th></th>
+                <th></th>
+                <th><a href class="text-muted" ng-click="addContentType()"><i class="fa fa-plus"></i></a></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="content_type in content_types | search: 'name':name_search">
+                <td>
+                    <a href="#" class="text-muted" title="Edit" ng-click="viewContentItems(content_type.id)">{{content_type.name}}</a>
+                </td>
+                <td>
+                    <a href="#" class="text-muted" title="Content Type Settings" ng-click="editContentType(content_type.id)"><span class="fas fa-cogs"></span></a>
+                </td>
+                <td>
+                    <a href="#" class="text-muted" title="Visualizer Templates" ng-click="viewVisualizers(content_type.id)"><span class="fas fa-vector-square"></span></a>
+                </td>
+                <td>
+                    <div class="btn-group" role="group">
+                        <a href="#" class="text-muted dropdown-toggle" data-bs-toggle="dropdown" data-bs-target="dropdown-menu" data-toggle="dropdown" data-target="dropdown-menu" aria-haspopup="true" aria-expanded="false">
+                            <span class="fas fa-ellipsis-h"></span>
+                        </a>
+                        <div class="dropdown-menu">
+                            <a href="#" class="dropdown-item text-muted" title="View" ng-click="viewContentItems(content_type.id)"><span class="fas fa-search" /> View</a>
+                            <a href="#" class="dropdown-item text-muted" title="Settings" ng-click="editContentType(content_type.id)"><span class="fas fa-cogs" /> Settings</a>
+                            <a href="#" class="dropdown-item text-muted" title="Templates" ng-click="viewVisualizers(content_type.id)"><span class="fas fa-vector-square" /> Templates</a>
+                            <a href="#" class="dropdown-item text-muted" title="Duplicate" ng-click="copyContentType(content_type.id)"><span class="fas fa-copy" /> Duplicate</a>
+                            <a href="# " class="dropdown-item text-danger" title="Delete" ng-click="deleteContentType(content_type)"><span class="fas fa-trash" /> Delete</a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="alert alert-info" ng-show="(content_types | search: 'name':name_search).length==0 ">No content types found.</div>
+
+</div>

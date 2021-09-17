@@ -1,0 +1,12 @@
+D:\Users\Jay\Dropbox\DNN9\website\DesktopModules\Admin\Dnn.PersonaBar\bin\X3.StructuredContent2.dll.config
+D:\Users\Jay\Dropbox\DNN9\website\DesktopModules\Admin\Dnn.PersonaBar\bin\X3.StructuredContent2.dll
+D:\Users\Jay\Dropbox\DNN9\website\DesktopModules\Admin\Dnn.PersonaBar\bin\X3.StructuredContent2.pdb
+D:\Users\Jay\Dropbox\DNN9\website\DesktopModules\Admin\Dnn.PersonaBar\Modules\X3.StructuredContent2\obj\Debug\X3.StructuredContent2.csproj.CoreCompileInputs.cache
+D:\Users\Jay\Dropbox\DNN9\website\DesktopModules\Admin\Dnn.PersonaBar\Modules\X3.StructuredContent2\obj\Debug\X3.StructuredContent2.dll
+D:\Users\Jay\Dropbox\DNN9\website\DesktopModules\Admin\Dnn.PersonaBar\Modules\X3.StructuredContent2\obj\Debug\X3.StructuredContent2.pdb
+D:\Users\Jay\Dropbox\DNN9\website\DesktopModules\Admin\bin\X3.StructuredContent2.dll.config
+D:\Users\Jay\Dropbox\DNN9\website\DesktopModules\Admin\bin\X3.StructuredContent2.dll
+D:\Users\Jay\Dropbox\DNN9\website\DesktopModules\Admin\bin\X3.StructuredContent2.pdb
+D:\Users\Jay\Dropbox\DNN9\website\bin\X3.StructuredContent2.dll.config
+D:\Users\Jay\Dropbox\DNN9\website\bin\X3.StructuredContent2.dll
+D:\Users\Jay\Dropbox\DNN9\website\bin\X3.StructuredContent2.pdb

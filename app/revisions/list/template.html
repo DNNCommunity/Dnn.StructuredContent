@@ -1,0 +1,45 @@
+﻿<div class="modal-header">
+    <button class="btn btn-link text-muted float-right" ng-click="close()"><span class="fas fa-times" /></button>
+    <h3 class="modal-title">
+        Revision History<br />
+        <small>{{content_type.name}} - {{content_item.name}}</small>
+    </h3>
+</div>
+
+<div class="modal-body">
+
+    <div ng-show="loading" style="font-size: 60px; text-align: center;">
+        <i class="fas fa-cog fa-spin fa-3x fa-fw"></i>
+    </div>
+
+    <div ng-show="!loading">
+        <table class="table table-striped">
+            <colgroup>
+                <col width="1%" />
+                <col />
+                <col />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>View</th>
+                    <th>Revision Date</th>
+                    <th>Activity Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="revision in revisions">
+                    <td>
+                        <a href="#" class="text-muted" title="View" ng-click="viewRevision(revision.id)"><span class="fas fa-eye"></span></a>
+                    </td>
+                    <td>{{revision.revision_date | date : "medium"}}</td>
+                    <td>{{revision.activity_type}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="alert alert-info" ng-show="revisions==0 ">No revisions found.</div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-link pull-left" ng-click="close()">Close</button>
+</div>

@@ -1,0 +1,11 @@
+﻿<div class="form-floating mb-3">
+    <input type="number" name="{{contentField.column_name}}" id="{{contentField.column_name}}" class="form-control" ng-model="contentField.value" ng-required="contentField.options.required" ng-min="contentField.options.min_value" ng-max="contentField.options.max_value" min="{{contentField.options.min_value}}" max="{{contentField.options.max_value}}" ng-if="contentField.options.number_set!=2" ng-class="{'is-invalid': form[contentField.column_name].$invalid && submitted,'is-valid': form[contentField.column_name].$valid && submitted}" placeholder=" " />
+    <label for="{{contentField.column_name}}" class="form-label">{{contentField.name}} <span class="text-danger" ng-show="contentField.options.required">*</span></label>
+    <div ng-messages="form[contentField.column_name].$error" ng-if="submitted" class="invalid-feedback" role="alert">
+        <div ng-message="required">This field is required</div>
+        <div ng-message="min">This field allows a minimum value of {{contentField.options.min_value}}</div>
+        <div ng-message="max">This field allows a maximum value of {{contentField.options.max_value}}</div>
+    </div>
+    <small class="form-text" ng-show="contentField.help_text">{{contentField.help_text}}</small>    
+</div>
+

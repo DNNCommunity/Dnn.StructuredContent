@@ -1,0 +1,172 @@
+﻿@import url("https://use.fontawesome.com/releases/v5.7.2/css/all.css");
+@import url("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/plugins/bootstrap/css/bootstrap.css");
+@import url("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/plugins/angular-toastr/angular-toastr.min.css");
+
+* {
+    font-size: 1rem;
+}
+
+.socialpanel * {
+    font-size: 12px;
+}
+
+.modal-full {
+    position: absolute !important;
+    top: 20px;
+    left: 100px;
+    width: calc(100% - 140px) !important;
+    height: calc(100% - 40px);
+    max-width: none !important;
+}
+
+body.modal-open {
+    overflow: hidden !important
+}
+
+.modal.fade.in {
+    opacity: 1;
+}
+
+.modal-backdrop.fade {
+    opacity: 0.5 !important;
+}
+
+.modal.fade .modal-dialog {
+    transform: translate(0, 0) !important;
+}
+
+.ace_editor {
+    height: 100vh;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.ace_print-margin {
+    display: none;
+}
+
+.table td, .table th {
+    vertical-align: middle !important;
+}
+
+.table .dropdown-toggle {
+    visibility: hidden;
+}
+
+    .table .dropdown-toggle::after {
+        content: none;
+    }
+
+.table tr:hover .dropdown-toggle {
+    visibility: visible;
+}
+
+
+[data-toggle="collapse"] {
+}
+
+    [data-toggle="collapse"] .fa-chevron-right {
+        line-height: 25px;
+    }
+
+    [data-toggle="collapse"][aria-expanded="true"] .fa-chevron-right:before {
+        content: "\f078";
+    }
+
+
+.dnn-structured-content .tab-pane {
+    padding-top: 10px;
+}
+
+.dnn-structured-content ul.nav-tabs {
+    margin-left: 0;
+}
+
+.dnn-structured-content .intl-tel-input {
+    width: 100%;
+    transition: all 1s;
+}
+
+.dnn-structured-content ul.content-field-types {
+    cursor: move;
+    list-style: none;
+    padding-left: 0px;
+}
+
+    .dnn-structured-content ul.content-field-types button {
+        cursor: move !important;
+        margin: 5px 0;
+        opacity: 1.0;
+    }
+
+    .dnn-structured-content ul.content-field-types .dndDragging {
+        opacity: 0.5;
+    }
+
+    .dnn-structured-content ul.content-field-types .dndDraggingSource {
+        opacity: 1.0;
+    }
+
+.dnn-structured-content ul.dropzone {
+    min-height: 50px;
+    padding-left: 0px;
+}
+
+    .dnn-structured-content ul.dropzone > li {
+        display: block;
+        min-height: 50px;
+    }
+
+.dnn-structured-content [dnd-list] .dndDragging {
+    opacity: 0.7;
+}
+
+.dnn-structured-content [dnd-list] .dndDraggingSource {
+    display: none;
+}
+
+.dnn-structured-content [dnd-list] .dndPlaceholder .card {
+    border-color: #ccc;
+}
+
+.dnn-structured-content [dnd-list] .dndPlaceholder .card-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 92px;
+    font-size: 25px;
+}
+
+/*.dnn-structured-content .canvas .rows > .row {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}*/
+
+.dnn-structured-content .canvas .card-item > .card-body {
+    padding: 10px;
+    padding-bottom: 0;
+}
+
+    .dnn-structured-content .canvas .card-item > .card-body .form-group {
+        margin-bottom: 0;
+    }
+
+.dnn-structured-content .canvas .card {
+    border-color: transparent;
+}
+
+.dnn-structured-content .canvas .card-item .content_field_utilities {
+    display: none;
+    position: absolute;
+    right: 20px;
+    z-index: 1;
+}
+
+.dnn-structured-content .canvas .card-item:hover {
+    border-color: #ccc;
+    cursor: move;
+}
+
+    .dnn-structured-content .canvas .card-item:hover .content_field_utilities {
+        display: inline-block;
+    }

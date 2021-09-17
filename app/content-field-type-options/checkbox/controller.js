@@ -1,0 +1,2 @@
+﻿app.controller('contentFieldTypeOptionsCheckboxController', [function () {
+}]);

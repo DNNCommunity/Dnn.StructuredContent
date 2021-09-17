@@ -1,0 +1,75 @@
+﻿<div class="modal-header">
+    <h5 class="modal-title">New Content Type</h5>
+    <button type="button" class="btn-close" ng-click="close()"></button>
+</div>
+
+<div class="modal-body">
+
+    <div ng-show="loading" style="font-size: 60px; text-align: center;">
+        <i class="fas fa-cog fa-spin fa-3x fa-fw"></i>
+    </div>
+
+    <div class="form" ng-form="formContentType" name="formContentType" id="formContentType" ng-show="!loading">
+
+        <div class="form-floating mb-3">
+            <input type="text" name="name" class="form-control form-control-lg" ng-model="contentType.name" required placeholder=" " ng-keyup="nameAutoFormat()" ng-class="{'is-invalid': formContentType.name.$invalid && submitted,'is-valid': formContentType.name.$valid && submitted}" />
+            <label for="type" class="form-label">Content Type Name <span class="text-danger">*</span></label>
+            <div class="invalid-feedback" role="alert" ng-messages="formContentType.name.$error" ng-if="formContentType.name.$invalid && submitted" ng-cloak>
+                <div ng-message="required">This field is required</div>
+            </div>
+            <small class="form-text">E.g. 'Blog Posts'</small>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="form-floating mb-3">
+                    <input type="text" name="plural" class="form-control form-control-sm" ng-model="contentType.plural" required placeholder=" " ng-class="{'is-invalid': formContentType.plural.$invalid && submitted,'is-valid': formContentType.plural.$valid && submitted}" />
+                    <label for="plural" class="form-label">Plural Version <span class="text-danger">*</span></label>
+                    <div class="invalid-feedback" role="alert" ng-messages="formContentType.plural.$error" ng-if="formContentType.plural.$invalid && submitted" ng-cloak>
+                        <div ng-message="required">meThis field is requireddi</div>
+                    </div>
+                    <small class="form-text">E.g 'Blog Posts'</small>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-floating mb-3">
+                    <input type="text" name="singular" class="form-control form-control-sm" ng-model="contentType.singular" required placeholder="E.g post" ng-class="{'is-invalid': formContentType.singular.$invalid && submitted,'is-valid': formContentType.singular.$valid && submitted}" />
+                    <label for="singular" class="form-label">Singular Version <span class="text-danger">*</span></label>
+                    <div class="invalid-feedback" role="alert" ng-messages="formContentType.singular.$error" ng-if="formContentType.singular.$invalid && submitted" ng-cloak>
+                        <div ng-message="required">This field is required</div>
+                    </div>
+                    <small class="form-text">E.g 'Blog Post'</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="form-floating">
+                    <input type="text" name="url_slug" class="form-control " ng-model="contentType.url_slug" required placeholder=" " ng-blur="urlSlugify()" ng-keyup="urlSlugify()" ng-class="{'is-invalid': formContentType.url_slug.$invalid && submitted,'is-valid': formContentType.url_slug.$valid && submitted}" />
+                    <label for="url_slug" class="form-label">URL Slug <span class="text-danger">*</span></label>
+                    <small class="form-text">API for this content type: <code>/api/content/{{getUrlSlug()}}</code></small>
+                    <div class="invalid-feedback" role="alert" ng-messages="formContentType.url_slug.$error" ng-if="formContentType.url_slug.$invalid && submitted" ng-cloak>
+                        <div ng-message="required">This field is required</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-floating">
+                    <input type="text" name="table_name" class="form-control form-control-sm" ng-model="contentType.table_name" required ng-disabled="contentType.id" ng-class="{'is-invalid': formContentType.table_name.$invalid && submitted,'is-valid': formContentType.table_name.$valid && submitted}" placeholder=" " />
+                    <label for="table_name" class="form-label">Database Table Name <span class="text-danger">*</span></label>
+                    <div class="invalid-feedback" role="alert" ng-messages="formContentType.table_name.$error" ng-if="formContentType.table_name.$invalid && submitted" ng-cloak>
+                        <div ng-message="required">This field is required</div>
+                    </div>
+                    <small class="form-text" ng-show="!contentType.id">All table names are automatically prepended with "zz-"</small>
+                    <small class="form-text" ng-show="contentType.id">The table name cannot be changed</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-link" ng-click="close()"><span ng-show="!formContentType.$dirty">Close</span><span ng-show="formContentType.$dirty">Cancel</span></button>
+        <button class="btn btn-primary" ng-click="saveContentType()"><span ng-show="!contentType.id">Create</span><span ng-show="contentType.id">Save</span></button>
+    </div>
+</div>

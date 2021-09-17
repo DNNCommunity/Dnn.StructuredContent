@@ -1,0 +1,73 @@
+﻿<div class="modal-header">
+    <button class="btn btn-link text-muted float-right" ng-click="close()"><span class="fas fa-times" /></button>
+    <h3 class="modal-title">View Revision</h3>
+</div>
+
+<div class="modal-body">
+
+    <div ng-show="loading" style="font-size: 60px; text-align: center;">
+        <i class="fas fa-cog fa-spin fa-3x fa-fw"></i>
+    </div>
+
+    <div class="form" ng-show="!loading">
+
+        <div class="card bg-light text-muted">
+            <div class="card-body">
+                <div class="form-row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="revision_date" class="form-label">Revision Date</label>
+                            <div class="form-control-static">{{revision.revision_date | date : "medium"}}</div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="user_id" class="form-label">User ID</label>
+                            <div class="form-control-static">{{revision.user_id}}</div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="activity_type" class="form-label">Activity Type</label>
+                            <div class="form-control-static">{{revision.activity_type}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="form-row">
+            <div class="col">
+                <h3>Original Data</h3>
+                {{revision.data|json}}
+            </div>
+            <div class="col">
+                <h3>Delta</h3>
+                {{revision.delta|json}}
+            </div>
+        </div>
+
+        <!--<div class="form-row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" name="name" class="form-control" ng-model="revision.data.name" disabled />
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group" ng-show="revision.delta.name">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" name="name" class="form-control" ng-model="revision.delta.name" disabled />
+                </div>
+            </div>
+        </div>-->
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-link pull-left" ng-click="close()">Close</button>
+</div>
+
+

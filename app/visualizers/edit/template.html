@@ -1,0 +1,105 @@
+﻿<div class="modal-header">    
+    <h5 class="modal-title">Edit Visualizer Settings</h5>
+    <button type="button" class="btn-close" ng-click="close()"></button>
+</div>
+
+<div class="modal-body">
+    <div ng-form="formVisualizer" class="form" id="formVisualizer" name="formVisualizer">
+
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#content_type">Content Type</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#template" ng-class="{'disabled': visualizer.content_type_id==null}">Template</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#filter" ng-class="{'disabled': visualizer.visualizer_template_id==null}">Filter</a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="content_type">
+
+                <p class="lead">
+                    Select the Content Type you wish to display
+                </p>
+
+                <div class="form-floating mb-3">
+                    <select name="content_type_id" class="form-control" ng-model="visualizer.content_type_id" ng-options="content_type.id as content_type.name for content_type in contentTypes" ng-change="content_type_changed()" required ng-class="{'is-invalid': formVisualizer.content_type_id.$invalid && submitted, 'is-valid': formVisualizer.content_type_id.$valid && submitted}">
+                        <option value="">-select-</option>
+                    </select>
+                    <label for="content_type_id" class="form-label">Content Type <span class="text-danger">*</span></label>
+                    <div ng-messages="formVisualizer.content_type_id.$error" ng-if="submitted" class="invalid-feedback" role="alert">
+                        <div ng-message="required">This field is required</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="tab-pane fade" id="template">
+                <p class="lead">
+                    Select the Visualizer Template to use for the {{contentType.singular}} content type
+                </p>
+
+                <div class="row" ng-show="visualizer_templates.length>0">
+                    <div class="col-3" ng-repeat="template in visualizer_templates">
+                        <div class="card" style="height:100%" ng-click="selectVisualizerTemplate(template.id)" ng-class="{'shadow': template.id==visualizer.visualizer_template_id}">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    {{template.name}}
+                                </h5>
+                                <hr />
+                                <p class="card-text">
+                                    {{template.description}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert alert-info" ng-show="visualizer_templates.length==0">
+                    No Visualizer Templates found for {{contentType.plural}}.
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="filter">
+                <div ng-show="visualizer_template.content_size=='single'">
+                    <p class="lead">
+                        You have chosen a template that expects a single {{contentType.singular}}.
+                    </p>
+                    <p class="lead">
+                        You must specify the {{contentType.singular}} you want to display.
+                    </p>
+
+                    <div class="form-group">
+                        <label for="item_id" class="form-label">{{contentType.singular}} <span class="text-danger">*</span></label>
+
+                        <select name="item_id" class="form-control" ng-model="visualizer.item_id" ng-options="content_item.id as content_item.name for content_item in contentItems" ng-required="visualizer_template.content_size=='single'">
+                            <option value="">Select ...</option>
+                        </select>
+
+                        <div ng-messages="formVisualizer.item_id.$error" ng-if="submitted" class="invalid-feedback" role="alert">
+                            <div ng-message="required">This field is required</div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div ng-show="visualizer_template.content_size=='multiple'">
+                    <p class="lead">
+                        You have chosen a template that expects a list of {{contentType.plural}}.
+                    </p>
+                </div>
+
+                <p><small>[TODO]: Add more filtering capabilities (URL querystring param, cookie, etc.)</small></p>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-link" ng-click="close()"><span ng-show="!formVisualizer.$dirty">Close</span><span ng-show="formVisualizer.$dirty">Cancel</span></button>
+    <button class="btn btn-primary" ng-click="saveVisualizer()">Save</button>
+</div>
