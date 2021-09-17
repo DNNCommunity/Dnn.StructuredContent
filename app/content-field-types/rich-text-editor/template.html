@@ -1,0 +1,17 @@
+﻿<div class="form-group">
+    <label for="rich_text_editor_input" class="form-label">{{contentField.name}} <span class="text-danger" ng-show="contentField.options.required">*</span></label>
+
+    <div>Rich Text Editor Coming Soon</div>
+
+    <div class="form-row">
+        <div class="col-sm-6"><small class="form-text" ng-show="contentField.help_text">{{contentField.help_text}}</small></div>
+        <div class="col-sm-6 text-right">
+            <div ng-messages="form[contentField.column_name].$error" class="invalid-feedback" role="alert">
+                <div ng-message="required">This field is required</div>
+                <div ng-message="minlength">This field requires a minimum of {{contentField.options.min_length}} characters</div>
+                <div ng-message="maxlength">This field allows a maximum of {{contentField.options.max_length}} characters</div>
+            </div>
+        </div>
+    </div>
+</div>
+

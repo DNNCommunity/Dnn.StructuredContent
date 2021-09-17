@@ -1,0 +1,2 @@
+﻿app.controller('contentFieldTypeOptionsDateTimeController', [function () {
+}]);

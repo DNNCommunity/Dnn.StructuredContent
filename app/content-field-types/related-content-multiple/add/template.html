@@ -1,0 +1,39 @@
+﻿<div class="modal-header">
+    <h5 class="modal-title">Search {{content_type.name}}</h5>
+    <button type="button" class="btn-close" ng-click="close()"></button>
+</div>
+<div class="modal-body">
+    <div class="form-floating mb-3">
+        <input type="text" name="search" id="name" class="form-control" ng-model="search_name" placeholder=" " />
+        <label for="search" class="form-label">Name</label>
+    </div>
+
+    <button class="btn btn-primary" ng-click="search()">Search</button>
+    <button class="btn btn-link" ng-click="clear()">Clear</button>
+
+    <table class="table table-striped" ng-show="items.length>0">
+        <colgroup>
+            <col style="width:1%" />
+            <col />
+        </colgroup>
+        <thead>
+            <tr>
+                <th></th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in items">
+                <td><button class="btn btn-sm" ng-click="select(item)"><span class="fas fa-plus"></span></button></td>
+                <td>{{item.name}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="alert alert-info" ng-show="items.length==0">
+        No items found
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-link" ng-click="close()">Cancel</button>
+</div>

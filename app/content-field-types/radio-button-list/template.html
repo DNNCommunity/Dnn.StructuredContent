@@ -1,0 +1,11 @@
+﻿<div class="mb-3">
+    <label class="form-label">{{contentField.name}} <span class="text-danger" ng-show="contentField.options.required">*</span></label>
+    <div class="form-check" ng-repeat="choice in contentField.options.choices">
+        <input type="radio" name="{{contentField.column_name}}" id="{{contentField.column_name}}{{$index}}" class="form-check-input" ng-model="contentField.value" ng-value="choice.value" ng-required="contentField.options.required" ng-selected="choice.value==contentField.options.default_value" ng-class="{'is-invalid': form[contentField.column_name].$invalid && submitted,'is-valid': form[contentField.column_name].$valid && submitted}" />
+        <label class="form-check-label" for="{{contentField.column_name}}{{$index}}">{{choice.text}}</label>
+    </div>
+    <div ng-messages="form[contentField.column_name].$error" ng-if="submitted" class="text-danger" role="alert">
+        <div ng-message="required">This field is required</div>
+    </div>
+    <small class="form-text" ng-show="contentField.help_text">{{contentField.help_text}}</small>
+</div>

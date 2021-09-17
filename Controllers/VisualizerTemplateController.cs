@@ -1,0 +1,175 @@
+﻿using DotLiquid;
+using DotNetNuke.Security;
+using DotNetNuke.Services.Exceptions;
+using DotNetNuke.Web.Api;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+using StructuredContent.DAL;
+
+namespace StructuredContent
+{
+    //[SupportedModules("StructuredContent")]
+    public class VisualizerTemplateController : DnnApiController
+    {
+        DataContext dc = new DataContext();
+        SQLHelper sqlHelper = new SQLHelper();
+
+        [HttpGet]
+        [AllowAnonymous]
+        public HttpResponseMessage Get(string name = "", Nullable<int> content_type_id = null, Nullable<bool> verbose = null, Nullable<int> skip = null, Nullable<int> take = null)
+        {
+            try
+            {
+                var query = dc.StructuredContent_VisualizerTemplates.OrderBy(i => i.name).AsQueryable();
+
+                // name
+                if (!string.IsNullOrEmpty(name))
+                {
+                    query = query.Where(i => i.name.ToLower().Contains(name.ToLower()));
+                }
+
+                // content_type_id
+                if (content_type_id.HasValue)
+                {
+                    query = query.Where(i => i.content_type_id == content_type_id.GetValueOrDefault());
+                }
+
+                // skip
+                if (skip.HasValue)
+                {
+                    query = query.Skip(skip.GetValueOrDefault());
+                }
+
+                // take
+                if (take.HasValue)
+                {
+                    query = query.Take(take.GetValueOrDefault());
+                }
+
+                // verbose
+                if (verbose.GetValueOrDefault() == false)
+                {
+                    var list = query.Select(i => new { i.id, i.name, i.description, i.content_size });
+                    return Request.CreateResponse(HttpStatusCode.OK, list);
+                }
+                else
+                {
+                    List<VisualizerTemplateDTO> dtos = new List<VisualizerTemplateDTO>();
+
+                    foreach (StructuredContent_VisualizerTemplate item in query)
+                    {
+                        VisualizerTemplateDTO dto = item.ToDto();
+                        dtos.Add(dto);
+                    }
+
+                    return Request.CreateResponse(HttpStatusCode.OK, dtos);
+                }
+            }
+            catch (Exception ex)
+            {
+                Exceptions.LogException(ex);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
+            }
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public HttpResponseMessage Get(int id)
+        {
+            try
+            {
+                StructuredContent_VisualizerTemplate item = dc.StructuredContent_VisualizerTemplates.Where(i => i.id == id).SingleOrDefault();
+                if (item == null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.NotFound);
+                }
+
+                return Request.CreateResponse(HttpStatusCode.OK, item.ToDto());
+            }
+            catch (Exception ex)
+            {
+                Exceptions.LogException(ex);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
+            }
+        }
+
+
+
+        [HttpPost]
+        [AllowAnonymous]
+        [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]
+        public HttpResponseMessage Post(VisualizerTemplateDTO dto)
+        {
+            try
+            {
+                StructuredContent_VisualizerTemplate content_type = dto.ToItem(null);
+
+                dc.StructuredContent_VisualizerTemplates.InsertOnSubmit(content_type);
+
+                dc.SubmitChanges();
+
+                return Request.CreateResponse(HttpStatusCode.OK, content_type.ToDto());
+            }
+            catch (Exception ex)
+            {
+                Exceptions.LogException(ex);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
+            }
+        }
+
+        [HttpPut]
+        [AllowAnonymous]
+        [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]
+        public HttpResponseMessage Put(VisualizerTemplateDTO dto)
+        {
+            try
+            {
+                StructuredContent_VisualizerTemplate item = dc.StructuredContent_VisualizerTemplates.Where(i => i.id == dto.id).SingleOrDefault();
+                if (item == null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.NotFound);
+                }
+
+                item = dto.ToItem(item);
+                dc.SubmitChanges();
+
+                return Request.CreateResponse(HttpStatusCode.OK, item.ToDto());
+            }
+            catch (Exception ex)
+            {
+                Exceptions.LogException(ex);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
+            }
+        }
+
+        [HttpDelete]
+        [AllowAnonymous]
+        [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]
+        public HttpResponseMessage Delete(int id)
+        {
+            try
+            {
+                StructuredContent_VisualizerTemplate content_type = dc.StructuredContent_VisualizerTemplates.Where(i => i.id == id).SingleOrDefault();
+                if (content_type == null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.NotFound);
+                }
+
+                dc.StructuredContent_VisualizerTemplates.DeleteOnSubmit(content_type);
+                dc.SubmitChanges();
+
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch (Exception ex)
+            {
+                Exceptions.LogException(ex);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
+            }
+        }
+    }
+}

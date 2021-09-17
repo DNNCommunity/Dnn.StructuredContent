@@ -1,0 +1,365 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{793CD2FF-6D22-4406-BE35-46F32790B885}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Dnn.StructuredContent</RootNamespace>
+    <AssemblyName>Dnn.StructuredContent</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <TypeScriptToolsVersion>3.3</TypeScriptToolsVersion>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <OutputPath>..\..\..\..\..\bin\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\bin\</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DotLiquid">
+      <HintPath>..\..\..\..\..\bin\DotLiquid.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DotNetNuke">
+      <HintPath>..\..\..\..\..\bin\DotNetNuke.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DotNetNuke.Web, Version=9.2.2.178, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\bin\DotNetNuke.Web.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DotNetNuke.Web.Client">
+      <HintPath>..\..\..\..\..\bin\DotNetNuke.Web.Client.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\bin\Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\bin\System.Net.Http.Formatting.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\bin\System.Web.Http.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\ContentItemController.cs" />
+    <Compile Include="Controllers\VisualizerController.cs" />
+    <Compile Include="Controllers\VisualizerTemplateController.cs" />
+    <Compile Include="Controllers\RevisionController.cs" />
+    <Compile Include="Controllers\RelationshipController.cs" />
+    <Compile Include="Controllers\ContentFieldTypeController.cs" />
+    <Compile Include="DAL\Relationship.cs" />
+    <Compile Include="DAL\ContentField.cs" />
+    <Compile Include="DTOs\Visualizer.cs" />
+    <Compile Include="DAL\SQLHelper.cs" />
+    <Compile Include="DTOs\ContentItem.cs" />
+    <Compile Include="DTOs\VisualizerTemplate.cs" />
+    <Compile Include="DTOs\Revision.cs" />
+    <Compile Include="DTOs\ContentFieldType.cs" />
+    <Compile Include="Controllers\ContentFieldController.cs" />
+    <Compile Include="DTOs\Relationship.cs" />
+    <Compile Include="Enums\DataType.cs" />
+    <Compile Include="Enums\ContentItemStatus.cs" />
+    <Compile Include="Visualizer.ascx.cs">
+      <DependentUpon>Visualizer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Visualizer.ascx.designer.cs">
+      <DependentUpon>Visualizer.ascx</DependentUpon>
+    </Compile>
+    <Content Include="app\content-field-types\choice\controller.js" />
+    <Content Include="app\content-field-types\related-content-multiple\delete\controller.js" />
+    <Content Include="app\content-field-types\related-content-multiple\delete\directive.js" />
+    <Content Include="app\content-field-types\related-content-multiple\delete\template.html" />
+    <Content Include="app\content-field-types\related-content-multiple\add\controller.js" />
+    <Content Include="app\content-field-types\related-content-multiple\add\directive.js" />
+    <Content Include="app\content-field-types\related-content-multiple\add\template.html" />
+    <Content Include="app\visualizers\edit\controller.js" />
+    <Content Include="app\visualizers\view\controller.js" />
+    <Content Include="app\visualizer-templates\delete\controller.js" />
+    <Content Include="app\content-types\add\controller.js" />
+    <Content Include="app\visualizer-templates\list\controller.js" />
+    <Content Include="app\visualizer-templates\edit\controller.js" />
+    <Content Include="app\revisions\detail\controller.js" />
+    <Content Include="app\content-items\edit\controller.js" />
+    <Content Include="app\content-items\list\controller.js" />
+    <Content Include="app\content-items\delete\controller.js" />
+    <Content Include="app\revisions\list\controller.js" />
+    <Content Include="app\content-field-types\related-content-multiple\list\controller.js" />
+    <Content Include="app\content-field-types\related-content-single\controller.js" />
+    <Content Include="app\relationships\delete\controller.js" />
+    <Content Include="app\relationships\edit\controller.js" />
+    <Content Include="app\content-field-type-options\checkbox-list\controller.js" />
+    <Content Include="app\content-field-type-options\multi-select\controller.js" />
+    <Content Include="app\content-field-type-options\radio-button-list\controller.js" />
+    <Content Include="app\content-field-type-options\switch\controller.js" />
+    <Content Include="app\content-field-type-options\phone-number\controller.js" />
+    <Content Include="app\content-field-type-options\date-time\controller.js" />
+    <Content Include="app\content-field-type-options\static\controller.js" />
+    <Content Include="app\content-field-type-options\checkbox\controller.js" />
+    <Content Include="app\content-field-type-options\drop-down\controller.js" />
+    <Content Include="app\content-field-type-options\url\controller.js" />
+    <Content Include="app\content-field-type-options\number\controller.js" />
+    <Content Include="app\content-field-type-options\email\controller.js" />
+    <Content Include="app\content-field-types\checkbox-list\controller.js" />
+    <Content Include="app\content-field-types\drop-down\controller.js" />
+    <Content Include="app\content-field-types\multi-select\controller.js" />
+    <Content Include="app\content-field-types\radio-button-list\controller.js" />
+    <Content Include="app\content-field-types\switch\controller.js" />
+    <Content Include="app\content-field-types\checkbox\controller.js" />
+    <Content Include="app\content-field-types\date-time\controller.js" />
+    <Content Include="app\content-field-types\email\controller.js" />
+    <Content Include="app\content-field-types\number\controller.js" />
+    <Content Include="app\content-field-types\phone-number\controller.js" />
+    <Content Include="app\content-field-types\static\controller.js" />
+    <Content Include="app\content-field-types\url\controller.js" />
+    <Content Include="app\visualizers\view\directive.js" />
+    <Content Include="app\content-field-type-options\checkbox-list\directive.js" />
+    <Content Include="app\content-field-type-options\drop-down\directive.js" />
+    <Content Include="app\content-field-type-options\multi-select\directive.js" />
+    <Content Include="app\content-field-type-options\radio-button-list\directive.js" />
+    <Content Include="app\content-field-type-options\switch\directive.js" />
+    <Content Include="app\content-field-type-options\checkbox\directive.js" />
+    <Content Include="app\content-field-type-options\date-time\directive.js" />
+    <Content Include="app\content-field-type-options\email\directive.js" />
+    <Content Include="app\content-field-type-options\number\directive.js" />
+    <Content Include="app\content-field-type-options\phone-number\directive.js" />
+    <Content Include="app\content-field-type-options\static\directive.js" />
+    <Content Include="app\content-field-type-options\url\directive.js" />
+    <Content Include="app\content-field-types\checkbox-list\directive.js" />
+    <Content Include="app\content-field-types\drop-down\directive.js" />
+    <Content Include="app\content-field-types\multi-select\directive.js" />
+    <Content Include="app\content-field-types\radio-button-list\directive.js" />
+    <Content Include="app\content-field-types\related-content-multiple\list\directive.js" />
+    <Content Include="app\content-field-types\related-content-single\directive.js" />
+    <Content Include="app\content-field-types\switch\directive.js" />
+    <Content Include="app\content-field-types\checkbox\directive.js" />
+    <Content Include="app\content-field-types\date-time\directive.js" />
+    <Content Include="app\content-field-types\email\directive.js" />
+    <Content Include="app\content-field-types\number\directive.js" />
+    <Content Include="app\content-field-types\phone-number\directive.js" />
+    <Content Include="app\content-field-types\static\directive.js" />
+    <Content Include="app\content-field-types\url\directive.js" />
+    <Content Include="app\content-items\service.js" />
+    <Content Include="app\visualizers\service.js" />
+    <Content Include="app\visualizer-templates\service.js" />
+    <Content Include="app\revisions\service.js" />
+    <Content Include="app\relationships\service.js" />
+    <Content Include="app\content-field-types\service.js" />
+    <Content Include="app\content-field-types\choice\template.html" />
+    <Content Include="app\visualizer-templates\delete\template.html" />
+    <Content Include="app\content-types\add\template.html" />
+    <Content Include="app\visualizer-templates\list\template.html" />
+    <Content Include="app\revisions\detail\template.html" />
+    <Content Include="app\content-items\edit\template.html" />
+    <Content Include="app\content-items\list\template.html" />
+    <Content Include="app\content-items\delete\template.html" />
+    <Content Include="app\revisions\list\template.html" />
+    <Content Include="app\visualizer-templates\edit\template.html" />
+    <Content Include="app\content-field-types\related-content-multiple\list\template.html" />
+    <Content Include="app\content-field-types\related-content-single\template.html" />
+    <Content Include="app\relationships\delete\template.html" />
+    <Content Include="app\relationships\edit\template.html" />
+    <Content Include="app\content-field-type-options\checkbox-list\template.html" />
+    <Content Include="app\content-field-type-options\multi-select\template.html" />
+    <Content Include="app\content-field-type-options\phone-number\template.html" />
+    <Content Include="app\content-field-type-options\radio-button-list\template.html" />
+    <Content Include="app\content-field-type-options\drop-down\template.html" />
+    <Content Include="app\content-field-type-options\switch\template.html" />
+    <Content Include="app\content-field-type-options\checkbox\template.html" />
+    <Content Include="app\content-field-type-options\date-time\template.html" />
+    <Content Include="app\content-field-type-options\email\template.html" />
+    <Content Include="app\content-field-type-options\number\template.html" />
+    <Content Include="app\content-field-type-options\static\template.html" />
+    <Content Include="app\content-field-type-options\textarea\template.html" />
+    <Content Include="app\content-field-type-options\rich-text-editor\template.html" />
+    <Content Include="app\content-field-type-options\url\template.html" />
+    <Content Include="app\content-field-types\checkbox-list\template.html" />
+    <Content Include="app\content-field-types\drop-down\template.html" />
+    <Content Include="app\content-field-types\multi-select\template.html" />
+    <Content Include="app\content-field-types\radio-button-list\template.html" />
+    <Content Include="app\content-field-types\switch\template.html" />
+    <Content Include="app\content-field-types\checkbox\template.html" />
+    <Content Include="app\content-field-types\date-time\template.html" />
+    <Content Include="app\content-field-types\email\template.html" />
+    <Content Include="app\content-field-types\number\template.html" />
+    <Content Include="app\content-field-types\phone-number\template.html" />
+    <Content Include="app\content-field-types\static\template.html" />
+    <Content Include="app\content-field-types\url\template.html" />
+    <Content Include="app\visualizers\edit\template.html" />
+    <Content Include="app\visualizers\view\template.html" />
+    <Content Include="ContentLibrary.html" />
+    <Content Include="css\ContentLibrary.css" />
+    <Content Include="module.css" />
+    <Content Include="plugins\ace\ace.js" />
+    <Content Include="plugins\ace\mode-liquid.js" />
+    <Content Include="plugins\ace\worker-javascript.js" />
+    <Content Include="plugins\ace\worker-css.js" />
+    <Content Include="plugins\ace\ui-ace.js" />
+    <Content Include="plugins\ace\mode-css.js" />
+    <Content Include="plugins\ace\mode-javascript.js" />
+    <Content Include="plugins\ace\mode-razor.js" />
+    <Content Include="plugins\angular-drap-and-drop-lists\angular-drap-and-drop-lists.min.js" />
+    <Content Include="plugins\bootstrap\css\bootstrap.css" />
+    <Content Include="plugins\bootstrap\css\bootstrap.min.css" />
+    <Content Include="plugins\bootstrap\js\bootstrap.bundle.min.js" />
+    <Content Include="plugins\pluralize\pluralize.js" />
+    <Content Include="plugins\ui.bootstrap\ui-bootstrap-tpls-2.5.0.min.js" />
+    <Content Include="scripts\ContentLibrary.js" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <Compile Include="Controllers\ContentTypeController.cs" />
+    <Compile Include="DTOs\ContentField.cs" />
+    <Compile Include="DTOs\ContentType.cs" />
+    <Compile Include="DAL\StructuredContent.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StructuredContent.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="ModuleBase.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RouteMapper.cs" />
+    <Content Include="Visualizer.ascx" />
+    <Content Include="plugins\bootstrap\css\bootstrap.css.map" />
+    <Content Include="plugins\bootstrap\css\bootstrap.min.css.map" />
+    <Content Include="plugins\bootstrap\js\bootstrap.bundle.min.js.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="app\app.js" />
+    <Content Include="app\content-fields\delete\controller.js" />
+    <Content Include="app\content-fields\edit\controller.js" />
+    <Content Include="app\content-types\delete\controller.js" />
+    <Content Include="app\content-types\edit\controller.js" />
+    <Content Include="app\content-types\list\controller.js" />
+    <Content Include="app\content-field-type-options\rich-text-editor\controller.js" />
+    <Content Include="app\content-field-type-options\textarea\controller.js" />
+    <Content Include="app\content-field-type-options\textbox\controller.js" />
+    <Content Include="app\content-field-types\rich-text-editor\controller.js" />
+    <Content Include="app\content-field-types\textarea\controller.js" />
+    <Content Include="app\content-field-types\textbox\controller.js" />
+    <Content Include="app\content-types\list\directive.js" />
+    <Content Include="app\content-field-type-options\rich-text-editor\directive.js" />
+    <Content Include="app\content-field-type-options\textarea\directive.js" />
+    <Content Include="app\content-field-type-options\textbox\directive.js" />
+    <Content Include="app\content-field-types\rich-text-editor\directive.js" />
+    <Content Include="app\content-field-types\textarea\directive.js" />
+    <Content Include="app\content-field-types\textbox\directive.js" />
+    <Content Include="app\content-fields\service.js" />
+    <Content Include="app\content-types\service.js" />
+    <Content Include="app\content-fields\delete\template.html" />
+    <Content Include="app\content-fields\edit\template.html" />
+    <Content Include="app\content-types\delete\template.html" />
+    <Content Include="app\content-types\edit\template.html" />
+    <Content Include="app\content-types\list\template.html" />
+    <Content Include="app\content-field-type-options\textbox\template.html" />
+    <Content Include="app\content-field-types\rich-text-editor\template.html" />
+    <Content Include="app\content-field-types\textarea\template.html" />
+    <Content Include="app\content-field-types\textbox\template.html" />
+    <Content Include="DAL\StructuredContent.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>StructuredContent.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="plugins\angular-toastr\angular-toastr.min.css" />
+    <Content Include="plugins\angular-toastr\angular-toastr.tpls.min.js" />
+    <None Include="DAL\StructuredContent.dbml.layout">
+      <DependentUpon>StructuredContent.dbml</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

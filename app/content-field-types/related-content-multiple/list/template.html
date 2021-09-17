@@ -1,0 +1,37 @@
+﻿<div class="card">
+    <div class="card-body">
+
+        <label for="related_content" class="form-label">Related {{relationship.related_content_type.name}} <span class="text-danger" ng-show="isRequired()">*</span> <span ng-if="relationship.min_limit">(min:{{relationship.min_limit}})</span> <span ng-if="relationship.max_limit">(max:{{relationship.max_limit}})</span></label>
+
+        <table class="table table-striped">
+            <colgroup>
+                <col />
+                <col style="width:1%" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th><button class="btn btn-sm" ng-click="addRelatedContentItem()"><span class="fas fa-plus"></span></button></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in related_items">
+                    <td>{{item.name}}</td>
+                    <td><button class="btn btn-sm" ng-click="deleteRelatedContentItem($index)"><span class="fas fa-trash"></span></button></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="form-row">
+            <div class="col-sm-6">
+                <small class="form-text">{{relationship.help_text}}</small>
+            </div>
+            <div class="col-sm-6 text-right">
+                <div ng-messages="form[control_name].$error" ng-if="submitted" class="invalid-feedback" role="alert">
+                    <div ng-message="minTags">A minimum of {{getMinTags()}} is required</div>
+                    <div ng-message="maxTags">A maximum of {{getMaxTags()}} is allowed</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

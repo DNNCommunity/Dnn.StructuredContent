@@ -1,0 +1,86 @@
+﻿<div class="modal-header">
+    <h5 class="modal-title">{{content_type.plural}}</h5>
+    <button type="button" class="btn-close" ng-click="close()"></button>
+</div>
+<div class="modal-body">
+
+    <div ng-show="loading" style="font-size: 60px; text-align: center;">
+        <i class="fas fa-cog fa-spin fa-3x fa-fw"></i>
+    </div>
+
+    <div class="form" ng-form="formContentItemList" ng-show="!loading">
+
+        <div class="row">
+            <div class="col-6">
+                <div class="input-group">
+                    <input id="search" name="search" placeholder="Search..." class="form-control" ng-model="name_search" />
+                    <span class="input-group-text"><i class="fas fa-search"></i></span>
+                </div>
+            </div>
+            <div class="col d-flex justify-content-end">
+                <button type="button" class="btn btn-sm btn-secondary mx-1" ng-click="export()"><i class="fas fa-upload"></i> Export</button>
+                <button type="button" class="btn btn-sm btn-secondary mx-1" ng-click="import()"><i class="fas fa-download"></i> Import</button>
+                <button type="button" class="btn btn-sm btn-secondary mx-1" ng-click="editContentType()"><i class="fas fa-cogs"></i> Settings</button>
+            </div>
+        </div>
+        <br />
+        <table class="table table-striped table-hover">
+            <colgroup>
+                <col />
+                <col />
+                <col />
+                <col />
+                <col />
+                <col />
+                <col />
+                <col width="1%" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Status</th>
+                    <th>Created</th>
+                    <th>Modified</th>
+                    <th>Pubished</th>
+                    <th></th>
+                    <th></th>
+                    <th><a href class="text-muted" ng-click="addContentItem()"><i class="fas fa-plus"></i></a></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="content_item in content_items | search: 'name':name_search">
+                    <td>
+                        <a href="#" class="text-muted" title="Edit" ng-click="editContentItem(content_item.id)">{{content_item.name}}</a>
+                    </td>
+                    <td>{{content_item.status}}</td>
+                    <td>{{content_item.date_created | date}}</td>
+                    <td>{{content_item.date_modified | date}}</td>
+                    <td>{{content_item.date_published | date}}</td>
+                    <td>
+                        <a class="text-muted" title="Version History" ng-click="viewRevisions(content_item)"><span class="fas fa-history"></span></a>
+                    </td>
+                    <td>
+                        <a class="text-muted" title="Translations" ng-click="translationContentItem(content_item)"><span class="fas fa-language"></span></a>
+                    </td>
+                    <td>
+                        <div class="btn-group" role="group">
+                            <a href="#" class="text-muted dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="fas fa-ellipsis-h"></span>
+                            </a>
+                            <div class="dropdown-menu">
+                                <a href="#" class="dropdown-item text-muted" title="Edit" ng-click="editContentItem(content_item.id)"><span class="fas fa-edit" /> Edit</a>
+                                <a href="#" class="dropdown-item text-muted" title="Copy" ng-click="copyContentItem(content_item)"><span class="fas fa-copy" /> Duplicate</a>
+                                <a href="# " class="dropdown-item text-danger" title="Delete" ng-click="deleteContentItem(content_item)"><span class="fas fa-trash" /> Delete</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="alert alert-info" ng-show="(content_items | search: 'name':name_search).length==0 ">No {{content_type.plural}} found.</div>
+    </div>
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-link" ng-click="close()"><span ng-show="!formContentItemList.$dirty">Close</span><span ng-show="formContentItemList.$dirty">Cancel</span></button>
+</div>

@@ -1,0 +1,212 @@
+
+/****** Object:  Table [dbo].[StructuredContent.ContentField]    Script Date: 9/17/2021 8:58:57 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[StructuredContent.ContentField](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[name] [nvarchar](256) NOT NULL,
+	[content_type_id] [int] NOT NULL,
+	[is_system] [bit] NOT NULL,
+	[ordinal] [int] NOT NULL,
+	[column_name] [nvarchar](256) NOT NULL,
+	[data_type] [int] NOT NULL,
+	[data_length] [nvarchar](50) NULL,
+	[allow_null] [bit] NOT NULL,
+	[default_value] [nvarchar](50) NULL,
+	[help_text] [nvarchar](256) NULL,
+	[content_field_type_id] [int] NULL,
+	[options] [nvarchar](max) NULL,
+	[layout_row] [int] NULL,
+	[layout_column] [int] NULL,
+ CONSTRAINT [PK_StructuredContent.ContentField] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[StructuredContent.ContentFieldType]    Script Date: 9/17/2021 8:58:57 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[StructuredContent.ContentFieldType](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[key] [varchar](50) NOT NULL,
+	[type] [varchar](20) NOT NULL,
+	[name] [varchar](50) NOT NULL,
+	[ordinal] [int] NOT NULL,
+	[default_data_type] [int] NOT NULL,
+	[default_data_length] [varchar](10) NULL,
+	[default_options] [nvarchar](500) NULL,
+	[icon] [nvarchar](50) NULL,
+ CONSTRAINT [PK_StructuredContent.ContentFieldType] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[StructuredContent.ContentType]    Script Date: 9/17/2021 8:58:57 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[StructuredContent.ContentType](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[name] [nvarchar](250) NOT NULL,
+	[singular] [nvarchar](250) NOT NULL,
+	[plural] [nvarchar](250) NOT NULL,
+	[url_slug] [nvarchar](250) NOT NULL,
+	[table_name] [nvarchar](250) NOT NULL,
+	[is_system] [bit] NOT NULL,
+ CONSTRAINT [PK_StructuredContent.ContentType] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[StructuredContent.Relationship]    Script Date: 9/17/2021 8:58:57 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[StructuredContent.Relationship](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[key] [varchar](3) NOT NULL,
+	[a_content_type_id] [int] NOT NULL,
+	[b_content_type_id] [int] NOT NULL,
+	[a_required] [bit] NULL,
+	[a_min_limit] [int] NULL,
+	[a_max_limit] [int] NULL,
+	[a_help_text] [nvarchar](256) NULL,
+	[b_required] [bit] NULL,
+	[b_min_limit] [int] NULL,
+	[b_max_limit] [int] NULL,
+	[b_help_text] [nvarchar](256) NULL,
+	[a_layout_row] [int] NULL,
+	[a_layout_column] [int] NULL,
+	[b_layout_row] [int] NULL,
+	[b_layout_column] [int] NULL,
+ CONSTRAINT [PK_StructuredContent.Relationship] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[StructuredContent.Revision]    Script Date: 9/17/2021 8:58:57 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[StructuredContent.Revision](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[revision_date] [datetime] NOT NULL,
+	[user_id] [int] NULL,
+	[activity_type] [nvarchar](15) NOT NULL,
+	[content_type_id] [int] NOT NULL,
+	[item_id] [int] NOT NULL,
+	[delta] [nvarchar](max) NOT NULL,
+	[data] [nvarchar](max) NOT NULL,
+ CONSTRAINT [PK_StructuredContent.Revision] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[StructuredContent.Visualizer]    Script Date: 9/17/2021 8:58:57 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[StructuredContent.Visualizer](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[module_id] [int] NOT NULL,
+	[content_type_id] [int] NOT NULL,
+	[visualizer_template_id] [int] NULL,
+	[item_id] [int] NULL,
+	[item_filter] [nvarchar](max) NULL,
+ CONSTRAINT [PK_StructuredContent.Visualizer] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[StructuredContent.VisualizerTemplate]    Script Date: 9/17/2021 8:58:57 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[StructuredContent.VisualizerTemplate](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[content_type_id] [int] NOT NULL,
+	[name] [nvarchar](250) NOT NULL,
+	[description] [nvarchar](max) NULL,
+	[script] [nvarchar](max) NULL,
+	[css] [nvarchar](max) NULL,
+	[template] [nvarchar](max) NULL,
+	[language] [varchar](10) NULL,
+	[content_size] [varchar](10) NULL,
+ CONSTRAINT [PK_StructuredContent.VisualizerTemplate] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[StructuredContent.ContentField]  WITH CHECK ADD  CONSTRAINT [FK_StructuredContent.ContentField_StructuredContent.ContentFieldType] FOREIGN KEY([content_field_type_id])
+REFERENCES [dbo].[StructuredContent.ContentFieldType] ([id])
+ON UPDATE CASCADE
+ON DELETE SET NULL
+GO
+ALTER TABLE [dbo].[StructuredContent.ContentField] CHECK CONSTRAINT [FK_StructuredContent.ContentField_StructuredContent.ContentFieldType]
+GO
+ALTER TABLE [dbo].[StructuredContent.ContentField]  WITH CHECK ADD  CONSTRAINT [FK_StructuredContent.ContentField_StructuredContent.ContentType] FOREIGN KEY([content_type_id])
+REFERENCES [dbo].[StructuredContent.ContentType] ([id])
+ON UPDATE CASCADE
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[StructuredContent.ContentField] CHECK CONSTRAINT [FK_StructuredContent.ContentField_StructuredContent.ContentType]
+GO
+ALTER TABLE [dbo].[StructuredContent.Relationship]  WITH CHECK ADD  CONSTRAINT [FK_StructuredContent.RelationshipType_StructuredContent.ContentType] FOREIGN KEY([a_content_type_id])
+REFERENCES [dbo].[StructuredContent.ContentType] ([id])
+GO
+ALTER TABLE [dbo].[StructuredContent.Relationship] CHECK CONSTRAINT [FK_StructuredContent.RelationshipType_StructuredContent.ContentType]
+GO
+ALTER TABLE [dbo].[StructuredContent.Relationship]  WITH CHECK ADD  CONSTRAINT [FK_StructuredContent.RelationshipType_StructuredContent.ContentType1] FOREIGN KEY([b_content_type_id])
+REFERENCES [dbo].[StructuredContent.ContentType] ([id])
+GO
+ALTER TABLE [dbo].[StructuredContent.Relationship] CHECK CONSTRAINT [FK_StructuredContent.RelationshipType_StructuredContent.ContentType1]
+GO
+ALTER TABLE [dbo].[StructuredContent.Revision]  WITH CHECK ADD  CONSTRAINT [FK_StructuredContent.Revision_StructuredContent.ContentType] FOREIGN KEY([content_type_id])
+REFERENCES [dbo].[StructuredContent.ContentType] ([id])
+ON UPDATE CASCADE
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[StructuredContent.Revision] CHECK CONSTRAINT [FK_StructuredContent.Revision_StructuredContent.ContentType]
+GO
+ALTER TABLE [dbo].[StructuredContent.Visualizer]  WITH CHECK ADD  CONSTRAINT [FK_StructuredContent.Visualizer_Modules] FOREIGN KEY([module_id])
+REFERENCES [dbo].[Modules] ([ModuleID])
+ON UPDATE CASCADE
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[StructuredContent.Visualizer] CHECK CONSTRAINT [FK_StructuredContent.Visualizer_Modules]
+GO
+ALTER TABLE [dbo].[StructuredContent.Visualizer]  WITH CHECK ADD  CONSTRAINT [FK_StructuredContent.Visualizer_StructuredContent.ContentType] FOREIGN KEY([content_type_id])
+REFERENCES [dbo].[StructuredContent.ContentType] ([id])
+ON UPDATE CASCADE
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[StructuredContent.Visualizer] CHECK CONSTRAINT [FK_StructuredContent.Visualizer_StructuredContent.ContentType]
+GO
+ALTER TABLE [dbo].[StructuredContent.Visualizer]  WITH CHECK ADD  CONSTRAINT [FK_StructuredContent.Visualizer_StructuredContent.VisualizerTemplate] FOREIGN KEY([visualizer_template_id])
+REFERENCES [dbo].[StructuredContent.VisualizerTemplate] ([id])
+GO
+ALTER TABLE [dbo].[StructuredContent.Visualizer] CHECK CONSTRAINT [FK_StructuredContent.Visualizer_StructuredContent.VisualizerTemplate]
+GO
+ALTER TABLE [dbo].[StructuredContent.VisualizerTemplate]  WITH CHECK ADD  CONSTRAINT [FK_StructuredContent.VisualizerTemplate_StructuredContent.ContentType] FOREIGN KEY([content_type_id])
+REFERENCES [dbo].[StructuredContent.ContentType] ([id])
+ON UPDATE CASCADE
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[StructuredContent.VisualizerTemplate] CHECK CONSTRAINT [FK_StructuredContent.VisualizerTemplate_StructuredContent.ContentType]
+GO

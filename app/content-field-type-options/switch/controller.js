@@ -1,0 +1,2 @@
+﻿app.controller('contentFieldTypeOptionsSwitchController', [function () {
+}]);

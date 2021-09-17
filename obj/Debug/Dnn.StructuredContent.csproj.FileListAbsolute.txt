@@ -1,0 +1,13 @@
+D:\Users\Jay\Dropbox\DNN9\website\DesktopModules\Admin\Dnn.PersonaBar\Modules\Dnn.StructuredContent\obj\Debug\Dnn.StructuredContent.csproj.CoreCompileInputs.cache
+D:\Users\Jay\Dropbox\DNN9\website\bin\Dnn.StructuredContent.dll.config
+D:\Users\Jay\Dropbox\DNN9\website\bin\Dnn.StructuredContent.dll
+D:\Users\Jay\Dropbox\DNN9\website\bin\Dnn.StructuredContent.pdb
+D:\Users\Jay\Dropbox\DNN9\website\DesktopModules\Admin\Dnn.PersonaBar\Modules\Dnn.StructuredContent\obj\Debug\Dnn.StructuredContent.dll
+D:\Users\Jay\Dropbox\DNN9\website\DesktopModules\Admin\Dnn.PersonaBar\Modules\Dnn.StructuredContent\obj\Debug\Dnn.StructuredContent.pdb
+C:\Users\mathi\Dropbox\DNN9\website\bin\Dnn.StructuredContent.dll.config
+C:\Users\mathi\Dropbox\DNN9\website\bin\Dnn.StructuredContent.dll
+C:\Users\mathi\Dropbox\DNN9\website\bin\Dnn.StructuredContent.pdb
+C:\Users\mathi\Dropbox\DNN9\website\DesktopModules\Admin\Dnn.PersonaBar\Modules\Dnn.StructuredContent\obj\Debug\Dnn.StructuredContent.csproj.CoreCompileInputs.cache
+C:\Users\mathi\Dropbox\DNN9\website\DesktopModules\Admin\Dnn.PersonaBar\Modules\Dnn.StructuredContent\obj\Debug\Dnn.StructuredContent.dll
+C:\Users\mathi\Dropbox\DNN9\website\DesktopModules\Admin\Dnn.PersonaBar\Modules\Dnn.StructuredContent\obj\Debug\Dnn.StructuredContent.pdb
+C:\Users\mathi\Dropbox\DNN9\website\DesktopModules\Admin\Dnn.PersonaBar\Modules\Dnn.StructuredContent\obj\Debug\Dnn.StructuredContent.csprojAssemblyReference.cache
