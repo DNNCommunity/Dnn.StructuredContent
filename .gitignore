@@ -33,3 +33,4 @@ msbuild.wrn
 
 # Visual Studio / VS Code
 .vs/
+/.nuke/temp
