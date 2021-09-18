@@ -91,8 +91,8 @@
     <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=2.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Extensions.DependencyInjection.Abstractions.2.1.1\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -139,7 +139,7 @@
     <Compile Include="Visualizer.ascx.designer.cs">
       <DependentUpon>Visualizer.ascx</DependentUpon>
     </Compile>
-    <Content Include="app\content-field-types\choice\controller.js" />
+    <Content Include="app\content-field-types\choice\edit\controller.js" />
     <Content Include="app\content-field-types\related-content-multiple\delete\controller.js" />
     <Content Include="app\content-field-types\related-content-multiple\delete\directive.js" />
     <Content Include="app\content-field-types\related-content-multiple\delete\template.html" />
@@ -161,24 +161,17 @@
     <Content Include="app\content-field-types\related-content-single\controller.js" />
     <Content Include="app\relationships\delete\controller.js" />
     <Content Include="app\relationships\edit\controller.js" />
-    <Content Include="app\content-field-type-options\checkbox-list\controller.js" />
-    <Content Include="app\content-field-type-options\multi-select\controller.js" />
     <Content Include="app\content-field-type-options\radio-button-list\controller.js" />
-    <Content Include="app\content-field-type-options\switch\controller.js" />
     <Content Include="app\content-field-type-options\phone-number\controller.js" />
     <Content Include="app\content-field-type-options\date-time\controller.js" />
     <Content Include="app\content-field-type-options\static\controller.js" />
-    <Content Include="app\content-field-type-options\checkbox\controller.js" />
-    <Content Include="app\content-field-type-options\drop-down\controller.js" />
+    <Content Include="app\content-field-type-options\boolean\controller.js" />
+    <Content Include="app\content-field-type-options\choice\controller.js" />
     <Content Include="app\content-field-type-options\url\controller.js" />
     <Content Include="app\content-field-type-options\number\controller.js" />
     <Content Include="app\content-field-type-options\email\controller.js" />
-    <Content Include="app\content-field-types\checkbox-list\controller.js" />
-    <Content Include="app\content-field-types\drop-down\controller.js" />
-    <Content Include="app\content-field-types\multi-select\controller.js" />
-    <Content Include="app\content-field-types\radio-button-list\controller.js" />
-    <Content Include="app\content-field-types\switch\controller.js" />
-    <Content Include="app\content-field-types\checkbox\controller.js" />
+    <Content Include="app\content-field-types\choice\controller.js" />
+    <Content Include="app\content-field-types\boolean\controller.js" />
     <Content Include="app\content-field-types\date-time\controller.js" />
     <Content Include="app\content-field-types\email\controller.js" />
     <Content Include="app\content-field-types\number\controller.js" />
@@ -186,26 +179,19 @@
     <Content Include="app\content-field-types\static\controller.js" />
     <Content Include="app\content-field-types\url\controller.js" />
     <Content Include="app\visualizers\view\directive.js" />
-    <Content Include="app\content-field-type-options\checkbox-list\directive.js" />
-    <Content Include="app\content-field-type-options\drop-down\directive.js" />
-    <Content Include="app\content-field-type-options\multi-select\directive.js" />
+    <Content Include="app\content-field-type-options\choice\directive.js" />
     <Content Include="app\content-field-type-options\radio-button-list\directive.js" />
-    <Content Include="app\content-field-type-options\switch\directive.js" />
-    <Content Include="app\content-field-type-options\checkbox\directive.js" />
+    <Content Include="app\content-field-type-options\boolean\directive.js" />
     <Content Include="app\content-field-type-options\date-time\directive.js" />
     <Content Include="app\content-field-type-options\email\directive.js" />
     <Content Include="app\content-field-type-options\number\directive.js" />
     <Content Include="app\content-field-type-options\phone-number\directive.js" />
     <Content Include="app\content-field-type-options\static\directive.js" />
     <Content Include="app\content-field-type-options\url\directive.js" />
-    <Content Include="app\content-field-types\checkbox-list\directive.js" />
-    <Content Include="app\content-field-types\drop-down\directive.js" />
-    <Content Include="app\content-field-types\multi-select\directive.js" />
-    <Content Include="app\content-field-types\radio-button-list\directive.js" />
+    <Content Include="app\content-field-types\choice\directive.js" />
     <Content Include="app\content-field-types\related-content-multiple\list\directive.js" />
     <Content Include="app\content-field-types\related-content-single\directive.js" />
-    <Content Include="app\content-field-types\switch\directive.js" />
-    <Content Include="app\content-field-types\checkbox\directive.js" />
+    <Content Include="app\content-field-types\boolean\directive.js" />
     <Content Include="app\content-field-types\date-time\directive.js" />
     <Content Include="app\content-field-types\email\directive.js" />
     <Content Include="app\content-field-types\number\directive.js" />
@@ -218,7 +204,7 @@
     <Content Include="app\revisions\service.js" />
     <Content Include="app\relationships\service.js" />
     <Content Include="app\content-field-types\service.js" />
-    <Content Include="app\content-field-types\choice\template.html" />
+    <Content Include="app\content-field-types\choice\edit\template.html" />
     <Content Include="app\visualizer-templates\delete\template.html" />
     <Content Include="app\content-types\add\template.html" />
     <Content Include="app\visualizer-templates\list\template.html" />
@@ -232,26 +218,17 @@
     <Content Include="app\content-field-types\related-content-single\template.html" />
     <Content Include="app\relationships\delete\template.html" />
     <Content Include="app\relationships\edit\template.html" />
-    <Content Include="app\content-field-type-options\checkbox-list\template.html" />
-    <Content Include="app\content-field-type-options\multi-select\template.html" />
     <Content Include="app\content-field-type-options\phone-number\template.html" />
     <Content Include="app\content-field-type-options\radio-button-list\template.html" />
-    <Content Include="app\content-field-type-options\drop-down\template.html" />
-    <Content Include="app\content-field-type-options\switch\template.html" />
-    <Content Include="app\content-field-type-options\checkbox\template.html" />
+    <Content Include="app\content-field-type-options\choice\template.html" />
+    <Content Include="app\content-field-type-options\boolean\template.html" />
     <Content Include="app\content-field-type-options\date-time\template.html" />
     <Content Include="app\content-field-type-options\email\template.html" />
     <Content Include="app\content-field-type-options\number\template.html" />
     <Content Include="app\content-field-type-options\static\template.html" />
-    <Content Include="app\content-field-type-options\textarea\template.html" />
-    <Content Include="app\content-field-type-options\rich-text-editor\template.html" />
     <Content Include="app\content-field-type-options\url\template.html" />
-    <Content Include="app\content-field-types\checkbox-list\template.html" />
-    <Content Include="app\content-field-types\drop-down\template.html" />
-    <Content Include="app\content-field-types\multi-select\template.html" />
-    <Content Include="app\content-field-types\radio-button-list\template.html" />
-    <Content Include="app\content-field-types\switch\template.html" />
-    <Content Include="app\content-field-types\checkbox\template.html" />
+    <Content Include="app\content-field-types\choice\template.html" />
+    <Content Include="app\content-field-types\boolean\template.html" />
     <Content Include="app\content-field-types\date-time\template.html" />
     <Content Include="app\content-field-types\email\template.html" />
     <Content Include="app\content-field-types\number\template.html" />
@@ -318,19 +295,11 @@
     <Content Include="app\content-types\delete\controller.js" />
     <Content Include="app\content-types\edit\controller.js" />
     <Content Include="app\content-types\list\controller.js" />
-    <Content Include="app\content-field-type-options\rich-text-editor\controller.js" />
-    <Content Include="app\content-field-type-options\textarea\controller.js" />
-    <Content Include="app\content-field-type-options\textbox\controller.js" />
-    <Content Include="app\content-field-types\rich-text-editor\controller.js" />
-    <Content Include="app\content-field-types\textarea\controller.js" />
-    <Content Include="app\content-field-types\textbox\controller.js" />
+    <Content Include="app\content-field-type-options\text\controller.js" />
+    <Content Include="app\content-field-types\text\controller.js" />
     <Content Include="app\content-types\list\directive.js" />
-    <Content Include="app\content-field-type-options\rich-text-editor\directive.js" />
-    <Content Include="app\content-field-type-options\textarea\directive.js" />
-    <Content Include="app\content-field-type-options\textbox\directive.js" />
-    <Content Include="app\content-field-types\rich-text-editor\directive.js" />
-    <Content Include="app\content-field-types\textarea\directive.js" />
-    <Content Include="app\content-field-types\textbox\directive.js" />
+    <Content Include="app\content-field-type-options\text\directive.js" />
+    <Content Include="app\content-field-types\text\directive.js" />
     <Content Include="app\content-fields\service.js" />
     <Content Include="app\content-types\service.js" />
     <Content Include="app\content-fields\delete\template.html" />
@@ -338,10 +307,8 @@
     <Content Include="app\content-types\delete\template.html" />
     <Content Include="app\content-types\edit\template.html" />
     <Content Include="app\content-types\list\template.html" />
-    <Content Include="app\content-field-type-options\textbox\template.html" />
-    <Content Include="app\content-field-types\rich-text-editor\template.html" />
-    <Content Include="app\content-field-types\textarea\template.html" />
-    <Content Include="app\content-field-types\textbox\template.html" />
+    <Content Include="app\content-field-type-options\text\template.html" />
+    <Content Include="app\content-field-types\text\template.html" />
     <Content Include="DAL\StructuredContent.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>StructuredContent.designer.cs</LastGenOutput>
