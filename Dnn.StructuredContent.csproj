@@ -273,6 +273,7 @@
     <Content Include="plugins\bootstrap\css\bootstrap.min.css.map" />
     <Content Include="plugins\bootstrap\js\bootstrap.bundle.min.js.map" />
     <Content Include="web.config" />
+    <Content Include="DBScripts\0.0.1.SqlDataProvider" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
