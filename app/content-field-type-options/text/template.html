@@ -1,0 +1,36 @@
+﻿<div ng-form="formText">
+    <div class="form-check form-switch mb-3">
+        <input type="checkbox" class="form-check-input" id="required" ng-model="contentField.options.required">
+        <label class="form-check-label" for="required">Required</label>
+    </div>
+
+    <div class="form-floating mb-3">
+        <select name="control_type" id="control_type" class="form-select" ng-model="contentField.options.control_type" required ng-class="{'is-invalid': formText.control_type.$invalid && submitted, 'is-valid': formText.control_type.$valid && submitted}">
+            <option value="textbox">Textbox</option>
+            <option value="textarea">Textarea</option>
+            <option value="rich-text-editor">Rich Text Editor</option>
+        </select>
+        <label class="form-label" for="control_type">Control Type</label>
+        <div role="alert" ng-messages="formText.control_type.$error" ng-if="submitted" class="invalid-feedback">
+            <div ng-message="required">This field is required</div>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label for="" class="form-label">Number of characters</label>
+        <div class="row">
+            <div class="col">
+                <div class="form-floating">
+                    <input type="number" name="min_length" class="form-control" ng-model="contentField.options.min_length" min="0" placeholder=" " />
+                    <label class="form-label" for="min_length">Min</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-floating">
+                    <input type="number" name="max_length" class="form-control" ng-model="contentField.options.max_length" min="0" placeholder=" " />
+                    <label class="form-label" for="max_length">Max</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

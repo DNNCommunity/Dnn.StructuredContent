@@ -16,7 +16,7 @@ namespace StructuredContent
             ClientResourceManager.RegisterStyleSheet(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/plugins/bootstrap/css/bootstrap.css"), 2);
 
             ClientResourceManager.RegisterStyleSheet(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/plugins/angular-toastr/angular-toastr.min.css"), 1);
-            
+
             ClientResourceManager.RegisterScript(this.Page, ResolveUrl("https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"), 2);
             ClientResourceManager.RegisterScript(this.Page, ResolveUrl("https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-messages.min.js"), 3);
             ClientResourceManager.RegisterScript(this.Page, ResolveUrl("https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-animate.min.js"), 3);
@@ -30,59 +30,41 @@ namespace StructuredContent
             ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/app.js"), 20);
 
             // content-field-type-options
-            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-type-options/checkbox/directive.js"), 21);
-            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-type-options/checkbox/controller.js"), 21);
-            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-type-options/checkbox-list/directive.js"), 21);
-            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-type-options/checkbox-list/controller.js"), 21);
+            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-type-options/boolean/directive.js"), 21);
+            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-type-options/boolean/controller.js"), 21);
+            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-type-options/choice/directive.js"), 21);
+            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-type-options/choice/controller.js"), 21);
             ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-type-options/date-time/directive.js"), 21);
             ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-type-options/date-time/controller.js"), 21);
-            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-type-options/drop-down/directive.js"), 21);
-            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-type-options/drop-down/controller.js"), 21);
             ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-type-options/email/directive.js"), 21);
             ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-type-options/email/controller.js"), 21);
-            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-type-options/multi-select/directive.js"), 21);
-            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-type-options/multi-select/controller.js"), 21);
             ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-type-options/number/directive.js"), 21);
             ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-type-options/number/controller.js"), 21);
             ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-type-options/phone-number/directive.js"), 21);
             ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-type-options/phone-number/controller.js"), 21);
-            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-type-options/radio-button-list/directive.js"), 21);
-            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-type-options/radio-button-list/controller.js"), 21);
-            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-type-options/rich-text-editor/directive.js"), 21);
-            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-type-options/rich-text-editor/controller.js"), 21);
             ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-type-options/static/directive.js"), 21);
             ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-type-options/static/controller.js"), 21);
-            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-type-options/switch/directive.js"), 21);
-            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-type-options/switch/controller.js"), 21);
-            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-type-options/textarea/directive.js"), 21);
-            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-type-options/textarea/controller.js"), 21);
-            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-type-options/textbox/directive.js"), 21);
-            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-type-options/textbox/controller.js"), 21);
+            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-type-options/text/directive.js"), 21);
+            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-type-options/text/controller.js"), 21);
             ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-type-options/url/directive.js"), 21);
             ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-type-options/url/controller.js"), 21);
 
 
             // content-field-types
             ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/service.js"), 21);
-            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/checkbox/directive.js"), 21);
-            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/checkbox/controller.js"), 21);
-            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/checkbox-list/directive.js"), 21);
-            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/checkbox-list/controller.js"), 21);
+            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/boolean/directive.js"), 21);
+            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/boolean/controller.js"), 21);
+            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/choice/directive.js"), 21);
             ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/choice/controller.js"), 21);
+            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/choice/edit/controller.js"), 21);
             ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/date-time/directive.js"), 21);
             ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/date-time/controller.js"), 21);
-            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/drop-down/directive.js"), 21);
-            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/drop-down/controller.js"), 21);
             ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/email/directive.js"), 21);
             ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/email/controller.js"), 21);
-            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/multi-select/directive.js"), 21);
-            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/multi-select/controller.js"), 21);
             ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/number/directive.js"), 21);
             ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/number/controller.js"), 21);
             ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/phone-number/directive.js"), 21);
             ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/phone-number/controller.js"), 21);
-            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/radio-button-list/directive.js"), 21);
-            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/radio-button-list/controller.js"), 21);
             ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/related-content-multiple/list/directive.js"), 21);
             ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/related-content-multiple/list/controller.js"), 21);
             ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/related-content-multiple/add/directive.js"), 21);
@@ -91,16 +73,10 @@ namespace StructuredContent
             ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/related-content-multiple/delete/controller.js"), 21);
             ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/related-content-single/directive.js"), 21);
             ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/related-content-single/controller.js"), 21);
-            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/rich-text-editor/directive.js"), 21);
-            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/rich-text-editor/controller.js"), 21);
             ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/static/directive.js"), 21);
             ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/static/controller.js"), 21);
-            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/switch/directive.js"), 21);
-            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/switch/controller.js"), 21);
-            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/textarea/directive.js"), 21);
-            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/textarea/controller.js"), 21);
-            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/textbox/directive.js"), 21);
-            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/textbox/controller.js"), 21);
+            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/text/directive.js"), 21);
+            ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/text/controller.js"), 21);
             ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/url/directive.js"), 21);
             ClientResourceManager.RegisterScript(this.Page, ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/url/controller.js"), 21);
 

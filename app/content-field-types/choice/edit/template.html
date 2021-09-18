@@ -1,0 +1,25 @@
+﻿<div class="modal-header">
+    <h5 class="modal-title" ng-show="!choice">Add Choice</h5>
+    <h5 class="modal-title" ng-show="choice">Edit Choice</h5>
+</div>
+
+<div class="modal-body">
+    <div class="form" ng-form="formChoiceEdit">
+
+        <div class="form-floating mb-3">
+            <input type="text" id="text" class="form-control" ng-model="choice.text" ng-keyup="textKeyUp()" placeholder=" " />
+            <label for="text" class="form-label">Text</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input type="text" id="value" class="form-control" ng-model="choice.value" placeholder=" " />
+            <label for="value" class="form-label">Value</label>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-link pull-left" ng-click="close()"><span ng-show="!formChoiceEdit.$dirty">Close</span><span ng-show="formChoiceEdit.$dirty">Cancel</span></button>
+    <button class="btn btn-primary" ng-click="save()" ng-disabled="!formChoiceEdit.$dirty || saving">Save</button>
+</div>

@@ -1,8 +1,0 @@
-﻿<div class="form-floating mb-3">
-    <select multiple id="{{contentField.column_name}}" name="{{contentField.column_name}}" class="form-control custom-select" ng-change="multiselectChange()" ng-model="contentField.values" ng-required="contentField.options.required" ng-options="choice.value as choice.text for choice in contentField.options.choices" ng-class="{'is-invalid': form[contentField.column_name].$invalid && submitted,'is-valid': form[contentField.column_name].$valid && submitted}" style="min-height:7rem"></select>
-    <label for="{{contentField.column_name}}" class="form-label">{{contentField.name}} <span class="text-danger" ng-show="contentField.options.required">*</span></label>
-    <div ng-messages="form[contentField.column_name].$error" ng-if="submitted" class="invalid-feedback" role="alert">
-        <div ng-message="required">This field is required</div>
-    </div>
-    <small class="form-text" ng-show="contentField.help_text">{{contentField.help_text}}</small>
-</div>
