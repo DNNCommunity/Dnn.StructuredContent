@@ -1,0 +1,130 @@
+<dotnetnuke type="Package" version="5.0">
+  <packages>
+    <package name="Dnn.StructuredContent.Visualizer" type="Module" version="00.01.00">
+      <friendlyName>Structured Content Visualizer</friendlyName>
+      <description>Allows the display of Structured Content items.</description>
+      <iconFile>~/images/icon-fnl-32px.png</iconFile>
+      <owner>
+        <name>DNN Community</name>
+        <organization>DNN Community</organization>
+        <url>https://dnncommunity.org</url>
+        <email>info@dnncommunity.org</email>
+      </owner>
+      <license src="License.html">
+      </license>
+      <releaseNotes>
+        Release notes are available on &lt;a href="https://github.com/DNNCommunity/Dnn.StructuredContent/releases" target="_blank"&gt;GitHub&lt;/a&gt;.
+      </releaseNotes>
+      <dependencies>
+        <dependency type="CoreVersion">09.10.01</dependency>
+      </dependencies>
+      <azureCompatible>true</azureCompatible>
+      <components>
+        <component type="Module">
+          <desktopModule>
+            <moduleName>Structured Content Visualizer</moduleName>
+            <foldername>Dnn.StructuredContent</foldername>
+            <businessControllerClass />
+            <supportedFeatures />
+            <shareable>Supported</shareable>
+            <moduleDefinitions>
+              <moduleDefinition>
+                <friendlyName>Structured Content Visualizer</friendlyName>
+                <definitionName>Structured Content Visualizer</definitionName>
+                <defaultCacheTime>0</defaultCacheTime>
+                <moduleControls>
+                  <moduleControl>
+                    <controlKey />
+                    <controlSrc>DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/Visualizer.ascx</controlSrc>
+                    <supportsPartialRendering>False</supportsPartialRendering>
+                    <controlTitle />
+                    <controlType>Anonymous</controlType>
+                    <iconFile />
+                    <helpUrl />
+                    <supportsPopUps>False</supportsPopUps>
+                  </moduleControl>
+                </moduleControls>
+              </moduleDefinition>
+            </moduleDefinitions>
+          </desktopModule>
+        </component>
+        <component type="ResourceFile">
+          <resourceFiles>
+            <basePath>DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent</basePath>
+            <resourceFile>
+              <name>pbResources.zip</name>
+            </resourceFile>
+          </resourceFiles>
+        </component>
+        <component type="Script">
+          <scripts>
+            <basePath>DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent</basePath>
+            <script type="Install">
+              <path>DBScripts</path>
+              <name>00.01.00.SqlDataProvider</name>
+              <version>00.01.00</version>
+            </script>
+          </scripts>
+        </component>
+        <component type="ResourceFile">
+          <resourceFiles>
+            <basePath>bin</basePath>
+            <resourceFile>
+              <name>symbols.zip</name>
+            </resourceFile>
+          </resourceFiles>
+        </component>
+        <component type="Assembly">
+          <assemblies>
+            <assembly>
+              <name>Dnn.StructuredContent.dll</name>
+              <path>bin</path>
+            </assembly>
+            <assembly>
+              <name>DotLiquid.dll</name>
+              <path>bin</path>
+              <version>2.2.548</version>
+            </assembly>
+          </assemblies>
+        </component>
+      </components>
+    </package>
+    <package name="Dnn.StructuredContent.ContentLibrary" type="PersonaBar" version="00.01.00">
+      <friendlyName>Structured Content Library</friendlyName>
+      <description>Allows management of structured content items</description>
+      <iconFile>~/images/icon_viewstats_32px.gif</iconFile>
+      <owner>
+        <name>DNN Community</name>
+        <organization>DNN Community</organization>
+        <url>https://dnncommunity.org</url>
+        <email>info@dnncommunity.org</email>
+      </owner>
+      <license src="License.html">
+      </license>
+      <releaseNotes>
+        Release notes are available on &lt;a href="https://github.com/DNNCommunity/Dnn.StructuredContent/releases" target="_blank"&gt;GitHub&lt;/a&gt;.
+      </releaseNotes>
+      <azureCompatible>true</azureCompatible>
+      <dependencies>
+        <dependency type="CoreVersion">09.10.01</dependency>
+        <dependency type="ManagedPackage" version="01.00.00">Dnn.PersonaBar.UI</dependency>
+      </dependencies>
+      <components>
+        <component type="PersonaBarMenu">
+          <menu>
+            <identifier>Dnn.StructuredContent.ContentLibrary</identifier>
+            <moduleName>ContentLibrary</moduleName>
+            <controller />
+            <folderName>Dnn.StructuredContent</folderName>
+            <resourceKey>nav_ContentLibrary</resourceKey>
+            <path>ContentLibrary</path>
+            <mobileSupport>true</mobileSupport>
+            <parent>Content</parent>
+            <order>2</order>
+            <defaultPermissions>Administrators</defaultPermissions>
+          </menu>
+        </component>
+      </components>
+    </package>
+  </packages>
+</dotnetnuke>

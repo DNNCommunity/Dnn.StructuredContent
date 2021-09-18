@@ -26,10 +26,12 @@ bld/
 [Bb]in/
 [Oo]bj/
 [Oo]ut/
-[Pp]ackages
+[Pp]ackages/
+[Aa]rtifacts/
 msbuild.log
 msbuild.err
 msbuild.wrn
 
 # Visual Studio / VS Code
 .vs/
+/.nuke/temp
