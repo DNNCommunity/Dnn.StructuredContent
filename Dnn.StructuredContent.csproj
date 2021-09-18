@@ -163,7 +163,6 @@
     <Content Include="app\relationships\edit\controller.js" />
     <Content Include="app\content-field-type-options\checkbox-list\controller.js" />
     <Content Include="app\content-field-type-options\multi-select\controller.js" />
-    <Content Include="app\content-field-type-options\radio-button-list\controller.js" />
     <Content Include="app\content-field-type-options\switch\controller.js" />
     <Content Include="app\content-field-type-options\phone-number\controller.js" />
     <Content Include="app\content-field-type-options\date-time\controller.js" />
@@ -189,7 +188,6 @@
     <Content Include="app\content-field-type-options\checkbox-list\directive.js" />
     <Content Include="app\content-field-type-options\drop-down\directive.js" />
     <Content Include="app\content-field-type-options\multi-select\directive.js" />
-    <Content Include="app\content-field-type-options\radio-button-list\directive.js" />
     <Content Include="app\content-field-type-options\switch\directive.js" />
     <Content Include="app\content-field-type-options\checkbox\directive.js" />
     <Content Include="app\content-field-type-options\date-time\directive.js" />
@@ -235,7 +233,6 @@
     <Content Include="app\content-field-type-options\checkbox-list\template.html" />
     <Content Include="app\content-field-type-options\multi-select\template.html" />
     <Content Include="app\content-field-type-options\phone-number\template.html" />
-    <Content Include="app\content-field-type-options\radio-button-list\template.html" />
     <Content Include="app\content-field-type-options\drop-down\template.html" />
     <Content Include="app\content-field-type-options\switch\template.html" />
     <Content Include="app\content-field-type-options\checkbox\template.html" />
