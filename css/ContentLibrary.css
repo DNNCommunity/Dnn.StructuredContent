@@ -27,6 +27,21 @@ body.modal-open {
     opacity: 1;
 }
 
+.layout-one-column > div {
+    float: left;
+    width: 100%;
+}
+
+.layout-two-column > div {
+    float: left;
+    width: 50%;
+}
+
+.layout-side-by-side > div {
+    float: left;
+    margin: 0 10px;
+}
+
 .modal-backdrop.fade {
     opacity: 0.5 !important;
 }

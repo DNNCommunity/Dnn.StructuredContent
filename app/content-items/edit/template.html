@@ -25,21 +25,15 @@
         </div>
         <div class="row" ng-repeat="row in canvas.rows">
             <div class="col" ng-repeat="column in row.columns">
-                <div content-field-type-textbox="formContentItem" content-field="column.data" submitted="submitted" ng-if="column.data.content_field_type.key=='textbox'" />
-                <div content-field-type-textarea form="formContentItem" content-field="column.data" submitted="submitted" ng-if="column.data.content_field_type.key=='textarea'" />
-                <div content-field-type-rich-text-editor form="formContentItem" content-field="column.data" submitted="submitted" ng-if="column.data.content_field_type.key=='richtexteditor'" />
+                <div content-field-type-text="formContentItem" content-field="column.data" submitted="submitted" ng-if="column.data.content_field_type.key=='text'" />                
                 <div content-field-type-number form="formContentItem" content-field="column.data" submitted="submitted" ng-if="column.data.content_field_type.key=='number'" />
                 <div content-field-type-email form="formContentItem" content-field="column.data" submitted="submitted" ng-if="column.data.content_field_type.key=='email'" />
                 <div content-field-type-phone-number form="formContentItem" content-field="column.data" submitted="submitted" ng-if="column.data.content_field_type.key=='phonenumber'" />
                 <div content-field-type-url form="formContentItem" content-field="column.data" submitted="submitted" ng-if="column.data.content_field_type.key=='url'" />
                 <div content-field-type-date-time form="formContentItem" content-field="column.data" submitted="submitted" ng-if="column.data.content_field_type.key=='datetime'" />
                 <div content-field-type-static form="formContentItem" content-field="column.data" submitted="submitted" ng-if="column.data.content_field_type.key=='static'" />
-                <div content-field-type-checkbox form="formContentItem" content-field="column.data" submitted="submitted" ng-if="column.data.content_field_type.key=='checkbox'" />
-                <div content-field-type-switch form="formContentItem" content-field="column.data" submitted="submitted" ng-if="column.data.content_field_type.key=='switch'" />
-                <div content-field-type-drop-down form="formContentItem" content-field="column.data" submitted="submitted" ng-if="column.data.content_field_type.key=='dropdown'" />
-                <div content-field-type-radio-button-list form="formContentItem" content-field="column.data" submitted="submitted" ng-if="column.data.content_field_type.key=='radiobuttonlist'" />
-                <div content-field-type-multi-select form="formContentItem" content-field="column.data" submitted="submitted" ng-if="column.data.content_field_type.key=='multiselect'" />
-                <div content-field-type-checkbox-list form="formContentItem" content-field="column.data" submitted="submitted" ng-if="column.data.content_field_type.key=='checkboxlist'" />
+                <div content-field-type-boolean form="formContentItem" content-field="column.data" submitted="submitted" ng-if="column.data.content_field_type.key=='boolean'" />
+                <div content-field-type-choice form="formContentItem" content-field="column.data" submitted="submitted" ng-if="column.data.content_field_type.key=='choice'" />
 
                 <div content-field-type-related-content-single form="formContentItem" relationship="column.data" submitted="submitted" ng-if="column.data.key=='o2m' && column.data.b_content_type_id==contentType.id"></div>
                 <div content-field-type-related-content-multiple-list form="formContentItem" relationship="column.data" submitted="submitted" ng-if="column.data.key=='m2m' || (column.data.key=='o2m' && column.data.a_content_type_id==contentType.id)"></div>

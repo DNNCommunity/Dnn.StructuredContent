@@ -1,0 +1,61 @@
+﻿<div ng-form="formChoice">
+    <div class="form-check form-switch mb-3">
+        <input type="checkbox" class="form-check-input" id="required" ng-model="contentField.options.required">
+        <label class="form-check-label" for="required">Required</label>
+    </div>
+
+    <div class="form-floating mb-3">
+        <select name="control_type" id="control_type" class="form-select" ng-model="contentField.options.control_type" required ng-class="{'is-invalid': formChoice.control_type.$invalid && submitted, 'is-valid': formChoice.control_type.$valid && submitted}">
+            <option value="dropdown-list">Dropdown List</option>
+            <option value="radio-button-list">Radio Button List</option>
+            <option value="checkbox-list">Checkbox List</option>
+        </select>
+        <label class="form-label" for="control_type">Control Type</label>
+        <div role="alert" ng-messages="formChoice.control_type.$error" ng-if="submitted" class="invalid-feedback">
+            <div ng-message="required">This field is required</div>
+        </div>
+    </div>
+
+    <div class="form-floating mb-3" ng-if="contentField.options.control_type=='radio-button-list'|| contentField.options.control_type=='checkbox-list'">
+        <select name="layout" id="layout" class="form-select" ng-model="contentField.options.layout" required ng-class="{'is-invalid': formChoice.layout.$invalid && submitted, 'is-valid': formChoice.layout.$valid && submitted}">
+            <option value="layout-one-column">One Column</option>
+            <option value="layout-two-column">Two Column</option>
+            <option value="layout-side-by-side">Side by Side</option>
+        </select>
+        <label class="form-label" for="control_type">Control Type</label>
+        <div role="alert" ng-messages="formChoice.layout.$error" ng-if="submitted" class="invalid-feedback">
+            <div ng-message="required">This field is required</div>
+        </div>
+    </div>
+
+    <table class="table table-striped">
+        <colgroup>
+            <col width="1%" />
+            <col />
+            <col width="1%" />
+        </colgroup>
+        <thead>
+            <tr>
+                <th></th>
+                <th>Choices</th>
+                <th><a href class="text-muted" ng-click="addChoice()"><span class="fas fa-plus"></span></a></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="choice in contentField.options.choices track by choice.value">
+                <td><a href="" class="text-muted" ng-click="editChoice(choice)"><span class="fas fa-edit" /></a></td>
+                <td>{{choice.text}}</td>
+                <td><a href="" class="text-danger" ng-click="deleteChoice(choice)"><span class="fas fa-trash" /></a></td>
+            </tr>
+        </tbody>
+    </table>
+    <p class="alert alert-info" ng-show="contentField.options.choices.length==0">No choices defined yet</p>
+
+    <div class="form-floating mb-3">
+        <select name="default_value" class="form-select" ng-model="contentField.options.default_value">
+            <option value="">-select-</option>
+            <option ng-repeat="choice in contentField.options.choices" value="{{choice.value}}">{{choice.text}}</option>
+        </select>
+        <label for="default_value" class="form-label">Default Value</label>
+    </div>
+</div>

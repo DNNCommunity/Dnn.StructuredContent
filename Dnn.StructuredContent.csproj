@@ -299,6 +299,9 @@
     <Content Include="app\content-field-types\text\controller.js" />
     <Content Include="app\content-types\list\directive.js" />
     <Content Include="app\content-field-type-options\text\directive.js" />
+    <Content Include="app\content-field-types\text\controller.js" />
+    <Content Include="app\content-types\list\directive.js" />
+    <Content Include="app\content-field-type-options\text\directive.js" />    
     <Content Include="app\content-field-types\text\directive.js" />
     <Content Include="app\content-fields\service.js" />
     <Content Include="app\content-types\service.js" />

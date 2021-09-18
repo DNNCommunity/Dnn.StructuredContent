@@ -137,7 +137,7 @@
                 $scope.contentField.data_type = $scope.content_field_type.default_data_type;
                 $scope.contentField.data_length = $scope.content_field_type.default_data_length;
                 $scope.contentField.content_field_type = $scope.content_field_type;                
-                $scope.contentField.options = $scope.content_field_type.default_options;
+                $scope.contentField.options = angular.copy($scope.content_field_type.default_options);
                 $scope.contentField.allow_null = true;
             }
         }
