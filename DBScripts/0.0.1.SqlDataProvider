@@ -1,11 +1,11 @@
-﻿/****** Object:  Table [dbo].[StructuredContent.ContentField]    Script Date: 9/18/2021 5:35:29 PM ******/
+﻿/****** Object:  Table {databaseOwner}{objectQualifier}[StructuredContent.ContentField]    Script Date: 9/18/2021 5:35:29 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[StructuredContent.ContentField]') AND type in (N'U'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent.ContentField]') AND type in (N'U'))
 BEGIN
-CREATE TABLE [dbo].[StructuredContent.ContentField](
+CREATE TABLE {databaseOwner}{objectQualifier}[StructuredContent.ContentField](
 	[id] [int] IDENTITY(1,1) NOT NULL,
 	[name] [nvarchar](256) NOT NULL,
 	[content_type_id] [int] NOT NULL,
@@ -28,14 +28,14 @@ CREATE TABLE [dbo].[StructuredContent.ContentField](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 END
 GO
-/****** Object:  Table [dbo].[StructuredContent.ContentFieldType]    Script Date: 9/18/2021 5:35:29 PM ******/
+/****** Object:  Table {databaseOwner}{objectQualifier}[StructuredContent.ContentFieldType]    Script Date: 9/18/2021 5:35:29 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[StructuredContent.ContentFieldType]') AND type in (N'U'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent.ContentFieldType]') AND type in (N'U'))
 BEGIN
-CREATE TABLE [dbo].[StructuredContent.ContentFieldType](
+CREATE TABLE {databaseOwner}{objectQualifier}[StructuredContent.ContentFieldType](
 	[id] [int] IDENTITY(1,1) NOT NULL,
 	[key] [varchar](50) NOT NULL,
 	[type] [varchar](20) NOT NULL,
@@ -52,14 +52,14 @@ CREATE TABLE [dbo].[StructuredContent.ContentFieldType](
 ) ON [PRIMARY]
 END
 GO
-/****** Object:  Table [dbo].[StructuredContent.ContentType]    Script Date: 9/18/2021 5:35:29 PM ******/
+/****** Object:  Table {databaseOwner}{objectQualifier}[StructuredContent.ContentType]    Script Date: 9/18/2021 5:35:29 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[StructuredContent.ContentType]') AND type in (N'U'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent.ContentType]') AND type in (N'U'))
 BEGIN
-CREATE TABLE [dbo].[StructuredContent.ContentType](
+CREATE TABLE {databaseOwner}{objectQualifier}[StructuredContent.ContentType](
 	[id] [int] IDENTITY(1,1) NOT NULL,
 	[name] [nvarchar](250) NOT NULL,
 	[singular] [nvarchar](250) NOT NULL,
@@ -74,14 +74,14 @@ CREATE TABLE [dbo].[StructuredContent.ContentType](
 ) ON [PRIMARY]
 END
 GO
-/****** Object:  Table [dbo].[StructuredContent.Relationship]    Script Date: 9/18/2021 5:35:29 PM ******/
+/****** Object:  Table {databaseOwner}{objectQualifier}[StructuredContent.Relationship]    Script Date: 9/18/2021 5:35:29 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[StructuredContent.Relationship]') AND type in (N'U'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent.Relationship]') AND type in (N'U'))
 BEGIN
-CREATE TABLE [dbo].[StructuredContent.Relationship](
+CREATE TABLE {databaseOwner}{objectQualifier}[StructuredContent.Relationship](
 	[id] [int] IDENTITY(1,1) NOT NULL,
 	[key] [varchar](3) NOT NULL,
 	[a_content_type_id] [int] NOT NULL,
@@ -105,14 +105,14 @@ CREATE TABLE [dbo].[StructuredContent.Relationship](
 ) ON [PRIMARY]
 END
 GO
-/****** Object:  Table [dbo].[StructuredContent.Revision]    Script Date: 9/18/2021 5:35:29 PM ******/
+/****** Object:  Table {databaseOwner}{objectQualifier}[StructuredContent.Revision]    Script Date: 9/18/2021 5:35:29 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[StructuredContent.Revision]') AND type in (N'U'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent.Revision]') AND type in (N'U'))
 BEGIN
-CREATE TABLE [dbo].[StructuredContent.Revision](
+CREATE TABLE {databaseOwner}{objectQualifier}[StructuredContent.Revision](
 	[id] [int] IDENTITY(1,1) NOT NULL,
 	[revision_date] [datetime] NOT NULL,
 	[user_id] [int] NULL,
@@ -128,14 +128,14 @@ CREATE TABLE [dbo].[StructuredContent.Revision](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 END
 GO
-/****** Object:  Table [dbo].[StructuredContent.Visualizer]    Script Date: 9/18/2021 5:35:29 PM ******/
+/****** Object:  Table {databaseOwner}{objectQualifier}[StructuredContent.Visualizer]    Script Date: 9/18/2021 5:35:29 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[StructuredContent.Visualizer]') AND type in (N'U'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent.Visualizer]') AND type in (N'U'))
 BEGIN
-CREATE TABLE [dbo].[StructuredContent.Visualizer](
+CREATE TABLE {databaseOwner}{objectQualifier}[StructuredContent.Visualizer](
 	[id] [int] IDENTITY(1,1) NOT NULL,
 	[module_id] [int] NOT NULL,
 	[content_type_id] [int] NOT NULL,
@@ -149,14 +149,14 @@ CREATE TABLE [dbo].[StructuredContent.Visualizer](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 END
 GO
-/****** Object:  Table [dbo].[StructuredContent.VisualizerTemplate]    Script Date: 9/18/2021 5:35:29 PM ******/
+/****** Object:  Table {databaseOwner}{objectQualifier}[StructuredContent.VisualizerTemplate]    Script Date: 9/18/2021 5:35:29 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[StructuredContent.VisualizerTemplate]') AND type in (N'U'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent.VisualizerTemplate]') AND type in (N'U'))
 BEGIN
-CREATE TABLE [dbo].[StructuredContent.VisualizerTemplate](
+CREATE TABLE {databaseOwner}{objectQualifier}[StructuredContent.VisualizerTemplate](
 	[id] [int] IDENTITY(1,1) NOT NULL,
 	[content_type_id] [int] NOT NULL,
 	[name] [nvarchar](250) NOT NULL,
@@ -173,98 +173,98 @@ CREATE TABLE [dbo].[StructuredContent.VisualizerTemplate](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 END
 GO
-SET IDENTITY_INSERT [dbo].[StructuredContent.ContentFieldType] ON 
+SET IDENTITY_INSERT {databaseOwner}{objectQualifier}[StructuredContent.ContentFieldType] ON 
 GO
-INSERT [dbo].[StructuredContent.ContentFieldType] ([id], [key], [type], [name], [ordinal], [default_data_type], [default_data_length], [default_options], [icon]) VALUES (1, N'text', N'content_field', N'Text', 1, 0, N'50', NULL, N'fas fa-font')
+INSERT {databaseOwner}{objectQualifier}[StructuredContent.ContentFieldType] ([id], [key], [type], [name], [ordinal], [default_data_type], [default_data_length], [default_options], [icon]) VALUES (1, N'text', N'content_field', N'Text', 1, 0, N'50', NULL, N'fas fa-font')
 GO
-INSERT [dbo].[StructuredContent.ContentFieldType] ([id], [key], [type], [name], [ordinal], [default_data_type], [default_data_length], [default_options], [icon]) VALUES (2, N'number', N'content_field', N'Number', 4, 1, NULL, NULL, N'fas fa-hashtag')
+INSERT {databaseOwner}{objectQualifier}[StructuredContent.ContentFieldType] ([id], [key], [type], [name], [ordinal], [default_data_type], [default_data_length], [default_options], [icon]) VALUES (2, N'number', N'content_field', N'Number', 4, 1, NULL, NULL, N'fas fa-hashtag')
 GO
-INSERT [dbo].[StructuredContent.ContentFieldType] ([id], [key], [type], [name], [ordinal], [default_data_type], [default_data_length], [default_options], [icon]) VALUES (3, N'email', N'content_field', N'Email', 5, 0, N'50', NULL, N'far fa-envelope')
+INSERT {databaseOwner}{objectQualifier}[StructuredContent.ContentFieldType] ([id], [key], [type], [name], [ordinal], [default_data_type], [default_data_length], [default_options], [icon]) VALUES (3, N'email', N'content_field', N'Email', 5, 0, N'50', NULL, N'far fa-envelope')
 GO
-INSERT [dbo].[StructuredContent.ContentFieldType] ([id], [key], [type], [name], [ordinal], [default_data_type], [default_data_length], [default_options], [icon]) VALUES (4, N'url', N'content_field', N'URL', 7, 0, N'50', NULL, N'fas fa-link')
+INSERT {databaseOwner}{objectQualifier}[StructuredContent.ContentFieldType] ([id], [key], [type], [name], [ordinal], [default_data_type], [default_data_length], [default_options], [icon]) VALUES (4, N'url', N'content_field', N'URL', 7, 0, N'50', NULL, N'fas fa-link')
 GO
-INSERT [dbo].[StructuredContent.ContentFieldType] ([id], [key], [type], [name], [ordinal], [default_data_type], [default_data_length], [default_options], [icon]) VALUES (5, N'datetime', N'content_field', N'Date/Time', 8, 2, NULL, NULL, N'fas fa-calendar')
+INSERT {databaseOwner}{objectQualifier}[StructuredContent.ContentFieldType] ([id], [key], [type], [name], [ordinal], [default_data_type], [default_data_length], [default_options], [icon]) VALUES (5, N'datetime', N'content_field', N'Date/Time', 8, 2, NULL, NULL, N'fas fa-calendar')
 GO
-INSERT [dbo].[StructuredContent.ContentFieldType] ([id], [key], [type], [name], [ordinal], [default_data_type], [default_data_length], [default_options], [icon]) VALUES (6, N'boolean', N'content_field', N'Boolean', 10, 3, NULL, NULL, N'far fa-check-square')
+INSERT {databaseOwner}{objectQualifier}[StructuredContent.ContentFieldType] ([id], [key], [type], [name], [ordinal], [default_data_type], [default_data_length], [default_options], [icon]) VALUES (6, N'boolean', N'content_field', N'Boolean', 10, 3, NULL, NULL, N'far fa-check-square')
 GO
-INSERT [dbo].[StructuredContent.ContentFieldType] ([id], [key], [type], [name], [ordinal], [default_data_type], [default_data_length], [default_options], [icon]) VALUES (7, N'choice', N'content_field', N'Choice', 12, 0, N'50', N'{"choices":[{"text":"Choice 1","value":"choice1"},{"text":"Choice 2","value":"choice2"}, {"text":"Choice 3","value":"choice3"}], "default_value":null}', N'fas fa-list')
+INSERT {databaseOwner}{objectQualifier}[StructuredContent.ContentFieldType] ([id], [key], [type], [name], [ordinal], [default_data_type], [default_data_length], [default_options], [icon]) VALUES (7, N'choice', N'content_field', N'Choice', 12, 0, N'50', N'{"choices":[{"text":"Choice 1","value":"choice1"},{"text":"Choice 2","value":"choice2"}, {"text":"Choice 3","value":"choice3"}], "default_value":null}', N'fas fa-list')
 GO
-INSERT [dbo].[StructuredContent.ContentFieldType] ([id], [key], [type], [name], [ordinal], [default_data_type], [default_data_length], [default_options], [icon]) VALUES (8, N'relatedcontent', N'relationship', N'Related Content Type', 16, 0, NULL, NULL, N'fas fa-sitemap')
+INSERT {databaseOwner}{objectQualifier}[StructuredContent.ContentFieldType] ([id], [key], [type], [name], [ordinal], [default_data_type], [default_data_length], [default_options], [icon]) VALUES (8, N'relatedcontent', N'relationship', N'Related Content Type', 16, 0, NULL, NULL, N'fas fa-sitemap')
 GO
-SET IDENTITY_INSERT [dbo].[StructuredContent.ContentFieldType] OFF
+SET IDENTITY_INSERT {databaseOwner}{objectQualifier}[StructuredContent.ContentFieldType] OFF
 GO
-IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_StructuredContent.ContentField_StructuredContent.ContentFieldType]') AND parent_object_id = OBJECT_ID(N'[dbo].[StructuredContent.ContentField]'))
-ALTER TABLE [dbo].[StructuredContent.ContentField]  WITH CHECK ADD  CONSTRAINT [FK_StructuredContent.ContentField_StructuredContent.ContentFieldType] FOREIGN KEY([content_field_type_id])
-REFERENCES [dbo].[StructuredContent.ContentFieldType] ([id])
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FK_StructuredContent.ContentField_StructuredContent.ContentFieldType]') AND parent_object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent.ContentField]'))
+ALTER TABLE {databaseOwner}{objectQualifier}[StructuredContent.ContentField]  WITH CHECK ADD  CONSTRAINT [FK_StructuredContent.ContentField_StructuredContent.ContentFieldType] FOREIGN KEY([content_field_type_id])
+REFERENCES {databaseOwner}{objectQualifier}[StructuredContent.ContentFieldType] ([id])
 ON UPDATE CASCADE
 ON DELETE SET NULL
 GO
-IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_StructuredContent.ContentField_StructuredContent.ContentFieldType]') AND parent_object_id = OBJECT_ID(N'[dbo].[StructuredContent.ContentField]'))
-ALTER TABLE [dbo].[StructuredContent.ContentField] CHECK CONSTRAINT [FK_StructuredContent.ContentField_StructuredContent.ContentFieldType]
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FK_StructuredContent.ContentField_StructuredContent.ContentFieldType]') AND parent_object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent.ContentField]'))
+ALTER TABLE {databaseOwner}{objectQualifier}[StructuredContent.ContentField] CHECK CONSTRAINT [FK_StructuredContent.ContentField_StructuredContent.ContentFieldType]
 GO
-IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_StructuredContent.ContentField_StructuredContent.ContentType]') AND parent_object_id = OBJECT_ID(N'[dbo].[StructuredContent.ContentField]'))
-ALTER TABLE [dbo].[StructuredContent.ContentField]  WITH CHECK ADD  CONSTRAINT [FK_StructuredContent.ContentField_StructuredContent.ContentType] FOREIGN KEY([content_type_id])
-REFERENCES [dbo].[StructuredContent.ContentType] ([id])
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FK_StructuredContent.ContentField_StructuredContent.ContentType]') AND parent_object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent.ContentField]'))
+ALTER TABLE {databaseOwner}{objectQualifier}[StructuredContent.ContentField]  WITH CHECK ADD  CONSTRAINT [FK_StructuredContent.ContentField_StructuredContent.ContentType] FOREIGN KEY([content_type_id])
+REFERENCES {databaseOwner}{objectQualifier}[StructuredContent.ContentType] ([id])
 ON UPDATE CASCADE
 ON DELETE CASCADE
 GO
-IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_StructuredContent.ContentField_StructuredContent.ContentType]') AND parent_object_id = OBJECT_ID(N'[dbo].[StructuredContent.ContentField]'))
-ALTER TABLE [dbo].[StructuredContent.ContentField] CHECK CONSTRAINT [FK_StructuredContent.ContentField_StructuredContent.ContentType]
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FK_StructuredContent.ContentField_StructuredContent.ContentType]') AND parent_object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent.ContentField]'))
+ALTER TABLE {databaseOwner}{objectQualifier}[StructuredContent.ContentField] CHECK CONSTRAINT [FK_StructuredContent.ContentField_StructuredContent.ContentType]
 GO
-IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_StructuredContent.RelationshipType_StructuredContent.ContentType]') AND parent_object_id = OBJECT_ID(N'[dbo].[StructuredContent.Relationship]'))
-ALTER TABLE [dbo].[StructuredContent.Relationship]  WITH CHECK ADD  CONSTRAINT [FK_StructuredContent.RelationshipType_StructuredContent.ContentType] FOREIGN KEY([a_content_type_id])
-REFERENCES [dbo].[StructuredContent.ContentType] ([id])
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FK_StructuredContent.RelationshipType_StructuredContent.ContentType]') AND parent_object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent.Relationship]'))
+ALTER TABLE {databaseOwner}{objectQualifier}[StructuredContent.Relationship]  WITH CHECK ADD  CONSTRAINT [FK_StructuredContent.RelationshipType_StructuredContent.ContentType] FOREIGN KEY([a_content_type_id])
+REFERENCES {databaseOwner}{objectQualifier}[StructuredContent.ContentType] ([id])
 GO
-IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_StructuredContent.RelationshipType_StructuredContent.ContentType]') AND parent_object_id = OBJECT_ID(N'[dbo].[StructuredContent.Relationship]'))
-ALTER TABLE [dbo].[StructuredContent.Relationship] CHECK CONSTRAINT [FK_StructuredContent.RelationshipType_StructuredContent.ContentType]
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FK_StructuredContent.RelationshipType_StructuredContent.ContentType]') AND parent_object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent.Relationship]'))
+ALTER TABLE {databaseOwner}{objectQualifier}[StructuredContent.Relationship] CHECK CONSTRAINT [FK_StructuredContent.RelationshipType_StructuredContent.ContentType]
 GO
-IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_StructuredContent.RelationshipType_StructuredContent.ContentType1]') AND parent_object_id = OBJECT_ID(N'[dbo].[StructuredContent.Relationship]'))
-ALTER TABLE [dbo].[StructuredContent.Relationship]  WITH CHECK ADD  CONSTRAINT [FK_StructuredContent.RelationshipType_StructuredContent.ContentType1] FOREIGN KEY([b_content_type_id])
-REFERENCES [dbo].[StructuredContent.ContentType] ([id])
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FK_StructuredContent.RelationshipType_StructuredContent.ContentType1]') AND parent_object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent.Relationship]'))
+ALTER TABLE {databaseOwner}{objectQualifier}[StructuredContent.Relationship]  WITH CHECK ADD  CONSTRAINT [FK_StructuredContent.RelationshipType_StructuredContent.ContentType1] FOREIGN KEY([b_content_type_id])
+REFERENCES {databaseOwner}{objectQualifier}[StructuredContent.ContentType] ([id])
 GO
-IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_StructuredContent.RelationshipType_StructuredContent.ContentType1]') AND parent_object_id = OBJECT_ID(N'[dbo].[StructuredContent.Relationship]'))
-ALTER TABLE [dbo].[StructuredContent.Relationship] CHECK CONSTRAINT [FK_StructuredContent.RelationshipType_StructuredContent.ContentType1]
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FK_StructuredContent.RelationshipType_StructuredContent.ContentType1]') AND parent_object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent.Relationship]'))
+ALTER TABLE {databaseOwner}{objectQualifier}[StructuredContent.Relationship] CHECK CONSTRAINT [FK_StructuredContent.RelationshipType_StructuredContent.ContentType1]
 GO
-IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_StructuredContent.Revision_StructuredContent.ContentType]') AND parent_object_id = OBJECT_ID(N'[dbo].[StructuredContent.Revision]'))
-ALTER TABLE [dbo].[StructuredContent.Revision]  WITH CHECK ADD  CONSTRAINT [FK_StructuredContent.Revision_StructuredContent.ContentType] FOREIGN KEY([content_type_id])
-REFERENCES [dbo].[StructuredContent.ContentType] ([id])
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FK_StructuredContent.Revision_StructuredContent.ContentType]') AND parent_object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent.Revision]'))
+ALTER TABLE {databaseOwner}{objectQualifier}[StructuredContent.Revision]  WITH CHECK ADD  CONSTRAINT [FK_StructuredContent.Revision_StructuredContent.ContentType] FOREIGN KEY([content_type_id])
+REFERENCES {databaseOwner}{objectQualifier}[StructuredContent.ContentType] ([id])
 ON UPDATE CASCADE
 ON DELETE CASCADE
 GO
-IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_StructuredContent.Revision_StructuredContent.ContentType]') AND parent_object_id = OBJECT_ID(N'[dbo].[StructuredContent.Revision]'))
-ALTER TABLE [dbo].[StructuredContent.Revision] CHECK CONSTRAINT [FK_StructuredContent.Revision_StructuredContent.ContentType]
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FK_StructuredContent.Revision_StructuredContent.ContentType]') AND parent_object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent.Revision]'))
+ALTER TABLE {databaseOwner}{objectQualifier}[StructuredContent.Revision] CHECK CONSTRAINT [FK_StructuredContent.Revision_StructuredContent.ContentType]
 GO
-IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_StructuredContent.Visualizer_Modules]') AND parent_object_id = OBJECT_ID(N'[dbo].[StructuredContent.Visualizer]'))
-ALTER TABLE [dbo].[StructuredContent.Visualizer]  WITH CHECK ADD  CONSTRAINT [FK_StructuredContent.Visualizer_Modules] FOREIGN KEY([module_id])
-REFERENCES [dbo].[Modules] ([ModuleID])
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FK_StructuredContent.Visualizer_Modules]') AND parent_object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent.Visualizer]'))
+ALTER TABLE {databaseOwner}{objectQualifier}[StructuredContent.Visualizer]  WITH CHECK ADD  CONSTRAINT [FK_StructuredContent.Visualizer_Modules] FOREIGN KEY([module_id])
+REFERENCES {databaseOwner}{objectQualifier}[Modules] ([ModuleID])
 ON UPDATE CASCADE
 ON DELETE CASCADE
 GO
-IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_StructuredContent.Visualizer_Modules]') AND parent_object_id = OBJECT_ID(N'[dbo].[StructuredContent.Visualizer]'))
-ALTER TABLE [dbo].[StructuredContent.Visualizer] CHECK CONSTRAINT [FK_StructuredContent.Visualizer_Modules]
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FK_StructuredContent.Visualizer_Modules]') AND parent_object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent.Visualizer]'))
+ALTER TABLE {databaseOwner}{objectQualifier}[StructuredContent.Visualizer] CHECK CONSTRAINT [FK_StructuredContent.Visualizer_Modules]
 GO
-IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_StructuredContent.Visualizer_StructuredContent.ContentType]') AND parent_object_id = OBJECT_ID(N'[dbo].[StructuredContent.Visualizer]'))
-ALTER TABLE [dbo].[StructuredContent.Visualizer]  WITH CHECK ADD  CONSTRAINT [FK_StructuredContent.Visualizer_StructuredContent.ContentType] FOREIGN KEY([content_type_id])
-REFERENCES [dbo].[StructuredContent.ContentType] ([id])
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FK_StructuredContent.Visualizer_StructuredContent.ContentType]') AND parent_object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent.Visualizer]'))
+ALTER TABLE {databaseOwner}{objectQualifier}[StructuredContent.Visualizer]  WITH CHECK ADD  CONSTRAINT [FK_StructuredContent.Visualizer_StructuredContent.ContentType] FOREIGN KEY([content_type_id])
+REFERENCES {databaseOwner}{objectQualifier}[StructuredContent.ContentType] ([id])
 ON UPDATE CASCADE
 ON DELETE CASCADE
 GO
-IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_StructuredContent.Visualizer_StructuredContent.ContentType]') AND parent_object_id = OBJECT_ID(N'[dbo].[StructuredContent.Visualizer]'))
-ALTER TABLE [dbo].[StructuredContent.Visualizer] CHECK CONSTRAINT [FK_StructuredContent.Visualizer_StructuredContent.ContentType]
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FK_StructuredContent.Visualizer_StructuredContent.ContentType]') AND parent_object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent.Visualizer]'))
+ALTER TABLE {databaseOwner}{objectQualifier}[StructuredContent.Visualizer] CHECK CONSTRAINT [FK_StructuredContent.Visualizer_StructuredContent.ContentType]
 GO
-IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_StructuredContent.Visualizer_StructuredContent.VisualizerTemplate]') AND parent_object_id = OBJECT_ID(N'[dbo].[StructuredContent.Visualizer]'))
-ALTER TABLE [dbo].[StructuredContent.Visualizer]  WITH CHECK ADD  CONSTRAINT [FK_StructuredContent.Visualizer_StructuredContent.VisualizerTemplate] FOREIGN KEY([visualizer_template_id])
-REFERENCES [dbo].[StructuredContent.VisualizerTemplate] ([id])
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FK_StructuredContent.Visualizer_StructuredContent.VisualizerTemplate]') AND parent_object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent.Visualizer]'))
+ALTER TABLE {databaseOwner}{objectQualifier}[StructuredContent.Visualizer]  WITH CHECK ADD  CONSTRAINT [FK_StructuredContent.Visualizer_StructuredContent.VisualizerTemplate] FOREIGN KEY([visualizer_template_id])
+REFERENCES {databaseOwner}{objectQualifier}[StructuredContent.VisualizerTemplate] ([id])
 GO
-IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_StructuredContent.Visualizer_StructuredContent.VisualizerTemplate]') AND parent_object_id = OBJECT_ID(N'[dbo].[StructuredContent.Visualizer]'))
-ALTER TABLE [dbo].[StructuredContent.Visualizer] CHECK CONSTRAINT [FK_StructuredContent.Visualizer_StructuredContent.VisualizerTemplate]
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FK_StructuredContent.Visualizer_StructuredContent.VisualizerTemplate]') AND parent_object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent.Visualizer]'))
+ALTER TABLE {databaseOwner}{objectQualifier}[StructuredContent.Visualizer] CHECK CONSTRAINT [FK_StructuredContent.Visualizer_StructuredContent.VisualizerTemplate]
 GO
-IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_StructuredContent.VisualizerTemplate_StructuredContent.ContentType]') AND parent_object_id = OBJECT_ID(N'[dbo].[StructuredContent.VisualizerTemplate]'))
-ALTER TABLE [dbo].[StructuredContent.VisualizerTemplate]  WITH CHECK ADD  CONSTRAINT [FK_StructuredContent.VisualizerTemplate_StructuredContent.ContentType] FOREIGN KEY([content_type_id])
-REFERENCES [dbo].[StructuredContent.ContentType] ([id])
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FK_StructuredContent.VisualizerTemplate_StructuredContent.ContentType]') AND parent_object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent.VisualizerTemplate]'))
+ALTER TABLE {databaseOwner}{objectQualifier}[StructuredContent.VisualizerTemplate]  WITH CHECK ADD  CONSTRAINT [FK_StructuredContent.VisualizerTemplate_StructuredContent.ContentType] FOREIGN KEY([content_type_id])
+REFERENCES {databaseOwner}{objectQualifier}[StructuredContent.ContentType] ([id])
 ON UPDATE CASCADE
 ON DELETE CASCADE
 GO
-IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_StructuredContent.VisualizerTemplate_StructuredContent.ContentType]') AND parent_object_id = OBJECT_ID(N'[dbo].[StructuredContent.VisualizerTemplate]'))
-ALTER TABLE [dbo].[StructuredContent.VisualizerTemplate] CHECK CONSTRAINT [FK_StructuredContent.VisualizerTemplate_StructuredContent.ContentType]
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FK_StructuredContent.VisualizerTemplate_StructuredContent.ContentType]') AND parent_object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent.VisualizerTemplate]'))
+ALTER TABLE {databaseOwner}{objectQualifier}[StructuredContent.VisualizerTemplate] CHECK CONSTRAINT [FK_StructuredContent.VisualizerTemplate_StructuredContent.ContentType]
 GO
