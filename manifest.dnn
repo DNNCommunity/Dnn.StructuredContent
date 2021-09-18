@@ -3,7 +3,7 @@
     <package name="Dnn.StructuredContent.Visualizer" type="Module" version="00.01.00">
       <friendlyName>Structured Content Visualizer</friendlyName>
       <description>Allows the display of Structured Content items.</description>
-      <iconFile>/images/icon-fnl-32px.png</iconFile>
+      <iconFile>~/images/icon-fnl-32px.png</iconFile>
       <owner>
         <name>DNN Community</name>
         <organization>DNN Community</organization>
@@ -92,7 +92,7 @@
     <package name="Dnn.StructuredContent.ContentLibrary" type="PersonaBar" version="00.01.00">
       <friendlyName>Structured Content Library</friendlyName>
       <description>Allows management of structured content items</description>
-      <iconFile>/images/icon_viewstats_32px.gif</iconFile>
+      <iconFile>~/images/icon_viewstats_32px.gif</iconFile>
       <owner>
         <name>DNN Community</name>
         <organization>DNN Community</organization>

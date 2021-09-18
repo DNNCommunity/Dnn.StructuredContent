@@ -174,23 +174,14 @@ CREATE TABLE {databaseOwner}{objectQualifier}[StructuredContent.VisualizerTempla
 END
 GO
 SET IDENTITY_INSERT {databaseOwner}{objectQualifier}[StructuredContent.ContentFieldType] ON 
-GO
 INSERT {databaseOwner}{objectQualifier}[StructuredContent.ContentFieldType] ([id], [key], [type], [name], [ordinal], [default_data_type], [default_data_length], [default_options], [icon]) VALUES (1, N'text', N'content_field', N'Text', 1, 0, N'50', NULL, N'fas fa-font')
-GO
 INSERT {databaseOwner}{objectQualifier}[StructuredContent.ContentFieldType] ([id], [key], [type], [name], [ordinal], [default_data_type], [default_data_length], [default_options], [icon]) VALUES (2, N'number', N'content_field', N'Number', 4, 1, NULL, NULL, N'fas fa-hashtag')
-GO
 INSERT {databaseOwner}{objectQualifier}[StructuredContent.ContentFieldType] ([id], [key], [type], [name], [ordinal], [default_data_type], [default_data_length], [default_options], [icon]) VALUES (3, N'email', N'content_field', N'Email', 5, 0, N'50', NULL, N'far fa-envelope')
-GO
 INSERT {databaseOwner}{objectQualifier}[StructuredContent.ContentFieldType] ([id], [key], [type], [name], [ordinal], [default_data_type], [default_data_length], [default_options], [icon]) VALUES (4, N'url', N'content_field', N'URL', 7, 0, N'50', NULL, N'fas fa-link')
-GO
 INSERT {databaseOwner}{objectQualifier}[StructuredContent.ContentFieldType] ([id], [key], [type], [name], [ordinal], [default_data_type], [default_data_length], [default_options], [icon]) VALUES (5, N'datetime', N'content_field', N'Date/Time', 8, 2, NULL, NULL, N'fas fa-calendar')
-GO
 INSERT {databaseOwner}{objectQualifier}[StructuredContent.ContentFieldType] ([id], [key], [type], [name], [ordinal], [default_data_type], [default_data_length], [default_options], [icon]) VALUES (6, N'boolean', N'content_field', N'Boolean', 10, 3, NULL, NULL, N'far fa-check-square')
-GO
 INSERT {databaseOwner}{objectQualifier}[StructuredContent.ContentFieldType] ([id], [key], [type], [name], [ordinal], [default_data_type], [default_data_length], [default_options], [icon]) VALUES (7, N'choice', N'content_field', N'Choice', 12, 0, N'50', N'{"choices":[{"text":"Choice 1","value":"choice1"},{"text":"Choice 2","value":"choice2"}, {"text":"Choice 3","value":"choice3"}], "default_value":null}', N'fas fa-list')
-GO
 INSERT {databaseOwner}{objectQualifier}[StructuredContent.ContentFieldType] ([id], [key], [type], [name], [ordinal], [default_data_type], [default_data_length], [default_options], [icon]) VALUES (8, N'relatedcontent', N'relationship', N'Related Content Type', 16, 0, NULL, NULL, N'fas fa-sitemap')
-GO
 SET IDENTITY_INSERT {databaseOwner}{objectQualifier}[StructuredContent.ContentFieldType] OFF
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FK_StructuredContent.ContentField_StructuredContent.ContentFieldType]') AND parent_object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent.ContentField]'))
