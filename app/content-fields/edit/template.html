@@ -18,10 +18,7 @@
                     <button type="button" class="nav-link active" data-bs-toggle="tab" data-bs-target="#general" data-toggle="tab" data-target="#general">General</button>
                 </li>
                 <li class="nav-item">
-                    <button type="button" class="nav-link" data-bs-toggle="tab" data-bs-target="#schema" data-toggle="tab" data-target="#schema">DB Schema</button>
-                </li>
-                <li class="nav-item">
-                    <button type="button" class="nav-link" data-bs-toggle="tab" data-bs-target="#options" data-toggle="tab" data-target="#options">Content Field Type Options</button>
+                    <button type="button" class="nav-link" data-bs-toggle="tab" data-bs-target="#advanced" data-toggle="tab" data-target="#advanced">Advanced</button>
                 </li>
             </ul>
 
@@ -43,9 +40,22 @@
                         <input type="text" name="help_text" class="form-control" ng-model="contentField.help_text" placeholder=" " />
                         <label for="help_text" class="form-label">Help Text</label>
                     </div>
+
+                    <div content-field-type-options-text content-field="contentField" ng-if="content_field_type.key=='text'"></div>                    
+                    <div content-field-type-options-number content-field="contentField" ng-if="content_field_type.key=='number'"></div>
+                    <div content-field-type-options-email content-field="contentField" ng-if="content_field_type.key=='email'"></div>
+                    <div content-field-type-options-phone-number content-field="contentField" ng-if="content_field_type.key=='phonenumber'"></div>
+                    <div content-field-type-options-url content-field="contentField" ng-if="content_field_type.key=='url'"></div>
+                    <div content-field-type-options-date-time content-field="contentField" ng-if="content_field_type.key=='datetime'"></div>
+                    <div content-field-type-options-static content-field="contentField" ng-if="content_field_type.key=='static'"></div>
+                    <div content-field-type-options-boolean content-field="contentField" ng-if="content_field_type.key=='boolean'"></div>                    
+                    <div content-field-type-options-choice content-field="contentField" ng-if="content_field_type.key=='choice'"></div>                    
+                    
+                    <div content-field-type-options-one-to-many content-field="contentField" content-type="contentType" ng-if="content_field_type.key=='onetomany'"></div>
+
                 </div>
 
-                <div class="tab-pane fade" id="schema">
+                <div class="tab-pane fade" id="advanced">
 
                     <p class="lead">These options let you configure how data will be stored in the database.</p>
 
@@ -102,28 +112,6 @@
                     </div>
 
                 </div>
-
-                <div class="tab-pane fade" id="options">
-
-                    <p class="lead">These options are specific to the content field type.</p>
-                    <div content-field-type-options-textbox content-field="contentField" ng-if="content_field_type.key=='textbox'"></div>
-                    <div content-field-type-options-textarea content-field="contentField" ng-if="content_field_type.key=='textarea'"></div>
-                    <div content-field-type-options-rich-text-editor content-field="contentField" ng-if="content_field_type.key=='richtexteditor'"></div>
-                    <div content-field-type-options-number content-field="contentField" ng-if="content_field_type.key=='number'"></div>
-                    <div content-field-type-options-email content-field="contentField" ng-if="content_field_type.key=='email'"></div>
-                    <div content-field-type-options-phone-number content-field="contentField" ng-if="content_field_type.key=='phonenumber'"></div>
-                    <div content-field-type-options-url content-field="contentField" ng-if="content_field_type.key=='url'"></div>
-                    <div content-field-type-options-date-time content-field="contentField" ng-if="content_field_type.key=='datetime'"></div>
-                    <div content-field-type-options-static content-field="contentField" ng-if="content_field_type.key=='static'"></div>
-                    <div content-field-type-options-checkbox content-field="contentField" ng-if="content_field_type.key=='checkbox'"></div>
-                    <div content-field-type-options-switch content-field="contentField" ng-if="content_field_type.key=='switch'"></div>
-                    <div content-field-type-options-drop-down content-field="contentField" ng-if="content_field_type.key=='dropdown'"></div>
-                    <div content-field-type-options-radio-button-list content-field="contentField" ng-if="content_field_type.key=='radiobuttonlist'"></div>
-                    <div content-field-type-options-multi-select content-field="contentField" ng-if="content_field_type.key=='multiselect'"></div>
-                    <div content-field-type-options-checkbox-list content-field="contentField" ng-if="content_field_type.key=='checkboxlist'"></div>
-                    <div content-field-type-options-one-to-many content-field="contentField" content-type="contentType" ng-if="content_field_type.key=='onetomany'"></div>
-
-                </div>
             </div>
         </div>
 
@@ -140,21 +128,16 @@
                 <div class="card-title text-uppercase">Content Field Type Preview</div>
 
                 <div ng-form="formPreview" class="form" id="formPreview" name="formPreview">
-                    <div content-field-type-textbox form="formPreview" content-field="contentField" submitted="validate" ng-if="content_field_type.key=='textbox'"></div>
-                    <div content-field-type-textarea form="formPreview" content-field="contentField" submitted="validate" ng-if="content_field_type.key=='textarea'"></div>
-                    <div content-field-type-rich-text-editor form="formPreview" content-field="contentField" submitted="validate" ng-if="content_field_type.key=='richtexteditor'"></div>
+                    <div content-field-type-text form="formPreview" content-field="contentField" submitted="validate" ng-if="content_field_type.key=='text'"></div>                    
                     <div content-field-type-number form="formPreview" content-field="contentField" submitted="validate" ng-if="content_field_type.key=='number'"></div>
                     <div content-field-type-email form="formPreview" content-field="contentField" submitted="validate" ng-if="content_field_type.key=='email'"></div>
                     <div content-field-type-phone-number form="formPreview" content-field="contentField" submitted="validate" ng-if="content_field_type.key=='phonenumber'"></div>
                     <div content-field-type-url form="formPreview" content-field="contentField" submitted="validate" ng-if="content_field_type.key=='url'"></div>
                     <div content-field-type-date-time form="formPreview" content-field="contentField" submitted="validate" ng-if="content_field_type.key=='datetime'"></div>
                     <div content-field-type-static form="formPreview" content-field="contentField" submitted="validate" ng-if="content_field_type.key=='static'"></div>
-                    <div content-field-type-checkbox form="formPreview" content-field="contentField" submitted="validate" ng-if="content_field_type.key=='checkbox'"></div>
-                    <div content-field-type-switch form="formPreview" content-field="contentField" submitted="validate" ng-if="content_field_type.key=='switch'"></div>
-                    <div content-field-type-drop-down form="formPreview" content-field="contentField" submitted="validate" ng-if="content_field_type.key=='dropdown'"></div>
-                    <div content-field-type-radio-button-list form="formPreview" content-field="contentField" submitted="validate" ng-if="content_field_type.key=='radiobuttonlist'"></div>
-                    <div content-field-type-multi-select form="formPreview" content-field="contentField" submitted="validate" ng-if="content_field_type.key=='multiselect'"></div>
-                    <div content-field-type-checkbox-list form="formPreview" content-field="contentField" submitted="validate" ng-if="content_field_type.key=='checkboxlist'"></div>
+                    <div content-field-type-boolean form="formPreview" content-field="contentField" submitted="validate" ng-if="content_field_type.key=='boolean'"></div>
+                    <div content-field-type-choice form="formPreview" content-field="contentField" submitted="validate" ng-if="content_field_type.key=='choice'"></div>                    
+                    
                 </div>
             </div>
         </div>
