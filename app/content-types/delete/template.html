@@ -4,13 +4,12 @@
 </div>
 <div class="modal-body">
 
-    <p class="lead">This will delete the '{{contentType.name}}' table as well as all '{{contentType.name}}' data.<br/>
-    This action is irreversable.</p>
+    <p class="lead text-danger">This irreversable action will delete all data for the '{{contentType.name}}' Content Type.</p>
 
     <div ng-form="formContentTypeDelete" class="form">
         <div class="form-floating mb-3">
             <input type="text" name="name" class="form-control" ng-model="content_type_name" />
-            <label for="name" class="form-label">Please enter the name of the table to confirm deletion</label>
+            <label for="name" class="form-label">Please enter the 'Content Type Name' to confirm deletion</label>
         </div>
     </div>
         
