@@ -143,6 +143,7 @@
     <Compile Include="Visualizer.ascx.designer.cs">
       <DependentUpon>Visualizer.ascx</DependentUpon>
     </Compile>
+    <Content Include=".gitignore" />
     <Content Include="app\content-field-types\choice\edit\controller.js" />
     <Content Include="app\content-field-types\related-content-multiple\delete\controller.js" />
     <Content Include="app\content-field-types\related-content-multiple\delete\directive.js" />

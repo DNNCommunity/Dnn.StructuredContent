@@ -1,0 +1,20 @@
+{
+  "profiles": {
+    "Package": {
+      "commandName": "Project",
+      "commandLineArgs": "--target Package --configuration Release"
+    },
+    "Deploy All": {
+      "commandName": "Project",
+      "commandLineArgs": "--target Deploy --configuration Debug"
+    },
+    "Deploy Binaries": {
+      "commandName": "Project",
+      "commandLineArgs": "--target DeployBinaries --configuration Debug"
+    },
+    "Deploy Frontend": {
+      "commandName": "Project",
+      "commandLineArgs": "--target DeployFrontend --configuration Debug"
+    }
+  }
+}
