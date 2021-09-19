@@ -126,7 +126,7 @@ namespace StructuredContent
                     data_type = (int)Enums.DataTypes.nvarchar,
                     data_length = "250",
                     allow_null = false,
-                    options = "{'required':true}"
+                    options = "{'required':true, 'control_type':'textbox'}"
                 };
                 content_type.StructuredContent_ContentFields.Add(nameField);
 
