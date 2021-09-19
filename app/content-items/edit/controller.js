@@ -41,7 +41,7 @@
             function (response) {
                 console.log('getContentType failed', response);
                 $scope.loading = false;
-                toastr.error("Error", "There was a problem loading the Content Type");
+                toastr.error("There was a problem loading the Content Type", "Error");
                 deferred.reject();
             }
         );
@@ -58,7 +58,7 @@
             },
             function (response) {
                 console.log('getContentFields failed', response);
-                toastr.error("Error", "There was a problem loading the Content Fields");
+                toastr.error("There was a problem loading the Content Fields", "Error");
                 $scope.loading = false;
                 deferred.reject();
             }
@@ -76,7 +76,7 @@
             },
             function () {
                 console.log('getRelationships failed', response);
-                toastr.error("Error", "There was a problem loading the relationships");
+                toastr.error("There was a problem loading the relationships", "Error");
                 $scope.loading = false;
                 deferred.reject();
             }
@@ -103,7 +103,7 @@
                 },
                 function (response) {
                     console.log('save ContentItemDraft failed', response);
-                    toastr.error("Error", "There was a problem saving the content item");
+                    toastr.error("There was a problem saving the content item", "Error");
                     $scope.saving = false;
                     $scope.loading = false;
                     deferred.reject();
@@ -141,7 +141,7 @@
                 },
                 function (response) {
                     console.log('save ContentItemPublish failed', response);
-                    toastr.error("Error", "There was a problem saving the content item");
+                    toastr.error("There was a problem saving the content item", "Error");
                     $scope.saving = false;
                     $scope.loading = false;
                     deferred.reject();
@@ -213,7 +213,7 @@
             },
             function (response) {
                 console.log('getContentItem failed', response);
-                toastr.error("Error", "There was a problem loading the Content Item");
+                toastr.error("There was a problem loading the Content Item", "Error");
                 $scope.loading = false;
                 deferred.reject();
             }

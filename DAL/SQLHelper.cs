@@ -533,17 +533,18 @@ namespace StructuredContent
                     if (content_field.is_system == false)
                     {
                         sbUpdateContentItem.Append(", [" + content_field.column_name + "]");
-
                         sbUpdateContentItem.Append("=");
 
-                        object value = content_item[content_field.column_name];
-
-                        if (value == null)
+                        var field_value = content_item[content_field.column_name];
+                        
+                        if (field_value == default(dynamic))
                         {
                             sbUpdateContentItem.Append("null");
                         }
                         else
                         {
+                            //object value = content_item[content_field.column_name];
+
                             switch (content_field.data_type)
                             {
                                 case (int)Enums.DataTypes.bit:
@@ -567,6 +568,7 @@ namespace StructuredContent
                                     sbUpdateContentItem.Append(value);
                                     break;
                             }
+
                         }
                     }
                 }

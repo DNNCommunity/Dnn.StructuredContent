@@ -4,12 +4,40 @@
         <label class="form-check-label" for="required">Required</label>
     </div>
 
-    <div class="form-floating switch mb-3">
+    <div class="form-floating mb-3">
         <select name="control_type" id="control_type" class="form-select" ng-model="contentField.options.control_type">
             <option value="checkbox">Checkbox</option>
             <option value="switch">Switch</option>
+            <option value="radiobuttons">Radiobuttons</option>
         </select>
         <label class="form-label" for="control">Control Type</label>
     </div>
 
+    <div ng-if="contentField.options.control_type=='radiobuttons'">
+        <div class="form-floating mb-3">
+            <select name="label_set" id="label_set" class="form-select" ng-model="contentField.options.label_set">
+                <option value="true_false">True/False</option>
+                <option value="yes_no">Yes/No</option>
+                <option value="open_closed">Open/Closed</option>
+                <option value="active_inactive">Active/Inactive</option>
+                <option value="other">Other</option>
+            </select>
+            <label class="form-label" for="label_set">Choice Labels</label>
+        </div>
+
+        <div class="row" ng-if="contentField.options.label_set=='other'">
+            <div class="col">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="label_true" ng-model="contentField.options.label_true" placeholder=" ">
+                    <label class="form-label" for="label_true">True Label</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="label_false" ng-model="contentField.options.label_false" placeholder=" ">
+                    <label class="form-label" for="label_false">False Label</label>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

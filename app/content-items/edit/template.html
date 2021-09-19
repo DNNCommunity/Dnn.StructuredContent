@@ -12,6 +12,8 @@
 
     <div class="form" ng-form="formContentItem" ng-show="!loading" id="formContentItem" name="formContentItem">
 
+        <pre>{{contentItem|json}}</pre>
+
         <div class="row">
             <div class="col">
                 <div class="form-floating mb-3">
@@ -47,10 +49,10 @@
 
     <span style="position: absolute; left: 20px;"><strong>Status: {{contentItem.status}}</strong></span>
 
-    <button class="btn btn-link pull-left" ng-click="close()"><span ng-show="!formContentItem.$dirty">Close</span><span ng-show="formContentItem.$dirty">Cancel</span></button>
+        <button class="btn btn-link pull-left" ng-click="close()"><span ng-show="!formContentItem.$dirty">Close</span><span ng-show="formContentItem.$dirty">Cancel</span></button>
 
-    <button class="btn btn-info" ng-click="saveDraft()" ng-disabled="saving"><span ng-show="contentItem.status==='Draft'">Save</span><span ng-show="contentItem.status!='Draft'">Save as Draft</span></button>
-    <button class="btn btn-primary" ng-click="savePublish()" ng-disabled="saving"><span ng-show="contentItem.status==='Draft'">Publish</span><span ng-show="contentItem.status!=='Draft'">Save</span></button>
+        <button class="btn btn-info" ng-click="saveDraft()" ng-disabled="saving"><span ng-show="contentItem.status==='Draft'">Save</span><span ng-show="contentItem.status!='Draft'">Save as Draft</span></button>
+        <button class="btn btn-primary" ng-click="savePublish()" ng-disabled="saving"><span ng-show="contentItem.status==='Draft'">Publish</span><span ng-show="contentItem.status!=='Draft'">Save</span></button>
 
 </div>
 
