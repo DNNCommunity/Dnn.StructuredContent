@@ -1,4 +1,4 @@
-﻿/* TODO - NEED TO AND SQL INJECTION SECURITY!! */
+﻿// TODO:  Need to add SQL inject security
 
 using DotNetNuke.Web.Api;
 using System;
