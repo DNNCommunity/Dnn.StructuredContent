@@ -140,7 +140,7 @@ namespace StructuredContent.DAL
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[StructuredContent.VisualizerTemplate]")]
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[StructuredContent_VisualizerTemplate]")]
 	public partial class StructuredContent_VisualizerTemplate : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
@@ -463,7 +463,7 @@ namespace StructuredContent.DAL
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[StructuredContent.ContentType]")]
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[StructuredContent_ContentType]")]
 	public partial class StructuredContent_ContentType : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
@@ -837,7 +837,7 @@ namespace StructuredContent.DAL
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[StructuredContent.Relationship]")]
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[StructuredContent_Relationship]")]
 	public partial class StructuredContent_Relationship : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
@@ -1341,7 +1341,7 @@ namespace StructuredContent.DAL
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[StructuredContent.Revision]")]
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[StructuredContent_Revision]")]
 	public partial class StructuredContent_Revision : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
@@ -1612,7 +1612,7 @@ namespace StructuredContent.DAL
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[StructuredContent.ContentField]")]
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[StructuredContent_ContentField]")]
 	public partial class StructuredContent_ContentField : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
@@ -2092,7 +2092,7 @@ namespace StructuredContent.DAL
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[StructuredContent.Visualizer]")]
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[StructuredContent_Visualizer]")]
 	public partial class StructuredContent_Visualizer : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
@@ -2356,7 +2356,7 @@ namespace StructuredContent.DAL
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[StructuredContent.ContentFieldType]")]
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[StructuredContent_ContentFieldType]")]
 	public partial class StructuredContent_ContentFieldType : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		

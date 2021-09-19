@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="dnn9" EntityNamespace="StructuredContent.DAL" ContextNamespace="StructuredContent.DAL" Class="DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="WebSettings" ConnectionString="Data Source=.;Initial Catalog=dnn9;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="SiteSqlServer" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.[StructuredContent.VisualizerTemplate]" Member="StructuredContent_VisualizerTemplates">
+  <Table Name="dbo.[StructuredContent_VisualizerTemplate]" Member="StructuredContent_VisualizerTemplates">
     <Type Name="StructuredContent_VisualizerTemplate">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="content_type_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
@@ -15,7 +15,7 @@
       <Association Name="StructuredContent_ContentType_StructuredContent_VisualizerTemplate" Member="StructuredContent_ContentType" ThisKey="content_type_id" OtherKey="id" Type="StructuredContent_ContentType" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.[StructuredContent.ContentType]" Member="StructuredContent_ContentTypes">
+  <Table Name="dbo.[StructuredContent_ContentType]" Member="StructuredContent_ContentTypes">
     <Type Name="StructuredContent_ContentType">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="name" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
@@ -32,7 +32,7 @@
       <Association Name="StructuredContent_ContentType_StructuredContent_Visualizer" Member="StructuredContent_Visualizers" ThisKey="id" OtherKey="content_type_id" Type="StructuredContent_Visualizer" />
     </Type>
   </Table>
-  <Table Name="dbo.[StructuredContent.Relationship]" Member="StructuredContent_Relationships">
+  <Table Name="dbo.[StructuredContent_Relationship]" Member="StructuredContent_Relationships">
     <Type Name="StructuredContent_Relationship">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="[key]" Member="key" Type="System.String" DbType="VarChar(3) NOT NULL" CanBeNull="false" />
@@ -54,7 +54,7 @@
       <Association Name="StructuredContent_ContentType_StructuredContent_Relationship1" Member="StructuredContent_ContentType1" ThisKey="b_content_type_id" OtherKey="id" Type="StructuredContent_ContentType" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.[StructuredContent.Revision]" Member="StructuredContent_Revisions">
+  <Table Name="dbo.[StructuredContent_Revision]" Member="StructuredContent_Revisions">
     <Type Name="StructuredContent_Revision">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="revision_date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
@@ -67,7 +67,7 @@
       <Association Name="StructuredContent_ContentType_StructuredContent_Revision" Member="StructuredContent_ContentType" ThisKey="content_type_id" OtherKey="id" Type="StructuredContent_ContentType" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.[StructuredContent.ContentField]" Member="StructuredContent_ContentFields">
+  <Table Name="dbo.[StructuredContent_ContentField]" Member="StructuredContent_ContentFields">
     <Type Name="StructuredContent_ContentField">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="name" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
@@ -88,7 +88,7 @@
       <Association Name="StructuredContent_ContentFieldType_StructuredContent_ContentField" Member="StructuredContent_ContentFieldType" ThisKey="content_field_type_id" OtherKey="id" Type="StructuredContent_ContentFieldType" IsForeignKey="true" DeleteRule="SET NULL" />
     </Type>
   </Table>
-  <Table Name="dbo.[StructuredContent.Visualizer]" Member="StructuredContent_Visualizers">
+  <Table Name="dbo.[StructuredContent_Visualizer]" Member="StructuredContent_Visualizers">
     <Type Name="StructuredContent_Visualizer">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="module_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
@@ -100,7 +100,7 @@
       <Association Name="StructuredContent_VisualizerTemplate_StructuredContent_Visualizer" Member="StructuredContent_VisualizerTemplate" ThisKey="visualizer_template_id" OtherKey="id" Type="StructuredContent_VisualizerTemplate" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.[StructuredContent.ContentFieldType]" Member="StructuredContent_ContentFieldTypes">
+  <Table Name="dbo.[StructuredContent_ContentFieldType]" Member="StructuredContent_ContentFieldTypes">
     <Type Name="StructuredContent_ContentFieldType">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="[key]" Member="key" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
