@@ -27,6 +27,7 @@ using System.IO.Compression;
 using System.IO;
 using Nuke.Common.Tools.Npm;
 using System.Text;
+using System.Security.Cryptography;
 
 [CheckBuildProjectConfigurations]
 [ShutdownDotNetAfterServerBuild]
@@ -260,6 +261,26 @@ class Build : NukeBuild
             ZipFile.CreateFromDirectory(stagingDirectory, ArtifactsDirectory / fileName);
             DeleteDirectory(stagingDirectory);
 
+            // Checksums
+            var artifact = ArtifactsDirectory / fileName;
+            string hash;
+            using (var md5 = MD5.Create())
+            {
+                using (var stream = File.OpenRead(artifact))
+                {
+                    var hashBytes = md5.ComputeHash(stream);
+                    hash = BitConverter.ToString(hashBytes).Replace("-", "").ToLowerInvariant();
+                }
+            }
+
+            var hashMd = new StringBuilder();
+            hashMd.AppendLine($"## MD5 Checksums");
+            hashMd.AppendLine($"| File       | Checksum |");
+            hashMd.AppendLine($"|------------|----------|");
+            hashMd.AppendLine($"| {fileName} | {hash}   |");
+            hashMd.AppendLine();
+            File.WriteAllText(ArtifactsDirectory / "checksums.md", hashMd.ToString());
+
             if (rootIsInDnn)
             {
                 var installDir = RootDirectory.Parent.Parent.Parent.Parent.Parent / "Install" / "Module";
@@ -392,6 +413,8 @@ class Build : NukeBuild
                 return;
             }
 
+            Logger.Info($"Found {milestone.Title} milestone.");
+
             // Get the PRs
             var prRequest = new PullRequestRequest()
             {
@@ -401,6 +424,7 @@ class Build : NukeBuild
                 p.Milestone?.Title == milestone.Title &&
                 p.Merged == true &&
                 p.Milestone?.Title == GitVersion.MajorMinorPatch);
+            Logger.Info($"Found {pullRequests.Count()} pull requests with that milestone.");
 
             // Build release notes
             var releaseNotesBuilder = new StringBuilder();
