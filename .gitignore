@@ -36,3 +36,4 @@ msbuild.wrn
 .vs/
 /.nuke/temp
 /resources/scripts/structured-content/
+/MigrationBackup/
