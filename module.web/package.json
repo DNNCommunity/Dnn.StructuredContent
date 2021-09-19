@@ -1,6 +1,6 @@
 {
   "name": "structured-content",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "repository": "https://github.com/DNNCommunity/Dnn.StructuredContent.git",
   "description": "Stencil Components for Dnn.StructuredContent",
   "main": "dist/index.cjs.js",
