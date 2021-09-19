@@ -16,7 +16,7 @@ namespace StructuredContent
 
     public class SQLHelper
     {
-        private const string table_prefix = "zz_";
+        private const string table_prefix = "sc_";
 
         private string connectionString = ConfigurationManager.ConnectionStrings["SiteSqlServer"].ToString();
 

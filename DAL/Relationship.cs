@@ -5,7 +5,7 @@ namespace StructuredContent.DAL
     [Serializable]
     public partial class StructuredContent_Relationship
     {
-        private const string table_prefix = "zz_";
+        private const string table_prefix = "sc_";
 
         // derive the table name for the relationship
         public string table_name
