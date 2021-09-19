@@ -399,6 +399,7 @@ class Build : NukeBuild
     Target GenerateReleaseNotes => _ => _
         .OnlyWhenDynamic(() => repositoryBranch == mainBranch || repositoryBranch.StartsWith("release"))
         .OnlyWhenDynamic(() => !string.IsNullOrWhiteSpace(GithubToken))
+        .DependsOn(Package)
         .DependsOn(SetupGitHubClient)
         .DependsOn(TagRelease)
         .DependsOn(SetBranch)
