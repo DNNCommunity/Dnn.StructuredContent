@@ -114,7 +114,7 @@ class Build : NukeBuild
         .Executes(() =>
         {
             DotNetRestore(s => s
-                .SetProjectFile(Solution));
+                .SetProjectFile(Solution.GetProject("Dnn.StructuredContent")));
         });
 
     /// <summary>
