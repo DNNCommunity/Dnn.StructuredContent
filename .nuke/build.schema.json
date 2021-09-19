@@ -75,12 +75,18 @@
           "items": {
             "type": "string",
             "enum": [
+              "BuildFrontEnd",
               "Clean",
               "Compile",
+              "DeployAll",
+              "DeployBinaries",
+              "DeployFrontEnd",
+              "InstallNpmPackages",
               "Package",
               "Restore",
               "SetBranch",
               "SetManifestVersions",
+              "SetPackagesVersions",
               "SetupGitHubClient",
               "TagRelease"
             ]
@@ -96,12 +102,18 @@
           "items": {
             "type": "string",
             "enum": [
+              "BuildFrontEnd",
               "Clean",
               "Compile",
+              "DeployAll",
+              "DeployBinaries",
+              "DeployFrontEnd",
+              "InstallNpmPackages",
               "Package",
               "Restore",
               "SetBranch",
               "SetManifestVersions",
+              "SetPackagesVersions",
               "SetupGitHubClient",
               "TagRelease"
             ]
