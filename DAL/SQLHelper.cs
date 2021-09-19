@@ -543,12 +543,10 @@ namespace StructuredContent
                         }
                         else
                         {
-                            //object value = content_item[content_field.column_name];
-
                             switch (content_field.data_type)
                             {
                                 case (int)Enums.DataTypes.bit:
-                                    if (bool.Parse(value.ToString()))
+                                    if (bool.Parse(field_value.ToString()))
                                     {
                                         sbUpdateContentItem.Append("1");
                                     }
@@ -561,11 +559,11 @@ namespace StructuredContent
 
                                 case (int)Enums.DataTypes.nvarchar:
                                 case (int)Enums.DataTypes.datetime:
-                                    sbUpdateContentItem.Append("'" + value + "'");
+                                    sbUpdateContentItem.Append("'" + field_value + "'");
                                     break;
 
                                 default:
-                                    sbUpdateContentItem.Append(value);
+                                    sbUpdateContentItem.Append(field_value);
                                     break;
                             }
 
