@@ -1,0 +1,43 @@
+{
+  "name": "structured-content",
+  "version": "0.0.1",
+  "repository": "https://github.com/DNNCommunity/Dnn.StructuredContent.git",
+  "description": "Stencil Components for Dnn.StructuredContent",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.js",
+  "es2015": "dist/esm/index.mjs",
+  "es2017": "dist/esm/index.mjs",
+  "types": "dist/types/index.d.ts",
+  "collection": "dist/collection/collection-manifest.json",
+  "collection:main": "dist/collection/index.js",
+  "unpkg": "dist/structured-content/sc.esm.js",
+  "files": [
+    "dist/",
+    "loader/"
+  ],
+  "scripts": {
+    "build": "eslint --fix --ext .ts --ext .tsx --ext .js ./src && stencil build --docs",
+    "start": "stencil build --dev --watch --serve --no-open",
+    "test": "stencil test --spec --e2e",
+    "test.watch": "stencil test --spec --e2e --watchAll",
+    "generate": "stencil generate"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@eraware/dnn-elements": "^0.9.2",
+    "@stencil/core": "^2.8.1",
+    "@stencil/eslint-plugin": "^0.3.1",
+    "@stencil/sass": "^1.4.1",
+    "@stencil/store": "^1.4.1",
+    "@types/jest": "^26.0.24",
+    "@typescript-eslint/eslint-plugin": "^4.31.1",
+    "@typescript-eslint/parser": "^4.31.1",
+    "eslint": "^7.32.0",
+    "eslint-plugin-react": "^7.25.2",
+    "jest": "^26.6.3",
+    "jest-cli": "^26.6.3",
+    "puppeteer": "^10.0.0",
+    "typescript": "^4.4.3"
+  },
+  "license": "MIT"
+}
