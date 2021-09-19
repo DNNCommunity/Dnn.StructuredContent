@@ -258,6 +258,7 @@
     <Content Include="plugins\pluralize\pluralize.js" />
     <Content Include="plugins\ui.bootstrap\ui-bootstrap-tpls-2.5.0.min.js" />
     <Content Include="scripts\ContentLibrary.js" />
+    <Content Include=".github\workflows\build.yml" />
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>

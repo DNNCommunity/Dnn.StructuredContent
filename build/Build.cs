@@ -18,12 +18,15 @@ using static Nuke.Common.IO.PathConstruction;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 using static Nuke.Common.Tools.Git.GitTasks;
 using static Nuke.Common.Tools.MSBuild.MSBuildTasks;
+using static Nuke.Common.Tools.Npm.NpmTasks;
 using System.Xml;
 using System.Globalization;
 using Octokit;
 using BuildHelpers;
 using System.IO.Compression;
 using System.IO;
+using Nuke.Common.Tools.Npm;
+using System.Text;
 
 [CheckBuildProjectConfigurations]
 [ShutdownDotNetAfterServerBuild]
@@ -70,7 +73,14 @@ class Build : NukeBuild
     /// <summary>Defines the module name used in various places</summary>
     private const string moduleName = "Dnn.StructuredContent";
 
+    /// <summary>A value indicating whether the current folder is withing a DNN website currently.</summary>
+    private bool rootIsInDnn = RootDirectory.Parent.Parent.ToString().EndsWith("Dnn.PersonaBar", StringComparison.OrdinalIgnoreCase);
+
+    /// <summary>The path to the frontend source files.</summary>
+    private AbsolutePath webProjectDirectory = RootDirectory / "module.web";
+
     GitHubClient gitHubClient;
+    Release release;
 
     /// <summary>
     /// Defines in which folder the package is packaged into.
@@ -250,7 +260,7 @@ class Build : NukeBuild
             ZipFile.CreateFromDirectory(stagingDirectory, ArtifactsDirectory / fileName);
             DeleteDirectory(stagingDirectory);
 
-            if (RootDirectory.Parent.Parent.ToString().EndsWith("Dnn.PersonaBar", StringComparison.OrdinalIgnoreCase))
+            if (rootIsInDnn)
             {
                 var installDir = RootDirectory.Parent.Parent.Parent.Parent.Parent / "Install" / "Module";
                 var previousPackages = GlobFiles(installDir, $"*{moduleName}*");
@@ -267,4 +277,199 @@ class Build : NukeBuild
             Logger.Success("Packaging succeeded!");
         });
 
+    Target DeployBinaries => _ => _
+        .OnlyWhenDynamic(() => rootIsInDnn)
+        .DependsOn(Compile)
+        .Executes(() =>
+        {
+            var dnnBinDirectory = RootDirectory.Parent.Parent.Parent.Parent.Parent / "bin";
+            var manifest = GlobFiles(RootDirectory, "*.dnn").FirstOrDefault();
+            var assemblyFiles = Helpers.GetAssembliesFromManifest(manifest);
+            var files = GlobFiles(RootDirectory, "bin/Debug/*.dll", "bin/Debug/*.pdb", "bin/Debug/*.xml");
+            foreach (var file in files)
+            {
+                var fileInfo = new FileInfo(file);
+                if (assemblyFiles.Contains(fileInfo.Name))
+                {
+                    Helpers.CopyFileToDirectoryIfChanged(file, dnnBinDirectory);
+                }
+            }
+        });
+
+    Target InstallNpmPackages => _ => _
+       .Executes(() =>
+       {
+           NpmLogger = (type, output) =>
+           {
+               if (type == OutputType.Std)
+               {
+                   Logger.Info(output);
+               }
+               if (type == OutputType.Err)
+               {
+                   if (output.StartsWith("npm WARN", StringComparison.OrdinalIgnoreCase))
+                   {
+                       Logger.Warn(output);
+                   }
+                   else
+                   {
+                       Logger.Error(output);
+                   }
+               }
+           };
+           NpmInstall(s =>
+               s.SetProcessWorkingDirectory(webProjectDirectory));
+       });
+
+    Target SetPackagesVersions => _ => _
+        .DependsOn(TagRelease)
+        .DependsOn(SetBranch)
+        .Executes(() =>
+        {
+            if (GitVersion != null)
+            {
+                Npm($"version --no-git-tag-version --allow-same-version {GitVersion.MajorMinorPatch}", webProjectDirectory);
+            }
+        });
+
+    Target BuildFrontEnd => _ => _
+        .DependsOn(InstallNpmPackages)
+        .DependsOn(SetManifestVersions)
+        .DependsOn(TagRelease)
+        .DependsOn(SetPackagesVersions)
+        .Executes(() =>
+        {
+            NpmRun(s => s
+                .SetProcessWorkingDirectory(webProjectDirectory)
+                .AddArguments("build")
+            );
+        });
+
+    Target DeployFrontEnd => _ => _
+        .DependsOn(BuildFrontEnd)
+        .Executes(() =>
+        {
+            var scriptsDestination = RootDirectory / "resources" / "scripts" / "structured-content";
+            EnsureCleanDirectory(scriptsDestination);
+            CopyDirectoryRecursively(RootDirectory / "module.web" / "dist" / "structured-content", scriptsDestination, DirectoryExistsPolicy.Merge);
+        });
+
+    Target DeployAll => _ => _
+        .DependsOn(DeployFrontEnd)
+        .DependsOn(DeployBinaries)
+        .Executes(() =>
+        {
+        });
+
+    Target LogInfo => _ => _
+        .Before(Release)
+        .DependsOn(TagRelease)
+        .DependsOn(SetBranch)
+        .Executes(() =>
+        {
+            Logger.Info($"Original branch name is {GitRepository.Branch}");
+            Logger.Info($"We are on branch {repositoryBranch} and IsOnMasterBranch is {GitRepository.IsOnMasterBranch()} and the version will be {GitVersion.SemVer}");
+            using (var group = Logger.Block("GitVersion"))
+            {
+                Logger.Info(SerializationTasks.JsonSerialize(GitVersion));
+            }
+        });
+
+    Target GenerateReleaseNotes => _ => _
+        .OnlyWhenDynamic(() => repositoryBranch == mainBranch || repositoryBranch.StartsWith("release"))
+        .OnlyWhenDynamic(() => !string.IsNullOrWhiteSpace(GithubToken))
+        .DependsOn(SetupGitHubClient)
+        .DependsOn(TagRelease)
+        .DependsOn(SetBranch)
+        .Executes(() =>
+        {
+            // Get the milestone
+            var milestone = gitHubClient.Issue.Milestone.GetAllForRepository(repositoryOwner, repositoryName).Result.Where(m => m.Title == GitVersion.MajorMinorPatch).FirstOrDefault();
+            if (milestone == null)
+            {
+                Logger.Warn("Milestone not found for this version");
+                releaseNotes = "No release notes for this version.";
+                return;
+            }
+
+            // Get the PRs
+            var prRequest = new PullRequestRequest()
+            {
+                State = ItemStateFilter.All
+            };
+            var pullRequests = gitHubClient.Repository.PullRequest.GetAllForRepository(repositoryOwner, repositoryName, prRequest).Result.Where(p =>
+                p.Milestone?.Title == milestone.Title &&
+                p.Merged == true &&
+                p.Milestone?.Title == GitVersion.MajorMinorPatch);
+
+            // Build release notes
+            var releaseNotesBuilder = new StringBuilder();
+            releaseNotesBuilder.AppendLine($"# {repositoryName} {milestone.Title}")
+                .AppendLine("")
+                .AppendLine($"A total of {pullRequests.Count()} pull requests where merged in this release.").AppendLine();
+
+            foreach (var group in pullRequests.GroupBy(p => p.Labels[0]?.Name, (label, prs) => new { label, prs }))
+            {
+                releaseNotesBuilder.AppendLine($"## {group.label}");
+                foreach (var pr in group.prs)
+                {
+                    releaseNotesBuilder.AppendLine($"- #{pr.Number} {pr.Title}. Thanks @{pr.User.Login}");
+                }
+            }
+
+            // Checksums
+            releaseNotesBuilder
+                .AppendLine()
+                .Append(File.ReadAllText(ArtifactsDirectory / "checksums.md"));
+
+            releaseNotes = releaseNotesBuilder.ToString();
+            using (Logger.Block("Release Notes"))
+            {
+                Logger.Info(releaseNotes);
+            }
+        });
+
+    Target Release => _ => _
+        .OnlyWhenDynamic(() => repositoryBranch == mainBranch || repositoryBranch.StartsWith(releaseBranchPrefix))
+        .OnlyWhenDynamic(() => !string.IsNullOrWhiteSpace(GithubToken))
+        .DependsOn(SetBranch)
+        .DependsOn(SetupGitHubClient)
+        .DependsOn(GenerateReleaseNotes)
+        .DependsOn(TagRelease)
+        .DependsOn(Package)
+        .Executes(() =>
+        {
+            var newRelease = new NewRelease(repositoryBranch == mainBranch ? $"v{GitVersion.MajorMinorPatch}" : $"v{GitVersion.SemVer}")
+            {
+                Body = releaseNotes,
+                Draft = true,
+                Name = repositoryBranch == mainBranch ? $"v{GitVersion.MajorMinorPatch}" : $"v{GitVersion.SemVer}",
+                TargetCommitish = GitVersion.Sha,
+                Prerelease = repositoryBranch.StartsWith("release")
+            };
+            release = gitHubClient.Repository.Release.Create(repositoryOwner, repositoryName, newRelease).Result;
+            Logger.Info($"{release.Name} released !");
+
+            var artifactFile = GlobFiles(RootDirectory, "artifacts/**/*.zip").FirstOrDefault();
+            var artifact = File.OpenRead(artifactFile);
+            var artifactInfo = new FileInfo(artifactFile);
+            var assetUpload = new ReleaseAssetUpload()
+            {
+                FileName = artifactInfo.Name,
+                ContentType = "application/zip",
+                RawData = artifact
+            };
+            var asset = gitHubClient.Repository.Release.UploadAsset(release, assetUpload).Result;
+            Logger.Info($"Asset {asset.Name} published at {asset.BrowserDownloadUrl}");
+        });
+
+    Target CI => _ => _
+        .DependsOn(LogInfo)
+        .DependsOn(Package)
+        .DependsOn(GenerateReleaseNotes)
+        .DependsOn(TagRelease)
+        .DependsOn(Release)
+        .Executes(() =>
+        {
+        });
 }

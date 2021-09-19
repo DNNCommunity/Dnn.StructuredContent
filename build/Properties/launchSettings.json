@@ -6,7 +6,7 @@
     },
     "Deploy All": {
       "commandName": "Project",
-      "commandLineArgs": "--target Deploy --configuration Debug"
+      "commandLineArgs": "--target DeployAll --configuration Debug"
     },
     "Deploy Binaries": {
       "commandName": "Project",
