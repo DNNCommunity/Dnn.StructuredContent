@@ -1,19 +1,32 @@
-﻿using DotNetNuke.Common.Utilities;
-using StructuredContent.DAL;
-using System;
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for more information
 
 namespace StructuredContent
 {
+    using System;
+
+    using DotNetNuke.Common.Utilities;
+    using StructuredContent.DAL;
+
     public class ContentFieldTypeDTO
     {
         public int id { get; set; }
+
         public string key { get; set; }
+
         public string type { get; set; }
+
         public string name { get; set; }
+
         public int ordinal { get; set; }
+
         public int default_data_type { get; set; }
+
         public string default_data_length { get; set; }
+
         public object default_options { get; set; }
+
         public string icon { get; set; }
     }
 

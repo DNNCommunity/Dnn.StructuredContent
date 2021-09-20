@@ -1,17 +1,29 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for more information
 
 namespace StructuredContent.DAL
 {
+    using System;
+
+    using Newtonsoft.Json;
+
     public class RevisionDTO
     {
         public int id { get; set; }
+
         public DateTime revision_date { get; set; }
-        public Nullable<int> user_id { get; set; }
+
+        public int? user_id { get; set; }
+
         public string activity_type { get; set; }
+
         public int content_type_id { get; set; }
+
         public int item_id { get; set; }
+
         public object delta { get; set; }
+
         public object data { get; set; }
     }
 
@@ -28,7 +40,7 @@ namespace StructuredContent.DAL
                 content_type_id = item.content_type_id,
                 item_id = item.item_id,
                 delta = JsonConvert.DeserializeObject<dynamic>(item.delta),
-                data = JsonConvert.DeserializeObject<dynamic>(item.data)
+                data = JsonConvert.DeserializeObject<dynamic>(item.data),
             };
 
             return dto;

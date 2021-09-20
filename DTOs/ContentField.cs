@@ -1,32 +1,47 @@
-﻿using DotNetNuke.Common.Utilities;
-using StructuredContent.DAL;
-using System;
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for more information
 
 namespace StructuredContent
 {
+    using System;
+
+    using DotNetNuke.Common.Utilities;
+    using StructuredContent.DAL;
+
     public class ContentFieldDTO
     {
         public int id { get; set; }
+
         public string name { get; set; }
 
         public int content_type_id { get; set; }
+
         public bool is_system { get; set; }
+
         public int ordinal { get; set; }
+
         public string column_name { get; set; }
+
         public int data_type { get; set; }
+
         public string data_length { get; set; }
+
         public bool allow_null { get; set; }
+
         public string default_value { get; set; }
+
         public string help_text { get; set; }
 
-        public Nullable<int> layout_row { get; set; }
-        public Nullable<int> layout_column { get; set; }
+        public int? layout_row { get; set; }
 
-        public Nullable<int> content_field_type_id { get; set; }
+        public int? layout_column { get; set; }
+
+        public int? content_field_type_id { get; set; }
+
         public object options { get; set; }
 
         public ContentFieldTypeDTO content_field_type { get; set; }
-
 
         public object value { get; set; }
     }
@@ -56,7 +71,7 @@ namespace StructuredContent
                 layout_column = item.layout_column,
 
                 options = item.options != null ? item.options.FromJson<object>() : new object(),
-                content_field_type = item.StructuredContent_ContentFieldType != null ? item.StructuredContent_ContentFieldType.ToDto() : null
+                content_field_type = item.StructuredContent_ContentFieldType != null ? item.StructuredContent_ContentFieldType.ToDto() : null,
             };
 
             return dto;

@@ -1,31 +1,36 @@
-﻿using DotNetNuke.Security;
-using DotNetNuke.Services.Exceptions;
-using DotNetNuke.Web.Api;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using StructuredContent.DAL;
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for more information
 
 namespace StructuredContent
 {
-    //[SupportedModules("StructuredContent")]
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
+    using System.Net;
+    using System.Net.Http;
+    using System.Web.Http;
+
+    using DotNetNuke.Security;
+    using DotNetNuke.Services.Exceptions;
+    using DotNetNuke.Web.Api;
+    using StructuredContent.DAL;
+
+    // [SupportedModules("StructuredContent")]
     public class ContentTypeController : DnnApiController
     {
-        //private string connectionString = ConfigurationManager.ConnectionStrings["SiteSqlServer"].ToString();    
+        // private string connectionString = ConfigurationManager.ConnectionStrings["SiteSqlServer"].ToString();
         SQLHelper sqlHelper = new SQLHelper();
         DataContext dc = new DataContext();
 
         [HttpGet]
         [AllowAnonymous]
-        public HttpResponseMessage Get(string name = "", Nullable<bool> verbose = null, Nullable<int> skip = null, Nullable<int> take = null)
+        public HttpResponseMessage Get(string name = "", bool? verbose = null, int? skip = null, int? take = null)
         {
             try
             {
-                var query = dc.StructuredContent_ContentTypes.OrderBy(i => i.name).AsQueryable();
+                var query = this.dc.StructuredContent_ContentTypes.OrderBy(i => i.name).AsQueryable();
 
                 // name
                 if (!string.IsNullOrEmpty(name))
@@ -49,7 +54,7 @@ namespace StructuredContent
                 if (verbose.GetValueOrDefault() == false)
                 {
                     var list = query.Select(i => new { i.id, i.name });
-                    return Request.CreateResponse(HttpStatusCode.OK, list);
+                    return this.Request.CreateResponse(HttpStatusCode.OK, list);
                 }
                 else
                 {
@@ -61,13 +66,13 @@ namespace StructuredContent
                         dtos.Add(dto);
                     }
 
-                    return Request.CreateResponse(HttpStatusCode.OK, dtos);
+                    return this.Request.CreateResponse(HttpStatusCode.OK, dtos);
                 }
             }
             catch (Exception ex)
             {
                 Exceptions.LogException(ex);
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
+                return this.Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
             }
         }
 
@@ -77,18 +82,18 @@ namespace StructuredContent
         {
             try
             {
-                StructuredContent_ContentType item = dc.StructuredContent_ContentTypes.Where(i => i.id == id).SingleOrDefault();
+                StructuredContent_ContentType item = this.dc.StructuredContent_ContentTypes.Where(i => i.id == id).SingleOrDefault();
                 if (item == null)
                 {
-                    return Request.CreateResponse(HttpStatusCode.NotFound);
+                    return this.Request.CreateResponse(HttpStatusCode.NotFound);
                 }
 
-                return Request.CreateResponse(HttpStatusCode.OK, item.ToDto());
+                return this.Request.CreateResponse(HttpStatusCode.OK, item.ToDto());
             }
             catch (Exception ex)
             {
                 Exceptions.LogException(ex);
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
+                return this.Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
             }
         }
 
@@ -101,9 +106,9 @@ namespace StructuredContent
             {
                 StructuredContent_ContentType content_type = dto.ToItem(null);
 
-                dc.StructuredContent_ContentTypes.InsertOnSubmit(content_type);
+                this.dc.StructuredContent_ContentTypes.InsertOnSubmit(content_type);
 
-                sqlHelper.CreateContentTable(content_type);
+                this.sqlHelper.CreateContentTable(content_type);
 
                 // record the field definitions for the system fields
                 StructuredContent_ContentField idField = new StructuredContent_ContentField()
@@ -113,7 +118,7 @@ namespace StructuredContent
                     ordinal = 0,
                     column_name = "id",
                     data_type = (int)Enums.DataTypes.integer,
-                    allow_null = false
+                    allow_null = false,
                 };
                 content_type.StructuredContent_ContentFields.Add(idField);
 
@@ -126,7 +131,7 @@ namespace StructuredContent
                     data_type = (int)Enums.DataTypes.nvarchar,
                     data_length = "250",
                     allow_null = false,
-                    options = "{'required':true, 'control_type':'textbox'}"
+                    options = "{'required':true, 'control_type':'textbox'}",
                 };
                 content_type.StructuredContent_ContentFields.Add(nameField);
 
@@ -139,7 +144,7 @@ namespace StructuredContent
                     data_type = (int)Enums.DataTypes.nvarchar,
                     data_length = "250",
                     allow_null = false,
-                    options = "{'required':true}"
+                    options = "{'required':true}",
                 };
                 content_type.StructuredContent_ContentFields.Add(statusField);
 
@@ -150,7 +155,7 @@ namespace StructuredContent
                     ordinal = 0,
                     column_name = "date_created",
                     data_type = (int)Enums.DataTypes.datetime,
-                    allow_null = false
+                    allow_null = false,
                 };
                 content_type.StructuredContent_ContentFields.Add(dateCreatedField);
 
@@ -161,7 +166,7 @@ namespace StructuredContent
                     ordinal = 0,
                     column_name = "date_modified",
                     data_type = (int)Enums.DataTypes.datetime,
-                    allow_null = false
+                    allow_null = false,
                 };
                 content_type.StructuredContent_ContentFields.Add(dateUpdatedField);
 
@@ -172,18 +177,18 @@ namespace StructuredContent
                     ordinal = 0,
                     column_name = "date_published",
                     data_type = (int)Enums.DataTypes.datetime,
-                    allow_null = false
+                    allow_null = false,
                 };
                 content_type.StructuredContent_ContentFields.Add(datePublishedField);
 
-                dc.SubmitChanges();
+                this.dc.SubmitChanges();
 
-                return Request.CreateResponse(HttpStatusCode.OK, content_type.ToDto());
+                return this.Request.CreateResponse(HttpStatusCode.OK, content_type.ToDto());
             }
             catch (Exception ex)
             {
                 Exceptions.LogException(ex);
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
+                return this.Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
             }
         }
 
@@ -194,21 +199,21 @@ namespace StructuredContent
         {
             try
             {
-                StructuredContent_ContentType item = dc.StructuredContent_ContentTypes.Where(i => i.id == dto.id).SingleOrDefault();
+                StructuredContent_ContentType item = this.dc.StructuredContent_ContentTypes.Where(i => i.id == dto.id).SingleOrDefault();
                 if (item == null)
                 {
-                    return Request.CreateResponse(HttpStatusCode.NotFound);
+                    return this.Request.CreateResponse(HttpStatusCode.NotFound);
                 }
 
                 item = dto.ToItem(item);
-                dc.SubmitChanges();
+                this.dc.SubmitChanges();
 
-                return Request.CreateResponse(HttpStatusCode.OK, item.ToDto());
+                return this.Request.CreateResponse(HttpStatusCode.OK, item.ToDto());
             }
             catch (Exception ex)
             {
                 Exceptions.LogException(ex);
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
+                return this.Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
             }
         }
 
@@ -219,41 +224,42 @@ namespace StructuredContent
         {
             try
             {
-                StructuredContent_ContentType content_type = dc.StructuredContent_ContentTypes.Where(i => i.id == id).SingleOrDefault();
+                StructuredContent_ContentType content_type = this.dc.StructuredContent_ContentTypes.Where(i => i.id == id).SingleOrDefault();
                 if (content_type == null)
                 {
-                    return Request.CreateResponse(HttpStatusCode.NotFound);
+                    return this.Request.CreateResponse(HttpStatusCode.NotFound);
                 }
 
                 // delete all the relationships first
-                var relationships = dc.StructuredContent_Relationships.Where(i => i.a_content_type_id == content_type.id || i.b_content_type_id == content_type.id).Distinct().ToList();
+                var relationships = this.dc.StructuredContent_Relationships.Where(i => i.a_content_type_id == content_type.id || i.b_content_type_id == content_type.id).Distinct().ToList();
                 foreach (var relationship in relationships)
                 {
                     switch (relationship.key)
                     {
                         case "o2m":
-                            sqlHelper.DeleteOneToManyRelationship(relationship.StructuredContent_ContentType, relationship.StructuredContent_ContentType1);
+                            this.sqlHelper.DeleteOneToManyRelationship(relationship.StructuredContent_ContentType, relationship.StructuredContent_ContentType1);
                             break;
 
                         case "m2m":
-                            sqlHelper.DeleteManyToManyRelationship(relationship.StructuredContent_ContentType, relationship.StructuredContent_ContentType1);
+                            this.sqlHelper.DeleteManyToManyRelationship(relationship.StructuredContent_ContentType, relationship.StructuredContent_ContentType1);
                             break;
                     }
                 }
-                dc.StructuredContent_Relationships.DeleteAllOnSubmit(relationships);
+
+                this.dc.StructuredContent_Relationships.DeleteAllOnSubmit(relationships);
 
                 // delete the table
-                sqlHelper.DeleteContentTable(content_type);
+                this.sqlHelper.DeleteContentTable(content_type);
 
-                dc.StructuredContent_ContentTypes.DeleteOnSubmit(content_type);
-                dc.SubmitChanges();
+                this.dc.StructuredContent_ContentTypes.DeleteOnSubmit(content_type);
+                this.dc.SubmitChanges();
 
-                return Request.CreateResponse(HttpStatusCode.OK);
+                return this.Request.CreateResponse(HttpStatusCode.OK);
             }
             catch (Exception ex)
             {
                 Exceptions.LogException(ex);
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
+                return this.Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
             }
         }
     }

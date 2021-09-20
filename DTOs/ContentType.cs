@@ -1,12 +1,21 @@
-﻿namespace StructuredContent.DAL
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for more information
+
+namespace StructuredContent.DAL
 {
     public class ContentTypeDTO
     {
         public int id { get; set; }
+
         public string name { get; set; }
+
         public string singular { get; set; }
+
         public string plural { get; set; }
+
         public string url_slug { get; set; }
+
         public string table_name { get; set; }
     }
 
@@ -21,7 +30,7 @@
                 singular = item.singular,
                 plural = item.plural,
                 url_slug = item.url_slug,
-                table_name = item.table_name
+                table_name = item.table_name,
             };
 
             return dto;

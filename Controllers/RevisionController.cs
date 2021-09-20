@@ -1,30 +1,35 @@
-﻿using DotNetNuke.Security;
-using DotNetNuke.Services.Exceptions;
-using DotNetNuke.Web.Api;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using StructuredContent.DAL;
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for more information
 
 namespace StructuredContent
 {
-    //[SupportedModules("StructuredContent")]
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
+    using System.Net;
+    using System.Net.Http;
+    using System.Web.Http;
+
+    using DotNetNuke.Security;
+    using DotNetNuke.Services.Exceptions;
+    using DotNetNuke.Web.Api;
+    using Newtonsoft.Json;
+    using StructuredContent.DAL;
+
+    // [SupportedModules("StructuredContent")]
     public class RevisionController : DnnApiController
     {
         DataContext dc = new DataContext();
 
         [HttpGet]
         [AllowAnonymous]
-        public HttpResponseMessage Get(Nullable<int> content_type_id = null, Nullable<int> item_id = null, Nullable<bool> verbose = null, Nullable<int> skip = null, Nullable<int> take = null)
+        public HttpResponseMessage Get(int? content_type_id = null, int? item_id = null, bool? verbose = null, int? skip = null, int? take = null)
         {
             try
             {
-                var query = dc.StructuredContent_Revisions.OrderByDescending(i => i.revision_date).AsQueryable();
+                var query = this.dc.StructuredContent_Revisions.OrderByDescending(i => i.revision_date).AsQueryable();
 
                 // content_type_id, item_id
                 if (content_type_id.HasValue && item_id.HasValue)
@@ -48,7 +53,7 @@ namespace StructuredContent
                 if (verbose.GetValueOrDefault() == false)
                 {
                     var list = query.Select(i => new { i.id, i.revision_date, i.activity_type });
-                    return Request.CreateResponse(HttpStatusCode.OK, list);
+                    return this.Request.CreateResponse(HttpStatusCode.OK, list);
                 }
                 else
                 {
@@ -60,13 +65,13 @@ namespace StructuredContent
                         dtos.Add(dto);
                     }
 
-                    return Request.CreateResponse(HttpStatusCode.OK, dtos);
+                    return this.Request.CreateResponse(HttpStatusCode.OK, dtos);
                 }
             }
             catch (Exception ex)
             {
                 Exceptions.LogException(ex);
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
+                return this.Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
             }
         }
 
@@ -76,18 +81,18 @@ namespace StructuredContent
         {
             try
             {
-                StructuredContent_Revision item = dc.StructuredContent_Revisions.Where(i => i.id == id).SingleOrDefault();
+                StructuredContent_Revision item = this.dc.StructuredContent_Revisions.Where(i => i.id == id).SingleOrDefault();
                 if (item == null)
                 {
-                    return Request.CreateResponse(HttpStatusCode.NotFound);
+                    return this.Request.CreateResponse(HttpStatusCode.NotFound);
                 }
 
-                return Request.CreateResponse(HttpStatusCode.OK, item.ToDto());
+                return this.Request.CreateResponse(HttpStatusCode.OK, item.ToDto());
             }
             catch (Exception ex)
             {
                 Exceptions.LogException(ex);
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
+                return this.Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
             }
         }
 
@@ -100,16 +105,16 @@ namespace StructuredContent
             {
                 StructuredContent_Revision item = dto.ToItem(null);
 
-                dc.StructuredContent_Revisions.InsertOnSubmit(item);
+                this.dc.StructuredContent_Revisions.InsertOnSubmit(item);
 
-                dc.SubmitChanges();
+                this.dc.SubmitChanges();
 
-                return Request.CreateResponse(HttpStatusCode.OK, item.ToDto());
+                return this.Request.CreateResponse(HttpStatusCode.OK, item.ToDto());
             }
             catch (Exception ex)
             {
                 Exceptions.LogException(ex);
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
+                return this.Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
             }
         }
 
@@ -120,21 +125,21 @@ namespace StructuredContent
         {
             try
             {
-                StructuredContent_Revision item = dc.StructuredContent_Revisions.Where(i => i.id == dto.id).SingleOrDefault();
+                StructuredContent_Revision item = this.dc.StructuredContent_Revisions.Where(i => i.id == dto.id).SingleOrDefault();
                 if (item == null)
                 {
-                    return Request.CreateResponse(HttpStatusCode.NotFound);
+                    return this.Request.CreateResponse(HttpStatusCode.NotFound);
                 }
 
                 item = dto.ToItem(item);
-                dc.SubmitChanges();
+                this.dc.SubmitChanges();
 
-                return Request.CreateResponse(HttpStatusCode.OK, item.ToDto());
+                return this.Request.CreateResponse(HttpStatusCode.OK, item.ToDto());
             }
             catch (Exception ex)
             {
                 Exceptions.LogException(ex);
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
+                return this.Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
             }
         }
 
@@ -145,21 +150,21 @@ namespace StructuredContent
         {
             try
             {
-                StructuredContent_Revision item = dc.StructuredContent_Revisions.Where(i => i.id == id).SingleOrDefault();
+                StructuredContent_Revision item = this.dc.StructuredContent_Revisions.Where(i => i.id == id).SingleOrDefault();
                 if (item == null)
                 {
-                    return Request.CreateResponse(HttpStatusCode.NotFound);
+                    return this.Request.CreateResponse(HttpStatusCode.NotFound);
                 }
 
-                dc.StructuredContent_Revisions.DeleteOnSubmit(item);
-                dc.SubmitChanges();
+                this.dc.StructuredContent_Revisions.DeleteOnSubmit(item);
+                this.dc.SubmitChanges();
 
-                return Request.CreateResponse(HttpStatusCode.OK);
+                return this.Request.CreateResponse(HttpStatusCode.OK);
             }
             catch (Exception ex)
             {
                 Exceptions.LogException(ex);
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
+                return this.Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
             }
         }
     }
