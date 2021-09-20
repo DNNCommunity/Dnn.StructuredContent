@@ -14,18 +14,13 @@
     </div>
 
     <div ng-if="contentField.options.control_type=='radiobuttons'">
-        <div class="form-floating mb-3">
-            <select name="label_set" id="label_set" class="form-select" ng-model="contentField.options.label_set">
-                <option value="true_false">True/False</option>
-                <option value="yes_no">Yes/No</option>
-                <option value="open_closed">Open/Closed</option>
-                <option value="active_inactive">Active/Inactive</option>
-                <option value="other">Other</option>
-            </select>
-            <label class="form-label" for="label_set">Choice Labels</label>
+
+        <div class="form-check form-switch mb-3">
+            <input type="checkbox" class="form-check-input" id="custom_labels" ng-model="contentField.options.custom_labels">
+            <label class="form-check-label" for="custom_labels">Custom labels</label>
         </div>
 
-        <div class="row" ng-if="contentField.options.label_set=='other'">
+        <div class="row" ng-if="contentField.options.custom_labels==true">
             <div class="col">
                 <div class="form-floating">
                     <input type="text" class="form-control" id="label_true" ng-model="contentField.options.label_true" placeholder=" ">

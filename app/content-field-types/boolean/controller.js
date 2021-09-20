@@ -1,13 +1,5 @@
 ﻿app.controller('contentFieldTypeBooleanController', ['$scope', function ($scope) {
 
-    $scope.label_sets =
-    {
-        "true_false": ["True", "False"],
-        "yes_no": ["Yes", "No"],
-        "open_closed": ["Open", "Close"],
-        "active_inactive": ["Active", "Inactive"]
-    }
-
     $scope.true_label;
     $scope.false_label;
 
@@ -22,23 +14,19 @@
     }
 
     $scope.true_label = function () {
-        if ($scope.contentField.options.label_set) {
-            if ($scope.contentField.options.label_set !== "other") {
-                return $scope.label_sets[$scope.contentField.options.label_set][0];
-            }
-            else {
-                return $scope.contentField.options.label_true;
-            }
+        if ($scope.contentField.options.custom_labels === true) {
+            return $scope.contentField.options.label_true;
+        }
+        else {
+            return "True";
         }
     };
     $scope.false_label = function () {
-        if ($scope.contentField.options.label_set) {
-            if ($scope.contentField.options.label_set !== "other") {
-                return $scope.label_sets[$scope.contentField.options.label_set][1];
-            }
-            else {
-                return $scope.contentField.options.label_false;
-            }
+        if ($scope.contentField.options.custom_labels === true) {
+            return $scope.contentField.options.label_false;
+        }
+        else {
+            return "False";
         }
     };
 
