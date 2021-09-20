@@ -24,12 +24,12 @@ namespace StructuredContent
     public class ContentItemController : DnnApiController
     {
         private DataContext dataContext;
-        private SQLHelper sqlHelper;
+        private ISQLHelper sqlHelper;
 
-        public ContentItemController()
+        public ContentItemController(ISQLHelper sqlHelper)
         {
             this.dataContext = new DataContext();
-            this.sqlHelper = new SQLHelper();
+            this.sqlHelper = sqlHelper;
         }
 
         [HttpGet]

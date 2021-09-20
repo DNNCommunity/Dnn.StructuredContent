@@ -44,8 +44,7 @@
     <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>
-    </DocumentationFile>
+    <DocumentationFile>bin\Debug\Dnn.StructuredContent.xml</DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
@@ -57,6 +56,7 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\Release\Dnn.StructuredContent.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -80,6 +80,7 @@
     <Compile Include="Controllers\RevisionController.cs" />
     <Compile Include="Controllers\RelationshipController.cs" />
     <Compile Include="Controllers\ContentFieldTypeController.cs" />
+    <Compile Include="DAL\ISQLHelper.cs" />
     <Compile Include="DAL\Relationship.cs" />
     <Compile Include="DAL\ContentField.cs" />
     <Compile Include="DTOs\Visualizer.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="DTOs\Relationship.cs" />
     <Compile Include="Enums\DataType.cs" />
     <Compile Include="Enums\ContentItemStatus.cs" />
+    <Compile Include="Startup.cs" />
     <Compile Include="Visualizer.ascx.cs">
       <DependentUpon>Visualizer.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -243,9 +245,7 @@
     <Content Include="manifest.dnn" />
     <Content Include="DBScripts\00.01.00.SqlDataProvider" />
     <Content Include="readme.md" />
-    <AdditionalFiles Include="stylecop.json">
-      <Link>stylecop.json</Link>
-    </AdditionalFiles>
+    <AdditionalFiles Include="stylecop.json" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

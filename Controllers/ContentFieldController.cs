@@ -18,11 +18,18 @@ namespace StructuredContent
     using DotNetNuke.Web.Api;
     using StructuredContent.DAL;
 
-    // [SupportedModules("StructuredContent")]
+    /// <summary>
+    /// Manages Content Fields.
+    /// </summary>
     public class ContentFieldController : DnnApiController
     {
-        SQLHelper sqlHelper = new SQLHelper();
+        private ISQLHelper sqlHelper;
         DataContext dc = new DataContext();
+
+        public ContentFieldController(ISQLHelper sqlHelper)
+        {
+            this.sqlHelper = sqlHelper;
+        }
 
         [HttpGet]
         [AllowAnonymous]

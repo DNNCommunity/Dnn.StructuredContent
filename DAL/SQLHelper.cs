@@ -2,7 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information
 
-namespace StructuredContent
+namespace StructuredContent.DAL
 {
     using System;
     using System.Collections;
@@ -13,16 +13,17 @@ namespace StructuredContent
     using System.Linq;
     using System.Text;
 
-    using DotNetNuke.Web.Api;
-    using StructuredContent.DAL;
-
+    /// <summary>
+    /// A suite of SQL helper methods to access the data.
+    /// </summary>
     // TODO:  Need to add SQL inject security
-    public class SQLHelper
+    internal class SQLHelper : ISQLHelper
     {
         private const string TablePrefix = "StructuredContent_ContentType_";
 
         private string connectionString = ConfigurationManager.ConnectionStrings["SiteSqlServer"].ToString();
 
+        /// <inheritdoc/>
         public void ExecuteNonQuery(string query)
         {
             try
@@ -43,6 +44,7 @@ namespace StructuredContent
             }
         }
 
+        /// <inheritdoc/>
         public object ExecuteScalar(string query)
         {
             try
@@ -64,6 +66,7 @@ namespace StructuredContent
             }
         }
 
+        /// <inheritdoc/>
         public void CreateContentTable(StructuredContent_ContentType content_type)
         {
             try
@@ -91,6 +94,7 @@ namespace StructuredContent
             }
         }
 
+        /// <inheritdoc/>
         public void DeleteContentTable(StructuredContent_ContentType content_type)
         {
             try
@@ -109,6 +113,7 @@ namespace StructuredContent
             }
         }
 
+        /// <inheritdoc/>
         public void AddColumn(StructuredContent_ContentField content_field)
         {
             try
@@ -148,6 +153,7 @@ namespace StructuredContent
             }
         }
 
+        /// <inheritdoc/>
         public void DeleteColumn(StructuredContent_ContentField content_field)
         {
             try
@@ -179,6 +185,7 @@ namespace StructuredContent
             }
         }
 
+        /// <inheritdoc/>
         public void CreateOneToManyRelationship(StructuredContent_ContentType one_content_type, StructuredContent_ContentType many_content_type)
         {
             try
@@ -203,6 +210,7 @@ namespace StructuredContent
             }
         }
 
+        /// <inheritdoc/>
         public void DeleteOneToManyRelationship(StructuredContent_ContentType one_content_type, StructuredContent_ContentType many_content_type)
         {
             try
@@ -222,6 +230,7 @@ namespace StructuredContent
             }
         }
 
+        /// <inheritdoc/>
         public void CreateManyToManyRelationship(StructuredContent_ContentType a_content_type, StructuredContent_ContentType b_content_type)
         {
             try
@@ -273,6 +282,7 @@ namespace StructuredContent
             }
         }
 
+        /// <inheritdoc/>
         public void DeleteManyToManyRelationship(StructuredContent_ContentType a_content_type, StructuredContent_ContentType b_content_type)
         {
             try
@@ -310,6 +320,7 @@ namespace StructuredContent
             }
         }
 
+        /// <inheritdoc/>
         public IEnumerable<IDictionary<string, object>> SelectDynamicList(StructuredContent_ContentType content_type, string where_clause)
         {
             var table_name = TablePrefix + content_type.table_name;
@@ -348,6 +359,7 @@ namespace StructuredContent
             }
         }
 
+        /// <inheritdoc/>
         public IDictionary<string, object> SelectDynamicItem(StructuredContent_ContentType content_type, int id)
         {
             try
@@ -402,6 +414,7 @@ namespace StructuredContent
             }
         }
 
+        /// <inheritdoc/>
         public int InsertContentItem(StructuredContent_ContentType content_type, dynamic content_item)
         {
             try
@@ -499,6 +512,7 @@ namespace StructuredContent
             }
         }
 
+        /// <inheritdoc/>
         public void UpdateContentItem(StructuredContent_ContentType content_type, dynamic content_item)
         {
             try
@@ -575,6 +589,7 @@ namespace StructuredContent
             }
         }
 
+        /// <inheritdoc/>
         public void DeleteContentItem(StructuredContent_ContentType content_type, int id)
         {
             try
@@ -593,6 +608,7 @@ namespace StructuredContent
             }
         }
 
+        /// <inheritdoc/>
         public void DeleteManyToManyRelationship(StructuredContent_Relationship relationship, StructuredContent_ContentType primary_content_type, int primary_content_item_id)
         {
             string table_name = relationship.table_name;
@@ -605,6 +621,7 @@ namespace StructuredContent
             this.ExecuteNonQuery(sbDelete.ToString());
         }
 
+        /// <inheritdoc/>
         public void SaveManyToManyRelationship(StructuredContent_Relationship relationship, StructuredContent_ContentType primary_content_type, StructuredContent_ContentType related_content_type, int primary_content_item_id, int related_content_item_id)
         {
             string table_name = relationship.table_name;
@@ -619,6 +636,7 @@ namespace StructuredContent
             this.ExecuteNonQuery(sbInsert.ToString());
         }
 
+        /// <inheritdoc/>
         public void DeleteOneToManyRelationship(StructuredContent_ContentType primary_content_type, StructuredContent_ContentType related_content_type, int primary_content_item_id)
         {
             string related_content_table_name = TablePrefix + related_content_type.table_name;
@@ -632,6 +650,7 @@ namespace StructuredContent
             this.ExecuteNonQuery(sbMany.ToString());
         }
 
+        /// <inheritdoc/>
         public void SaveOneToManyRelationship(StructuredContent_ContentType primary_content_type, StructuredContent_ContentType related_content_type, int primary_content_item_id, int related_content_item_id)
         {
             string related_content_table_name = TablePrefix + related_content_type.table_name;
@@ -645,7 +664,7 @@ namespace StructuredContent
             this.ExecuteNonQuery(sbMany.ToString());
         }
 
-        // this returns all the related objects for a given object
+        /// <inheritdoc/>
         public IEnumerable<IDictionary<string, object>> GetRelatedItems(StructuredContent_Relationship relationship, StructuredContent_ContentType content_type, int id)
         {
             string source_table_name = string.Empty;

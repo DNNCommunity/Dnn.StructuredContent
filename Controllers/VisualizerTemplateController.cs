@@ -22,7 +22,12 @@ namespace StructuredContent
     public class VisualizerTemplateController : DnnApiController
     {
         DataContext dc = new DataContext();
-        SQLHelper sqlHelper = new SQLHelper();
+        private ISQLHelper sqlHelper;
+
+        public VisualizerTemplateController(ISQLHelper sqlHelper)
+        {
+            this.sqlHelper = sqlHelper;
+        }
 
         [HttpGet]
         [AllowAnonymous]

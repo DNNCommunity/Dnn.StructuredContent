@@ -20,8 +20,13 @@ namespace StructuredContent
     // [SupportedModules("StructuredContent")]
     public class relationshipController : DnnApiController
     {
-        SQLHelper sqlHelper = new SQLHelper();
+        private ISQLHelper sqlHelper;
         DataContext dc = new DataContext();
+
+        public relationshipController(ISQLHelper sqlHelper)
+        {
+            this.sqlHelper = sqlHelper;
+        }
 
         [HttpGet]
         [AllowAnonymous]

@@ -10,6 +10,7 @@ namespace StructuredContent.DAL
 
     public class RouteMapper : IServiceRouteMapper
     {
+        /// <inheritdoc/>
         public void RegisterRoutes(IMapRoute mapRouteManager)
         {
             // Content Type

@@ -17,12 +17,15 @@ namespace StructuredContent
     using DotNetNuke.Web.Api;
     using StructuredContent.DAL;
 
-    // [SupportedModules("StructuredContent")]
     public class ContentTypeController : DnnApiController
     {
-        // private string connectionString = ConfigurationManager.ConnectionStrings["SiteSqlServer"].ToString();
-        SQLHelper sqlHelper = new SQLHelper();
+        private ISQLHelper sqlHelper;
         DataContext dc = new DataContext();
+
+        public ContentTypeController(ISQLHelper sqlHelper)
+        {
+            this.sqlHelper = sqlHelper;
+        }
 
         [HttpGet]
         [AllowAnonymous]
