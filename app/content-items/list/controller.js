@@ -6,7 +6,7 @@
     };
 
     $scope.content_items = [];
-    $scope.content_type = {
+    $scope.contentType = {
         id: content_type_id
     };
 
@@ -14,9 +14,9 @@
         $scope.loading = true;
         var deferred = $q.defer();
 
-        contentTypeService.get($scope.content_type.id).then(
+        contentTypeService.get($scope.contentType.id).then(
             function (response) {
-                $scope.content_type = response.data;
+                $scope.contentType= response.data;
 
                 getContentItems();
                 $scope.loading = false;
@@ -39,7 +39,7 @@
             backdrop: 'static',
             resolve: {
                 id: function () {
-                    return $scope.content_type.id;
+                    return $scope.contentType.id;
                 }
             }
         });
@@ -56,7 +56,7 @@
     getContentItems = function () {
         var deferred = $q.defer();
         $scope.loading = true;
-        contentItemService.search($scope.content_type.url_slug).then(
+        contentItemService.search($scope.contentType.name).then(
             function (response) {
                 $scope.content_items = response.data;
                 $scope.loading = false;
@@ -81,11 +81,8 @@
                 id: function () {
                     return null;
                 },
-                content_type_id: function () {
-                    return $scope.content_type.id;
-                },
-                content_url_slug: function () {
-                    return $scope.content_type.url_slug;
+                contentType: function () {
+                    return $scope.contentType;
                 }
             }
         });
@@ -110,11 +107,8 @@
                 id: function () {
                     return id;
                 },
-                content_type_id: function () {
-                    return $scope.content_type.id;
-                },
-                content_url_slug: function () {
-                    return $scope.content_type.url_slug;
+                contentType: function () {
+                    return $scope.contentType;
                 }
             }
         });
@@ -139,8 +133,8 @@
                 contentItem: function () {
                     return contentItem;
                 },
-                content_type_url_slug: function () {
-                    return $scope.content_type.url_slug;
+                contentType: function () {
+                    return $scope.contentType;
                 }
             }
         });
@@ -171,7 +165,7 @@
             backdrop: 'static',
             resolve: {
                 content_type: function () {
-                    return $scope.content_type;
+                    return $scope.contentType;
                 },
                 content_item: function () {
                     return item;

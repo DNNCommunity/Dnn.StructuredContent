@@ -66,7 +66,7 @@
 
             $scope.contentField.options = angular.toJson($scope.contentField.options);
 
-            contentFieldService.save($scope.contentType.url_slug, $scope.contentField).then(
+            contentFieldService.save($scope.contentType.name, $scope.contentField).then(
                 function (response) {
                     $scope.contentField.id = response.data.id;
                     $scope.submitted = false;
@@ -136,7 +136,7 @@
                 $scope.nameChanged();
                 $scope.contentField.data_type = $scope.content_field_type.default_data_type;
                 $scope.contentField.data_length = $scope.content_field_type.default_data_length;
-                $scope.contentField.content_field_type = $scope.content_field_type;                
+                $scope.contentField.content_field_type = $scope.content_field_type;
                 $scope.contentField.options = angular.copy($scope.content_field_type.default_options);
                 $scope.contentField.allow_null = true;
             }

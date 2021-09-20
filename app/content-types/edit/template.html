@@ -37,12 +37,12 @@
         <div class="tab-pane fade show active" id="fields">
 
             <p class="lead">Drag and drop fields onto the canvas to build your content type.</p>
-
+            
             <div ng-show="contentType.id">
                 <div class="row">
                     <div class="col-auto ">
 
-                        <ul class="content-field-types ">
+                        <ul class="content-field-types">
                             <li ng-repeat="content_field_type in content_field_types"
                                 dnd-draggable="content_field_type"
                                 dnd-effect-allowed="copy"
@@ -110,8 +110,8 @@
                                                                 <div content-field-type-url form="formPreview" content-field="column.data" submitted="validate" ng-if="column.data.content_field_type.key=='url'" />
                                                                 <div content-field-type-date-time form="formPreview" content-field="column.data" submitted="validate" ng-if="column.data.content_field_type.key=='datetime'" />
                                                                 <div content-field-type-static form="formPreview" content-field="column.data" submitted="validate" ng-if="column.data.content_field_type.key=='static'" />
-                                                                <div content-field-type-boolean form="formPreview" content-field="column.data" submitted="validate" ng-if="column.data.content_field_type.key=='boolean'" />                                                                
-                                                                <div content-field-type-choice form="formPreview" content-field="column.data" submitted="validate" ng-if="column.data.content_field_type.key=='choice'" />                                                                
+                                                                <div content-field-type-boolean form="formPreview" content-field="column.data" submitted="validate" ng-if="column.data.content_field_type.key=='boolean'" />
+                                                                <div content-field-type-choice form="formPreview" content-field="column.data" submitted="validate" ng-if="column.data.content_field_type.key=='choice'" />
 
                                                                 <div content-field-type-related-content-single form="formPreview" relationship="column.data" submitted="validate" ng-if="column.data.key=='o2m' && column.data.b_content_type_id==contentType.id"></div>
                                                                 <div content-field-type-related-content-multiple-list form="formPreview" relationship="column.data" submitted="validate" ng-if="column.data.key=='m2m' || (column.data.key=='o2m' && column.data.a_content_type_id==contentType.id)"></div>

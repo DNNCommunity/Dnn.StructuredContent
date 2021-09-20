@@ -114,7 +114,7 @@
     };
 
     prepItemFromLoad = function () {
-        
+
         // for each relationship, determine the primary and related content types
         $scope.relationships.forEach(function (relationship) {
 
@@ -125,7 +125,7 @@
 
                 if ($scope.contentType.id === relationship.a_content_type_id) {
                     relationship.primary_content_type = relationship.a_content_type;
-                    relationship.related_content_type = relationship.b_content_type;                    
+                    relationship.related_content_type = relationship.b_content_type;
                     relationship.min_limit = relationship.b_min_limit;
                     relationship.max_limit = relationship.b_max_limit;
                     relationship.help_text = relationship.b_help_text;
@@ -135,7 +135,7 @@
             if (relationship.key === 'm2m') {
                 if ($scope.contentType.id === relationship.a_content_type_id) {
                     relationship.primary_content_type = relationship.a_content_type;
-                    relationship.related_content_type = relationship.b_content_type;                    
+                    relationship.related_content_type = relationship.b_content_type;
                     relationship.min_limit = relationship.b_min_limit;
                     relationship.max_limit = relationship.b_max_limit;
                     relationship.help_text = relationship.b_help_text;
@@ -180,7 +180,7 @@
         var deferred = $q.defer();
         $scope.loading = true;
 
-        contentFieldService.search($scope.contentType.url_slug, true).then(
+        contentFieldService.search($scope.contentType.name, true).then(
             function (response) {
                 $scope.contentFields = response.data;
 
@@ -230,8 +230,8 @@
                 contentField: function () {
                     return contentField;
                 },
-                content_type_url_slug: function () {
-                    return $scope.contentType.url_slug;
+                contentType: function () {
+                    return $scope.contentType;
                 }
             }
         });
@@ -353,7 +353,7 @@
 
             item.options = angular.toJson(item.options);
 
-            contentFieldService.save($scope.contentType.url_slug, item).then(
+            contentFieldService.save($scope.contentType.name, item).then(
                 function (response) {
                     item = response.data;
                     deferred.resolve();
@@ -506,7 +506,6 @@
 
                 modalInstanceContentField.result.then(
                     function (content_field) {
-                        console.log('1', content_field);
                         toastr.success("The Content Field '" + content_field.name + "' was created.", "Success");
 
                         newColumn.data = content_field;
@@ -738,7 +737,7 @@
         });
 
         // insert the relationships 
-        $scope.relationships.forEach(function (item) {            
+        $scope.relationships.forEach(function (item) {
             item._type = 'relationship';
 
             if ($scope.contentType.id === item.a_content_type_id) {

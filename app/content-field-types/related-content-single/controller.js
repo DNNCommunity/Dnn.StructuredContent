@@ -21,21 +21,21 @@
             function (response) {
                 $scope.relatedContentType = response.data;
 
-                contentItemService.search($scope.relatedContentType.url_slug).then(
+                contentItemService.search($scope.relatedContentType.name).then(
                     function (response) {
                         $scope.relatedContentItems = response.data;
                         deferred.resolve();
                     },
                     function (response) {
                         console.log('getContentItems failed', response);
-                        toastr.error("Error", "There was a problem loading the Content Items");
+                        toastr.error("There was a problem loading the Content Items", "Error");
                         deferred.reject;
                     }
                 );
             },
             function (response) {
                 console.log('getContentType failed', response);
-                toastr.error("Error", "There was a problem loading the Content Type");
+                toastr.error("There was a problem loading the Content Type", "Error");
                 deferred.reject;
             }
         );

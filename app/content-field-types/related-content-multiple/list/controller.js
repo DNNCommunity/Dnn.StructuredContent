@@ -39,7 +39,7 @@
             controller: 'contentFieldTypeRelatedContentMultipleAddController',
             size: 'md dnn-structured-content',
             resolve: {
-                content_type: $scope.relationship.related_content_type
+                contentType: $scope.relationship.related_content_type
             }
         });
 
@@ -62,7 +62,7 @@
             size: 'lg dnn-structured-content',
             resolve: {
                 item: item,
-                content_type: $scope.relationship.related_content_type
+                contentType: $scope.relationship.related_content_type
             }
         });
 

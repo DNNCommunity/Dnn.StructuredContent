@@ -1,4 +1,4 @@
-﻿app.controller('contentItemEditController', ['$scope', '$q', '$uibModalInstance', 'toastr', 'contentTypeService', 'contentItemService', 'contentFieldService', 'relationshipService', 'id', 'content_type_id', 'content_url_slug', function ($scope, $q, $uibModalInstance, toastr, contentTypeService, contentItemService, contentFieldService, relationshipService, id, content_type_id, content_url_slug) {
+﻿app.controller('contentItemEditController', ['$scope', '$q', '$uibModalInstance', 'toastr', 'contentTypeService', 'contentItemService', 'contentFieldService', 'relationshipService', 'id', 'contentType', function ($scope, $q, $uibModalInstance, toastr, contentTypeService, contentItemService, contentFieldService, relationshipService, id, contentType) {
 
     $scope.loading = true;
     $scope.submitted = false;
@@ -7,12 +7,10 @@
         $uibModalInstance.dismiss('cancel');
     };
 
-    $scope.contentType = {
-        id: content_type_id
-    };
+    $scope.contentType = contentType;
     $scope.contentItem = {
         id: id,
-        content_type_id: content_type_id,
+        content_type_id: contentType.id,
         status: "Draft"
     };
     $scope.contentFields = [];
@@ -50,7 +48,7 @@
     getContentFields = function () {
         var deferred = $q.defer();
         $scope.loading = true;
-        contentFieldService.search(content_url_slug, true).then(
+        contentFieldService.search(contentType.name, true).then(
             function (response) {
                 $scope.contentFields = response.data;
                 $scope.loading = false;
@@ -95,7 +93,7 @@
 
             prepItemForSave();
 
-            contentItemService.save(content_url_slug, $scope.contentItem).then(
+            contentItemService.save($scope.contentType.name, $scope.contentItem).then(
                 function (response) {
                     $scope.contentItem.id = response.data;
                     deferred.resolve();
@@ -133,7 +131,7 @@
 
             prepItemForSave();
 
-            contentItemService.save(content_url_slug, $scope.contentItem).then(
+            contentItemService.save($scope.contentType.url_slug, $scope.contentItem).then(
                 function (response) {
                     $scope.contentItem.id = response.data; // in the case of an insert - need the id
                     deferred.resolve();
@@ -205,7 +203,7 @@
     getContentItem = function () {
         var deferred = $q.defer();
         $scope.loading = true;
-        contentItemService.get(content_url_slug, $scope.contentItem.id).then(
+        contentItemService.get($scope.contentType.name, $scope.contentItem.id).then(
             function (response) {
                 $scope.contentItem = response.data;
                 $scope.loading = false;

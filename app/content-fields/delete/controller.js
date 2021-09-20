@@ -1,4 +1,4 @@
-﻿app.controller('contentFieldDeleteController', ['$scope', '$uibModalInstance', 'toastr', 'contentFieldService', 'contentField', 'content_type_url_slug', function ($scope, $uibModalInstance, toastr, contentFieldService, contentField, content_type_url_slug) {
+﻿app.controller('contentFieldDeleteController', ['$scope', '$uibModalInstance', 'toastr', 'contentFieldService', 'contentField', 'contentType', function ($scope, $uibModalInstance, toastr, contentFieldService, contentField, contentType) {
 
     $scope.close = function () {
         $uibModalInstance.dismiss('cancel');
@@ -8,7 +8,7 @@
 
     $scope.delete = function () {
 
-        contentFieldService.remove(content_type_url_slug, $scope.contentField.id).then(
+        contentFieldService.remove(contentType.name, $scope.contentField.id).then(
             function (response) {
                 $uibModalInstance.close($scope.contentField.name);
             },
