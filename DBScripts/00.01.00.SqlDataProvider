@@ -24,8 +24,8 @@ CREATE TABLE {databaseOwner}[{objectQualifier}StructuredContent_ContentField](
  CONSTRAINT [PK_{objectQualifier}StructuredContent_ContentField] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
-)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) 
+) 
 END
 GO
 /****** Object:  Table {databaseOwner}[{objectQualifier}StructuredContent_ContentFieldType]    Script Date: 9/18/2021 5:35:29 PM ******/
@@ -48,8 +48,8 @@ CREATE TABLE {databaseOwner}[{objectQualifier}StructuredContent_ContentFieldType
  CONSTRAINT [PK_{objectQualifier}StructuredContent_ContentFieldType] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
-)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) 
+) 
 END
 GO
 /****** Object:  Table {databaseOwner}[{objectQualifier}StructuredContent_ContentType]    Script Date: 9/18/2021 5:35:29 PM ******/
@@ -70,8 +70,8 @@ CREATE TABLE {databaseOwner}[{objectQualifier}StructuredContent_ContentType](
  CONSTRAINT [PK_{objectQualifier}StructuredContent_ContentType] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
-)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) 
+) 
 END
 GO
 /****** Object:  Table {databaseOwner}[{objectQualifier}StructuredContent_Relationship]    Script Date: 9/18/2021 5:35:29 PM ******/
@@ -101,8 +101,8 @@ CREATE TABLE {databaseOwner}[{objectQualifier}StructuredContent_Relationship](
  CONSTRAINT [PK_{objectQualifier}StructuredContent_Relationship] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
-)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) 
+) 
 END
 GO
 /****** Object:  Table {databaseOwner}[{objectQualifier}StructuredContent_Revision]    Script Date: 9/18/2021 5:35:29 PM ******/
@@ -124,8 +124,8 @@ CREATE TABLE {databaseOwner}[{objectQualifier}StructuredContent_Revision](
  CONSTRAINT [PK_{objectQualifier}StructuredContent_Revision] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
-)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) 
+) 
 END
 GO
 /****** Object:  Table {databaseOwner}[{objectQualifier}StructuredContent_Visualizer]    Script Date: 9/18/2021 5:35:29 PM ******/
@@ -145,8 +145,8 @@ CREATE TABLE {databaseOwner}[{objectQualifier}StructuredContent_Visualizer](
  CONSTRAINT [PK_{objectQualifier}StructuredContent_Visualizer] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
-)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) 
+) 
 END
 GO
 /****** Object:  Table {databaseOwner}[{objectQualifier}StructuredContent_VisualizerTemplate]    Script Date: 9/18/2021 5:35:29 PM ******/
@@ -169,8 +169,8 @@ CREATE TABLE {databaseOwner}[{objectQualifier}StructuredContent_VisualizerTempla
  CONSTRAINT [PK_{objectQualifier}StructuredContent_VisualizerTemplate] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
-)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) 
+) 
 END
 GO
 SET IDENTITY_INSERT {databaseOwner}[{objectQualifier}StructuredContent_ContentFieldType] ON 
