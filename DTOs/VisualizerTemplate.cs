@@ -1,15 +1,27 @@
-﻿namespace StructuredContent.DAL
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for more information
+
+namespace StructuredContent.DAL
 {
     public class VisualizerTemplateDTO
     {
         public int id { get; set; }
+
         public int content_type_id { get; set; }
+
         public string name { get; set; }
+
         public string description { get; set; }
+
         public string script { get; set; }
+
         public string css { get; set; }
+
         public string template { get; set; }
+
         public string language { get; set; }
+
         public string content_size { get; set; }
     }
 
@@ -27,7 +39,7 @@
                 css = item.css,
                 template = item.template,
                 language = item.language,
-                content_size = item.content_size
+                content_size = item.content_size,
             };
 
             return dto;

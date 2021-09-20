@@ -1,40 +1,51 @@
-﻿using DotNetNuke.Security;
-using DotNetNuke.Services.Exceptions;
-using DotNetNuke.Web.Api;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Dynamic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using StructuredContent.DAL;
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for more information
 
 namespace StructuredContent
 {
-    //[SupportedModules("StructuredContent")]
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Dynamic;
+    using System.Linq;
+    using System.Net;
+    using System.Net.Http;
+    using System.Web.Http;
+
+    using DotNetNuke.Security;
+    using DotNetNuke.Services.Exceptions;
+    using DotNetNuke.Web.Api;
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
+    using StructuredContent.DAL;
+
+    // [SupportedModules("StructuredContent")]
     public class ContentItemController : DnnApiController
     {
-        protected DataContext dc = new DataContext();
-        SQLHelper sqlHelper = new SQLHelper();
+        private DataContext dataContext;
+        private SQLHelper sqlHelper;
+
+        public ContentItemController()
+        {
+            this.dataContext = new DataContext();
+            this.sqlHelper = new SQLHelper();
+        }
 
         [HttpGet]
         [AllowAnonymous]
-        public HttpResponseMessage Get(string contentType, string name = "", Nullable<bool> verbose = null, Nullable<int> skip = null, Nullable<int> take = null)
+        public HttpResponseMessage Get(string contentType, string name = "", bool? verbose = null, int? skip = null, int? take = null)
         {
             try
             {
-                StructuredContent_ContentType content_type = dc.StructuredContent_ContentTypes.Where(i => i.name.ToLower() == contentType.ToLower()).SingleOrDefault();
+                StructuredContent_ContentType content_type = this.dataContext.StructuredContent_ContentTypes.Where(i => i.url_slug.ToLower() == contentType.ToLower()).SingleOrDefault();
 
                 if (content_type == null)
                 {
-                    return Request.CreateResponse(HttpStatusCode.NotFound);
+                    return this.Request.CreateResponse(HttpStatusCode.NotFound);
                 }
 
-                IEnumerable<dynamic> query = sqlHelper.SelectDynamicList(content_type, string.Empty);
+                IEnumerable<dynamic> query = this.sqlHelper.SelectDynamicList(content_type, string.Empty);
 
                 var list = query.ToList();
 
@@ -56,12 +67,12 @@ namespace StructuredContent
                     list = list.Take(take.GetValueOrDefault()).ToList();
                 }
 
-                return Request.CreateResponse(HttpStatusCode.OK, list);
+                return this.Request.CreateResponse(HttpStatusCode.OK, list);
             }
             catch (Exception ex)
             {
                 Exceptions.LogException(ex);
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
+                return this.Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
             }
         }
 
@@ -71,18 +82,18 @@ namespace StructuredContent
         {
             try
             {
-                StructuredContent_ContentType content_type = dc.StructuredContent_ContentTypes.Where(i => i.name.ToLower() == contentType.ToLower()).SingleOrDefault();
+                StructuredContent_ContentType content_type = this.dataContext.StructuredContent_ContentTypes.Where(i => i.name == contentType).SingleOrDefault();
 
                 if (content_type == null)
                 {
-                    return Request.CreateResponse(HttpStatusCode.NotFound);
+                    return this.Request.CreateResponse(HttpStatusCode.NotFound);
                 }
 
-                IDictionary<string, object> item = sqlHelper.SelectDynamicItem(content_type, id);
+                IDictionary<string, object> item = this.sqlHelper.SelectDynamicItem(content_type, id);
 
                 if (item == null)
                 {
-                    return Request.CreateResponse(HttpStatusCode.NotFound);
+                    return this.Request.CreateResponse(HttpStatusCode.NotFound);
                 }
 
                 // this will add related object collections to the requested content item
@@ -90,7 +101,7 @@ namespace StructuredContent
                 var relationships = content_type.StructuredContent_Relationships;
                 foreach (var relationship in relationships)
                 {
-                    IEnumerable<IDictionary<string, object>> items = sqlHelper.GetRelatedItems(relationship, content_type, id);
+                    IEnumerable<IDictionary<string, object>> items = this.sqlHelper.GetRelatedItems(relationship, content_type, id);
 
                     if (relationship.key == "o2m" && relationship.a_content_type_id == content_type.id)
                     {
@@ -111,7 +122,7 @@ namespace StructuredContent
                 var relationships1 = content_type.StructuredContent_Relationships1;
                 foreach (var relationship1 in relationships1)
                 {
-                    IEnumerable<IDictionary<string, object>> items = sqlHelper.GetRelatedItems(relationship1, content_type, id);
+                    IEnumerable<IDictionary<string, object>> items = this.sqlHelper.GetRelatedItems(relationship1, content_type, id);
 
                     if (relationship1.key == "o2m" && relationship1.a_content_type_id == content_type.id)
                     {
@@ -129,12 +140,12 @@ namespace StructuredContent
                     }
                 }
 
-                return Request.CreateResponse(HttpStatusCode.OK, item);
+                return this.Request.CreateResponse(HttpStatusCode.OK, item);
             }
             catch (Exception ex)
             {
                 Exceptions.LogException(ex);
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
+                return this.Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
             }
         }
 
@@ -146,23 +157,23 @@ namespace StructuredContent
         {
             try
             {
-                StructuredContent_ContentType content_type = dc.StructuredContent_ContentTypes.Where(i => i.name == contentType).SingleOrDefault();
+                StructuredContent_ContentType content_type = this.dataContext.StructuredContent_ContentTypes.Where(i => i.name == contentType).SingleOrDefault();
 
                 if (content_type == null)
                 {
-                    return Request.CreateResponse(HttpStatusCode.NotFound);
+                    return this.Request.CreateResponse(HttpStatusCode.NotFound);
                 }
 
                 dynamic content_item = JsonConvert.DeserializeObject<dynamic>(item_data.ToString());
 
-                int id = sqlHelper.InsertContentItem(content_type, content_item);
+                int id = this.sqlHelper.InsertContentItem(content_type, content_item);
 
-                return Request.CreateResponse(HttpStatusCode.OK, id); // send back the inserted record id
+                return this.Request.CreateResponse(HttpStatusCode.OK, id); // send back the inserted record id
             }
             catch (Exception ex)
             {
                 Exceptions.LogException(ex);
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
+                return this.Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
             }
         }
 
@@ -174,25 +185,25 @@ namespace StructuredContent
         {
             try
             {
-                StructuredContent_ContentType primary_content_type = dc.StructuredContent_ContentTypes.Where(i => i.name == contentType).SingleOrDefault();
+                StructuredContent_ContentType primary_content_type = this.dataContext.StructuredContent_ContentTypes.Where(i => i.name == contentType).SingleOrDefault();
 
                 if (primary_content_type == null)
                 {
-                    return Request.CreateResponse(HttpStatusCode.NotFound);
+                    return this.Request.CreateResponse(HttpStatusCode.NotFound);
                 }
 
                 dynamic primary_content_item = JsonConvert.DeserializeObject<dynamic>(item_data.ToString());
-                IDictionary<String, Object> old_content_item = sqlHelper.SelectDynamicItem(primary_content_type, (int)primary_content_item.id);
+                IDictionary<string, object> old_content_item = this.sqlHelper.SelectDynamicItem(primary_content_type, (int)primary_content_item.id);
 
                 // record delta
-                Nullable<int> user_id = DotNetNuke.Entities.Users.UserController.Instance.GetCurrentUserInfo().UserID;
+                int? user_id = DotNetNuke.Entities.Users.UserController.Instance.GetCurrentUserInfo().UserID;
                 var revision = new StructuredContent_Revision
                 {
                     revision_date = DateTime.Now,
                     user_id = user_id,
                     activity_type = "UPDATE",
                     content_type_id = primary_content_type.id,
-                    item_id = primary_content_item.id
+                    item_id = primary_content_item.id,
                 };
                 var delta = new ExpandoObject() as IDictionary<string, object>;
                 bool record_changed = false;
@@ -203,22 +214,23 @@ namespace StructuredContent
                         if (
                             (old_content_item[content_field.column_name] is DBNull && primary_content_item[content_field.column_name] != null)
                             ||
-                            (primary_content_item[content_field.column_name] != old_content_item[content_field.column_name])
-                            )
+                            (primary_content_item[content_field.column_name] != old_content_item[content_field.column_name]))
                         {
                             record_changed = true;
                             delta[content_field.column_name] = primary_content_item[content_field.column_name];
                         }
                     }
                 }
+
                 if (record_changed)
                 {
-                    dc.StructuredContent_Revisions.InsertOnSubmit(revision);
+                    this.dataContext.StructuredContent_Revisions.InsertOnSubmit(revision);
                 }
+
                 revision.delta = JsonConvert.SerializeObject(delta);
                 revision.data = JsonConvert.SerializeObject(old_content_item);
 
-                sqlHelper.UpdateContentItem(primary_content_type, primary_content_item);
+                this.sqlHelper.UpdateContentItem(primary_content_type, primary_content_item);
 
                 // iterate over the relationships for the content item and update the relationships
                 foreach (StructuredContent_Relationship relationship in primary_content_type.StructuredContent_Relationships)
@@ -226,14 +238,15 @@ namespace StructuredContent
                     if (relationship.key == "m2m")
                     {
                         // delete any existing cross references for the primary_content_type
-                        sqlHelper.DeleteManyToManyRelationship(relationship, primary_content_type, (int)primary_content_item.id);
+                        this.sqlHelper.DeleteManyToManyRelationship(relationship, primary_content_type, (int)primary_content_item.id);
 
-                        // add back any related_content_type records present in the data model                        
+                        // add back any related_content_type records present in the data model
                         StructuredContent_ContentType related_content_type = null;
                         if (relationship.a_content_type_id == primary_content_type.id)
                         {
                             related_content_type = relationship.StructuredContent_ContentType;
                         }
+
                         if (relationship.a_content_type_id == primary_content_type.id)
                         {
                             related_content_type = relationship.StructuredContent_ContentType1;
@@ -244,7 +257,7 @@ namespace StructuredContent
                         {
                             foreach (var related_content_item in primary_content_item[related_content_type_name])
                             {
-                                sqlHelper.SaveManyToManyRelationship(relationship, primary_content_type, related_content_type, (int)primary_content_item.id, (int)related_content_item.id);
+                                this.sqlHelper.SaveManyToManyRelationship(relationship, primary_content_type, related_content_type, (int)primary_content_item.id, (int)related_content_item.id);
                             }
                         }
                     }
@@ -254,26 +267,26 @@ namespace StructuredContent
                         StructuredContent_ContentType related_content_type = relationship.StructuredContent_ContentType1;
 
                         // clear foreign keys
-                        sqlHelper.DeleteOneToManyRelationship(primary_content_type, related_content_type, (int)primary_content_item.id);
+                        this.sqlHelper.DeleteOneToManyRelationship(primary_content_type, related_content_type, (int)primary_content_item.id);
 
                         // set foreign keys
                         string related_content_type_name = related_content_type.plural.ToLower();
                         foreach (var related_content_item in primary_content_item[related_content_type_name])
                         {
-                            sqlHelper.SaveOneToManyRelationship(primary_content_type, related_content_type, (int)primary_content_item.id, (int)related_content_item.id);
+                            this.sqlHelper.SaveOneToManyRelationship(primary_content_type, related_content_type, (int)primary_content_item.id, (int)related_content_item.id);
                         }
                     }
                 }
 
-                dc.SubmitChanges();
+                this.dataContext.SubmitChanges();
                 int id = primary_content_item.id;
 
-                return Request.CreateResponse(HttpStatusCode.OK, id); // send back the updated record id
+                return this.Request.CreateResponse(HttpStatusCode.OK, id); // send back the updated record id
             }
             catch (Exception ex)
             {
                 Exceptions.LogException(ex);
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
+                return this.Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
             }
         }
 
@@ -284,22 +297,21 @@ namespace StructuredContent
         {
             try
             {
-
-                StructuredContent_ContentType content_type = dc.StructuredContent_ContentTypes.Where(i => i.name == contentType).SingleOrDefault();
+                StructuredContent_ContentType content_type = this.dataContext.StructuredContent_ContentTypes.Where(i => i.name == contentType).SingleOrDefault();
 
                 if (content_type == null)
                 {
-                    return Request.CreateResponse(HttpStatusCode.NotFound);
+                    return this.Request.CreateResponse(HttpStatusCode.NotFound);
                 }
 
-                sqlHelper.DeleteContentItem(content_type, id);
+                this.sqlHelper.DeleteContentItem(content_type, id);
 
-                return Request.CreateResponse(HttpStatusCode.OK);
+                return this.Request.CreateResponse(HttpStatusCode.OK);
             }
             catch (Exception ex)
             {
                 Exceptions.LogException(ex);
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
+                return this.Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
             }
         }
     }

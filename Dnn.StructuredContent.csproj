@@ -216,6 +216,7 @@
     <Content Include="scripts\ContentLibrary.js" />
     <Content Include=".github\workflows\build.yml" />
     <Content Include=".github\mergeable.yml" />
+    <None Include=".editorconfig" />
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
@@ -242,6 +243,9 @@
     <Content Include="manifest.dnn" />
     <Content Include="DBScripts\00.01.00.SqlDataProvider" />
     <Content Include="readme.md" />
+    <AdditionalFiles Include="stylecop.json">
+      <Link>stylecop.json</Link>
+    </AdditionalFiles>
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -304,6 +308,11 @@
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>11.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="StyleCop.Analyzers">
+      <Version>1.1.118</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
   <PropertyGroup>

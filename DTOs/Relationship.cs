@@ -1,36 +1,50 @@
-﻿using System;
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for more information
 
 namespace StructuredContent.DAL
 {
+    using System;
+
     public class RelationshipDTO
     {
         public int id { get; set; }
+
         public string key { get; set; }
 
         public int a_content_type_id { get; set; }
+
         public int b_content_type_id { get; set; }
 
-        public Nullable<bool> a_required { get; set; }
-        public Nullable<int> a_min_limit { get; set; }
-        public Nullable<int> a_max_limit { get; set; }
+        public bool? a_required { get; set; }
+
+        public int? a_min_limit { get; set; }
+
+        public int? a_max_limit { get; set; }
+
         public string a_help_text { get; set; }
 
-        public Nullable<bool> b_required { get; set; }
-        public Nullable<int> b_min_limit { get; set; }
-        public Nullable<int> b_max_limit { get; set; }
+        public bool? b_required { get; set; }
+
+        public int? b_min_limit { get; set; }
+
+        public int? b_max_limit { get; set; }
+
         public string b_help_text { get; set; }
 
-        public Nullable<int> a_layout_row { get; set; }
-        public Nullable<int> a_layout_column { get; set; }
+        public int? a_layout_row { get; set; }
 
-        public Nullable<int> b_layout_row { get; set; }
-        public Nullable<int> b_layout_column { get; set; }
+        public int? a_layout_column { get; set; }
+
+        public int? b_layout_row { get; set; }
+
+        public int? b_layout_column { get; set; }
 
         public string relationship_name
         {
             get
             {
-                switch (key)
+                switch (this.key)
                 {
                     case "o2m":
                         return "One To Many";
@@ -48,6 +62,7 @@ namespace StructuredContent.DAL
         }
 
         public ContentTypeDTO a_content_type { get; set; }
+
         public ContentTypeDTO b_content_type { get; set; }
     }
 

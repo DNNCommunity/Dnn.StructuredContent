@@ -1,22 +1,25 @@
-﻿// TODO:  Need to add SQL inject security
-
-using DotNetNuke.Web.Api;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using StructuredContent.DAL;
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for more information
 
 namespace StructuredContent
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Configuration;
+    using System.Data;
+    using System.Data.SqlClient;
+    using System.Linq;
+    using System.Text;
 
+    using DotNetNuke.Web.Api;
+    using StructuredContent.DAL;
+
+    // TODO:  Need to add SQL inject security
     public class SQLHelper
     {
-        private const string table_prefix = "StructuredContent_ContentType_";
+        private const string TablePrefix = "StructuredContent_ContentType_";
 
         private string connectionString = ConfigurationManager.ConnectionStrings["SiteSqlServer"].ToString();
 
@@ -24,7 +27,7 @@ namespace StructuredContent
         {
             try
             {
-                using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+                using (SqlConnection sqlConnection = new SqlConnection(this.connectionString))
                 {
                     sqlConnection.Open();
 
@@ -39,11 +42,12 @@ namespace StructuredContent
                 throw ex;
             }
         }
+
         public object ExecuteScalar(string query)
         {
             try
             {
-                using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+                using (SqlConnection sqlConnection = new SqlConnection(this.connectionString))
                 {
                     sqlConnection.Open();
 
@@ -64,7 +68,7 @@ namespace StructuredContent
         {
             try
             {
-                string table_name = table_prefix + content_type.table_name;
+                string table_name = TablePrefix + content_type.table_name;
 
                 // TSQL for CREATE TABLE
                 StringBuilder sb = new StringBuilder();
@@ -79,7 +83,7 @@ namespace StructuredContent
                 sb.Append("CONSTRAINT [PK_" + table_name + "] PRIMARY KEY CLUSTERED ([id] ASC)");
                 sb.Append(")");
 
-                ExecuteNonQuery(sb.ToString());
+                this.ExecuteNonQuery(sb.ToString());
             }
             catch (Exception ex)
             {
@@ -91,13 +95,13 @@ namespace StructuredContent
         {
             try
             {
-                string table_name = table_prefix + content_type.table_name;
+                string table_name = TablePrefix + content_type.table_name;
 
                 // TSQL for DELETE TABLE
                 StringBuilder sb = new StringBuilder();
                 sb.Append("DROP TABLE [dbo].[" + table_name + "] ");
 
-                ExecuteNonQuery(sb.ToString());
+                this.ExecuteNonQuery(sb.ToString());
             }
             catch (Exception ex)
             {
@@ -105,22 +109,21 @@ namespace StructuredContent
             }
         }
 
-
         public void AddColumn(StructuredContent_ContentField content_field)
         {
             try
             {
-                string table_name = table_prefix + content_field.StructuredContent_ContentType.table_name;
+                string table_name = TablePrefix + content_field.StructuredContent_ContentType.table_name;
                 string column_name = content_field.column_name;
                 string data_type = content_field.data_type_name;
                 string data_length = content_field.data_length;
                 bool allow_null = content_field.allow_null;
                 string default_value = content_field.default_value;
 
-                // TSQL for ADD COLUMN 
+                // TSQL for ADD COLUMN
                 StringBuilder sbAddColumn = new StringBuilder();
                 sbAddColumn.Append("ALTER TABLE [dbo].[" + table_name + "]");
-                sbAddColumn.Append(" ADD [" + column_name + "] [" + data_type.ToLower() + "]" + (!string.IsNullOrEmpty(data_length) ? "(" + data_length + ")" : "") + (allow_null ? "" : " NOT") + " NULL");
+                sbAddColumn.Append(" ADD [" + column_name + "] [" + data_type.ToLower() + "]" + (!string.IsNullOrEmpty(data_length) ? "(" + data_length + ")" : string.Empty) + (allow_null ? string.Empty : " NOT") + " NULL");
 
                 if (!string.IsNullOrEmpty(default_value))
                 {
@@ -137,7 +140,7 @@ namespace StructuredContent
                     }
                 }
 
-                ExecuteNonQuery(sbAddColumn.ToString());
+                this.ExecuteNonQuery(sbAddColumn.ToString());
             }
             catch (Exception ex)
             {
@@ -149,9 +152,8 @@ namespace StructuredContent
         {
             try
             {
-                string table_name = table_prefix + content_field.StructuredContent_ContentType.table_name;
+                string table_name = TablePrefix + content_field.StructuredContent_ContentType.table_name;
                 string column_name = content_field.column_name;
-
 
                 // DROP default_value constraints?
                 if (!string.IsNullOrEmpty(content_field.default_value))
@@ -161,22 +163,21 @@ namespace StructuredContent
                     sbDropConstraint.Append("ALTER TABLE [dbo].[" + table_name + "]");
                     sbDropConstraint.Append(" DROP CONSTRAINT [" + constraint_name + "]");
 
-                    ExecuteNonQuery(sbDropConstraint.ToString());
+                    this.ExecuteNonQuery(sbDropConstraint.ToString());
                 }
 
-                // TSQL for DROP COLUMN 
+                // TSQL for DROP COLUMN
                 StringBuilder sbDropColumn = new StringBuilder();
                 sbDropColumn.Append("ALTER TABLE [dbo].[" + table_name + "] ");
                 sbDropColumn.Append("DROP COLUMN [" + column_name + "]");
 
-                ExecuteNonQuery(sbDropColumn.ToString());
+                this.ExecuteNonQuery(sbDropColumn.ToString());
             }
             catch (Exception ex)
             {
                 throw ex;
             }
         }
-
 
         public void CreateOneToManyRelationship(StructuredContent_ContentType one_content_type, StructuredContent_ContentType many_content_type)
         {
@@ -187,14 +188,14 @@ namespace StructuredContent
 
                 // set up relationship
                 StringBuilder sb = new StringBuilder();
-                sb.Append("ALTER TABLE [dbo].[" + table_prefix + many_content_type.table_name + "]");
-                sb.Append(" ADD CONSTRAINT [FK_" + table_prefix + one_content_type.table_name + "_" + table_prefix + many_content_type.table_name + "]");
+                sb.Append("ALTER TABLE [dbo].[" + TablePrefix + many_content_type.table_name + "]");
+                sb.Append(" ADD CONSTRAINT [FK_" + TablePrefix + one_content_type.table_name + "_" + TablePrefix + many_content_type.table_name + "]");
                 sb.Append(" FOREIGN KEY (" + one_content_type.singular + "_id" + ")");
-                sb.Append(" REFERENCES [dbo].[" + table_prefix + one_content_type.table_name + "] (id)");
+                sb.Append(" REFERENCES [dbo].[" + TablePrefix + one_content_type.table_name + "] (id)");
                 sb.Append(" ON UPDATE NO ACTION");
                 sb.Append(" ON DELETE NO ACTION");
 
-                ExecuteNonQuery(sb.ToString());
+                this.ExecuteNonQuery(sb.ToString());
             }
             catch (Exception ex)
             {
@@ -210,10 +211,10 @@ namespace StructuredContent
 
                 // drop relationship
                 StringBuilder sbOneToMany = new StringBuilder();
-                sbOneToMany.Append("ALTER TABLE [dbo].[" + table_prefix + many_content_type.table_name + "]");
-                sbOneToMany.Append(" DROP CONSTRAINT [FK_" + table_prefix + one_content_type.table_name + "_" + table_prefix + many_content_type.table_name + "]");
+                sbOneToMany.Append("ALTER TABLE [dbo].[" + TablePrefix + many_content_type.table_name + "]");
+                sbOneToMany.Append(" DROP CONSTRAINT [FK_" + TablePrefix + one_content_type.table_name + "_" + TablePrefix + many_content_type.table_name + "]");
 
-                ExecuteNonQuery(sbOneToMany.ToString());
+                this.ExecuteNonQuery(sbOneToMany.ToString());
             }
             catch (Exception ex)
             {
@@ -226,14 +227,12 @@ namespace StructuredContent
             try
             {
                 // create the junction table
-
-                string a_table_name = table_prefix + a_content_type.table_name;
-                string b_table_name = table_prefix + b_content_type.table_name;
+                string a_table_name = TablePrefix + a_content_type.table_name;
+                string b_table_name = TablePrefix + b_content_type.table_name;
                 string junction_table_name = a_table_name + "X" + b_table_name;
 
                 string a_foreign_key_column_name = a_content_type.singular.ToLower() + "_id";
                 string b_foreign_key_column_name = b_content_type.singular.ToLower() + "_id";
-
 
                 // TSQL for CREATE TABLE
                 StringBuilder sbCreateJunctionTable = new StringBuilder();
@@ -245,7 +244,7 @@ namespace StructuredContent
                 sbCreateJunctionTable.Append("CONSTRAINT [PK_" + junction_table_name + "] PRIMARY KEY CLUSTERED ([id] ASC)");
                 sbCreateJunctionTable.Append(")");
 
-                ExecuteNonQuery(sbCreateJunctionTable.ToString());
+                this.ExecuteNonQuery(sbCreateJunctionTable.ToString());
 
                 // TSQL to set up relationships
                 StringBuilder sbARelationship = new StringBuilder();
@@ -256,7 +255,7 @@ namespace StructuredContent
                 sbARelationship.Append(" ON UPDATE CASCADE");
                 sbARelationship.Append(" ON DELETE CASCADE");
 
-                ExecuteNonQuery(sbARelationship.ToString());
+                this.ExecuteNonQuery(sbARelationship.ToString());
 
                 StringBuilder sbBRelationship = new StringBuilder();
                 sbBRelationship.Append("ALTER TABLE [dbo].[" + junction_table_name + "]");
@@ -266,7 +265,7 @@ namespace StructuredContent
                 sbBRelationship.Append(" ON UPDATE CASCADE");
                 sbBRelationship.Append(" ON DELETE CASCADE");
 
-                ExecuteNonQuery(sbBRelationship.ToString());
+                this.ExecuteNonQuery(sbBRelationship.ToString());
             }
             catch (Exception ex)
             {
@@ -279,9 +278,8 @@ namespace StructuredContent
             try
             {
                 // delete the junction table
-
-                string a_table_name = table_prefix + a_content_type.table_name;
-                string b_table_name = table_prefix + b_content_type.table_name;
+                string a_table_name = TablePrefix + a_content_type.table_name;
+                string b_table_name = TablePrefix + b_content_type.table_name;
                 string junction_table_name = a_table_name + "X" + b_table_name;
 
                 string a_foreign_key_column_name = a_content_type.singular.ToLower() + "_id";
@@ -292,19 +290,19 @@ namespace StructuredContent
                 sbARelationship.Append("ALTER TABLE [dbo].[" + junction_table_name + "]");
                 sbARelationship.Append(" DROP CONSTRAINT [FK_" + junction_table_name + "_" + a_table_name + "]");
 
-                ExecuteNonQuery(sbARelationship.ToString());
+                this.ExecuteNonQuery(sbARelationship.ToString());
 
                 StringBuilder sbBRelationship = new StringBuilder();
                 sbBRelationship.Append("ALTER TABLE [dbo].[" + junction_table_name + "]");
                 sbBRelationship.Append(" DROP CONSTRAINT [FK_" + junction_table_name + "_" + b_table_name + "]");
 
-                ExecuteNonQuery(sbBRelationship.ToString());
+                this.ExecuteNonQuery(sbBRelationship.ToString());
 
                 // TSQL for CREATE TABLE
                 StringBuilder sbCreateJunctionTable = new StringBuilder();
                 sbCreateJunctionTable.Append("DROP TABLE [dbo].[" + junction_table_name + "] ");
 
-                ExecuteNonQuery(sbCreateJunctionTable.ToString());
+                this.ExecuteNonQuery(sbCreateJunctionTable.ToString());
             }
             catch (Exception ex)
             {
@@ -312,10 +310,9 @@ namespace StructuredContent
             }
         }
 
-
         public IEnumerable<IDictionary<string, object>> SelectDynamicList(StructuredContent_ContentType content_type, string where_clause)
         {
-            var table_name = table_prefix + content_type.table_name;
+            var table_name = TablePrefix + content_type.table_name;
 
             // TSQL to get item
             StringBuilder sb = new StringBuilder();
@@ -327,7 +324,7 @@ namespace StructuredContent
                 sb.Append("WHERE " + where_clause);
             }
 
-            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            using (SqlConnection sqlConnection = new SqlConnection(this.connectionString))
             {
                 sqlConnection.Open();
 
@@ -340,7 +337,9 @@ namespace StructuredContent
                         {
                             var item = new Dictionary<string, object>();
                             foreach (var name in names)
+                            {
                                 item.Add(name, record[name]);
+                            }
 
                             yield return item;
                         }
@@ -356,8 +355,7 @@ namespace StructuredContent
                 // related content types
                 List<StructuredContent_ContentType> related_content_types = new List<StructuredContent_ContentType>();
 
-
-                var table_name = table_prefix + content_type.table_name;
+                var table_name = TablePrefix + content_type.table_name;
 
                 // TSQL to get item
                 StringBuilder sb = new StringBuilder();
@@ -365,7 +363,7 @@ namespace StructuredContent
                 sb.Append(" FROM [" + table_name + "]");
                 sb.Append(" WHERE [id]=" + id.ToString());
 
-                using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+                using (SqlConnection sqlConnection = new SqlConnection(this.connectionString))
                 {
                     sqlConnection.Open();
 
@@ -384,7 +382,9 @@ namespace StructuredContent
 
                                 var item = new Dictionary<string, object>();
                                 foreach (var name in names)
+                                {
                                     item.Add(name, dataRow[name]);
+                                }
 
                                 return item;
                             }
@@ -402,15 +402,13 @@ namespace StructuredContent
             }
         }
 
-
         public int InsertContentItem(StructuredContent_ContentType content_type, dynamic content_item)
         {
             try
             {
-                string table_name = table_prefix + content_type.table_name;
+                string table_name = TablePrefix + content_type.table_name;
 
                 // TSQL FOR INSERT
-
                 StringBuilder sbInsert = new StringBuilder();
                 sbInsert.Append("INSERT INTO [dbo].[" + table_name + "]");
                 sbInsert.Append(" ([name], [status], [date_created], [date_modified], [date_published]");
@@ -441,7 +439,6 @@ namespace StructuredContent
                 {
                     sbInsert.Append(", null");
                 }
-
 
                 foreach (StructuredContent_ContentField content_field in content_type.StructuredContent_ContentFields)
                 {
@@ -486,14 +483,13 @@ namespace StructuredContent
 
                 sbInsert.Append(")");
 
-                ExecuteNonQuery(sbInsert.ToString());
-
+                this.ExecuteNonQuery(sbInsert.ToString());
 
                 StringBuilder sbID = new StringBuilder();
                 sbID.Append("SELECT MAX([id])");
                 sbID.Append(" FROM [" + table_name + "]");
 
-                int id = (int)ExecuteScalar(sbID.ToString());
+                int id = (int)this.ExecuteScalar(sbID.ToString());
 
                 return id;
             }
@@ -507,7 +503,7 @@ namespace StructuredContent
         {
             try
             {
-                string table_name = table_prefix + content_type.table_name;
+                string table_name = TablePrefix + content_type.table_name;
 
                 // T-SQL TO UPDATE CONTENT ITEM
                 StringBuilder sbUpdateContentItem = new StringBuilder();
@@ -536,7 +532,7 @@ namespace StructuredContent
                         sbUpdateContentItem.Append("=");
 
                         var field_value = content_item[content_field.column_name];
-                        
+
                         if (field_value == default(dynamic))
                         {
                             sbUpdateContentItem.Append("null");
@@ -566,15 +562,12 @@ namespace StructuredContent
                                     sbUpdateContentItem.Append(field_value);
                                     break;
                             }
-
                         }
                     }
                 }
+
                 sbUpdateContentItem.Append(" WHERE [id]=" + content_item.id.ToString());
-                ExecuteNonQuery(sbUpdateContentItem.ToString());
-
-
-
+                this.ExecuteNonQuery(sbUpdateContentItem.ToString());
             }
             catch (Exception ex)
             {
@@ -586,21 +579,19 @@ namespace StructuredContent
         {
             try
             {
-                string table_name = table_prefix + content_type.table_name;
+                string table_name = TablePrefix + content_type.table_name;
 
                 // TSQL FOR DELETE
-
                 StringBuilder sb = new StringBuilder();
                 sb.Append("DELETE FROM [dbo].[" + table_name + "]");
                 sb.Append(" WHERE [id]=" + id.ToString());
-                ExecuteNonQuery(sb.ToString());
+                this.ExecuteNonQuery(sb.ToString());
             }
             catch (Exception ex)
             {
                 throw ex;
             }
         }
-
 
         public void DeleteManyToManyRelationship(StructuredContent_Relationship relationship, StructuredContent_ContentType primary_content_type, int primary_content_item_id)
         {
@@ -611,7 +602,7 @@ namespace StructuredContent
             StringBuilder sbDelete = new StringBuilder();
             sbDelete.Append("DELETE FROM [" + table_name + "]");
             sbDelete.Append(" WHERE [" + primary_foreign_key_column_name + "] = " + primary_content_item_id.ToString());
-            ExecuteNonQuery(sbDelete.ToString());
+            this.ExecuteNonQuery(sbDelete.ToString());
         }
 
         public void SaveManyToManyRelationship(StructuredContent_Relationship relationship, StructuredContent_ContentType primary_content_type, StructuredContent_ContentType related_content_type, int primary_content_item_id, int related_content_item_id)
@@ -625,33 +616,33 @@ namespace StructuredContent
             sbInsert.Append("INSERT INTO [" + table_name + "]");
             sbInsert.Append(" (" + primary_foreign_key_column_name + ", " + related_foreign_key_column_name + ") ");
             sbInsert.Append(" VALUES (" + primary_content_item_id.ToString() + ", " + related_content_item_id.ToString() + ")");
-            ExecuteNonQuery(sbInsert.ToString());
+            this.ExecuteNonQuery(sbInsert.ToString());
         }
 
         public void DeleteOneToManyRelationship(StructuredContent_ContentType primary_content_type, StructuredContent_ContentType related_content_type, int primary_content_item_id)
         {
-            string related_content_table_name = table_prefix + related_content_type.table_name;
+            string related_content_table_name = TablePrefix + related_content_type.table_name;
             string foreign_key_column_name = primary_content_type.singular.ToLower() + "_id";
 
-            // delete all the related cross reference table records            
+            // delete all the related cross reference table records
             StringBuilder sbMany = new StringBuilder();
             sbMany.Append("UPDATE [" + related_content_table_name + "]");
             sbMany.Append(" SET [" + foreign_key_column_name + "] = NULL");
             sbMany.Append(" WHERE [" + foreign_key_column_name + "] = " + primary_content_item_id.ToString());
-            ExecuteNonQuery(sbMany.ToString());
+            this.ExecuteNonQuery(sbMany.ToString());
         }
 
         public void SaveOneToManyRelationship(StructuredContent_ContentType primary_content_type, StructuredContent_ContentType related_content_type, int primary_content_item_id, int related_content_item_id)
         {
-            string related_content_table_name = table_prefix + related_content_type.table_name;
+            string related_content_table_name = TablePrefix + related_content_type.table_name;
             string foreign_key_column_name = primary_content_type.singular.ToLower() + "_id";
 
-            // delete all the related cross reference table records            
+            // delete all the related cross reference table records
             StringBuilder sbMany = new StringBuilder();
             sbMany.Append("UPDATE [" + related_content_table_name + "]");
             sbMany.Append(" SET [" + foreign_key_column_name + "] = " + primary_content_item_id.ToString());
             sbMany.Append(" WHERE [id] = " + related_content_item_id.ToString());
-            ExecuteNonQuery(sbMany.ToString());
+            this.ExecuteNonQuery(sbMany.ToString());
         }
 
         // this returns all the related objects for a given object
@@ -662,12 +653,11 @@ namespace StructuredContent
             string a_foreign_key_column_name = relationship.StructuredContent_ContentType.singular.ToLower() + "_id";
             string b_foreign_key_column_name = relationship.StructuredContent_ContentType1.singular.ToLower() + "_id";
 
-            string a_table_name = table_prefix + relationship.StructuredContent_ContentType.table_name;
-            string b_table_name = table_prefix + relationship.StructuredContent_ContentType1.table_name;
+            string a_table_name = TablePrefix + relationship.StructuredContent_ContentType.table_name;
+            string b_table_name = TablePrefix + relationship.StructuredContent_ContentType1.table_name;
             string junction_table_name = a_table_name + "X" + b_table_name;
 
             StringBuilder sbWhere = new StringBuilder();
-
 
             if (relationship.key == "o2m" && relationship.a_content_type_id == content_type.id)
             {
@@ -677,7 +667,7 @@ namespace StructuredContent
 
             if (relationship.key == "m2m" && relationship.a_content_type_id == content_type.id)
             {
-                source_table_name = table_prefix + relationship.StructuredContent_ContentType1.table_name;
+                source_table_name = TablePrefix + relationship.StructuredContent_ContentType1.table_name;
                 sbWhere.Append("[id] IN");
                 sbWhere.Append(" (");
                 sbWhere.Append(" SELECT [" + b_foreign_key_column_name + "]");
@@ -688,7 +678,7 @@ namespace StructuredContent
 
             if (relationship.key == "m2m" && relationship.b_content_type_id == content_type.id)
             {
-                source_table_name = table_prefix + relationship.StructuredContent_ContentType.table_name;
+                source_table_name = TablePrefix + relationship.StructuredContent_ContentType.table_name;
                 sbWhere.Append("[id] IN");
                 sbWhere.Append(" (");
                 sbWhere.Append(" SELECT [" + a_foreign_key_column_name + "]");
@@ -696,7 +686,6 @@ namespace StructuredContent
                 sbWhere.Append(" WHERE [" + b_foreign_key_column_name + "] = " + id.ToString());
                 sbWhere.Append(" )");
             }
-
 
             // TSQL to get item
             StringBuilder sb = new StringBuilder();
@@ -707,7 +696,7 @@ namespace StructuredContent
                 sb.Append(" WHERE " + sbWhere.ToString());
             }
 
-            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            using (SqlConnection sqlConnection = new SqlConnection(this.connectionString))
             {
                 sqlConnection.Open();
 
@@ -720,15 +709,15 @@ namespace StructuredContent
                         {
                             var item = new Dictionary<string, object>();
                             foreach (var name in names)
+                            {
                                 item.Add(name, record[name]);
+                            }
 
                             yield return item;
                         }
                     }
                 }
             }
-
         }
     }
 }
-
