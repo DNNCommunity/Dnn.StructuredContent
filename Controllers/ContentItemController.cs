@@ -38,7 +38,7 @@ namespace StructuredContent
         {
             try
             {
-                StructuredContent_ContentType content_type = this.dataContext.StructuredContent_ContentTypes.Where(i => i.name == contentType).SingleOrDefault();
+                StructuredContent_ContentType content_type = this.dataContext.StructuredContent_ContentTypes.Where(i => i.url_slug.ToLower() == contentType.ToLower()).SingleOrDefault();
 
                 if (content_type == null)
                 {
