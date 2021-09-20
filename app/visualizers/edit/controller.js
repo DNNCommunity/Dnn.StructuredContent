@@ -8,9 +8,9 @@
 
     $scope.contentTypes = [];
     $scope.contentType = null;
-    $scope.content_type_id = null;
-    $scope.visualizer_templates = [];
-    $scope.visualizer_template = null;
+    $scope.ContentTypeId = null;
+    $scope.visualizerTemplates = [];
+    $scope.visualizerTemplate = null;
     $scope.visualizer = visualizer;
 
     $scope.getContentTypes = function () {
@@ -24,7 +24,7 @@
             },
             function (response) {
                 console.log('getContentTypes failed', response);
-                toastr.error("Error", "There was a problem loading Content Types");
+                toastr.error("There was a problem loading Content Types", "Error");
                 $scope.loading = false;
                 deferred.reject();
             }
@@ -34,7 +34,7 @@
     $scope.getContentType = function () {
         var deferred = $q.defer();
         $scope.loading = true;
-        contentTypeService.get($scope.visualizer.content_type_id).then(
+        contentTypeService.get($scope.visualizer.contentTypeId).then(
             function (response) {
                 $scope.contentType = response.data;
 
@@ -45,7 +45,7 @@
             },
             function (response) {
                 console.log('getContentType failed', response);
-                toastr.error("Error", "There was a problem loading Content Type");
+                toastr.error("There was a problem loading Content Type", "Error");
                 $scope.loading = false;
                 deferred.reject();
             }
@@ -56,12 +56,12 @@
     $scope.getVisualizerTemplates = function () {
         var deferred = $q.defer();
         $scope.loading = true;
-        visualizerTemplateService.search('', $scope.visualizer.content_type_id).then(
+        visualizerTemplateService.search('', $scope.visualizer.contentTypeId).then(
             function (response) {
-                $scope.visualizer_templates = response.data;
+                $scope.visualizerTemplates = response.data;
 
-                if ($scope.visualizer.visualizer_template_id) {
-                    $scope.selectVisualizerTemplate($scope.visualizer.visualizer_template_id);
+                if ($scope.visualizer.visualizerTemplateId) {
+                    $scope.selectVisualizerTemplate($scope.visualizer.visualizerTemplateId);
                 }
 
                 $scope.loading = false;
@@ -69,7 +69,7 @@
             },
             function (response) {
                 console.log('getVisualizerTemplates failed', response);
-                toastr.error("Error", "There was a problem loading the visualzier Temaplates");
+                toastr.error("There was a problem loading the visualzier Temaplates", "Error");
                 $scope.loading = false;
                 deferred.reject();
             }
@@ -88,7 +88,7 @@
             },
             function (response) {
                 console.log('getContentItems failed', response);
-                toastr.error("Error", "There was a problem loading Content Items");
+                toastr.error("There was a problem loading Content Items", "Error");
                 $scope.loading = false;
                 deferred.reject();
             }
@@ -96,25 +96,25 @@
         return deferred.promise;
     };
 
-    $scope.content_type_changed = function () {
-        $scope.visualizer_template = null;
-        $scope.visualizer.visualizer_template_id = null;
-        $scope.visualizer_templates = null;
+    $scope.contentTypeChanged = function () {
+        $scope.visualizerTemplate = null;
+        $scope.visualizer.visualizerTemplateId = null;
+        $scope.visualizerTemplates = null;
 
-        if ($scope.visualizer.content_type_id) {
+        if ($scope.visualizer.contentTypeId) {
             $scope.getContentType();
             $scope.getVisualizerTemplates();
         }
     };
 
     $scope.selectVisualizerTemplate = function (id) {
-        $scope.visualizer.visualizer_template_id = id;
+        $scope.visualizer.VisualizerTemplateId = id;
 
-        $scope.visualizer_templates.forEach(function (visualizer_template) {
-            if (visualizer_template.id === id) {
-                $scope.visualizer_template = visualizer_template;
-                if (visualizer_template.content_size === 'multiple') {
-                    $scope.visualizer.item_id = null;
+        $scope.visualizerTemplates.forEach(function (visualizerTemplate) {
+            if (visualizerTemplate.id === id) {
+                $scope.visualizerTemplate = visualizerTemplate;
+                if (visualizerTemplate.contentSize === 'multiple') {
+                    $scope.visualizer.itemId = null;
                 }
             }
         });
@@ -135,7 +135,7 @@
                 },
                 function (response) {
                     console.log('save Visualizer failed', response);
-                    toastr.error("Error", "There was a problem saving the visualizer");
+                    toastr.error("There was a problem saving the visualizer", "Error");
                     $scope.submitted = false;
                 }
             );
@@ -154,7 +154,7 @@
     };
     $scope.init().then(
         function () {
-            if ($scope.visualizer.content_type_id) {
+            if ($scope.visualizer.contentTypeId) {
                 $scope.getContentType();
                 $scope.getVisualizerTemplates();
             }

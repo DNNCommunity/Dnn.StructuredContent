@@ -16,10 +16,10 @@
     // implementation    
 
     // search
-    function search(content_type_id = null) {
+    function search(contentTypeId = null) {
         var request = $http({
             method: "get",
-            url: base_path + '?content_type_id=' + content_type_id
+            url: base_path + '?contentTypeId=' + contentTypeId
         });
         return request;
     }
@@ -73,10 +73,10 @@
     }
 
     // save relationship
-    function save_relationship(item, content_item_id, content_type_id) {        
+    function save_relationship(item, contentItemId, contentTypeId) {        
         var request = $http({
             method: "post",
-            url: base_path + '?content_item_id=' + content_item_id + '&content_type_id=' + content_type_id,
+            url: base_path + '?contentItemId=' + contentItemId + '&contentTypeId=' + contentTypeId,
             data: item
         });
         return request;

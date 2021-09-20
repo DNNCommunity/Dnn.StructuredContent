@@ -12,7 +12,6 @@ namespace StructuredContent
     using System.Net.Http;
     using System.Web.Http;
 
-    using DotNetNuke.Common.Utilities;
     using DotNetNuke.Security;
     using DotNetNuke.Services.Exceptions;
     using DotNetNuke.Web.Api;
@@ -23,8 +22,8 @@ namespace StructuredContent
     /// </summary>
     public class ContentFieldController : DnnApiController
     {
-        private ISQLHelper sqlHelper;
-        DataContext dc = new DataContext();
+        private readonly ISQLHelper sqlHelper;
+        private readonly DataContext dataContext = new DataContext();
 
         public ContentFieldController(ISQLHelper sqlHelper)
         {
@@ -33,11 +32,11 @@ namespace StructuredContent
 
         [HttpGet]
         [AllowAnonymous]
-        public HttpResponseMessage Get(string contentType, bool? verbose = null, int? skip = null, int? take = null)
+        public HttpResponseMessage Get(string contentTypeUrlSlug, bool? verbose = null, int? skip = null, int? take = null)
         {
             try
             {
-                var query = this.dc.StructuredContent_ContentFields.Where(i => i.StructuredContent_ContentType.name.ToLower() == contentType.ToLower()).OrderBy(i => i.ordinal).AsQueryable();
+                var query = this.dataContext.StructuredContent_ContentFields.Where(i => i.StructuredContent_ContentType.UrlSlug.ToLower() == contentTypeUrlSlug.ToLower()).OrderBy(i => i.Ordinal).AsQueryable();
 
                 // skip
                 if (skip.HasValue)
@@ -54,21 +53,13 @@ namespace StructuredContent
                 // verbose
                 if (verbose.GetValueOrDefault() == false)
                 {
-                    var list = query.Select(i => new { i.id, i.name, i.is_system, content_field_type_name = i.StructuredContent_ContentFieldType.name }).ToList();
+                    var list = query.Select(i => new { i.Id, i.Name, i.IsSystem, ContentFieldTypeName = i.StructuredContent_ContentFieldType.Name }).ToList();
                     return this.Request.CreateResponse(HttpStatusCode.OK, list);
                 }
                 else
                 {
-                    var list = query;
-
-                    List<ContentFieldDTO> dtos = new List<ContentFieldDTO>();
-                    foreach (StructuredContent_ContentField item in query)
-                    {
-                        ContentFieldDTO dto = item.ToDto();
-                        dtos.Add(dto);
-                    }
-
-                    return this.Request.CreateResponse(HttpStatusCode.OK, dtos);
+                    var list = query.Select(i => i.ToDto()).ToList();
+                    return this.Request.CreateResponse(HttpStatusCode.OK, list);
                 }
             }
             catch (Exception ex)
@@ -80,18 +71,18 @@ namespace StructuredContent
 
         [HttpGet]
         [AllowAnonymous]
-        public HttpResponseMessage Get(string contentType, int id)
+        public HttpResponseMessage Get(string contentTypeUrlSlug, int id)
         {
             try
             {
-                StructuredContent_ContentField content_field = this.dc.StructuredContent_ContentFields.Where(i => i.StructuredContent_ContentType.name.ToLower() == contentType.ToLower() && i.id == id).SingleOrDefault();
+                var item = this.dataContext.StructuredContent_ContentFields.Where(i => i.StructuredContent_ContentType.UrlSlug.ToLower() == contentTypeUrlSlug.ToLower() && i.Id == id).SingleOrDefault();
 
-                if (content_field == null)
+                if (item == null)
                 {
                     return this.Request.CreateResponse(HttpStatusCode.NotFound);
                 }
 
-                return this.Request.CreateResponse(HttpStatusCode.OK, content_field.ToDto());
+                return this.Request.CreateResponse(HttpStatusCode.OK, item.ToDto());
             }
             catch (Exception ex)
             {
@@ -103,46 +94,46 @@ namespace StructuredContent
         [HttpPost]
         [AllowAnonymous]
         [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]
-        public HttpResponseMessage Post(string contentType, ContentFieldDTO dto)
+        public HttpResponseMessage Post(string contentTypeUrlSlug, ContentFieldDto dto)
         {
             try
             {
-                StructuredContent_ContentField content_field = dto.ToItem(null);
+                var item = dto.ToItem(null);
 
-                content_field.is_system = false;
+                item.IsSystem = false;
 
-                // set the ordinal
-                int count = this.dc.StructuredContent_ContentFields.Where(i => i.StructuredContent_ContentType.name.ToLower() == contentType.ToLower()).Count();
-                content_field.ordinal = count++;
+                // set the Ordinal
+                var count = this.dataContext.StructuredContent_ContentFields.Where(i => i.StructuredContent_ContentType.UrlSlug.ToLower() == contentTypeUrlSlug.ToLower()).Count();
+                item.Ordinal = count++;
 
-                if (dto.options != null)
+                if (dto.Options != null)
                 { // use config settings passed in, if present
-                    content_field.options = dto.options.ToString();
+                    item.Options = dto.Options.ToString();
                 }
 
-                this.dc.StructuredContent_ContentFields.InsertOnSubmit(content_field);
+                this.dataContext.StructuredContent_ContentFields.InsertOnSubmit(item);
 
                 // check for duplicate column name
-                bool duplicate_check = this.dc.StructuredContent_ContentFields.Where(i => i.content_type_id == content_field.content_type_id && (i.name == content_field.name || i.column_name == content_field.column_name)).Any();
+                var duplicate_check = this.dataContext.StructuredContent_ContentFields.Where(i => i.ContentTypeId == item.ContentTypeId && (i.Name == item.Name || i.ColumnName == item.ColumnName)).Any();
                 if (duplicate_check)
                 {
                     return this.Request.CreateResponse(HttpStatusCode.Conflict);
                 }
 
-                StructuredContent_ContentType content_type = this.dc.StructuredContent_ContentTypes.Where(i => i.name == contentType).SingleOrDefault();
+                var contentType = this.dataContext.StructuredContent_ContentTypes.Where(i => i.UrlSlug == contentTypeUrlSlug).SingleOrDefault();
 
-                if (content_type == null)
+                if (contentType == null)
                 {
                     return this.Request.CreateResponse(HttpStatusCode.NotFound);
                 }
 
-                content_field.StructuredContent_ContentType = content_type;
+                item.StructuredContent_ContentType = contentType;
 
-                this.sqlHelper.AddColumn(content_field);
+                this.sqlHelper.AddColumn(item);
 
-                this.dc.SubmitChanges();
+                this.dataContext.SubmitChanges();
 
-                return this.Request.CreateResponse(HttpStatusCode.OK, content_field.ToDto());
+                return this.Request.CreateResponse(HttpStatusCode.OK, item.ToDto());
             }
             catch (Exception ex)
             {
@@ -154,29 +145,29 @@ namespace StructuredContent
         [HttpPut]
         [AllowAnonymous]
         [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]
-        public HttpResponseMessage Put(string contentType, ContentFieldDTO dto)
+        public HttpResponseMessage Put(string contentTypeUrlSlug, ContentFieldDto dto)
         {
             try
             {
-                StructuredContent_ContentField content_field = this.dc.StructuredContent_ContentFields.Where(i => i.StructuredContent_ContentType.name.ToLower() == contentType.ToLower() && i.id == dto.id).SingleOrDefault();
+                var item = this.dataContext.StructuredContent_ContentFields.Where(i => i.StructuredContent_ContentType.UrlSlug.ToLower() == contentTypeUrlSlug.ToLower() && i.Id == dto.Id).SingleOrDefault();
 
-                if (content_field == null)
+                if (item == null)
                 {
                     return this.Request.CreateResponse(HttpStatusCode.NotFound);
                 }
 
-                content_field = dto.ToItem(content_field);
+                item = dto.ToItem(item);
 
                 // check for duplicate column name
-                bool duplicate_check = this.dc.StructuredContent_ContentFields.Where(i => i.id != content_field.id && i.content_type_id == content_field.content_type_id && (i.name == content_field.name || i.column_name == content_field.column_name)).Any();
+                var duplicate_check = this.dataContext.StructuredContent_ContentFields.Where(i => i.Id != item.Id && i.ContentTypeId == item.ContentTypeId && (i.Name == item.Name || i.ColumnName == item.ColumnName)).Any();
                 if (duplicate_check)
                 {
                     return this.Request.CreateResponse(HttpStatusCode.Conflict);
                 }
 
-                this.dc.SubmitChanges();
+                this.dataContext.SubmitChanges();
 
-                return this.Request.CreateResponse(HttpStatusCode.OK, content_field.ToDto()); // send back the updated record
+                return this.Request.CreateResponse(HttpStatusCode.OK, item.ToDto()); // send back the updated record
             }
             catch (Exception ex)
             {
@@ -188,17 +179,17 @@ namespace StructuredContent
         [HttpDelete]
         [AllowAnonymous]
         [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]
-        public HttpResponseMessage Delete(string contentType, int id)
+        public HttpResponseMessage Delete(string contentTypeUrlSlug, int id)
         {
             try
             {
-                StructuredContent_ContentField content_field = this.dc.StructuredContent_ContentFields.Where(i => i.StructuredContent_ContentType.name.ToLower() == contentType.ToLower() && i.id == id).SingleOrDefault();
+                var item = this.dataContext.StructuredContent_ContentFields.Where(i => i.StructuredContent_ContentType.UrlSlug.ToLower() == contentTypeUrlSlug.ToLower() && i.Id == id).SingleOrDefault();
 
-                this.sqlHelper.DeleteColumn(content_field);
+                this.sqlHelper.DeleteColumn(item);
 
-                this.dc.StructuredContent_ContentFields.DeleteOnSubmit(content_field);
+                this.dataContext.StructuredContent_ContentFields.DeleteOnSubmit(item);
 
-                this.dc.SubmitChanges();
+                this.dataContext.SubmitChanges();
 
                 return this.Request.CreateResponse(HttpStatusCode.OK);
             }

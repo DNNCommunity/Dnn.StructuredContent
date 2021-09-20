@@ -11,2631 +11,2631 @@
 
 namespace StructuredContent.DAL
 {
-	using System.Data.Linq;
-	using System.Data.Linq.Mapping;
-	using System.Data;
-	using System.Collections.Generic;
-	using System.Reflection;
-	using System.Linq;
-	using System.Linq.Expressions;
-	using System.ComponentModel;
-	using System;
-	
-	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="dnn9")]
-	public partial class DataContext : System.Data.Linq.DataContext
-	{
-		
-		private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
-		
-    #region Extensibility Method Definitions
-    partial void OnCreated();
-    partial void InsertStructuredContent_VisualizerTemplate(StructuredContent_VisualizerTemplate instance);
-    partial void UpdateStructuredContent_VisualizerTemplate(StructuredContent_VisualizerTemplate instance);
-    partial void DeleteStructuredContent_VisualizerTemplate(StructuredContent_VisualizerTemplate instance);
-    partial void InsertStructuredContent_ContentType(StructuredContent_ContentType instance);
-    partial void UpdateStructuredContent_ContentType(StructuredContent_ContentType instance);
-    partial void DeleteStructuredContent_ContentType(StructuredContent_ContentType instance);
-    partial void InsertStructuredContent_Relationship(StructuredContent_Relationship instance);
-    partial void UpdateStructuredContent_Relationship(StructuredContent_Relationship instance);
-    partial void DeleteStructuredContent_Relationship(StructuredContent_Relationship instance);
-    partial void InsertStructuredContent_Revision(StructuredContent_Revision instance);
-    partial void UpdateStructuredContent_Revision(StructuredContent_Revision instance);
-    partial void DeleteStructuredContent_Revision(StructuredContent_Revision instance);
-    partial void InsertStructuredContent_ContentField(StructuredContent_ContentField instance);
-    partial void UpdateStructuredContent_ContentField(StructuredContent_ContentField instance);
-    partial void DeleteStructuredContent_ContentField(StructuredContent_ContentField instance);
-    partial void InsertStructuredContent_Visualizer(StructuredContent_Visualizer instance);
-    partial void UpdateStructuredContent_Visualizer(StructuredContent_Visualizer instance);
-    partial void DeleteStructuredContent_Visualizer(StructuredContent_Visualizer instance);
-    partial void InsertStructuredContent_ContentFieldType(StructuredContent_ContentFieldType instance);
-    partial void UpdateStructuredContent_ContentFieldType(StructuredContent_ContentFieldType instance);
-    partial void DeleteStructuredContent_ContentFieldType(StructuredContent_ContentFieldType instance);
-    #endregion
-		
-		public DataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["SiteSqlServer"].ConnectionString, mappingSource)
-		{
-			OnCreated();
-		}
-		
-		public DataContext(string connection) : 
-				base(connection, mappingSource)
-		{
-			OnCreated();
-		}
-		
-		public DataContext(System.Data.IDbConnection connection) : 
-				base(connection, mappingSource)
-		{
-			OnCreated();
-		}
-		
-		public DataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
-				base(connection, mappingSource)
-		{
-			OnCreated();
-		}
-		
-		public DataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
-				base(connection, mappingSource)
-		{
-			OnCreated();
-		}
-		
-		public System.Data.Linq.Table<StructuredContent_VisualizerTemplate> StructuredContent_VisualizerTemplates
-		{
-			get
-			{
-				return this.GetTable<StructuredContent_VisualizerTemplate>();
-			}
-		}
-		
-		public System.Data.Linq.Table<StructuredContent_ContentType> StructuredContent_ContentTypes
-		{
-			get
-			{
-				return this.GetTable<StructuredContent_ContentType>();
-			}
-		}
-		
-		public System.Data.Linq.Table<StructuredContent_Relationship> StructuredContent_Relationships
-		{
-			get
-			{
-				return this.GetTable<StructuredContent_Relationship>();
-			}
-		}
-		
-		public System.Data.Linq.Table<StructuredContent_Revision> StructuredContent_Revisions
-		{
-			get
-			{
-				return this.GetTable<StructuredContent_Revision>();
-			}
-		}
-		
-		public System.Data.Linq.Table<StructuredContent_ContentField> StructuredContent_ContentFields
-		{
-			get
-			{
-				return this.GetTable<StructuredContent_ContentField>();
-			}
-		}
-		
-		public System.Data.Linq.Table<StructuredContent_Visualizer> StructuredContent_Visualizers
-		{
-			get
-			{
-				return this.GetTable<StructuredContent_Visualizer>();
-			}
-		}
-		
-		public System.Data.Linq.Table<StructuredContent_ContentFieldType> StructuredContent_ContentFieldTypes
-		{
-			get
-			{
-				return this.GetTable<StructuredContent_ContentFieldType>();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[StructuredContent_VisualizerTemplate]")]
-	public partial class StructuredContent_VisualizerTemplate : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private int _content_type_id;
-		
-		private string _name;
-		
-		private string _description;
-		
-		private string _script;
-		
-		private string _css;
-		
-		private string _template;
-		
-		private string _language;
-		
-		private string _content_size;
-		
-		private EntitySet<StructuredContent_Visualizer> _StructuredContent_Visualizers;
-		
-		private EntityRef<StructuredContent_ContentType> _StructuredContent_ContentType;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void Oncontent_type_idChanging(int value);
-    partial void Oncontent_type_idChanged();
-    partial void OnnameChanging(string value);
-    partial void OnnameChanged();
-    partial void OndescriptionChanging(string value);
-    partial void OndescriptionChanged();
-    partial void OnscriptChanging(string value);
-    partial void OnscriptChanged();
-    partial void OncssChanging(string value);
-    partial void OncssChanged();
-    partial void OntemplateChanging(string value);
-    partial void OntemplateChanged();
-    partial void OnlanguageChanging(string value);
-    partial void OnlanguageChanged();
-    partial void Oncontent_sizeChanging(string value);
-    partial void Oncontent_sizeChanged();
-    #endregion
-		
-		public StructuredContent_VisualizerTemplate()
-		{
-			this._StructuredContent_Visualizers = new EntitySet<StructuredContent_Visualizer>(new Action<StructuredContent_Visualizer>(this.attach_StructuredContent_Visualizers), new Action<StructuredContent_Visualizer>(this.detach_StructuredContent_Visualizers));
-			this._StructuredContent_ContentType = default(EntityRef<StructuredContent_ContentType>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_content_type_id", DbType="Int NOT NULL")]
-		public int content_type_id
-		{
-			get
-			{
-				return this._content_type_id;
-			}
-			set
-			{
-				if ((this._content_type_id != value))
-				{
-					if (this._StructuredContent_ContentType.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Oncontent_type_idChanging(value);
-					this.SendPropertyChanging();
-					this._content_type_id = value;
-					this.SendPropertyChanged("content_type_id");
-					this.Oncontent_type_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="NVarChar(250) NOT NULL", CanBeNull=false)]
-		public string name
-		{
-			get
-			{
-				return this._name;
-			}
-			set
-			{
-				if ((this._name != value))
-				{
-					this.OnnameChanging(value);
-					this.SendPropertyChanging();
-					this._name = value;
-					this.SendPropertyChanged("name");
-					this.OnnameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_description", DbType="NVarChar(MAX)")]
-		public string description
-		{
-			get
-			{
-				return this._description;
-			}
-			set
-			{
-				if ((this._description != value))
-				{
-					this.OndescriptionChanging(value);
-					this.SendPropertyChanging();
-					this._description = value;
-					this.SendPropertyChanged("description");
-					this.OndescriptionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_script", DbType="NVarChar(MAX)")]
-		public string script
-		{
-			get
-			{
-				return this._script;
-			}
-			set
-			{
-				if ((this._script != value))
-				{
-					this.OnscriptChanging(value);
-					this.SendPropertyChanging();
-					this._script = value;
-					this.SendPropertyChanged("script");
-					this.OnscriptChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_css", DbType="NVarChar(MAX)")]
-		public string css
-		{
-			get
-			{
-				return this._css;
-			}
-			set
-			{
-				if ((this._css != value))
-				{
-					this.OncssChanging(value);
-					this.SendPropertyChanging();
-					this._css = value;
-					this.SendPropertyChanged("css");
-					this.OncssChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_template", DbType="NVarChar(MAX)")]
-		public string template
-		{
-			get
-			{
-				return this._template;
-			}
-			set
-			{
-				if ((this._template != value))
-				{
-					this.OntemplateChanging(value);
-					this.SendPropertyChanging();
-					this._template = value;
-					this.SendPropertyChanged("template");
-					this.OntemplateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_language", DbType="VarChar(10)")]
-		public string language
-		{
-			get
-			{
-				return this._language;
-			}
-			set
-			{
-				if ((this._language != value))
-				{
-					this.OnlanguageChanging(value);
-					this.SendPropertyChanging();
-					this._language = value;
-					this.SendPropertyChanged("language");
-					this.OnlanguageChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_content_size", DbType="VarChar(10)")]
-		public string content_size
-		{
-			get
-			{
-				return this._content_size;
-			}
-			set
-			{
-				if ((this._content_size != value))
-				{
-					this.Oncontent_sizeChanging(value);
-					this.SendPropertyChanging();
-					this._content_size = value;
-					this.SendPropertyChanged("content_size");
-					this.Oncontent_sizeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StructuredContent_VisualizerTemplate_StructuredContent_Visualizer", Storage="_StructuredContent_Visualizers", ThisKey="id", OtherKey="visualizer_template_id")]
-		public EntitySet<StructuredContent_Visualizer> StructuredContent_Visualizers
-		{
-			get
-			{
-				return this._StructuredContent_Visualizers;
-			}
-			set
-			{
-				this._StructuredContent_Visualizers.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StructuredContent_ContentType_StructuredContent_VisualizerTemplate", Storage="_StructuredContent_ContentType", ThisKey="content_type_id", OtherKey="id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public StructuredContent_ContentType StructuredContent_ContentType
-		{
-			get
-			{
-				return this._StructuredContent_ContentType.Entity;
-			}
-			set
-			{
-				StructuredContent_ContentType previousValue = this._StructuredContent_ContentType.Entity;
-				if (((previousValue != value) 
-							|| (this._StructuredContent_ContentType.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._StructuredContent_ContentType.Entity = null;
-						previousValue.StructuredContent_VisualizerTemplates.Remove(this);
-					}
-					this._StructuredContent_ContentType.Entity = value;
-					if ((value != null))
-					{
-						value.StructuredContent_VisualizerTemplates.Add(this);
-						this._content_type_id = value.id;
-					}
-					else
-					{
-						this._content_type_id = default(int);
-					}
-					this.SendPropertyChanged("StructuredContent_ContentType");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_StructuredContent_Visualizers(StructuredContent_Visualizer entity)
-		{
-			this.SendPropertyChanging();
-			entity.StructuredContent_VisualizerTemplate = this;
-		}
-		
-		private void detach_StructuredContent_Visualizers(StructuredContent_Visualizer entity)
-		{
-			this.SendPropertyChanging();
-			entity.StructuredContent_VisualizerTemplate = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[StructuredContent_ContentType]")]
-	public partial class StructuredContent_ContentType : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private string _name;
-		
-		private string _singular;
-		
-		private string _plural;
-		
-		private string _url_slug;
-		
-		private string _table_name;
-		
-		private bool _is_system;
-		
-		private EntitySet<StructuredContent_VisualizerTemplate> _StructuredContent_VisualizerTemplates;
-		
-		private EntitySet<StructuredContent_Relationship> _StructuredContent_Relationships;
-		
-		private EntitySet<StructuredContent_Relationship> _StructuredContent_Relationships1;
-		
-		private EntitySet<StructuredContent_Revision> _StructuredContent_Revisions;
-		
-		private EntitySet<StructuredContent_ContentField> _StructuredContent_ContentFields;
-		
-		private EntitySet<StructuredContent_Visualizer> _StructuredContent_Visualizers;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void OnnameChanging(string value);
-    partial void OnnameChanged();
-    partial void OnsingularChanging(string value);
-    partial void OnsingularChanged();
-    partial void OnpluralChanging(string value);
-    partial void OnpluralChanged();
-    partial void Onurl_slugChanging(string value);
-    partial void Onurl_slugChanged();
-    partial void Ontable_nameChanging(string value);
-    partial void Ontable_nameChanged();
-    partial void Onis_systemChanging(bool value);
-    partial void Onis_systemChanged();
-    #endregion
-		
-		public StructuredContent_ContentType()
-		{
-			this._StructuredContent_VisualizerTemplates = new EntitySet<StructuredContent_VisualizerTemplate>(new Action<StructuredContent_VisualizerTemplate>(this.attach_StructuredContent_VisualizerTemplates), new Action<StructuredContent_VisualizerTemplate>(this.detach_StructuredContent_VisualizerTemplates));
-			this._StructuredContent_Relationships = new EntitySet<StructuredContent_Relationship>(new Action<StructuredContent_Relationship>(this.attach_StructuredContent_Relationships), new Action<StructuredContent_Relationship>(this.detach_StructuredContent_Relationships));
-			this._StructuredContent_Relationships1 = new EntitySet<StructuredContent_Relationship>(new Action<StructuredContent_Relationship>(this.attach_StructuredContent_Relationships1), new Action<StructuredContent_Relationship>(this.detach_StructuredContent_Relationships1));
-			this._StructuredContent_Revisions = new EntitySet<StructuredContent_Revision>(new Action<StructuredContent_Revision>(this.attach_StructuredContent_Revisions), new Action<StructuredContent_Revision>(this.detach_StructuredContent_Revisions));
-			this._StructuredContent_ContentFields = new EntitySet<StructuredContent_ContentField>(new Action<StructuredContent_ContentField>(this.attach_StructuredContent_ContentFields), new Action<StructuredContent_ContentField>(this.detach_StructuredContent_ContentFields));
-			this._StructuredContent_Visualizers = new EntitySet<StructuredContent_Visualizer>(new Action<StructuredContent_Visualizer>(this.attach_StructuredContent_Visualizers), new Action<StructuredContent_Visualizer>(this.detach_StructuredContent_Visualizers));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="NVarChar(250) NOT NULL", CanBeNull=false)]
-		public string name
-		{
-			get
-			{
-				return this._name;
-			}
-			set
-			{
-				if ((this._name != value))
-				{
-					this.OnnameChanging(value);
-					this.SendPropertyChanging();
-					this._name = value;
-					this.SendPropertyChanged("name");
-					this.OnnameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_singular", DbType="NVarChar(250) NOT NULL", CanBeNull=false)]
-		public string singular
-		{
-			get
-			{
-				return this._singular;
-			}
-			set
-			{
-				if ((this._singular != value))
-				{
-					this.OnsingularChanging(value);
-					this.SendPropertyChanging();
-					this._singular = value;
-					this.SendPropertyChanged("singular");
-					this.OnsingularChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_plural", DbType="NVarChar(250) NOT NULL", CanBeNull=false)]
-		public string plural
-		{
-			get
-			{
-				return this._plural;
-			}
-			set
-			{
-				if ((this._plural != value))
-				{
-					this.OnpluralChanging(value);
-					this.SendPropertyChanging();
-					this._plural = value;
-					this.SendPropertyChanged("plural");
-					this.OnpluralChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_url_slug", DbType="NVarChar(250) NOT NULL", CanBeNull=false)]
-		public string url_slug
-		{
-			get
-			{
-				return this._url_slug;
-			}
-			set
-			{
-				if ((this._url_slug != value))
-				{
-					this.Onurl_slugChanging(value);
-					this.SendPropertyChanging();
-					this._url_slug = value;
-					this.SendPropertyChanged("url_slug");
-					this.Onurl_slugChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_table_name", DbType="NVarChar(250) NOT NULL", CanBeNull=false)]
-		public string table_name
-		{
-			get
-			{
-				return this._table_name;
-			}
-			set
-			{
-				if ((this._table_name != value))
-				{
-					this.Ontable_nameChanging(value);
-					this.SendPropertyChanging();
-					this._table_name = value;
-					this.SendPropertyChanged("table_name");
-					this.Ontable_nameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_is_system", DbType="Bit NOT NULL")]
-		public bool is_system
-		{
-			get
-			{
-				return this._is_system;
-			}
-			set
-			{
-				if ((this._is_system != value))
-				{
-					this.Onis_systemChanging(value);
-					this.SendPropertyChanging();
-					this._is_system = value;
-					this.SendPropertyChanged("is_system");
-					this.Onis_systemChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StructuredContent_ContentType_StructuredContent_VisualizerTemplate", Storage="_StructuredContent_VisualizerTemplates", ThisKey="id", OtherKey="content_type_id")]
-		public EntitySet<StructuredContent_VisualizerTemplate> StructuredContent_VisualizerTemplates
-		{
-			get
-			{
-				return this._StructuredContent_VisualizerTemplates;
-			}
-			set
-			{
-				this._StructuredContent_VisualizerTemplates.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StructuredContent_ContentType_StructuredContent_Relationship", Storage="_StructuredContent_Relationships", ThisKey="id", OtherKey="a_content_type_id")]
-		public EntitySet<StructuredContent_Relationship> StructuredContent_Relationships
-		{
-			get
-			{
-				return this._StructuredContent_Relationships;
-			}
-			set
-			{
-				this._StructuredContent_Relationships.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StructuredContent_ContentType_StructuredContent_Relationship1", Storage="_StructuredContent_Relationships1", ThisKey="id", OtherKey="b_content_type_id")]
-		public EntitySet<StructuredContent_Relationship> StructuredContent_Relationships1
-		{
-			get
-			{
-				return this._StructuredContent_Relationships1;
-			}
-			set
-			{
-				this._StructuredContent_Relationships1.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StructuredContent_ContentType_StructuredContent_Revision", Storage="_StructuredContent_Revisions", ThisKey="id", OtherKey="content_type_id")]
-		public EntitySet<StructuredContent_Revision> StructuredContent_Revisions
-		{
-			get
-			{
-				return this._StructuredContent_Revisions;
-			}
-			set
-			{
-				this._StructuredContent_Revisions.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StructuredContent_ContentType_StructuredContent_ContentField", Storage="_StructuredContent_ContentFields", ThisKey="id", OtherKey="content_type_id")]
-		public EntitySet<StructuredContent_ContentField> StructuredContent_ContentFields
-		{
-			get
-			{
-				return this._StructuredContent_ContentFields;
-			}
-			set
-			{
-				this._StructuredContent_ContentFields.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StructuredContent_ContentType_StructuredContent_Visualizer", Storage="_StructuredContent_Visualizers", ThisKey="id", OtherKey="content_type_id")]
-		public EntitySet<StructuredContent_Visualizer> StructuredContent_Visualizers
-		{
-			get
-			{
-				return this._StructuredContent_Visualizers;
-			}
-			set
-			{
-				this._StructuredContent_Visualizers.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_StructuredContent_VisualizerTemplates(StructuredContent_VisualizerTemplate entity)
-		{
-			this.SendPropertyChanging();
-			entity.StructuredContent_ContentType = this;
-		}
-		
-		private void detach_StructuredContent_VisualizerTemplates(StructuredContent_VisualizerTemplate entity)
-		{
-			this.SendPropertyChanging();
-			entity.StructuredContent_ContentType = null;
-		}
-		
-		private void attach_StructuredContent_Relationships(StructuredContent_Relationship entity)
-		{
-			this.SendPropertyChanging();
-			entity.StructuredContent_ContentType = this;
-		}
-		
-		private void detach_StructuredContent_Relationships(StructuredContent_Relationship entity)
-		{
-			this.SendPropertyChanging();
-			entity.StructuredContent_ContentType = null;
-		}
-		
-		private void attach_StructuredContent_Relationships1(StructuredContent_Relationship entity)
-		{
-			this.SendPropertyChanging();
-			entity.StructuredContent_ContentType1 = this;
-		}
-		
-		private void detach_StructuredContent_Relationships1(StructuredContent_Relationship entity)
-		{
-			this.SendPropertyChanging();
-			entity.StructuredContent_ContentType1 = null;
-		}
-		
-		private void attach_StructuredContent_Revisions(StructuredContent_Revision entity)
-		{
-			this.SendPropertyChanging();
-			entity.StructuredContent_ContentType = this;
-		}
-		
-		private void detach_StructuredContent_Revisions(StructuredContent_Revision entity)
-		{
-			this.SendPropertyChanging();
-			entity.StructuredContent_ContentType = null;
-		}
-		
-		private void attach_StructuredContent_ContentFields(StructuredContent_ContentField entity)
-		{
-			this.SendPropertyChanging();
-			entity.StructuredContent_ContentType = this;
-		}
-		
-		private void detach_StructuredContent_ContentFields(StructuredContent_ContentField entity)
-		{
-			this.SendPropertyChanging();
-			entity.StructuredContent_ContentType = null;
-		}
-		
-		private void attach_StructuredContent_Visualizers(StructuredContent_Visualizer entity)
-		{
-			this.SendPropertyChanging();
-			entity.StructuredContent_ContentType = this;
-		}
-		
-		private void detach_StructuredContent_Visualizers(StructuredContent_Visualizer entity)
-		{
-			this.SendPropertyChanging();
-			entity.StructuredContent_ContentType = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[StructuredContent_Relationship]")]
-	public partial class StructuredContent_Relationship : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private string _key;
-		
-		private int _a_content_type_id;
-		
-		private int _b_content_type_id;
-		
-		private System.Nullable<bool> _a_required;
-		
-		private System.Nullable<int> _a_min_limit;
-		
-		private System.Nullable<int> _a_max_limit;
-		
-		private string _a_help_text;
-		
-		private System.Nullable<bool> _b_required;
-		
-		private System.Nullable<int> _b_min_limit;
-		
-		private System.Nullable<int> _b_max_limit;
-		
-		private string _b_help_text;
-		
-		private System.Nullable<int> _a_layout_row;
-		
-		private System.Nullable<int> _a_layout_column;
-		
-		private System.Nullable<int> _b_layout_row;
-		
-		private System.Nullable<int> _b_layout_column;
-		
-		private EntityRef<StructuredContent_ContentType> _StructuredContent_ContentType;
-		
-		private EntityRef<StructuredContent_ContentType> _StructuredContent_ContentType1;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void OnkeyChanging(string value);
-    partial void OnkeyChanged();
-    partial void Ona_content_type_idChanging(int value);
-    partial void Ona_content_type_idChanged();
-    partial void Onb_content_type_idChanging(int value);
-    partial void Onb_content_type_idChanged();
-    partial void Ona_requiredChanging(System.Nullable<bool> value);
-    partial void Ona_requiredChanged();
-    partial void Ona_min_limitChanging(System.Nullable<int> value);
-    partial void Ona_min_limitChanged();
-    partial void Ona_max_limitChanging(System.Nullable<int> value);
-    partial void Ona_max_limitChanged();
-    partial void Ona_help_textChanging(string value);
-    partial void Ona_help_textChanged();
-    partial void Onb_requiredChanging(System.Nullable<bool> value);
-    partial void Onb_requiredChanged();
-    partial void Onb_min_limitChanging(System.Nullable<int> value);
-    partial void Onb_min_limitChanged();
-    partial void Onb_max_limitChanging(System.Nullable<int> value);
-    partial void Onb_max_limitChanged();
-    partial void Onb_help_textChanging(string value);
-    partial void Onb_help_textChanged();
-    partial void Ona_layout_rowChanging(System.Nullable<int> value);
-    partial void Ona_layout_rowChanged();
-    partial void Ona_layout_columnChanging(System.Nullable<int> value);
-    partial void Ona_layout_columnChanged();
-    partial void Onb_layout_rowChanging(System.Nullable<int> value);
-    partial void Onb_layout_rowChanged();
-    partial void Onb_layout_columnChanging(System.Nullable<int> value);
-    partial void Onb_layout_columnChanged();
-    #endregion
-		
-		public StructuredContent_Relationship()
-		{
-			this._StructuredContent_ContentType = default(EntityRef<StructuredContent_ContentType>);
-			this._StructuredContent_ContentType1 = default(EntityRef<StructuredContent_ContentType>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[key]", Storage="_key", DbType="VarChar(3) NOT NULL", CanBeNull=false)]
-		public string key
-		{
-			get
-			{
-				return this._key;
-			}
-			set
-			{
-				if ((this._key != value))
-				{
-					this.OnkeyChanging(value);
-					this.SendPropertyChanging();
-					this._key = value;
-					this.SendPropertyChanged("key");
-					this.OnkeyChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_a_content_type_id", DbType="Int NOT NULL")]
-		public int a_content_type_id
-		{
-			get
-			{
-				return this._a_content_type_id;
-			}
-			set
-			{
-				if ((this._a_content_type_id != value))
-				{
-					if (this._StructuredContent_ContentType.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Ona_content_type_idChanging(value);
-					this.SendPropertyChanging();
-					this._a_content_type_id = value;
-					this.SendPropertyChanged("a_content_type_id");
-					this.Ona_content_type_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_b_content_type_id", DbType="Int NOT NULL")]
-		public int b_content_type_id
-		{
-			get
-			{
-				return this._b_content_type_id;
-			}
-			set
-			{
-				if ((this._b_content_type_id != value))
-				{
-					if (this._StructuredContent_ContentType1.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onb_content_type_idChanging(value);
-					this.SendPropertyChanging();
-					this._b_content_type_id = value;
-					this.SendPropertyChanged("b_content_type_id");
-					this.Onb_content_type_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_a_required", DbType="Bit")]
-		public System.Nullable<bool> a_required
-		{
-			get
-			{
-				return this._a_required;
-			}
-			set
-			{
-				if ((this._a_required != value))
-				{
-					this.Ona_requiredChanging(value);
-					this.SendPropertyChanging();
-					this._a_required = value;
-					this.SendPropertyChanged("a_required");
-					this.Ona_requiredChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_a_min_limit", DbType="Int")]
-		public System.Nullable<int> a_min_limit
-		{
-			get
-			{
-				return this._a_min_limit;
-			}
-			set
-			{
-				if ((this._a_min_limit != value))
-				{
-					this.Ona_min_limitChanging(value);
-					this.SendPropertyChanging();
-					this._a_min_limit = value;
-					this.SendPropertyChanged("a_min_limit");
-					this.Ona_min_limitChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_a_max_limit", DbType="Int")]
-		public System.Nullable<int> a_max_limit
-		{
-			get
-			{
-				return this._a_max_limit;
-			}
-			set
-			{
-				if ((this._a_max_limit != value))
-				{
-					this.Ona_max_limitChanging(value);
-					this.SendPropertyChanging();
-					this._a_max_limit = value;
-					this.SendPropertyChanged("a_max_limit");
-					this.Ona_max_limitChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_a_help_text", DbType="NVarChar(256)")]
-		public string a_help_text
-		{
-			get
-			{
-				return this._a_help_text;
-			}
-			set
-			{
-				if ((this._a_help_text != value))
-				{
-					this.Ona_help_textChanging(value);
-					this.SendPropertyChanging();
-					this._a_help_text = value;
-					this.SendPropertyChanged("a_help_text");
-					this.Ona_help_textChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_b_required", DbType="Bit")]
-		public System.Nullable<bool> b_required
-		{
-			get
-			{
-				return this._b_required;
-			}
-			set
-			{
-				if ((this._b_required != value))
-				{
-					this.Onb_requiredChanging(value);
-					this.SendPropertyChanging();
-					this._b_required = value;
-					this.SendPropertyChanged("b_required");
-					this.Onb_requiredChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_b_min_limit", DbType="Int")]
-		public System.Nullable<int> b_min_limit
-		{
-			get
-			{
-				return this._b_min_limit;
-			}
-			set
-			{
-				if ((this._b_min_limit != value))
-				{
-					this.Onb_min_limitChanging(value);
-					this.SendPropertyChanging();
-					this._b_min_limit = value;
-					this.SendPropertyChanged("b_min_limit");
-					this.Onb_min_limitChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_b_max_limit", DbType="Int")]
-		public System.Nullable<int> b_max_limit
-		{
-			get
-			{
-				return this._b_max_limit;
-			}
-			set
-			{
-				if ((this._b_max_limit != value))
-				{
-					this.Onb_max_limitChanging(value);
-					this.SendPropertyChanging();
-					this._b_max_limit = value;
-					this.SendPropertyChanged("b_max_limit");
-					this.Onb_max_limitChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_b_help_text", DbType="NVarChar(256)")]
-		public string b_help_text
-		{
-			get
-			{
-				return this._b_help_text;
-			}
-			set
-			{
-				if ((this._b_help_text != value))
-				{
-					this.Onb_help_textChanging(value);
-					this.SendPropertyChanging();
-					this._b_help_text = value;
-					this.SendPropertyChanged("b_help_text");
-					this.Onb_help_textChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_a_layout_row", DbType="Int")]
-		public System.Nullable<int> a_layout_row
-		{
-			get
-			{
-				return this._a_layout_row;
-			}
-			set
-			{
-				if ((this._a_layout_row != value))
-				{
-					this.Ona_layout_rowChanging(value);
-					this.SendPropertyChanging();
-					this._a_layout_row = value;
-					this.SendPropertyChanged("a_layout_row");
-					this.Ona_layout_rowChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_a_layout_column", DbType="Int")]
-		public System.Nullable<int> a_layout_column
-		{
-			get
-			{
-				return this._a_layout_column;
-			}
-			set
-			{
-				if ((this._a_layout_column != value))
-				{
-					this.Ona_layout_columnChanging(value);
-					this.SendPropertyChanging();
-					this._a_layout_column = value;
-					this.SendPropertyChanged("a_layout_column");
-					this.Ona_layout_columnChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_b_layout_row", DbType="Int")]
-		public System.Nullable<int> b_layout_row
-		{
-			get
-			{
-				return this._b_layout_row;
-			}
-			set
-			{
-				if ((this._b_layout_row != value))
-				{
-					this.Onb_layout_rowChanging(value);
-					this.SendPropertyChanging();
-					this._b_layout_row = value;
-					this.SendPropertyChanged("b_layout_row");
-					this.Onb_layout_rowChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_b_layout_column", DbType="Int")]
-		public System.Nullable<int> b_layout_column
-		{
-			get
-			{
-				return this._b_layout_column;
-			}
-			set
-			{
-				if ((this._b_layout_column != value))
-				{
-					this.Onb_layout_columnChanging(value);
-					this.SendPropertyChanging();
-					this._b_layout_column = value;
-					this.SendPropertyChanged("b_layout_column");
-					this.Onb_layout_columnChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StructuredContent_ContentType_StructuredContent_Relationship", Storage="_StructuredContent_ContentType", ThisKey="a_content_type_id", OtherKey="id", IsForeignKey=true)]
-		public StructuredContent_ContentType StructuredContent_ContentType
-		{
-			get
-			{
-				return this._StructuredContent_ContentType.Entity;
-			}
-			set
-			{
-				StructuredContent_ContentType previousValue = this._StructuredContent_ContentType.Entity;
-				if (((previousValue != value) 
-							|| (this._StructuredContent_ContentType.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._StructuredContent_ContentType.Entity = null;
-						previousValue.StructuredContent_Relationships.Remove(this);
-					}
-					this._StructuredContent_ContentType.Entity = value;
-					if ((value != null))
-					{
-						value.StructuredContent_Relationships.Add(this);
-						this._a_content_type_id = value.id;
-					}
-					else
-					{
-						this._a_content_type_id = default(int);
-					}
-					this.SendPropertyChanged("StructuredContent_ContentType");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StructuredContent_ContentType_StructuredContent_Relationship1", Storage="_StructuredContent_ContentType1", ThisKey="b_content_type_id", OtherKey="id", IsForeignKey=true)]
-		public StructuredContent_ContentType StructuredContent_ContentType1
-		{
-			get
-			{
-				return this._StructuredContent_ContentType1.Entity;
-			}
-			set
-			{
-				StructuredContent_ContentType previousValue = this._StructuredContent_ContentType1.Entity;
-				if (((previousValue != value) 
-							|| (this._StructuredContent_ContentType1.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._StructuredContent_ContentType1.Entity = null;
-						previousValue.StructuredContent_Relationships1.Remove(this);
-					}
-					this._StructuredContent_ContentType1.Entity = value;
-					if ((value != null))
-					{
-						value.StructuredContent_Relationships1.Add(this);
-						this._b_content_type_id = value.id;
-					}
-					else
-					{
-						this._b_content_type_id = default(int);
-					}
-					this.SendPropertyChanged("StructuredContent_ContentType1");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[StructuredContent_Revision]")]
-	public partial class StructuredContent_Revision : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private System.DateTime _revision_date;
-		
-		private System.Nullable<int> _user_id;
-		
-		private string _activity_type;
-		
-		private int _content_type_id;
-		
-		private int _item_id;
-		
-		private string _delta;
-		
-		private string _data;
-		
-		private EntityRef<StructuredContent_ContentType> _StructuredContent_ContentType;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void Onrevision_dateChanging(System.DateTime value);
-    partial void Onrevision_dateChanged();
-    partial void Onuser_idChanging(System.Nullable<int> value);
-    partial void Onuser_idChanged();
-    partial void Onactivity_typeChanging(string value);
-    partial void Onactivity_typeChanged();
-    partial void Oncontent_type_idChanging(int value);
-    partial void Oncontent_type_idChanged();
-    partial void Onitem_idChanging(int value);
-    partial void Onitem_idChanged();
-    partial void OndeltaChanging(string value);
-    partial void OndeltaChanged();
-    partial void OndataChanging(string value);
-    partial void OndataChanged();
-    #endregion
-		
-		public StructuredContent_Revision()
-		{
-			this._StructuredContent_ContentType = default(EntityRef<StructuredContent_ContentType>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_revision_date", DbType="DateTime NOT NULL")]
-		public System.DateTime revision_date
-		{
-			get
-			{
-				return this._revision_date;
-			}
-			set
-			{
-				if ((this._revision_date != value))
-				{
-					this.Onrevision_dateChanging(value);
-					this.SendPropertyChanging();
-					this._revision_date = value;
-					this.SendPropertyChanged("revision_date");
-					this.Onrevision_dateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_user_id", DbType="Int")]
-		public System.Nullable<int> user_id
-		{
-			get
-			{
-				return this._user_id;
-			}
-			set
-			{
-				if ((this._user_id != value))
-				{
-					this.Onuser_idChanging(value);
-					this.SendPropertyChanging();
-					this._user_id = value;
-					this.SendPropertyChanged("user_id");
-					this.Onuser_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_activity_type", DbType="NVarChar(15) NOT NULL", CanBeNull=false)]
-		public string activity_type
-		{
-			get
-			{
-				return this._activity_type;
-			}
-			set
-			{
-				if ((this._activity_type != value))
-				{
-					this.Onactivity_typeChanging(value);
-					this.SendPropertyChanging();
-					this._activity_type = value;
-					this.SendPropertyChanged("activity_type");
-					this.Onactivity_typeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_content_type_id", DbType="Int NOT NULL")]
-		public int content_type_id
-		{
-			get
-			{
-				return this._content_type_id;
-			}
-			set
-			{
-				if ((this._content_type_id != value))
-				{
-					if (this._StructuredContent_ContentType.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Oncontent_type_idChanging(value);
-					this.SendPropertyChanging();
-					this._content_type_id = value;
-					this.SendPropertyChanged("content_type_id");
-					this.Oncontent_type_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_item_id", DbType="Int NOT NULL")]
-		public int item_id
-		{
-			get
-			{
-				return this._item_id;
-			}
-			set
-			{
-				if ((this._item_id != value))
-				{
-					this.Onitem_idChanging(value);
-					this.SendPropertyChanging();
-					this._item_id = value;
-					this.SendPropertyChanged("item_id");
-					this.Onitem_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_delta", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
-		public string delta
-		{
-			get
-			{
-				return this._delta;
-			}
-			set
-			{
-				if ((this._delta != value))
-				{
-					this.OndeltaChanging(value);
-					this.SendPropertyChanging();
-					this._delta = value;
-					this.SendPropertyChanged("delta");
-					this.OndeltaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_data", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
-		public string data
-		{
-			get
-			{
-				return this._data;
-			}
-			set
-			{
-				if ((this._data != value))
-				{
-					this.OndataChanging(value);
-					this.SendPropertyChanging();
-					this._data = value;
-					this.SendPropertyChanged("data");
-					this.OndataChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StructuredContent_ContentType_StructuredContent_Revision", Storage="_StructuredContent_ContentType", ThisKey="content_type_id", OtherKey="id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public StructuredContent_ContentType StructuredContent_ContentType
-		{
-			get
-			{
-				return this._StructuredContent_ContentType.Entity;
-			}
-			set
-			{
-				StructuredContent_ContentType previousValue = this._StructuredContent_ContentType.Entity;
-				if (((previousValue != value) 
-							|| (this._StructuredContent_ContentType.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._StructuredContent_ContentType.Entity = null;
-						previousValue.StructuredContent_Revisions.Remove(this);
-					}
-					this._StructuredContent_ContentType.Entity = value;
-					if ((value != null))
-					{
-						value.StructuredContent_Revisions.Add(this);
-						this._content_type_id = value.id;
-					}
-					else
-					{
-						this._content_type_id = default(int);
-					}
-					this.SendPropertyChanged("StructuredContent_ContentType");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[StructuredContent_ContentField]")]
-	public partial class StructuredContent_ContentField : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private string _name;
-		
-		private int _content_type_id;
-		
-		private bool _is_system;
-		
-		private int _ordinal;
-		
-		private string _column_name;
-		
-		private int _data_type;
-		
-		private string _data_length;
-		
-		private bool _allow_null;
-		
-		private string _default_value;
-		
-		private string _help_text;
-		
-		private System.Nullable<int> _content_field_type_id;
-		
-		private string _options;
-		
-		private System.Nullable<int> _layout_row;
-		
-		private System.Nullable<int> _layout_column;
-		
-		private EntityRef<StructuredContent_ContentType> _StructuredContent_ContentType;
-		
-		private EntityRef<StructuredContent_ContentFieldType> _StructuredContent_ContentFieldType;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void OnnameChanging(string value);
-    partial void OnnameChanged();
-    partial void Oncontent_type_idChanging(int value);
-    partial void Oncontent_type_idChanged();
-    partial void Onis_systemChanging(bool value);
-    partial void Onis_systemChanged();
-    partial void OnordinalChanging(int value);
-    partial void OnordinalChanged();
-    partial void Oncolumn_nameChanging(string value);
-    partial void Oncolumn_nameChanged();
-    partial void Ondata_typeChanging(int value);
-    partial void Ondata_typeChanged();
-    partial void Ondata_lengthChanging(string value);
-    partial void Ondata_lengthChanged();
-    partial void Onallow_nullChanging(bool value);
-    partial void Onallow_nullChanged();
-    partial void Ondefault_valueChanging(string value);
-    partial void Ondefault_valueChanged();
-    partial void Onhelp_textChanging(string value);
-    partial void Onhelp_textChanged();
-    partial void Oncontent_field_type_idChanging(System.Nullable<int> value);
-    partial void Oncontent_field_type_idChanged();
-    partial void OnoptionsChanging(string value);
-    partial void OnoptionsChanged();
-    partial void Onlayout_rowChanging(System.Nullable<int> value);
-    partial void Onlayout_rowChanged();
-    partial void Onlayout_columnChanging(System.Nullable<int> value);
-    partial void Onlayout_columnChanged();
-    #endregion
-		
-		public StructuredContent_ContentField()
-		{
-			this._StructuredContent_ContentType = default(EntityRef<StructuredContent_ContentType>);
-			this._StructuredContent_ContentFieldType = default(EntityRef<StructuredContent_ContentFieldType>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
-		public string name
-		{
-			get
-			{
-				return this._name;
-			}
-			set
-			{
-				if ((this._name != value))
-				{
-					this.OnnameChanging(value);
-					this.SendPropertyChanging();
-					this._name = value;
-					this.SendPropertyChanged("name");
-					this.OnnameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_content_type_id", DbType="Int NOT NULL")]
-		public int content_type_id
-		{
-			get
-			{
-				return this._content_type_id;
-			}
-			set
-			{
-				if ((this._content_type_id != value))
-				{
-					if (this._StructuredContent_ContentType.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Oncontent_type_idChanging(value);
-					this.SendPropertyChanging();
-					this._content_type_id = value;
-					this.SendPropertyChanged("content_type_id");
-					this.Oncontent_type_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_is_system", DbType="Bit NOT NULL")]
-		public bool is_system
-		{
-			get
-			{
-				return this._is_system;
-			}
-			set
-			{
-				if ((this._is_system != value))
-				{
-					this.Onis_systemChanging(value);
-					this.SendPropertyChanging();
-					this._is_system = value;
-					this.SendPropertyChanged("is_system");
-					this.Onis_systemChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ordinal", DbType="Int NOT NULL")]
-		public int ordinal
-		{
-			get
-			{
-				return this._ordinal;
-			}
-			set
-			{
-				if ((this._ordinal != value))
-				{
-					this.OnordinalChanging(value);
-					this.SendPropertyChanging();
-					this._ordinal = value;
-					this.SendPropertyChanged("ordinal");
-					this.OnordinalChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_column_name", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
-		public string column_name
-		{
-			get
-			{
-				return this._column_name;
-			}
-			set
-			{
-				if ((this._column_name != value))
-				{
-					this.Oncolumn_nameChanging(value);
-					this.SendPropertyChanging();
-					this._column_name = value;
-					this.SendPropertyChanged("column_name");
-					this.Oncolumn_nameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_data_type", DbType="Int NOT NULL")]
-		public int data_type
-		{
-			get
-			{
-				return this._data_type;
-			}
-			set
-			{
-				if ((this._data_type != value))
-				{
-					this.Ondata_typeChanging(value);
-					this.SendPropertyChanging();
-					this._data_type = value;
-					this.SendPropertyChanged("data_type");
-					this.Ondata_typeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_data_length", DbType="NVarChar(50)")]
-		public string data_length
-		{
-			get
-			{
-				return this._data_length;
-			}
-			set
-			{
-				if ((this._data_length != value))
-				{
-					this.Ondata_lengthChanging(value);
-					this.SendPropertyChanging();
-					this._data_length = value;
-					this.SendPropertyChanged("data_length");
-					this.Ondata_lengthChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_allow_null", DbType="Bit NOT NULL")]
-		public bool allow_null
-		{
-			get
-			{
-				return this._allow_null;
-			}
-			set
-			{
-				if ((this._allow_null != value))
-				{
-					this.Onallow_nullChanging(value);
-					this.SendPropertyChanging();
-					this._allow_null = value;
-					this.SendPropertyChanged("allow_null");
-					this.Onallow_nullChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_default_value", DbType="NVarChar(50)")]
-		public string default_value
-		{
-			get
-			{
-				return this._default_value;
-			}
-			set
-			{
-				if ((this._default_value != value))
-				{
-					this.Ondefault_valueChanging(value);
-					this.SendPropertyChanging();
-					this._default_value = value;
-					this.SendPropertyChanged("default_value");
-					this.Ondefault_valueChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_help_text", DbType="NVarChar(256)")]
-		public string help_text
-		{
-			get
-			{
-				return this._help_text;
-			}
-			set
-			{
-				if ((this._help_text != value))
-				{
-					this.Onhelp_textChanging(value);
-					this.SendPropertyChanging();
-					this._help_text = value;
-					this.SendPropertyChanged("help_text");
-					this.Onhelp_textChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_content_field_type_id", DbType="Int")]
-		public System.Nullable<int> content_field_type_id
-		{
-			get
-			{
-				return this._content_field_type_id;
-			}
-			set
-			{
-				if ((this._content_field_type_id != value))
-				{
-					if (this._StructuredContent_ContentFieldType.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Oncontent_field_type_idChanging(value);
-					this.SendPropertyChanging();
-					this._content_field_type_id = value;
-					this.SendPropertyChanged("content_field_type_id");
-					this.Oncontent_field_type_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_options", DbType="NVarChar(MAX)")]
-		public string options
-		{
-			get
-			{
-				return this._options;
-			}
-			set
-			{
-				if ((this._options != value))
-				{
-					this.OnoptionsChanging(value);
-					this.SendPropertyChanging();
-					this._options = value;
-					this.SendPropertyChanged("options");
-					this.OnoptionsChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_layout_row", DbType="Int")]
-		public System.Nullable<int> layout_row
-		{
-			get
-			{
-				return this._layout_row;
-			}
-			set
-			{
-				if ((this._layout_row != value))
-				{
-					this.Onlayout_rowChanging(value);
-					this.SendPropertyChanging();
-					this._layout_row = value;
-					this.SendPropertyChanged("layout_row");
-					this.Onlayout_rowChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_layout_column", DbType="Int")]
-		public System.Nullable<int> layout_column
-		{
-			get
-			{
-				return this._layout_column;
-			}
-			set
-			{
-				if ((this._layout_column != value))
-				{
-					this.Onlayout_columnChanging(value);
-					this.SendPropertyChanging();
-					this._layout_column = value;
-					this.SendPropertyChanged("layout_column");
-					this.Onlayout_columnChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StructuredContent_ContentType_StructuredContent_ContentField", Storage="_StructuredContent_ContentType", ThisKey="content_type_id", OtherKey="id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public StructuredContent_ContentType StructuredContent_ContentType
-		{
-			get
-			{
-				return this._StructuredContent_ContentType.Entity;
-			}
-			set
-			{
-				StructuredContent_ContentType previousValue = this._StructuredContent_ContentType.Entity;
-				if (((previousValue != value) 
-							|| (this._StructuredContent_ContentType.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._StructuredContent_ContentType.Entity = null;
-						previousValue.StructuredContent_ContentFields.Remove(this);
-					}
-					this._StructuredContent_ContentType.Entity = value;
-					if ((value != null))
-					{
-						value.StructuredContent_ContentFields.Add(this);
-						this._content_type_id = value.id;
-					}
-					else
-					{
-						this._content_type_id = default(int);
-					}
-					this.SendPropertyChanged("StructuredContent_ContentType");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StructuredContent_ContentFieldType_StructuredContent_ContentField", Storage="_StructuredContent_ContentFieldType", ThisKey="content_field_type_id", OtherKey="id", IsForeignKey=true, DeleteRule="SET NULL")]
-		public StructuredContent_ContentFieldType StructuredContent_ContentFieldType
-		{
-			get
-			{
-				return this._StructuredContent_ContentFieldType.Entity;
-			}
-			set
-			{
-				StructuredContent_ContentFieldType previousValue = this._StructuredContent_ContentFieldType.Entity;
-				if (((previousValue != value) 
-							|| (this._StructuredContent_ContentFieldType.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._StructuredContent_ContentFieldType.Entity = null;
-						previousValue.StructuredContent_ContentFields.Remove(this);
-					}
-					this._StructuredContent_ContentFieldType.Entity = value;
-					if ((value != null))
-					{
-						value.StructuredContent_ContentFields.Add(this);
-						this._content_field_type_id = value.id;
-					}
-					else
-					{
-						this._content_field_type_id = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("StructuredContent_ContentFieldType");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[StructuredContent_Visualizer]")]
-	public partial class StructuredContent_Visualizer : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private int _module_id;
-		
-		private int _content_type_id;
-		
-		private System.Nullable<int> _visualizer_template_id;
-		
-		private System.Nullable<int> _item_id;
-		
-		private string _item_filter;
-		
-		private EntityRef<StructuredContent_ContentType> _StructuredContent_ContentType;
-		
-		private EntityRef<StructuredContent_VisualizerTemplate> _StructuredContent_VisualizerTemplate;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void Onmodule_idChanging(int value);
-    partial void Onmodule_idChanged();
-    partial void Oncontent_type_idChanging(int value);
-    partial void Oncontent_type_idChanged();
-    partial void Onvisualizer_template_idChanging(System.Nullable<int> value);
-    partial void Onvisualizer_template_idChanged();
-    partial void Onitem_idChanging(System.Nullable<int> value);
-    partial void Onitem_idChanged();
-    partial void Onitem_filterChanging(string value);
-    partial void Onitem_filterChanged();
-    #endregion
-		
-		public StructuredContent_Visualizer()
-		{
-			this._StructuredContent_ContentType = default(EntityRef<StructuredContent_ContentType>);
-			this._StructuredContent_VisualizerTemplate = default(EntityRef<StructuredContent_VisualizerTemplate>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_module_id", DbType="Int NOT NULL")]
-		public int module_id
-		{
-			get
-			{
-				return this._module_id;
-			}
-			set
-			{
-				if ((this._module_id != value))
-				{
-					this.Onmodule_idChanging(value);
-					this.SendPropertyChanging();
-					this._module_id = value;
-					this.SendPropertyChanged("module_id");
-					this.Onmodule_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_content_type_id", DbType="Int NOT NULL")]
-		public int content_type_id
-		{
-			get
-			{
-				return this._content_type_id;
-			}
-			set
-			{
-				if ((this._content_type_id != value))
-				{
-					if (this._StructuredContent_ContentType.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Oncontent_type_idChanging(value);
-					this.SendPropertyChanging();
-					this._content_type_id = value;
-					this.SendPropertyChanged("content_type_id");
-					this.Oncontent_type_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_visualizer_template_id", DbType="Int")]
-		public System.Nullable<int> visualizer_template_id
-		{
-			get
-			{
-				return this._visualizer_template_id;
-			}
-			set
-			{
-				if ((this._visualizer_template_id != value))
-				{
-					if (this._StructuredContent_VisualizerTemplate.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onvisualizer_template_idChanging(value);
-					this.SendPropertyChanging();
-					this._visualizer_template_id = value;
-					this.SendPropertyChanged("visualizer_template_id");
-					this.Onvisualizer_template_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_item_id", DbType="Int")]
-		public System.Nullable<int> item_id
-		{
-			get
-			{
-				return this._item_id;
-			}
-			set
-			{
-				if ((this._item_id != value))
-				{
-					this.Onitem_idChanging(value);
-					this.SendPropertyChanging();
-					this._item_id = value;
-					this.SendPropertyChanged("item_id");
-					this.Onitem_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_item_filter", DbType="NVarChar(MAX)")]
-		public string item_filter
-		{
-			get
-			{
-				return this._item_filter;
-			}
-			set
-			{
-				if ((this._item_filter != value))
-				{
-					this.Onitem_filterChanging(value);
-					this.SendPropertyChanging();
-					this._item_filter = value;
-					this.SendPropertyChanged("item_filter");
-					this.Onitem_filterChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StructuredContent_ContentType_StructuredContent_Visualizer", Storage="_StructuredContent_ContentType", ThisKey="content_type_id", OtherKey="id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public StructuredContent_ContentType StructuredContent_ContentType
-		{
-			get
-			{
-				return this._StructuredContent_ContentType.Entity;
-			}
-			set
-			{
-				StructuredContent_ContentType previousValue = this._StructuredContent_ContentType.Entity;
-				if (((previousValue != value) 
-							|| (this._StructuredContent_ContentType.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._StructuredContent_ContentType.Entity = null;
-						previousValue.StructuredContent_Visualizers.Remove(this);
-					}
-					this._StructuredContent_ContentType.Entity = value;
-					if ((value != null))
-					{
-						value.StructuredContent_Visualizers.Add(this);
-						this._content_type_id = value.id;
-					}
-					else
-					{
-						this._content_type_id = default(int);
-					}
-					this.SendPropertyChanged("StructuredContent_ContentType");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StructuredContent_VisualizerTemplate_StructuredContent_Visualizer", Storage="_StructuredContent_VisualizerTemplate", ThisKey="visualizer_template_id", OtherKey="id", IsForeignKey=true)]
-		public StructuredContent_VisualizerTemplate StructuredContent_VisualizerTemplate
-		{
-			get
-			{
-				return this._StructuredContent_VisualizerTemplate.Entity;
-			}
-			set
-			{
-				StructuredContent_VisualizerTemplate previousValue = this._StructuredContent_VisualizerTemplate.Entity;
-				if (((previousValue != value) 
-							|| (this._StructuredContent_VisualizerTemplate.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._StructuredContent_VisualizerTemplate.Entity = null;
-						previousValue.StructuredContent_Visualizers.Remove(this);
-					}
-					this._StructuredContent_VisualizerTemplate.Entity = value;
-					if ((value != null))
-					{
-						value.StructuredContent_Visualizers.Add(this);
-						this._visualizer_template_id = value.id;
-					}
-					else
-					{
-						this._visualizer_template_id = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("StructuredContent_VisualizerTemplate");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[StructuredContent_ContentFieldType]")]
-	public partial class StructuredContent_ContentFieldType : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private string _key;
-		
-		private string _type;
-		
-		private string _name;
-		
-		private int _ordinal;
-		
-		private int _default_data_type;
-		
-		private string _default_data_length;
-		
-		private string _default_options;
-		
-		private string _icon;
-		
-		private EntitySet<StructuredContent_ContentField> _StructuredContent_ContentFields;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void OnkeyChanging(string value);
-    partial void OnkeyChanged();
-    partial void OntypeChanging(string value);
-    partial void OntypeChanged();
-    partial void OnnameChanging(string value);
-    partial void OnnameChanged();
-    partial void OnordinalChanging(int value);
-    partial void OnordinalChanged();
-    partial void Ondefault_data_typeChanging(int value);
-    partial void Ondefault_data_typeChanged();
-    partial void Ondefault_data_lengthChanging(string value);
-    partial void Ondefault_data_lengthChanged();
-    partial void Ondefault_optionsChanging(string value);
-    partial void Ondefault_optionsChanged();
-    partial void OniconChanging(string value);
-    partial void OniconChanged();
-    #endregion
-		
-		public StructuredContent_ContentFieldType()
-		{
-			this._StructuredContent_ContentFields = new EntitySet<StructuredContent_ContentField>(new Action<StructuredContent_ContentField>(this.attach_StructuredContent_ContentFields), new Action<StructuredContent_ContentField>(this.detach_StructuredContent_ContentFields));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[key]", Storage="_key", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string key
-		{
-			get
-			{
-				return this._key;
-			}
-			set
-			{
-				if ((this._key != value))
-				{
-					this.OnkeyChanging(value);
-					this.SendPropertyChanging();
-					this._key = value;
-					this.SendPropertyChanged("key");
-					this.OnkeyChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_type", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
-		public string type
-		{
-			get
-			{
-				return this._type;
-			}
-			set
-			{
-				if ((this._type != value))
-				{
-					this.OntypeChanging(value);
-					this.SendPropertyChanging();
-					this._type = value;
-					this.SendPropertyChanged("type");
-					this.OntypeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string name
-		{
-			get
-			{
-				return this._name;
-			}
-			set
-			{
-				if ((this._name != value))
-				{
-					this.OnnameChanging(value);
-					this.SendPropertyChanging();
-					this._name = value;
-					this.SendPropertyChanged("name");
-					this.OnnameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ordinal", DbType="Int NOT NULL")]
-		public int ordinal
-		{
-			get
-			{
-				return this._ordinal;
-			}
-			set
-			{
-				if ((this._ordinal != value))
-				{
-					this.OnordinalChanging(value);
-					this.SendPropertyChanging();
-					this._ordinal = value;
-					this.SendPropertyChanged("ordinal");
-					this.OnordinalChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_default_data_type", DbType="Int NOT NULL")]
-		public int default_data_type
-		{
-			get
-			{
-				return this._default_data_type;
-			}
-			set
-			{
-				if ((this._default_data_type != value))
-				{
-					this.Ondefault_data_typeChanging(value);
-					this.SendPropertyChanging();
-					this._default_data_type = value;
-					this.SendPropertyChanged("default_data_type");
-					this.Ondefault_data_typeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_default_data_length", DbType="VarChar(10)")]
-		public string default_data_length
-		{
-			get
-			{
-				return this._default_data_length;
-			}
-			set
-			{
-				if ((this._default_data_length != value))
-				{
-					this.Ondefault_data_lengthChanging(value);
-					this.SendPropertyChanging();
-					this._default_data_length = value;
-					this.SendPropertyChanged("default_data_length");
-					this.Ondefault_data_lengthChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_default_options", DbType="NVarChar(500)")]
-		public string default_options
-		{
-			get
-			{
-				return this._default_options;
-			}
-			set
-			{
-				if ((this._default_options != value))
-				{
-					this.Ondefault_optionsChanging(value);
-					this.SendPropertyChanging();
-					this._default_options = value;
-					this.SendPropertyChanged("default_options");
-					this.Ondefault_optionsChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_icon", DbType="NVarChar(50)")]
-		public string icon
-		{
-			get
-			{
-				return this._icon;
-			}
-			set
-			{
-				if ((this._icon != value))
-				{
-					this.OniconChanging(value);
-					this.SendPropertyChanging();
-					this._icon = value;
-					this.SendPropertyChanged("icon");
-					this.OniconChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StructuredContent_ContentFieldType_StructuredContent_ContentField", Storage="_StructuredContent_ContentFields", ThisKey="id", OtherKey="content_field_type_id")]
-		public EntitySet<StructuredContent_ContentField> StructuredContent_ContentFields
-		{
-			get
-			{
-				return this._StructuredContent_ContentFields;
-			}
-			set
-			{
-				this._StructuredContent_ContentFields.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_StructuredContent_ContentFields(StructuredContent_ContentField entity)
-		{
-			this.SendPropertyChanging();
-			entity.StructuredContent_ContentFieldType = this;
-		}
-		
-		private void detach_StructuredContent_ContentFields(StructuredContent_ContentField entity)
-		{
-			this.SendPropertyChanging();
-			entity.StructuredContent_ContentFieldType = null;
-		}
-	}
+    using System.Data.Linq;
+    using System.Data.Linq.Mapping;
+    using System.Data;
+    using System.Collections.Generic;
+    using System.Reflection;
+    using System.Linq;
+    using System.Linq.Expressions;
+    using System.ComponentModel;
+    using System;
+
+
+    [global::System.Data.Linq.Mapping.DatabaseAttribute(Name = "DNN_StructuredContent")]
+    public partial class DataContext : System.Data.Linq.DataContext
+    {
+
+        private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
+
+        #region Extensibility Method Definitions
+        partial void OnCreated();
+        partial void InsertStructuredContent_ContentField(StructuredContent_ContentField instance);
+        partial void UpdateStructuredContent_ContentField(StructuredContent_ContentField instance);
+        partial void DeleteStructuredContent_ContentField(StructuredContent_ContentField instance);
+        partial void InsertStructuredContent_VisualizerTemplate(StructuredContent_VisualizerTemplate instance);
+        partial void UpdateStructuredContent_VisualizerTemplate(StructuredContent_VisualizerTemplate instance);
+        partial void DeleteStructuredContent_VisualizerTemplate(StructuredContent_VisualizerTemplate instance);
+        partial void InsertStructuredContent_ContentFieldType(StructuredContent_ContentFieldType instance);
+        partial void UpdateStructuredContent_ContentFieldType(StructuredContent_ContentFieldType instance);
+        partial void DeleteStructuredContent_ContentFieldType(StructuredContent_ContentFieldType instance);
+        partial void InsertStructuredContent_ContentType(StructuredContent_ContentType instance);
+        partial void UpdateStructuredContent_ContentType(StructuredContent_ContentType instance);
+        partial void DeleteStructuredContent_ContentType(StructuredContent_ContentType instance);
+        partial void InsertStructuredContent_Relationship(StructuredContent_Relationship instance);
+        partial void UpdateStructuredContent_Relationship(StructuredContent_Relationship instance);
+        partial void DeleteStructuredContent_Relationship(StructuredContent_Relationship instance);
+        partial void InsertStructuredContent_Revision(StructuredContent_Revision instance);
+        partial void UpdateStructuredContent_Revision(StructuredContent_Revision instance);
+        partial void DeleteStructuredContent_Revision(StructuredContent_Revision instance);
+        partial void InsertStructuredContent_Visualizer(StructuredContent_Visualizer instance);
+        partial void UpdateStructuredContent_Visualizer(StructuredContent_Visualizer instance);
+        partial void DeleteStructuredContent_Visualizer(StructuredContent_Visualizer instance);
+        #endregion
+
+
+        public DataContext() : base(System.Configuration.ConfigurationManager.ConnectionStrings["SiteSqlServer"].ConnectionString)
+        {
+            OnCreated();
+        }
+
+        public DataContext(string connection) :
+                base(connection, mappingSource)
+        {
+            OnCreated();
+        }
+
+        public DataContext(System.Data.IDbConnection connection) :
+                base(connection, mappingSource)
+        {
+            OnCreated();
+        }
+
+        public DataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) :
+                base(connection, mappingSource)
+        {
+            OnCreated();
+        }
+
+        public DataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) :
+                base(connection, mappingSource)
+        {
+            OnCreated();
+        }
+
+        public System.Data.Linq.Table<StructuredContent_ContentField> StructuredContent_ContentFields
+        {
+            get
+            {
+                return this.GetTable<StructuredContent_ContentField>();
+            }
+        }
+
+        public System.Data.Linq.Table<StructuredContent_VisualizerTemplate> StructuredContent_VisualizerTemplates
+        {
+            get
+            {
+                return this.GetTable<StructuredContent_VisualizerTemplate>();
+            }
+        }
+
+        public System.Data.Linq.Table<StructuredContent_ContentFieldType> StructuredContent_ContentFieldTypes
+        {
+            get
+            {
+                return this.GetTable<StructuredContent_ContentFieldType>();
+            }
+        }
+
+        public System.Data.Linq.Table<StructuredContent_ContentType> StructuredContent_ContentTypes
+        {
+            get
+            {
+                return this.GetTable<StructuredContent_ContentType>();
+            }
+        }
+
+        public System.Data.Linq.Table<StructuredContent_Relationship> StructuredContent_Relationships
+        {
+            get
+            {
+                return this.GetTable<StructuredContent_Relationship>();
+            }
+        }
+
+        public System.Data.Linq.Table<StructuredContent_Revision> StructuredContent_Revisions
+        {
+            get
+            {
+                return this.GetTable<StructuredContent_Revision>();
+            }
+        }
+
+        public System.Data.Linq.Table<StructuredContent_Visualizer> StructuredContent_Visualizers
+        {
+            get
+            {
+                return this.GetTable<StructuredContent_Visualizer>();
+            }
+        }
+    }
+
+    [global::System.Data.Linq.Mapping.TableAttribute(Name = "dbo.StructuredContent_ContentField")]
+    public partial class StructuredContent_ContentField : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private int _Id;
+
+        private string _Name;
+
+        private int _ContentTypeId;
+
+        private bool _IsSystem;
+
+        private int _Ordinal;
+
+        private string _ColumnName;
+
+        private int _DataType;
+
+        private string _DataLength;
+
+        private bool _AllowNull;
+
+        private string _DefaultValue;
+
+        private string _HelpText;
+
+        private System.Nullable<int> _ContentFieldTypeId;
+
+        private string _Options;
+
+        private System.Nullable<int> _LayoutRow;
+
+        private System.Nullable<int> _LayoutColumn;
+
+        private EntityRef<StructuredContent_ContentFieldType> _StructuredContent_ContentFieldType;
+
+        private EntityRef<StructuredContent_ContentType> _StructuredContent_ContentType;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void OnIdChanging(int value);
+        partial void OnIdChanged();
+        partial void OnNameChanging(string value);
+        partial void OnNameChanged();
+        partial void OnContentTypeIdChanging(int value);
+        partial void OnContentTypeIdChanged();
+        partial void OnIsSystemChanging(bool value);
+        partial void OnIsSystemChanged();
+        partial void OnOrdinalChanging(int value);
+        partial void OnOrdinalChanged();
+        partial void OnColumnNameChanging(string value);
+        partial void OnColumnNameChanged();
+        partial void OnDataTypeChanging(int value);
+        partial void OnDataTypeChanged();
+        partial void OnDataLengthChanging(string value);
+        partial void OnDataLengthChanged();
+        partial void OnAllowNullChanging(bool value);
+        partial void OnAllowNullChanged();
+        partial void OnDefaultValueChanging(string value);
+        partial void OnDefaultValueChanged();
+        partial void OnHelpTextChanging(string value);
+        partial void OnHelpTextChanged();
+        partial void OnContentFieldTypeIdChanging(System.Nullable<int> value);
+        partial void OnContentFieldTypeIdChanged();
+        partial void OnOptionsChanging(string value);
+        partial void OnOptionsChanged();
+        partial void OnLayoutRowChanging(System.Nullable<int> value);
+        partial void OnLayoutRowChanged();
+        partial void OnLayoutColumnChanging(System.Nullable<int> value);
+        partial void OnLayoutColumnChanged();
+        #endregion
+
+        public StructuredContent_ContentField()
+        {
+            this._StructuredContent_ContentFieldType = default(EntityRef<StructuredContent_ContentFieldType>);
+            this._StructuredContent_ContentType = default(EntityRef<StructuredContent_ContentType>);
+            OnCreated();
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_Id", AutoSync = AutoSync.OnInsert, DbType = "Int NOT NULL IDENTITY", IsPrimaryKey = true, IsDbGenerated = true)]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                if ((this._Id != value))
+                {
+                    this.OnIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._Id = value;
+                    this.SendPropertyChanged("Id");
+                    this.OnIdChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_Name", DbType = "NVarChar(256) NOT NULL", CanBeNull = false)]
+        public string Name
+        {
+            get
+            {
+                return this._Name;
+            }
+            set
+            {
+                if ((this._Name != value))
+                {
+                    this.OnNameChanging(value);
+                    this.SendPropertyChanging();
+                    this._Name = value;
+                    this.SendPropertyChanged("Name");
+                    this.OnNameChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_ContentTypeId", DbType = "Int NOT NULL")]
+        public int ContentTypeId
+        {
+            get
+            {
+                return this._ContentTypeId;
+            }
+            set
+            {
+                if ((this._ContentTypeId != value))
+                {
+                    if (this._StructuredContent_ContentType.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.OnContentTypeIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._ContentTypeId = value;
+                    this.SendPropertyChanged("ContentTypeId");
+                    this.OnContentTypeIdChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_IsSystem", DbType = "Bit NOT NULL")]
+        public bool IsSystem
+        {
+            get
+            {
+                return this._IsSystem;
+            }
+            set
+            {
+                if ((this._IsSystem != value))
+                {
+                    this.OnIsSystemChanging(value);
+                    this.SendPropertyChanging();
+                    this._IsSystem = value;
+                    this.SendPropertyChanged("IsSystem");
+                    this.OnIsSystemChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_Ordinal", DbType = "Int NOT NULL")]
+        public int Ordinal
+        {
+            get
+            {
+                return this._Ordinal;
+            }
+            set
+            {
+                if ((this._Ordinal != value))
+                {
+                    this.OnOrdinalChanging(value);
+                    this.SendPropertyChanging();
+                    this._Ordinal = value;
+                    this.SendPropertyChanged("Ordinal");
+                    this.OnOrdinalChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_ColumnName", DbType = "NVarChar(256) NOT NULL", CanBeNull = false)]
+        public string ColumnName
+        {
+            get
+            {
+                return this._ColumnName;
+            }
+            set
+            {
+                if ((this._ColumnName != value))
+                {
+                    this.OnColumnNameChanging(value);
+                    this.SendPropertyChanging();
+                    this._ColumnName = value;
+                    this.SendPropertyChanged("ColumnName");
+                    this.OnColumnNameChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_DataType", DbType = "Int NOT NULL")]
+        public int DataType
+        {
+            get
+            {
+                return this._DataType;
+            }
+            set
+            {
+                if ((this._DataType != value))
+                {
+                    this.OnDataTypeChanging(value);
+                    this.SendPropertyChanging();
+                    this._DataType = value;
+                    this.SendPropertyChanged("DataType");
+                    this.OnDataTypeChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_DataLength", DbType = "NVarChar(50)")]
+        public string DataLength
+        {
+            get
+            {
+                return this._DataLength;
+            }
+            set
+            {
+                if ((this._DataLength != value))
+                {
+                    this.OnDataLengthChanging(value);
+                    this.SendPropertyChanging();
+                    this._DataLength = value;
+                    this.SendPropertyChanged("DataLength");
+                    this.OnDataLengthChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_AllowNull", DbType = "Bit NOT NULL")]
+        public bool AllowNull
+        {
+            get
+            {
+                return this._AllowNull;
+            }
+            set
+            {
+                if ((this._AllowNull != value))
+                {
+                    this.OnAllowNullChanging(value);
+                    this.SendPropertyChanging();
+                    this._AllowNull = value;
+                    this.SendPropertyChanged("AllowNull");
+                    this.OnAllowNullChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_DefaultValue", DbType = "NVarChar(50)")]
+        public string DefaultValue
+        {
+            get
+            {
+                return this._DefaultValue;
+            }
+            set
+            {
+                if ((this._DefaultValue != value))
+                {
+                    this.OnDefaultValueChanging(value);
+                    this.SendPropertyChanging();
+                    this._DefaultValue = value;
+                    this.SendPropertyChanged("DefaultValue");
+                    this.OnDefaultValueChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_HelpText", DbType = "NVarChar(256)")]
+        public string HelpText
+        {
+            get
+            {
+                return this._HelpText;
+            }
+            set
+            {
+                if ((this._HelpText != value))
+                {
+                    this.OnHelpTextChanging(value);
+                    this.SendPropertyChanging();
+                    this._HelpText = value;
+                    this.SendPropertyChanged("HelpText");
+                    this.OnHelpTextChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_ContentFieldTypeId", DbType = "Int")]
+        public System.Nullable<int> ContentFieldTypeId
+        {
+            get
+            {
+                return this._ContentFieldTypeId;
+            }
+            set
+            {
+                if ((this._ContentFieldTypeId != value))
+                {
+                    if (this._StructuredContent_ContentFieldType.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.OnContentFieldTypeIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._ContentFieldTypeId = value;
+                    this.SendPropertyChanged("ContentFieldTypeId");
+                    this.OnContentFieldTypeIdChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_Options", DbType = "NVarChar(MAX)")]
+        public string Options
+        {
+            get
+            {
+                return this._Options;
+            }
+            set
+            {
+                if ((this._Options != value))
+                {
+                    this.OnOptionsChanging(value);
+                    this.SendPropertyChanging();
+                    this._Options = value;
+                    this.SendPropertyChanged("Options");
+                    this.OnOptionsChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_LayoutRow", DbType = "Int")]
+        public System.Nullable<int> LayoutRow
+        {
+            get
+            {
+                return this._LayoutRow;
+            }
+            set
+            {
+                if ((this._LayoutRow != value))
+                {
+                    this.OnLayoutRowChanging(value);
+                    this.SendPropertyChanging();
+                    this._LayoutRow = value;
+                    this.SendPropertyChanged("LayoutRow");
+                    this.OnLayoutRowChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_LayoutColumn", DbType = "Int")]
+        public System.Nullable<int> LayoutColumn
+        {
+            get
+            {
+                return this._LayoutColumn;
+            }
+            set
+            {
+                if ((this._LayoutColumn != value))
+                {
+                    this.OnLayoutColumnChanging(value);
+                    this.SendPropertyChanging();
+                    this._LayoutColumn = value;
+                    this.SendPropertyChanged("LayoutColumn");
+                    this.OnLayoutColumnChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "StructuredContent_ContentFieldType_StructuredContent_ContentField", Storage = "_StructuredContent_ContentFieldType", ThisKey = "ContentFieldTypeId", OtherKey = "Id", IsForeignKey = true, DeleteRule = "SET NULL")]
+        public StructuredContent_ContentFieldType StructuredContent_ContentFieldType
+        {
+            get
+            {
+                return this._StructuredContent_ContentFieldType.Entity;
+            }
+            set
+            {
+                StructuredContent_ContentFieldType previousValue = this._StructuredContent_ContentFieldType.Entity;
+                if (((previousValue != value)
+                            || (this._StructuredContent_ContentFieldType.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._StructuredContent_ContentFieldType.Entity = null;
+                        previousValue.StructuredContent_ContentFields.Remove(this);
+                    }
+                    this._StructuredContent_ContentFieldType.Entity = value;
+                    if ((value != null))
+                    {
+                        value.StructuredContent_ContentFields.Add(this);
+                        this._ContentFieldTypeId = value.Id;
+                    }
+                    else
+                    {
+                        this._ContentFieldTypeId = default(Nullable<int>);
+                    }
+                    this.SendPropertyChanged("StructuredContent_ContentFieldType");
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "StructuredContent_ContentType_StructuredContent_ContentField", Storage = "_StructuredContent_ContentType", ThisKey = "ContentTypeId", OtherKey = "Id", IsForeignKey = true, DeleteOnNull = true, DeleteRule = "CASCADE")]
+        public StructuredContent_ContentType StructuredContent_ContentType
+        {
+            get
+            {
+                return this._StructuredContent_ContentType.Entity;
+            }
+            set
+            {
+                StructuredContent_ContentType previousValue = this._StructuredContent_ContentType.Entity;
+                if (((previousValue != value)
+                            || (this._StructuredContent_ContentType.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._StructuredContent_ContentType.Entity = null;
+                        previousValue.StructuredContent_ContentFields.Remove(this);
+                    }
+                    this._StructuredContent_ContentType.Entity = value;
+                    if ((value != null))
+                    {
+                        value.StructuredContent_ContentFields.Add(this);
+                        this._ContentTypeId = value.Id;
+                    }
+                    else
+                    {
+                        this._ContentTypeId = default(int);
+                    }
+                    this.SendPropertyChanged("StructuredContent_ContentType");
+                }
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+
+    [global::System.Data.Linq.Mapping.TableAttribute(Name = "dbo.StructuredContent_VisualizerTemplate")]
+    public partial class StructuredContent_VisualizerTemplate : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private int _Id;
+
+        private int _ContentTypeId;
+
+        private string _Name;
+
+        private string _Description;
+
+        private string _Script;
+
+        private string _Css;
+
+        private string _Template;
+
+        private string _Language;
+
+        private string _ContentSize;
+
+        private EntitySet<StructuredContent_Visualizer> _StructuredContent_Visualizers;
+
+        private EntityRef<StructuredContent_ContentType> _StructuredContent_ContentType;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void OnIdChanging(int value);
+        partial void OnIdChanged();
+        partial void OnContentTypeIdChanging(int value);
+        partial void OnContentTypeIdChanged();
+        partial void OnNameChanging(string value);
+        partial void OnNameChanged();
+        partial void OnDescriptionChanging(string value);
+        partial void OnDescriptionChanged();
+        partial void OnScriptChanging(string value);
+        partial void OnScriptChanged();
+        partial void OnCssChanging(string value);
+        partial void OnCssChanged();
+        partial void OnTemplateChanging(string value);
+        partial void OnTemplateChanged();
+        partial void OnLanguageChanging(string value);
+        partial void OnLanguageChanged();
+        partial void OnContentSizeChanging(string value);
+        partial void OnContentSizeChanged();
+        #endregion
+
+        public StructuredContent_VisualizerTemplate()
+        {
+            this._StructuredContent_Visualizers = new EntitySet<StructuredContent_Visualizer>(new Action<StructuredContent_Visualizer>(this.attach_StructuredContent_Visualizers), new Action<StructuredContent_Visualizer>(this.detach_StructuredContent_Visualizers));
+            this._StructuredContent_ContentType = default(EntityRef<StructuredContent_ContentType>);
+            OnCreated();
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_Id", AutoSync = AutoSync.OnInsert, DbType = "Int NOT NULL IDENTITY", IsPrimaryKey = true, IsDbGenerated = true)]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                if ((this._Id != value))
+                {
+                    this.OnIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._Id = value;
+                    this.SendPropertyChanged("Id");
+                    this.OnIdChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_ContentTypeId", DbType = "Int NOT NULL")]
+        public int ContentTypeId
+        {
+            get
+            {
+                return this._ContentTypeId;
+            }
+            set
+            {
+                if ((this._ContentTypeId != value))
+                {
+                    if (this._StructuredContent_ContentType.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.OnContentTypeIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._ContentTypeId = value;
+                    this.SendPropertyChanged("ContentTypeId");
+                    this.OnContentTypeIdChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_Name", DbType = "NVarChar(250) NOT NULL", CanBeNull = false)]
+        public string Name
+        {
+            get
+            {
+                return this._Name;
+            }
+            set
+            {
+                if ((this._Name != value))
+                {
+                    this.OnNameChanging(value);
+                    this.SendPropertyChanging();
+                    this._Name = value;
+                    this.SendPropertyChanged("Name");
+                    this.OnNameChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_Description", DbType = "NVarChar(MAX)")]
+        public string Description
+        {
+            get
+            {
+                return this._Description;
+            }
+            set
+            {
+                if ((this._Description != value))
+                {
+                    this.OnDescriptionChanging(value);
+                    this.SendPropertyChanging();
+                    this._Description = value;
+                    this.SendPropertyChanged("Description");
+                    this.OnDescriptionChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_Script", DbType = "NVarChar(MAX)")]
+        public string Script
+        {
+            get
+            {
+                return this._Script;
+            }
+            set
+            {
+                if ((this._Script != value))
+                {
+                    this.OnScriptChanging(value);
+                    this.SendPropertyChanging();
+                    this._Script = value;
+                    this.SendPropertyChanged("Script");
+                    this.OnScriptChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_Css", DbType = "NVarChar(MAX)")]
+        public string Css
+        {
+            get
+            {
+                return this._Css;
+            }
+            set
+            {
+                if ((this._Css != value))
+                {
+                    this.OnCssChanging(value);
+                    this.SendPropertyChanging();
+                    this._Css = value;
+                    this.SendPropertyChanged("Css");
+                    this.OnCssChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_Template", DbType = "NVarChar(MAX)")]
+        public string Template
+        {
+            get
+            {
+                return this._Template;
+            }
+            set
+            {
+                if ((this._Template != value))
+                {
+                    this.OnTemplateChanging(value);
+                    this.SendPropertyChanging();
+                    this._Template = value;
+                    this.SendPropertyChanged("Template");
+                    this.OnTemplateChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_Language", DbType = "VarChar(10)")]
+        public string Language
+        {
+            get
+            {
+                return this._Language;
+            }
+            set
+            {
+                if ((this._Language != value))
+                {
+                    this.OnLanguageChanging(value);
+                    this.SendPropertyChanging();
+                    this._Language = value;
+                    this.SendPropertyChanged("Language");
+                    this.OnLanguageChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_ContentSize", DbType = "VarChar(10)")]
+        public string ContentSize
+        {
+            get
+            {
+                return this._ContentSize;
+            }
+            set
+            {
+                if ((this._ContentSize != value))
+                {
+                    this.OnContentSizeChanging(value);
+                    this.SendPropertyChanging();
+                    this._ContentSize = value;
+                    this.SendPropertyChanged("ContentSize");
+                    this.OnContentSizeChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "StructuredContent_VisualizerTemplate_StructuredContent_Visualizer", Storage = "_StructuredContent_Visualizers", ThisKey = "Id", OtherKey = "VisualizerTemplateId")]
+        public EntitySet<StructuredContent_Visualizer> StructuredContent_Visualizers
+        {
+            get
+            {
+                return this._StructuredContent_Visualizers;
+            }
+            set
+            {
+                this._StructuredContent_Visualizers.Assign(value);
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "StructuredContent_ContentType_StructuredContent_VisualizerTemplate", Storage = "_StructuredContent_ContentType", ThisKey = "ContentTypeId", OtherKey = "Id", IsForeignKey = true, DeleteOnNull = true, DeleteRule = "CASCADE")]
+        public StructuredContent_ContentType StructuredContent_ContentType
+        {
+            get
+            {
+                return this._StructuredContent_ContentType.Entity;
+            }
+            set
+            {
+                StructuredContent_ContentType previousValue = this._StructuredContent_ContentType.Entity;
+                if (((previousValue != value)
+                            || (this._StructuredContent_ContentType.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._StructuredContent_ContentType.Entity = null;
+                        previousValue.StructuredContent_VisualizerTemplates.Remove(this);
+                    }
+                    this._StructuredContent_ContentType.Entity = value;
+                    if ((value != null))
+                    {
+                        value.StructuredContent_VisualizerTemplates.Add(this);
+                        this._ContentTypeId = value.Id;
+                    }
+                    else
+                    {
+                        this._ContentTypeId = default(int);
+                    }
+                    this.SendPropertyChanged("StructuredContent_ContentType");
+                }
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        private void attach_StructuredContent_Visualizers(StructuredContent_Visualizer entity)
+        {
+            this.SendPropertyChanging();
+            entity.StructuredContent_VisualizerTemplate = this;
+        }
+
+        private void detach_StructuredContent_Visualizers(StructuredContent_Visualizer entity)
+        {
+            this.SendPropertyChanging();
+            entity.StructuredContent_VisualizerTemplate = null;
+        }
+    }
+
+    [global::System.Data.Linq.Mapping.TableAttribute(Name = "dbo.StructuredContent_ContentFieldType")]
+    public partial class StructuredContent_ContentFieldType : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private int _Id;
+
+        private string _Key;
+
+        private string _Type;
+
+        private string _Name;
+
+        private int _Ordinal;
+
+        private int _DefaultDataType;
+
+        private string _DefaultDataLength;
+
+        private string _DefaultOptions;
+
+        private string _Icon;
+
+        private EntitySet<StructuredContent_ContentField> _StructuredContent_ContentFields;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void OnIdChanging(int value);
+        partial void OnIdChanged();
+        partial void OnKeyChanging(string value);
+        partial void OnKeyChanged();
+        partial void OnTypeChanging(string value);
+        partial void OnTypeChanged();
+        partial void OnNameChanging(string value);
+        partial void OnNameChanged();
+        partial void OnOrdinalChanging(int value);
+        partial void OnOrdinalChanged();
+        partial void OnDefaultDataTypeChanging(int value);
+        partial void OnDefaultDataTypeChanged();
+        partial void OnDefaultDataLengthChanging(string value);
+        partial void OnDefaultDataLengthChanged();
+        partial void OnDefaultOptionsChanging(string value);
+        partial void OnDefaultOptionsChanged();
+        partial void OnIconChanging(string value);
+        partial void OnIconChanged();
+        #endregion
+
+        public StructuredContent_ContentFieldType()
+        {
+            this._StructuredContent_ContentFields = new EntitySet<StructuredContent_ContentField>(new Action<StructuredContent_ContentField>(this.attach_StructuredContent_ContentFields), new Action<StructuredContent_ContentField>(this.detach_StructuredContent_ContentFields));
+            OnCreated();
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_Id", AutoSync = AutoSync.OnInsert, DbType = "Int NOT NULL IDENTITY", IsPrimaryKey = true, IsDbGenerated = true)]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                if ((this._Id != value))
+                {
+                    this.OnIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._Id = value;
+                    this.SendPropertyChanged("Id");
+                    this.OnIdChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Name = "[Key]", Storage = "_Key", DbType = "VarChar(50) NOT NULL", CanBeNull = false)]
+        public string Key
+        {
+            get
+            {
+                return this._Key;
+            }
+            set
+            {
+                if ((this._Key != value))
+                {
+                    this.OnKeyChanging(value);
+                    this.SendPropertyChanging();
+                    this._Key = value;
+                    this.SendPropertyChanged("Key");
+                    this.OnKeyChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_Type", DbType = "VarChar(20) NOT NULL", CanBeNull = false)]
+        public string Type
+        {
+            get
+            {
+                return this._Type;
+            }
+            set
+            {
+                if ((this._Type != value))
+                {
+                    this.OnTypeChanging(value);
+                    this.SendPropertyChanging();
+                    this._Type = value;
+                    this.SendPropertyChanged("Type");
+                    this.OnTypeChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_Name", DbType = "VarChar(50) NOT NULL", CanBeNull = false)]
+        public string Name
+        {
+            get
+            {
+                return this._Name;
+            }
+            set
+            {
+                if ((this._Name != value))
+                {
+                    this.OnNameChanging(value);
+                    this.SendPropertyChanging();
+                    this._Name = value;
+                    this.SendPropertyChanged("Name");
+                    this.OnNameChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_Ordinal", DbType = "Int NOT NULL")]
+        public int Ordinal
+        {
+            get
+            {
+                return this._Ordinal;
+            }
+            set
+            {
+                if ((this._Ordinal != value))
+                {
+                    this.OnOrdinalChanging(value);
+                    this.SendPropertyChanging();
+                    this._Ordinal = value;
+                    this.SendPropertyChanged("Ordinal");
+                    this.OnOrdinalChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_DefaultDataType", DbType = "Int NOT NULL")]
+        public int DefaultDataType
+        {
+            get
+            {
+                return this._DefaultDataType;
+            }
+            set
+            {
+                if ((this._DefaultDataType != value))
+                {
+                    this.OnDefaultDataTypeChanging(value);
+                    this.SendPropertyChanging();
+                    this._DefaultDataType = value;
+                    this.SendPropertyChanged("DefaultDataType");
+                    this.OnDefaultDataTypeChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_DefaultDataLength", DbType = "VarChar(10)")]
+        public string DefaultDataLength
+        {
+            get
+            {
+                return this._DefaultDataLength;
+            }
+            set
+            {
+                if ((this._DefaultDataLength != value))
+                {
+                    this.OnDefaultDataLengthChanging(value);
+                    this.SendPropertyChanging();
+                    this._DefaultDataLength = value;
+                    this.SendPropertyChanged("DefaultDataLength");
+                    this.OnDefaultDataLengthChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_DefaultOptions", DbType = "NVarChar(500)")]
+        public string DefaultOptions
+        {
+            get
+            {
+                return this._DefaultOptions;
+            }
+            set
+            {
+                if ((this._DefaultOptions != value))
+                {
+                    this.OnDefaultOptionsChanging(value);
+                    this.SendPropertyChanging();
+                    this._DefaultOptions = value;
+                    this.SendPropertyChanged("DefaultOptions");
+                    this.OnDefaultOptionsChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_Icon", DbType = "NVarChar(50)")]
+        public string Icon
+        {
+            get
+            {
+                return this._Icon;
+            }
+            set
+            {
+                if ((this._Icon != value))
+                {
+                    this.OnIconChanging(value);
+                    this.SendPropertyChanging();
+                    this._Icon = value;
+                    this.SendPropertyChanged("Icon");
+                    this.OnIconChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "StructuredContent_ContentFieldType_StructuredContent_ContentField", Storage = "_StructuredContent_ContentFields", ThisKey = "Id", OtherKey = "ContentFieldTypeId")]
+        public EntitySet<StructuredContent_ContentField> StructuredContent_ContentFields
+        {
+            get
+            {
+                return this._StructuredContent_ContentFields;
+            }
+            set
+            {
+                this._StructuredContent_ContentFields.Assign(value);
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        private void attach_StructuredContent_ContentFields(StructuredContent_ContentField entity)
+        {
+            this.SendPropertyChanging();
+            entity.StructuredContent_ContentFieldType = this;
+        }
+
+        private void detach_StructuredContent_ContentFields(StructuredContent_ContentField entity)
+        {
+            this.SendPropertyChanging();
+            entity.StructuredContent_ContentFieldType = null;
+        }
+    }
+
+    [global::System.Data.Linq.Mapping.TableAttribute(Name = "dbo.StructuredContent_ContentType")]
+    public partial class StructuredContent_ContentType : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private int _Id;
+
+        private string _Name;
+
+        private string _Singular;
+
+        private string _Plural;
+
+        private string _UrlSlug;
+
+        private string _TableName;
+
+        private bool _IsSystem;
+
+        private EntitySet<StructuredContent_ContentField> _StructuredContent_ContentFields;
+
+        private EntitySet<StructuredContent_VisualizerTemplate> _StructuredContent_VisualizerTemplates;
+
+        private EntitySet<StructuredContent_Relationship> _StructuredContent_Relationships;
+
+        private EntitySet<StructuredContent_Relationship> _StructuredContent_Relationships1;
+
+        private EntitySet<StructuredContent_Revision> _StructuredContent_Revisions;
+
+        private EntitySet<StructuredContent_Visualizer> _StructuredContent_Visualizers;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void OnIdChanging(int value);
+        partial void OnIdChanged();
+        partial void OnNameChanging(string value);
+        partial void OnNameChanged();
+        partial void OnSingularChanging(string value);
+        partial void OnSingularChanged();
+        partial void OnPluralChanging(string value);
+        partial void OnPluralChanged();
+        partial void OnUrlSlugChanging(string value);
+        partial void OnUrlSlugChanged();
+        partial void OnTableNameChanging(string value);
+        partial void OnTableNameChanged();
+        partial void OnIsSystemChanging(bool value);
+        partial void OnIsSystemChanged();
+        #endregion
+
+        public StructuredContent_ContentType()
+        {
+            this._StructuredContent_ContentFields = new EntitySet<StructuredContent_ContentField>(new Action<StructuredContent_ContentField>(this.attach_StructuredContent_ContentFields), new Action<StructuredContent_ContentField>(this.detach_StructuredContent_ContentFields));
+            this._StructuredContent_VisualizerTemplates = new EntitySet<StructuredContent_VisualizerTemplate>(new Action<StructuredContent_VisualizerTemplate>(this.attach_StructuredContent_VisualizerTemplates), new Action<StructuredContent_VisualizerTemplate>(this.detach_StructuredContent_VisualizerTemplates));
+            this._StructuredContent_Relationships = new EntitySet<StructuredContent_Relationship>(new Action<StructuredContent_Relationship>(this.attach_StructuredContent_Relationships), new Action<StructuredContent_Relationship>(this.detach_StructuredContent_Relationships));
+            this._StructuredContent_Relationships1 = new EntitySet<StructuredContent_Relationship>(new Action<StructuredContent_Relationship>(this.attach_StructuredContent_Relationships1), new Action<StructuredContent_Relationship>(this.detach_StructuredContent_Relationships1));
+            this._StructuredContent_Revisions = new EntitySet<StructuredContent_Revision>(new Action<StructuredContent_Revision>(this.attach_StructuredContent_Revisions), new Action<StructuredContent_Revision>(this.detach_StructuredContent_Revisions));
+            this._StructuredContent_Visualizers = new EntitySet<StructuredContent_Visualizer>(new Action<StructuredContent_Visualizer>(this.attach_StructuredContent_Visualizers), new Action<StructuredContent_Visualizer>(this.detach_StructuredContent_Visualizers));
+            OnCreated();
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_Id", AutoSync = AutoSync.OnInsert, DbType = "Int NOT NULL IDENTITY", IsPrimaryKey = true, IsDbGenerated = true)]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                if ((this._Id != value))
+                {
+                    this.OnIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._Id = value;
+                    this.SendPropertyChanged("Id");
+                    this.OnIdChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_Name", DbType = "NVarChar(250) NOT NULL", CanBeNull = false)]
+        public string Name
+        {
+            get
+            {
+                return this._Name;
+            }
+            set
+            {
+                if ((this._Name != value))
+                {
+                    this.OnNameChanging(value);
+                    this.SendPropertyChanging();
+                    this._Name = value;
+                    this.SendPropertyChanged("Name");
+                    this.OnNameChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_Singular", DbType = "NVarChar(250) NOT NULL", CanBeNull = false)]
+        public string Singular
+        {
+            get
+            {
+                return this._Singular;
+            }
+            set
+            {
+                if ((this._Singular != value))
+                {
+                    this.OnSingularChanging(value);
+                    this.SendPropertyChanging();
+                    this._Singular = value;
+                    this.SendPropertyChanged("Singular");
+                    this.OnSingularChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_Plural", DbType = "NVarChar(250) NOT NULL", CanBeNull = false)]
+        public string Plural
+        {
+            get
+            {
+                return this._Plural;
+            }
+            set
+            {
+                if ((this._Plural != value))
+                {
+                    this.OnPluralChanging(value);
+                    this.SendPropertyChanging();
+                    this._Plural = value;
+                    this.SendPropertyChanged("Plural");
+                    this.OnPluralChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_UrlSlug", DbType = "NVarChar(250) NOT NULL", CanBeNull = false)]
+        public string UrlSlug
+        {
+            get
+            {
+                return this._UrlSlug;
+            }
+            set
+            {
+                if ((this._UrlSlug != value))
+                {
+                    this.OnUrlSlugChanging(value);
+                    this.SendPropertyChanging();
+                    this._UrlSlug = value;
+                    this.SendPropertyChanged("UrlSlug");
+                    this.OnUrlSlugChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_TableName", DbType = "NVarChar(250) NOT NULL", CanBeNull = false)]
+        public string TableName
+        {
+            get
+            {
+                return this._TableName;
+            }
+            set
+            {
+                if ((this._TableName != value))
+                {
+                    this.OnTableNameChanging(value);
+                    this.SendPropertyChanging();
+                    this._TableName = value;
+                    this.SendPropertyChanged("TableName");
+                    this.OnTableNameChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_IsSystem", DbType = "Bit NOT NULL")]
+        public bool IsSystem
+        {
+            get
+            {
+                return this._IsSystem;
+            }
+            set
+            {
+                if ((this._IsSystem != value))
+                {
+                    this.OnIsSystemChanging(value);
+                    this.SendPropertyChanging();
+                    this._IsSystem = value;
+                    this.SendPropertyChanged("IsSystem");
+                    this.OnIsSystemChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "StructuredContent_ContentType_StructuredContent_ContentField", Storage = "_StructuredContent_ContentFields", ThisKey = "Id", OtherKey = "ContentTypeId")]
+        public EntitySet<StructuredContent_ContentField> StructuredContent_ContentFields
+        {
+            get
+            {
+                return this._StructuredContent_ContentFields;
+            }
+            set
+            {
+                this._StructuredContent_ContentFields.Assign(value);
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "StructuredContent_ContentType_StructuredContent_VisualizerTemplate", Storage = "_StructuredContent_VisualizerTemplates", ThisKey = "Id", OtherKey = "ContentTypeId")]
+        public EntitySet<StructuredContent_VisualizerTemplate> StructuredContent_VisualizerTemplates
+        {
+            get
+            {
+                return this._StructuredContent_VisualizerTemplates;
+            }
+            set
+            {
+                this._StructuredContent_VisualizerTemplates.Assign(value);
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "StructuredContent_ContentType_StructuredContent_Relationship", Storage = "_StructuredContent_Relationships", ThisKey = "Id", OtherKey = "AContentTypeId")]
+        public EntitySet<StructuredContent_Relationship> StructuredContent_Relationships
+        {
+            get
+            {
+                return this._StructuredContent_Relationships;
+            }
+            set
+            {
+                this._StructuredContent_Relationships.Assign(value);
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "StructuredContent_ContentType_StructuredContent_Relationship1", Storage = "_StructuredContent_Relationships1", ThisKey = "Id", OtherKey = "BContentTypeId")]
+        public EntitySet<StructuredContent_Relationship> StructuredContent_Relationships1
+        {
+            get
+            {
+                return this._StructuredContent_Relationships1;
+            }
+            set
+            {
+                this._StructuredContent_Relationships1.Assign(value);
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "StructuredContent_ContentType_StructuredContent_Revision", Storage = "_StructuredContent_Revisions", ThisKey = "Id", OtherKey = "ContentTypeId")]
+        public EntitySet<StructuredContent_Revision> StructuredContent_Revisions
+        {
+            get
+            {
+                return this._StructuredContent_Revisions;
+            }
+            set
+            {
+                this._StructuredContent_Revisions.Assign(value);
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "StructuredContent_ContentType_StructuredContent_Visualizer", Storage = "_StructuredContent_Visualizers", ThisKey = "Id", OtherKey = "ContentTypeId")]
+        public EntitySet<StructuredContent_Visualizer> StructuredContent_Visualizers
+        {
+            get
+            {
+                return this._StructuredContent_Visualizers;
+            }
+            set
+            {
+                this._StructuredContent_Visualizers.Assign(value);
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        private void attach_StructuredContent_ContentFields(StructuredContent_ContentField entity)
+        {
+            this.SendPropertyChanging();
+            entity.StructuredContent_ContentType = this;
+        }
+
+        private void detach_StructuredContent_ContentFields(StructuredContent_ContentField entity)
+        {
+            this.SendPropertyChanging();
+            entity.StructuredContent_ContentType = null;
+        }
+
+        private void attach_StructuredContent_VisualizerTemplates(StructuredContent_VisualizerTemplate entity)
+        {
+            this.SendPropertyChanging();
+            entity.StructuredContent_ContentType = this;
+        }
+
+        private void detach_StructuredContent_VisualizerTemplates(StructuredContent_VisualizerTemplate entity)
+        {
+            this.SendPropertyChanging();
+            entity.StructuredContent_ContentType = null;
+        }
+
+        private void attach_StructuredContent_Relationships(StructuredContent_Relationship entity)
+        {
+            this.SendPropertyChanging();
+            entity.StructuredContent_ContentType = this;
+        }
+
+        private void detach_StructuredContent_Relationships(StructuredContent_Relationship entity)
+        {
+            this.SendPropertyChanging();
+            entity.StructuredContent_ContentType = null;
+        }
+
+        private void attach_StructuredContent_Relationships1(StructuredContent_Relationship entity)
+        {
+            this.SendPropertyChanging();
+            entity.StructuredContent_ContentType1 = this;
+        }
+
+        private void detach_StructuredContent_Relationships1(StructuredContent_Relationship entity)
+        {
+            this.SendPropertyChanging();
+            entity.StructuredContent_ContentType1 = null;
+        }
+
+        private void attach_StructuredContent_Revisions(StructuredContent_Revision entity)
+        {
+            this.SendPropertyChanging();
+            entity.StructuredContent_ContentType = this;
+        }
+
+        private void detach_StructuredContent_Revisions(StructuredContent_Revision entity)
+        {
+            this.SendPropertyChanging();
+            entity.StructuredContent_ContentType = null;
+        }
+
+        private void attach_StructuredContent_Visualizers(StructuredContent_Visualizer entity)
+        {
+            this.SendPropertyChanging();
+            entity.StructuredContent_ContentType = this;
+        }
+
+        private void detach_StructuredContent_Visualizers(StructuredContent_Visualizer entity)
+        {
+            this.SendPropertyChanging();
+            entity.StructuredContent_ContentType = null;
+        }
+    }
+
+    [global::System.Data.Linq.Mapping.TableAttribute(Name = "dbo.StructuredContent_Relationship")]
+    public partial class StructuredContent_Relationship : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private int _Id;
+
+        private string _Key;
+
+        private int _AContentTypeId;
+
+        private int _BContentTypeId;
+
+        private System.Nullable<bool> _ARequired;
+
+        private System.Nullable<int> _AMinLimit;
+
+        private System.Nullable<int> _AMaxLimit;
+
+        private string _AHelpText;
+
+        private System.Nullable<bool> _BRequired;
+
+        private System.Nullable<int> _BMinLimit;
+
+        private System.Nullable<int> _BMaxLimit;
+
+        private string _BHelpText;
+
+        private System.Nullable<int> _ALayoutRow;
+
+        private System.Nullable<int> _ALayoutColumn;
+
+        private System.Nullable<int> _BLayoutRow;
+
+        private System.Nullable<int> _BLayoutColumn;
+
+        private EntityRef<StructuredContent_ContentType> _StructuredContent_ContentType;
+
+        private EntityRef<StructuredContent_ContentType> _StructuredContent_ContentType1;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void OnIdChanging(int value);
+        partial void OnIdChanged();
+        partial void OnKeyChanging(string value);
+        partial void OnKeyChanged();
+        partial void OnAContentTypeIdChanging(int value);
+        partial void OnAContentTypeIdChanged();
+        partial void OnBContentTypeIdChanging(int value);
+        partial void OnBContentTypeIdChanged();
+        partial void OnARequiredChanging(System.Nullable<bool> value);
+        partial void OnARequiredChanged();
+        partial void OnAMinLimitChanging(System.Nullable<int> value);
+        partial void OnAMinLimitChanged();
+        partial void OnAMaxLimitChanging(System.Nullable<int> value);
+        partial void OnAMaxLimitChanged();
+        partial void OnAHelpTextChanging(string value);
+        partial void OnAHelpTextChanged();
+        partial void OnBRequiredChanging(System.Nullable<bool> value);
+        partial void OnBRequiredChanged();
+        partial void OnBMinLimitChanging(System.Nullable<int> value);
+        partial void OnBMinLimitChanged();
+        partial void OnBMaxLimitChanging(System.Nullable<int> value);
+        partial void OnBMaxLimitChanged();
+        partial void OnBHelpTextChanging(string value);
+        partial void OnBHelpTextChanged();
+        partial void OnALayoutRowChanging(System.Nullable<int> value);
+        partial void OnALayoutRowChanged();
+        partial void OnALayoutColumnChanging(System.Nullable<int> value);
+        partial void OnALayoutColumnChanged();
+        partial void OnBLayoutRowChanging(System.Nullable<int> value);
+        partial void OnBLayoutRowChanged();
+        partial void OnBLayoutColumnChanging(System.Nullable<int> value);
+        partial void OnBLayoutColumnChanged();
+        #endregion
+
+        public StructuredContent_Relationship()
+        {
+            this._StructuredContent_ContentType = default(EntityRef<StructuredContent_ContentType>);
+            this._StructuredContent_ContentType1 = default(EntityRef<StructuredContent_ContentType>);
+            OnCreated();
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_Id", AutoSync = AutoSync.OnInsert, DbType = "Int NOT NULL IDENTITY", IsPrimaryKey = true, IsDbGenerated = true)]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                if ((this._Id != value))
+                {
+                    this.OnIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._Id = value;
+                    this.SendPropertyChanged("Id");
+                    this.OnIdChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Name = "[Key]", Storage = "_Key", DbType = "VarChar(3) NOT NULL", CanBeNull = false)]
+        public string Key
+        {
+            get
+            {
+                return this._Key;
+            }
+            set
+            {
+                if ((this._Key != value))
+                {
+                    this.OnKeyChanging(value);
+                    this.SendPropertyChanging();
+                    this._Key = value;
+                    this.SendPropertyChanged("Key");
+                    this.OnKeyChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_AContentTypeId", DbType = "Int NOT NULL")]
+        public int AContentTypeId
+        {
+            get
+            {
+                return this._AContentTypeId;
+            }
+            set
+            {
+                if ((this._AContentTypeId != value))
+                {
+                    if (this._StructuredContent_ContentType.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.OnAContentTypeIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._AContentTypeId = value;
+                    this.SendPropertyChanged("AContentTypeId");
+                    this.OnAContentTypeIdChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_BContentTypeId", DbType = "Int NOT NULL")]
+        public int BContentTypeId
+        {
+            get
+            {
+                return this._BContentTypeId;
+            }
+            set
+            {
+                if ((this._BContentTypeId != value))
+                {
+                    if (this._StructuredContent_ContentType1.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.OnBContentTypeIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._BContentTypeId = value;
+                    this.SendPropertyChanged("BContentTypeId");
+                    this.OnBContentTypeIdChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_ARequired", DbType = "Bit")]
+        public System.Nullable<bool> ARequired
+        {
+            get
+            {
+                return this._ARequired;
+            }
+            set
+            {
+                if ((this._ARequired != value))
+                {
+                    this.OnARequiredChanging(value);
+                    this.SendPropertyChanging();
+                    this._ARequired = value;
+                    this.SendPropertyChanged("ARequired");
+                    this.OnARequiredChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_AMinLimit", DbType = "Int")]
+        public System.Nullable<int> AMinLimit
+        {
+            get
+            {
+                return this._AMinLimit;
+            }
+            set
+            {
+                if ((this._AMinLimit != value))
+                {
+                    this.OnAMinLimitChanging(value);
+                    this.SendPropertyChanging();
+                    this._AMinLimit = value;
+                    this.SendPropertyChanged("AMinLimit");
+                    this.OnAMinLimitChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_AMaxLimit", DbType = "Int")]
+        public System.Nullable<int> AMaxLimit
+        {
+            get
+            {
+                return this._AMaxLimit;
+            }
+            set
+            {
+                if ((this._AMaxLimit != value))
+                {
+                    this.OnAMaxLimitChanging(value);
+                    this.SendPropertyChanging();
+                    this._AMaxLimit = value;
+                    this.SendPropertyChanged("AMaxLimit");
+                    this.OnAMaxLimitChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_AHelpText", DbType = "NVarChar(256)")]
+        public string AHelpText
+        {
+            get
+            {
+                return this._AHelpText;
+            }
+            set
+            {
+                if ((this._AHelpText != value))
+                {
+                    this.OnAHelpTextChanging(value);
+                    this.SendPropertyChanging();
+                    this._AHelpText = value;
+                    this.SendPropertyChanged("AHelpText");
+                    this.OnAHelpTextChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_BRequired", DbType = "Bit")]
+        public System.Nullable<bool> BRequired
+        {
+            get
+            {
+                return this._BRequired;
+            }
+            set
+            {
+                if ((this._BRequired != value))
+                {
+                    this.OnBRequiredChanging(value);
+                    this.SendPropertyChanging();
+                    this._BRequired = value;
+                    this.SendPropertyChanged("BRequired");
+                    this.OnBRequiredChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_BMinLimit", DbType = "Int")]
+        public System.Nullable<int> BMinLimit
+        {
+            get
+            {
+                return this._BMinLimit;
+            }
+            set
+            {
+                if ((this._BMinLimit != value))
+                {
+                    this.OnBMinLimitChanging(value);
+                    this.SendPropertyChanging();
+                    this._BMinLimit = value;
+                    this.SendPropertyChanged("BMinLimit");
+                    this.OnBMinLimitChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_BMaxLimit", DbType = "Int")]
+        public System.Nullable<int> BMaxLimit
+        {
+            get
+            {
+                return this._BMaxLimit;
+            }
+            set
+            {
+                if ((this._BMaxLimit != value))
+                {
+                    this.OnBMaxLimitChanging(value);
+                    this.SendPropertyChanging();
+                    this._BMaxLimit = value;
+                    this.SendPropertyChanged("BMaxLimit");
+                    this.OnBMaxLimitChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_BHelpText", DbType = "NVarChar(256)")]
+        public string BHelpText
+        {
+            get
+            {
+                return this._BHelpText;
+            }
+            set
+            {
+                if ((this._BHelpText != value))
+                {
+                    this.OnBHelpTextChanging(value);
+                    this.SendPropertyChanging();
+                    this._BHelpText = value;
+                    this.SendPropertyChanged("BHelpText");
+                    this.OnBHelpTextChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_ALayoutRow", DbType = "Int")]
+        public System.Nullable<int> ALayoutRow
+        {
+            get
+            {
+                return this._ALayoutRow;
+            }
+            set
+            {
+                if ((this._ALayoutRow != value))
+                {
+                    this.OnALayoutRowChanging(value);
+                    this.SendPropertyChanging();
+                    this._ALayoutRow = value;
+                    this.SendPropertyChanged("ALayoutRow");
+                    this.OnALayoutRowChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_ALayoutColumn", DbType = "Int")]
+        public System.Nullable<int> ALayoutColumn
+        {
+            get
+            {
+                return this._ALayoutColumn;
+            }
+            set
+            {
+                if ((this._ALayoutColumn != value))
+                {
+                    this.OnALayoutColumnChanging(value);
+                    this.SendPropertyChanging();
+                    this._ALayoutColumn = value;
+                    this.SendPropertyChanged("ALayoutColumn");
+                    this.OnALayoutColumnChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_BLayoutRow", DbType = "Int")]
+        public System.Nullable<int> BLayoutRow
+        {
+            get
+            {
+                return this._BLayoutRow;
+            }
+            set
+            {
+                if ((this._BLayoutRow != value))
+                {
+                    this.OnBLayoutRowChanging(value);
+                    this.SendPropertyChanging();
+                    this._BLayoutRow = value;
+                    this.SendPropertyChanged("BLayoutRow");
+                    this.OnBLayoutRowChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_BLayoutColumn", DbType = "Int")]
+        public System.Nullable<int> BLayoutColumn
+        {
+            get
+            {
+                return this._BLayoutColumn;
+            }
+            set
+            {
+                if ((this._BLayoutColumn != value))
+                {
+                    this.OnBLayoutColumnChanging(value);
+                    this.SendPropertyChanging();
+                    this._BLayoutColumn = value;
+                    this.SendPropertyChanged("BLayoutColumn");
+                    this.OnBLayoutColumnChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "StructuredContent_ContentType_StructuredContent_Relationship", Storage = "_StructuredContent_ContentType", ThisKey = "AContentTypeId", OtherKey = "Id", IsForeignKey = true)]
+        public StructuredContent_ContentType StructuredContent_ContentType
+        {
+            get
+            {
+                return this._StructuredContent_ContentType.Entity;
+            }
+            set
+            {
+                StructuredContent_ContentType previousValue = this._StructuredContent_ContentType.Entity;
+                if (((previousValue != value)
+                            || (this._StructuredContent_ContentType.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._StructuredContent_ContentType.Entity = null;
+                        previousValue.StructuredContent_Relationships.Remove(this);
+                    }
+                    this._StructuredContent_ContentType.Entity = value;
+                    if ((value != null))
+                    {
+                        value.StructuredContent_Relationships.Add(this);
+                        this._AContentTypeId = value.Id;
+                    }
+                    else
+                    {
+                        this._AContentTypeId = default(int);
+                    }
+                    this.SendPropertyChanged("StructuredContent_ContentType");
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "StructuredContent_ContentType_StructuredContent_Relationship1", Storage = "_StructuredContent_ContentType1", ThisKey = "BContentTypeId", OtherKey = "Id", IsForeignKey = true)]
+        public StructuredContent_ContentType StructuredContent_ContentType1
+        {
+            get
+            {
+                return this._StructuredContent_ContentType1.Entity;
+            }
+            set
+            {
+                StructuredContent_ContentType previousValue = this._StructuredContent_ContentType1.Entity;
+                if (((previousValue != value)
+                            || (this._StructuredContent_ContentType1.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._StructuredContent_ContentType1.Entity = null;
+                        previousValue.StructuredContent_Relationships1.Remove(this);
+                    }
+                    this._StructuredContent_ContentType1.Entity = value;
+                    if ((value != null))
+                    {
+                        value.StructuredContent_Relationships1.Add(this);
+                        this._BContentTypeId = value.Id;
+                    }
+                    else
+                    {
+                        this._BContentTypeId = default(int);
+                    }
+                    this.SendPropertyChanged("StructuredContent_ContentType1");
+                }
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+
+    [global::System.Data.Linq.Mapping.TableAttribute(Name = "dbo.StructuredContent_Revision")]
+    public partial class StructuredContent_Revision : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private int _Id;
+
+        private System.DateTime _RevisionDate;
+
+        private System.Nullable<int> _UserId;
+
+        private string _ActivityType;
+
+        private int _ContentTypeId;
+
+        private int _ItemId;
+
+        private string _Delta;
+
+        private string _Data;
+
+        private EntityRef<StructuredContent_ContentType> _StructuredContent_ContentType;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void OnIdChanging(int value);
+        partial void OnIdChanged();
+        partial void OnRevisionDateChanging(System.DateTime value);
+        partial void OnRevisionDateChanged();
+        partial void OnUserIdChanging(System.Nullable<int> value);
+        partial void OnUserIdChanged();
+        partial void OnActivityTypeChanging(string value);
+        partial void OnActivityTypeChanged();
+        partial void OnContentTypeIdChanging(int value);
+        partial void OnContentTypeIdChanged();
+        partial void OnItemIdChanging(int value);
+        partial void OnItemIdChanged();
+        partial void OnDeltaChanging(string value);
+        partial void OnDeltaChanged();
+        partial void OnDataChanging(string value);
+        partial void OnDataChanged();
+        #endregion
+
+        public StructuredContent_Revision()
+        {
+            this._StructuredContent_ContentType = default(EntityRef<StructuredContent_ContentType>);
+            OnCreated();
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_Id", AutoSync = AutoSync.OnInsert, DbType = "Int NOT NULL IDENTITY", IsPrimaryKey = true, IsDbGenerated = true)]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                if ((this._Id != value))
+                {
+                    this.OnIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._Id = value;
+                    this.SendPropertyChanged("Id");
+                    this.OnIdChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_RevisionDate", DbType = "DateTime NOT NULL")]
+        public System.DateTime RevisionDate
+        {
+            get
+            {
+                return this._RevisionDate;
+            }
+            set
+            {
+                if ((this._RevisionDate != value))
+                {
+                    this.OnRevisionDateChanging(value);
+                    this.SendPropertyChanging();
+                    this._RevisionDate = value;
+                    this.SendPropertyChanged("RevisionDate");
+                    this.OnRevisionDateChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_UserId", DbType = "Int")]
+        public System.Nullable<int> UserId
+        {
+            get
+            {
+                return this._UserId;
+            }
+            set
+            {
+                if ((this._UserId != value))
+                {
+                    this.OnUserIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._UserId = value;
+                    this.SendPropertyChanged("UserId");
+                    this.OnUserIdChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_ActivityType", DbType = "NVarChar(15) NOT NULL", CanBeNull = false)]
+        public string ActivityType
+        {
+            get
+            {
+                return this._ActivityType;
+            }
+            set
+            {
+                if ((this._ActivityType != value))
+                {
+                    this.OnActivityTypeChanging(value);
+                    this.SendPropertyChanging();
+                    this._ActivityType = value;
+                    this.SendPropertyChanged("ActivityType");
+                    this.OnActivityTypeChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_ContentTypeId", DbType = "Int NOT NULL")]
+        public int ContentTypeId
+        {
+            get
+            {
+                return this._ContentTypeId;
+            }
+            set
+            {
+                if ((this._ContentTypeId != value))
+                {
+                    if (this._StructuredContent_ContentType.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.OnContentTypeIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._ContentTypeId = value;
+                    this.SendPropertyChanged("ContentTypeId");
+                    this.OnContentTypeIdChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_ItemId", DbType = "Int NOT NULL")]
+        public int ItemId
+        {
+            get
+            {
+                return this._ItemId;
+            }
+            set
+            {
+                if ((this._ItemId != value))
+                {
+                    this.OnItemIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._ItemId = value;
+                    this.SendPropertyChanged("ItemId");
+                    this.OnItemIdChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_Delta", DbType = "NVarChar(MAX) NOT NULL", CanBeNull = false)]
+        public string Delta
+        {
+            get
+            {
+                return this._Delta;
+            }
+            set
+            {
+                if ((this._Delta != value))
+                {
+                    this.OnDeltaChanging(value);
+                    this.SendPropertyChanging();
+                    this._Delta = value;
+                    this.SendPropertyChanged("Delta");
+                    this.OnDeltaChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_Data", DbType = "NVarChar(MAX) NOT NULL", CanBeNull = false)]
+        public string Data
+        {
+            get
+            {
+                return this._Data;
+            }
+            set
+            {
+                if ((this._Data != value))
+                {
+                    this.OnDataChanging(value);
+                    this.SendPropertyChanging();
+                    this._Data = value;
+                    this.SendPropertyChanged("Data");
+                    this.OnDataChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "StructuredContent_ContentType_StructuredContent_Revision", Storage = "_StructuredContent_ContentType", ThisKey = "ContentTypeId", OtherKey = "Id", IsForeignKey = true, DeleteOnNull = true, DeleteRule = "CASCADE")]
+        public StructuredContent_ContentType StructuredContent_ContentType
+        {
+            get
+            {
+                return this._StructuredContent_ContentType.Entity;
+            }
+            set
+            {
+                StructuredContent_ContentType previousValue = this._StructuredContent_ContentType.Entity;
+                if (((previousValue != value)
+                            || (this._StructuredContent_ContentType.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._StructuredContent_ContentType.Entity = null;
+                        previousValue.StructuredContent_Revisions.Remove(this);
+                    }
+                    this._StructuredContent_ContentType.Entity = value;
+                    if ((value != null))
+                    {
+                        value.StructuredContent_Revisions.Add(this);
+                        this._ContentTypeId = value.Id;
+                    }
+                    else
+                    {
+                        this._ContentTypeId = default(int);
+                    }
+                    this.SendPropertyChanged("StructuredContent_ContentType");
+                }
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+
+    [global::System.Data.Linq.Mapping.TableAttribute(Name = "dbo.StructuredContent_Visualizer")]
+    public partial class StructuredContent_Visualizer : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private int _Id;
+
+        private int _ModuleId;
+
+        private int _ContentTypeId;
+
+        private System.Nullable<int> _VisualizerTemplateId;
+
+        private System.Nullable<int> _ItemId;
+
+        private string _ItemFilter;
+
+        private EntityRef<StructuredContent_ContentType> _StructuredContent_ContentType;
+
+        private EntityRef<StructuredContent_VisualizerTemplate> _StructuredContent_VisualizerTemplate;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void OnIdChanging(int value);
+        partial void OnIdChanged();
+        partial void OnModuleIdChanging(int value);
+        partial void OnModuleIdChanged();
+        partial void OnContentTypeIdChanging(int value);
+        partial void OnContentTypeIdChanged();
+        partial void OnVisualizerTemplateIdChanging(System.Nullable<int> value);
+        partial void OnVisualizerTemplateIdChanged();
+        partial void OnItemIdChanging(System.Nullable<int> value);
+        partial void OnItemIdChanged();
+        partial void OnItemFilterChanging(string value);
+        partial void OnItemFilterChanged();
+        #endregion
+
+        public StructuredContent_Visualizer()
+        {
+            this._StructuredContent_ContentType = default(EntityRef<StructuredContent_ContentType>);
+            this._StructuredContent_VisualizerTemplate = default(EntityRef<StructuredContent_VisualizerTemplate>);
+            OnCreated();
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_Id", AutoSync = AutoSync.OnInsert, DbType = "Int NOT NULL IDENTITY", IsPrimaryKey = true, IsDbGenerated = true)]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                if ((this._Id != value))
+                {
+                    this.OnIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._Id = value;
+                    this.SendPropertyChanged("Id");
+                    this.OnIdChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_ModuleId", DbType = "Int NOT NULL")]
+        public int ModuleId
+        {
+            get
+            {
+                return this._ModuleId;
+            }
+            set
+            {
+                if ((this._ModuleId != value))
+                {
+                    this.OnModuleIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._ModuleId = value;
+                    this.SendPropertyChanged("ModuleId");
+                    this.OnModuleIdChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_ContentTypeId", DbType = "Int NOT NULL")]
+        public int ContentTypeId
+        {
+            get
+            {
+                return this._ContentTypeId;
+            }
+            set
+            {
+                if ((this._ContentTypeId != value))
+                {
+                    if (this._StructuredContent_ContentType.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.OnContentTypeIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._ContentTypeId = value;
+                    this.SendPropertyChanged("ContentTypeId");
+                    this.OnContentTypeIdChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_VisualizerTemplateId", DbType = "Int")]
+        public System.Nullable<int> VisualizerTemplateId
+        {
+            get
+            {
+                return this._VisualizerTemplateId;
+            }
+            set
+            {
+                if ((this._VisualizerTemplateId != value))
+                {
+                    if (this._StructuredContent_VisualizerTemplate.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.OnVisualizerTemplateIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._VisualizerTemplateId = value;
+                    this.SendPropertyChanged("VisualizerTemplateId");
+                    this.OnVisualizerTemplateIdChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_ItemId", DbType = "Int")]
+        public System.Nullable<int> ItemId
+        {
+            get
+            {
+                return this._ItemId;
+            }
+            set
+            {
+                if ((this._ItemId != value))
+                {
+                    this.OnItemIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._ItemId = value;
+                    this.SendPropertyChanged("ItemId");
+                    this.OnItemIdChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_ItemFilter", DbType = "NVarChar(MAX)")]
+        public string ItemFilter
+        {
+            get
+            {
+                return this._ItemFilter;
+            }
+            set
+            {
+                if ((this._ItemFilter != value))
+                {
+                    this.OnItemFilterChanging(value);
+                    this.SendPropertyChanging();
+                    this._ItemFilter = value;
+                    this.SendPropertyChanged("ItemFilter");
+                    this.OnItemFilterChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "StructuredContent_ContentType_StructuredContent_Visualizer", Storage = "_StructuredContent_ContentType", ThisKey = "ContentTypeId", OtherKey = "Id", IsForeignKey = true, DeleteOnNull = true, DeleteRule = "CASCADE")]
+        public StructuredContent_ContentType StructuredContent_ContentType
+        {
+            get
+            {
+                return this._StructuredContent_ContentType.Entity;
+            }
+            set
+            {
+                StructuredContent_ContentType previousValue = this._StructuredContent_ContentType.Entity;
+                if (((previousValue != value)
+                            || (this._StructuredContent_ContentType.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._StructuredContent_ContentType.Entity = null;
+                        previousValue.StructuredContent_Visualizers.Remove(this);
+                    }
+                    this._StructuredContent_ContentType.Entity = value;
+                    if ((value != null))
+                    {
+                        value.StructuredContent_Visualizers.Add(this);
+                        this._ContentTypeId = value.Id;
+                    }
+                    else
+                    {
+                        this._ContentTypeId = default(int);
+                    }
+                    this.SendPropertyChanged("StructuredContent_ContentType");
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "StructuredContent_VisualizerTemplate_StructuredContent_Visualizer", Storage = "_StructuredContent_VisualizerTemplate", ThisKey = "VisualizerTemplateId", OtherKey = "Id", IsForeignKey = true)]
+        public StructuredContent_VisualizerTemplate StructuredContent_VisualizerTemplate
+        {
+            get
+            {
+                return this._StructuredContent_VisualizerTemplate.Entity;
+            }
+            set
+            {
+                StructuredContent_VisualizerTemplate previousValue = this._StructuredContent_VisualizerTemplate.Entity;
+                if (((previousValue != value)
+                            || (this._StructuredContent_VisualizerTemplate.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._StructuredContent_VisualizerTemplate.Entity = null;
+                        previousValue.StructuredContent_Visualizers.Remove(this);
+                    }
+                    this._StructuredContent_VisualizerTemplate.Entity = value;
+                    if ((value != null))
+                    {
+                        value.StructuredContent_Visualizers.Add(this);
+                        this._VisualizerTemplateId = value.Id;
+                    }
+                    else
+                    {
+                        this._VisualizerTemplateId = default(Nullable<int>);
+                    }
+                    this.SendPropertyChanged("StructuredContent_VisualizerTemplate");
+                }
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
 }
 #pragma warning restore 1591

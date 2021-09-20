@@ -21,20 +21,20 @@ namespace StructuredContent
     // [SupportedModules("StructuredContent")]
     public class RevisionController : DnnApiController
     {
-        DataContext dc = new DataContext();
+        private readonly DataContext dataContext = new DataContext();
 
         [HttpGet]
         [AllowAnonymous]
-        public HttpResponseMessage Get(int? content_type_id = null, int? item_id = null, bool? verbose = null, int? skip = null, int? take = null)
+        public HttpResponseMessage Get(int? contentTypeId = null, int? itemId = null, bool? verbose = null, int? skip = null, int? take = null)
         {
             try
             {
-                var query = this.dc.StructuredContent_Revisions.OrderByDescending(i => i.revision_date).AsQueryable();
+                var query = this.dataContext.StructuredContent_Revisions.OrderByDescending(i => i.RevisionDate).AsQueryable();
 
-                // content_type_id, item_id
-                if (content_type_id.HasValue && item_id.HasValue)
+                // ContentTypeId, ItemId
+                if (contentTypeId.HasValue && itemId.HasValue)
                 {
-                    query = query.Where(i => i.content_type_id == content_type_id.GetValueOrDefault() && i.item_id == item_id.GetValueOrDefault());
+                    query = query.Where(i => i.ContentTypeId == contentTypeId.GetValueOrDefault() && i.ItemId == itemId.GetValueOrDefault());
                 }
 
                 // skip
@@ -52,16 +52,16 @@ namespace StructuredContent
                 // verbose
                 if (verbose.GetValueOrDefault() == false)
                 {
-                    var list = query.Select(i => new { i.id, i.revision_date, i.activity_type });
+                    var list = query.Select(i => new { i.Id, i.RevisionDate, i.ActivityType });
                     return this.Request.CreateResponse(HttpStatusCode.OK, list);
                 }
                 else
                 {
-                    List<RevisionDTO> dtos = new List<RevisionDTO>();
+                    var dtos = new List<RevisionDto>();
 
-                    foreach (StructuredContent_Revision item in query)
+                    foreach (var item in query)
                     {
-                        RevisionDTO dto = item.ToDto();
+                        var dto = item.ToDto();
                         dtos.Add(dto);
                     }
 
@@ -81,7 +81,7 @@ namespace StructuredContent
         {
             try
             {
-                StructuredContent_Revision item = this.dc.StructuredContent_Revisions.Where(i => i.id == id).SingleOrDefault();
+                var item = this.dataContext.StructuredContent_Revisions.Where(i => i.Id == id).SingleOrDefault();
                 if (item == null)
                 {
                     return this.Request.CreateResponse(HttpStatusCode.NotFound);
@@ -99,15 +99,15 @@ namespace StructuredContent
         [HttpPost]
         [AllowAnonymous]
         [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]
-        public HttpResponseMessage Post(RevisionDTO dto)
+        public HttpResponseMessage Post(RevisionDto dto)
         {
             try
             {
-                StructuredContent_Revision item = dto.ToItem(null);
+                var item = dto.ToItem(null);
 
-                this.dc.StructuredContent_Revisions.InsertOnSubmit(item);
+                this.dataContext.StructuredContent_Revisions.InsertOnSubmit(item);
 
-                this.dc.SubmitChanges();
+                this.dataContext.SubmitChanges();
 
                 return this.Request.CreateResponse(HttpStatusCode.OK, item.ToDto());
             }
@@ -121,18 +121,18 @@ namespace StructuredContent
         [HttpPut]
         [AllowAnonymous]
         [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]
-        public HttpResponseMessage Put(RevisionDTO dto)
+        public HttpResponseMessage Put(RevisionDto dto)
         {
             try
             {
-                StructuredContent_Revision item = this.dc.StructuredContent_Revisions.Where(i => i.id == dto.id).SingleOrDefault();
+                var item = this.dataContext.StructuredContent_Revisions.Where(i => i.Id == dto.Id).SingleOrDefault();
                 if (item == null)
                 {
                     return this.Request.CreateResponse(HttpStatusCode.NotFound);
                 }
 
                 item = dto.ToItem(item);
-                this.dc.SubmitChanges();
+                this.dataContext.SubmitChanges();
 
                 return this.Request.CreateResponse(HttpStatusCode.OK, item.ToDto());
             }
@@ -150,14 +150,14 @@ namespace StructuredContent
         {
             try
             {
-                StructuredContent_Revision item = this.dc.StructuredContent_Revisions.Where(i => i.id == id).SingleOrDefault();
+                var item = this.dataContext.StructuredContent_Revisions.Where(i => i.Id == id).SingleOrDefault();
                 if (item == null)
                 {
                     return this.Request.CreateResponse(HttpStatusCode.NotFound);
                 }
 
-                this.dc.StructuredContent_Revisions.DeleteOnSubmit(item);
-                this.dc.SubmitChanges();
+                this.dataContext.StructuredContent_Revisions.DeleteOnSubmit(item);
+                this.dataContext.SubmitChanges();
 
                 return this.Request.CreateResponse(HttpStatusCode.OK);
             }

@@ -1,20 +1,20 @@
-﻿app.controller('visualizerTemplateDeleteController', ['$scope', '$uibModalInstance', 'toastr', 'visualizerTemplateService', 'visualizer_template', function ($scope, $uibModalInstance, toastr, visualizerTemplateService, visualizer_template) {
+﻿app.controller('visualizerTemplateDeleteController', ['$scope', '$uibModalInstance', 'toastr', 'visualizerTemplateService', 'visualizer_template', function ($scope, $uibModalInstance, toastr, visualizerTemplateService, visualizerTemplate) {
 
     $scope.close = function () {
         $uibModalInstance.dismiss('cancel');
     };
 
-    $scope.visualizer_template = visualizer_template;
+    $scope.visualizerTemplate = visualizerTemplate;
 
     $scope.delete = function () {
 
-        visualizerTemplateService.remove(visualizer_template.id).then(
+        visualizerTemplateService.remove(visualizerTemplate.id).then(
             function () {
-                $uibModalInstance.close($scope.visualizer_template);
+                $uibModalInstance.close($scope.visualizerTemplate);
             },
             function (response) {
                 console.log('deleteVisualizerTemplate failed', response);
-                toastr.error("Error", "There was a problem deleteing the visualizer template");
+                toastr.error("There was a problem deleteing the visualizer template", "Error");
             }
         );
     };

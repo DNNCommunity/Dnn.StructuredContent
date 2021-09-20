@@ -21,8 +21,8 @@ namespace StructuredContent
     // [SupportedModules("StructuredContent")]
     public class VisualizerTemplateController : DnnApiController
     {
-        DataContext dc = new DataContext();
-        private ISQLHelper sqlHelper;
+        private readonly DataContext dataContext = new DataContext();
+        private readonly ISQLHelper sqlHelper;
 
         public VisualizerTemplateController(ISQLHelper sqlHelper)
         {
@@ -31,22 +31,22 @@ namespace StructuredContent
 
         [HttpGet]
         [AllowAnonymous]
-        public HttpResponseMessage Get(string name = "", int? content_type_id = null, bool? verbose = null, int? skip = null, int? take = null)
+        public HttpResponseMessage Get(string name = "", int? contentTypeId = null, bool? verbose = null, int? skip = null, int? take = null)
         {
             try
             {
-                var query = this.dc.StructuredContent_VisualizerTemplates.OrderBy(i => i.name).AsQueryable();
+                var query = this.dataContext.StructuredContent_VisualizerTemplates.OrderBy(i => i.Name).AsQueryable();
 
                 // name
                 if (!string.IsNullOrEmpty(name))
                 {
-                    query = query.Where(i => i.name.ToLower().Contains(name.ToLower()));
+                    query = query.Where(i => i.Name.ToLower().Contains(name.ToLower()));
                 }
 
-                // content_type_id
-                if (content_type_id.HasValue)
+                // ContentTypeId
+                if (contentTypeId.HasValue)
                 {
-                    query = query.Where(i => i.content_type_id == content_type_id.GetValueOrDefault());
+                    query = query.Where(i => i.ContentTypeId == contentTypeId.GetValueOrDefault());
                 }
 
                 // skip
@@ -64,16 +64,16 @@ namespace StructuredContent
                 // verbose
                 if (verbose.GetValueOrDefault() == false)
                 {
-                    var list = query.Select(i => new { i.id, i.name, i.description, i.content_size });
+                    var list = query.Select(i => new { i.Id, i.Name, i.Description, i.ContentSize });
                     return this.Request.CreateResponse(HttpStatusCode.OK, list);
                 }
                 else
                 {
-                    List<VisualizerTemplateDTO> dtos = new List<VisualizerTemplateDTO>();
+                    var dtos = new List<VisualizerTemplateDto>();
 
-                    foreach (StructuredContent_VisualizerTemplate item in query)
+                    foreach (var item in query)
                     {
-                        VisualizerTemplateDTO dto = item.ToDto();
+                        var dto = item.ToDto();
                         dtos.Add(dto);
                     }
 
@@ -93,7 +93,7 @@ namespace StructuredContent
         {
             try
             {
-                StructuredContent_VisualizerTemplate item = this.dc.StructuredContent_VisualizerTemplates.Where(i => i.id == id).SingleOrDefault();
+                var item = this.dataContext.StructuredContent_VisualizerTemplates.Where(i => i.Id == id).SingleOrDefault();
                 if (item == null)
                 {
                     return this.Request.CreateResponse(HttpStatusCode.NotFound);
@@ -111,17 +111,17 @@ namespace StructuredContent
         [HttpPost]
         [AllowAnonymous]
         [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]
-        public HttpResponseMessage Post(VisualizerTemplateDTO dto)
+        public HttpResponseMessage Post(VisualizerTemplateDto dto)
         {
             try
             {
-                StructuredContent_VisualizerTemplate content_type = dto.ToItem(null);
+                var item = dto.ToItem(null);
 
-                this.dc.StructuredContent_VisualizerTemplates.InsertOnSubmit(content_type);
+                this.dataContext.StructuredContent_VisualizerTemplates.InsertOnSubmit(item);
 
-                this.dc.SubmitChanges();
+                this.dataContext.SubmitChanges();
 
-                return this.Request.CreateResponse(HttpStatusCode.OK, content_type.ToDto());
+                return this.Request.CreateResponse(HttpStatusCode.OK, item.ToDto());
             }
             catch (Exception ex)
             {
@@ -133,18 +133,18 @@ namespace StructuredContent
         [HttpPut]
         [AllowAnonymous]
         [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]
-        public HttpResponseMessage Put(VisualizerTemplateDTO dto)
+        public HttpResponseMessage Put(VisualizerTemplateDto dto)
         {
             try
             {
-                StructuredContent_VisualizerTemplate item = this.dc.StructuredContent_VisualizerTemplates.Where(i => i.id == dto.id).SingleOrDefault();
+                var item = this.dataContext.StructuredContent_VisualizerTemplates.Where(i => i.Id == dto.Id).SingleOrDefault();
                 if (item == null)
                 {
                     return this.Request.CreateResponse(HttpStatusCode.NotFound);
                 }
 
                 item = dto.ToItem(item);
-                this.dc.SubmitChanges();
+                this.dataContext.SubmitChanges();
 
                 return this.Request.CreateResponse(HttpStatusCode.OK, item.ToDto());
             }
@@ -162,14 +162,14 @@ namespace StructuredContent
         {
             try
             {
-                StructuredContent_VisualizerTemplate content_type = this.dc.StructuredContent_VisualizerTemplates.Where(i => i.id == id).SingleOrDefault();
-                if (content_type == null)
+                var item = this.dataContext.StructuredContent_VisualizerTemplates.Where(i => i.Id == id).SingleOrDefault();
+                if (item == null)
                 {
                     return this.Request.CreateResponse(HttpStatusCode.NotFound);
                 }
 
-                this.dc.StructuredContent_VisualizerTemplates.DeleteOnSubmit(content_type);
-                this.dc.SubmitChanges();
+                this.dataContext.StructuredContent_VisualizerTemplates.DeleteOnSubmit(item);
+                this.dataContext.SubmitChanges();
 
                 return this.Request.CreateResponse(HttpStatusCode.OK);
             }
@@ -178,6 +178,17 @@ namespace StructuredContent
                 Exceptions.LogException(ex);
                 return this.Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is VisualizerTemplateController controller &&
+                   EqualityComparer<ISQLHelper>.Default.Equals(this.sqlHelper, controller.sqlHelper);
+        }
+
+        public override int GetHashCode()
+        {
+            return -566121293 + EqualityComparer<ISQLHelper>.Default.GetHashCode(this.sqlHelper);
         }
     }
 }

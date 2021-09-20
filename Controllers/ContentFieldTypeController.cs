@@ -12,7 +12,6 @@ namespace StructuredContent
     using System.Net.Http;
     using System.Web.Http;
 
-    using DotNetNuke.Common.Utilities;
     using DotNetNuke.Security;
     using DotNetNuke.Services.Exceptions;
     using DotNetNuke.Web.Api;
@@ -21,7 +20,7 @@ namespace StructuredContent
     // [SupportedModules("StructuredContent")]
     public class ContentFieldTypeController : DnnApiController
     {
-        DataContext dc = new DataContext();
+        private readonly DataContext dataContext = new DataContext();
 
         [HttpGet]
         [AllowAnonymous]
@@ -29,12 +28,12 @@ namespace StructuredContent
         {
             try
             {
-                var query = this.dc.StructuredContent_ContentFieldTypes.OrderBy(i => i.ordinal).AsQueryable();
+                var query = this.dataContext.StructuredContent_ContentFieldTypes.OrderBy(i => i.Ordinal).AsQueryable();
 
                 // name
                 if (!string.IsNullOrEmpty(name))
                 {
-                    query = query.Where(i => i.name.ToLower().Contains(name.ToLower()));
+                    query = query.Where(i => i.Name.ToLower().Contains(name.ToLower()));
                 }
 
                 // skip
@@ -52,19 +51,12 @@ namespace StructuredContent
                 // verbose
                 if (verbose.GetValueOrDefault() == false)
                 {
-                    var list = query.Select(i => new { i.id, i.name });
+                    var list = query.Select(i => new { i.Id, i.Name });
                     return this.Request.CreateResponse(HttpStatusCode.OK, list);
                 }
                 else
                 {
-                    List<ContentFieldTypeDTO> dtos = new List<ContentFieldTypeDTO>();
-
-                    foreach (StructuredContent_ContentFieldType item in query)
-                    {
-                        ContentFieldTypeDTO dto = item.ToDto();
-                        dtos.Add(dto);
-                    }
-
+                    var dtos = query.Select(i => i.ToDto()).ToList();
                     return this.Request.CreateResponse(HttpStatusCode.OK, dtos);
                 }
             }
@@ -81,7 +73,7 @@ namespace StructuredContent
         {
             try
             {
-                StructuredContent_ContentFieldType item = this.dc.StructuredContent_ContentFieldTypes.Where(i => i.id == id).SingleOrDefault();
+                var item = this.dataContext.StructuredContent_ContentFieldTypes.Where(i => i.Id == id).SingleOrDefault();
                 if (item == null)
                 {
                     return this.Request.CreateResponse(HttpStatusCode.NotFound);
@@ -99,15 +91,15 @@ namespace StructuredContent
         [HttpPost]
         [AllowAnonymous]
         [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]
-        public HttpResponseMessage Post(ContentFieldTypeDTO dto)
+        public HttpResponseMessage Post(ContentFieldTypeDto dto)
         {
             try
             {
-                StructuredContent_ContentFieldType item = dto.ToItem(null);
+                var item = dto.ToItem(null);
 
-                this.dc.StructuredContent_ContentFieldTypes.InsertOnSubmit(item);
+                this.dataContext.StructuredContent_ContentFieldTypes.InsertOnSubmit(item);
 
-                this.dc.SubmitChanges();
+                this.dataContext.SubmitChanges();
 
                 return this.Request.CreateResponse(HttpStatusCode.OK, item.ToDto());
             }
@@ -121,18 +113,18 @@ namespace StructuredContent
         [HttpPut]
         [AllowAnonymous]
         [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]
-        public HttpResponseMessage Put(ContentFieldTypeDTO dto)
+        public HttpResponseMessage Put(ContentFieldTypeDto dto)
         {
             try
             {
-                StructuredContent_ContentFieldType item = this.dc.StructuredContent_ContentFieldTypes.Where(i => i.id == dto.id).SingleOrDefault();
+                var item = this.dataContext.StructuredContent_ContentFieldTypes.Where(i => i.Id == dto.Id).SingleOrDefault();
                 if (item == null)
                 {
                     return this.Request.CreateResponse(HttpStatusCode.NotFound);
                 }
 
                 item = dto.ToItem(item);
-                this.dc.SubmitChanges();
+                this.dataContext.SubmitChanges();
 
                 return this.Request.CreateResponse(HttpStatusCode.OK, item.ToDto());
             }
@@ -150,14 +142,14 @@ namespace StructuredContent
         {
             try
             {
-                StructuredContent_ContentFieldType item = this.dc.StructuredContent_ContentFieldTypes.Where(i => i.id == id).SingleOrDefault();
+                var item = this.dataContext.StructuredContent_ContentFieldTypes.Where(i => i.Id == id).SingleOrDefault();
                 if (item == null)
                 {
                     return this.Request.CreateResponse(HttpStatusCode.NotFound);
                 }
 
-                this.dc.StructuredContent_ContentFieldTypes.DeleteOnSubmit(item);
-                this.dc.SubmitChanges();
+                this.dataContext.StructuredContent_ContentFieldTypes.DeleteOnSubmit(item);
+                this.dataContext.SubmitChanges();
 
                 return this.Request.CreateResponse(HttpStatusCode.OK);
             }

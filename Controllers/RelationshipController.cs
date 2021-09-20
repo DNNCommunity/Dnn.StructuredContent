@@ -18,35 +18,35 @@ namespace StructuredContent
     using StructuredContent.DAL;
 
     // [SupportedModules("StructuredContent")]
-    public class relationshipController : DnnApiController
+    public class RelationshipController : DnnApiController
     {
-        private ISQLHelper sqlHelper;
-        DataContext dc = new DataContext();
+        private readonly ISQLHelper sqlHelper;
+        private readonly DataContext dataContext = new DataContext();
 
-        public relationshipController(ISQLHelper sqlHelper)
+        public RelationshipController(ISQLHelper sqlHelper)
         {
             this.sqlHelper = sqlHelper;
         }
 
         [HttpGet]
         [AllowAnonymous]
-        public HttpResponseMessage Get(int? content_type_id = null)
+        public HttpResponseMessage Get(int? contentTypeId = null)
         {
             try
             {
-                var query = this.dc.StructuredContent_Relationships.AsQueryable();
+                var query = this.dataContext.StructuredContent_Relationships.AsQueryable();
 
-                // content_type_id
-                if (content_type_id.HasValue)
+                // ContentTypeId
+                if (contentTypeId.HasValue)
                 {
-                    query = query.Where(i => i.a_content_type_id == content_type_id.GetValueOrDefault() || i.b_content_type_id == content_type_id.GetValueOrDefault());
+                    query = query.Where(i => i.AContentTypeId == contentTypeId.GetValueOrDefault() || i.BContentTypeId == contentTypeId.GetValueOrDefault());
                 }
 
-                List<RelationshipDTO> dtos = new List<RelationshipDTO>();
+                var dtos = new List<RelationshipDto>();
 
-                foreach (StructuredContent_Relationship item in query)
+                foreach (var item in query)
                 {
-                    RelationshipDTO dto = item.ToDto();
+                    var dto = item.ToDto();
                     dtos.Add(dto);
                 }
 
@@ -65,7 +65,7 @@ namespace StructuredContent
         {
             try
             {
-                StructuredContent_Relationship item = this.dc.StructuredContent_Relationships.Where(i => i.id == id).SingleOrDefault();
+                var item = this.dataContext.StructuredContent_Relationships.Where(i => i.Id == id).SingleOrDefault();
                 if (item == null)
                 {
                     return this.Request.CreateResponse(HttpStatusCode.NotFound);
@@ -83,101 +83,101 @@ namespace StructuredContent
         [HttpPost]
         [AllowAnonymous]
         [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]
-        public HttpResponseMessage Post(RelationshipDTO dto)
+        public HttpResponseMessage Post(RelationshipDto dto)
         { // this handles saving the relationship between content types - the abstract definition
             try
             {
-                StructuredContent_ContentType a_content_type = this.dc.StructuredContent_ContentTypes.Where(i => i.id == dto.a_content_type_id).SingleOrDefault();
-                StructuredContent_ContentType b_content_type = this.dc.StructuredContent_ContentTypes.Where(i => i.id == dto.b_content_type_id).SingleOrDefault();
+                var aContentType = this.dataContext.StructuredContent_ContentTypes.Where(i => i.Id == dto.AContentTypeId).SingleOrDefault();
+                var bContentType = this.dataContext.StructuredContent_ContentTypes.Where(i => i.Id == dto.BContentTypeId).SingleOrDefault();
 
-                StructuredContent_Relationship o2m_relationship = new StructuredContent_Relationship();
-                StructuredContent_Relationship m2o_relationship = new StructuredContent_Relationship();
+                var o2m_relationship = new StructuredContent_Relationship();
+                var m2o_relationship = new StructuredContent_Relationship();
 
-                switch (dto.key)
+                switch (dto.Key)
                 {
                     case "o2m": // a=one , b=many
 
                         // check for duplicate column name
-                        string o2m_foreign_key_column_name = a_content_type.singular.ToLower() + "_id";
-                        bool o2m_duplicate_check = this.dc.StructuredContent_ContentFields.Where(i => i.content_type_id == dto.b_content_type_id && (i.name == o2m_foreign_key_column_name || i.column_name == o2m_foreign_key_column_name)).Any();
+                        var o2m_foreign_key_ColumnName = aContentType.Singular.ToLower() + "_id";
+                        var o2m_duplicate_check = this.dataContext.StructuredContent_ContentFields.Where(i => i.ContentTypeId == dto.BContentTypeId && (i.Name == o2m_foreign_key_ColumnName || i.ColumnName == o2m_foreign_key_ColumnName)).Any();
                         if (o2m_duplicate_check)
                         {
                             return this.Request.CreateResponse(HttpStatusCode.Conflict);
                         }
 
                         // record foreign key field of the one table
-                        StructuredContent_ContentField content_field = new StructuredContent_ContentField
+                        var content_field = new StructuredContent_ContentField
                         {
-                            StructuredContent_ContentType = b_content_type,
-                            name = o2m_foreign_key_column_name,
-                            column_name = o2m_foreign_key_column_name,
-                            ordinal = 0,
-                            data_type = (int)Enums.DataTypes.integer,
-                            allow_null = true,
-                            is_system = true,
+                            StructuredContent_ContentType = bContentType,
+                            Name = o2m_foreign_key_ColumnName,
+                            ColumnName = o2m_foreign_key_ColumnName,
+                            Ordinal = 0,
+                            DataType = (int)Enums.DataTypes.Integer,
+                            AllowNull = true,
+                            IsSystem = true,
                         };
-                        this.dc.StructuredContent_ContentFields.InsertOnSubmit(content_field);
+                        this.dataContext.StructuredContent_ContentFields.InsertOnSubmit(content_field);
 
                         // record relationship == 1->many
                         o2m_relationship = new StructuredContent_Relationship
                         {
-                            key = "o2m",
-                            a_content_type_id = dto.a_content_type_id,
-                            b_content_type_id = dto.b_content_type_id,
+                            Key = "o2m",
+                            AContentTypeId = dto.AContentTypeId,
+                            BContentTypeId = dto.BContentTypeId,
 
-                            a_required = dto.a_required,
-                            a_max_limit = dto.a_max_limit,
-                            a_min_limit = dto.a_min_limit,
-                            a_help_text = dto.a_help_text,
+                            ARequired = dto.ARequired,
+                            AMaxLimit = dto.AMaxLimit,
+                            AMinLimit = dto.AMinLimit,
+                            AHelpText = dto.AHelpText,
 
-                            b_required = dto.b_required,
-                            b_max_limit = dto.b_max_limit,
-                            b_min_limit = dto.b_min_limit,
-                            b_help_text = dto.b_help_text,
+                            BRequired = dto.BRequired,
+                            BMaxLimit = dto.BMaxLimit,
+                            BMinLimit = dto.BMinLimit,
+                            BHelpText = dto.BHelpText,
 
-                            a_layout_column = dto.a_layout_column,
-                            a_layout_row = dto.a_layout_row,
-                            b_layout_column = dto.b_layout_column,
-                            b_layout_row = dto.b_layout_row,
+                            ALayoutColumn = dto.ALayoutColumn,
+                            ALayoutRow = dto.ALayoutRow,
+                            BLayoutColumn = dto.BLayoutColumn,
+                            BLayoutRow = dto.BLayoutRow,
                         };
-                        this.dc.StructuredContent_Relationships.InsertOnSubmit(o2m_relationship);
+                        this.dataContext.StructuredContent_Relationships.InsertOnSubmit(o2m_relationship);
 
                         this.sqlHelper.AddColumn(content_field);
-                        this.sqlHelper.CreateOneToManyRelationship(a_content_type, b_content_type);
+                        this.sqlHelper.CreateOneToManyRelationship(aContentType, bContentType);
 
-                        this.dc.SubmitChanges();
+                        this.dataContext.SubmitChanges();
 
                         return this.Request.CreateResponse(HttpStatusCode.OK, o2m_relationship.ToDto());
 
                     case "m2m": // many-to-many, need junction table
 
                         // set up the relationship in the db
-                        this.sqlHelper.CreateManyToManyRelationship(a_content_type, b_content_type);
+                        this.sqlHelper.CreateManyToManyRelationship(aContentType, bContentType);
 
                         // record relationship == a->b
-                        StructuredContent_Relationship m2m_relationship = new StructuredContent_Relationship
+                        var m2m_relationship = new StructuredContent_Relationship
                         {
-                            key = "m2m",
-                            a_content_type_id = dto.a_content_type_id,
-                            b_content_type_id = dto.b_content_type_id,
+                            Key = "m2m",
+                            AContentTypeId = dto.AContentTypeId,
+                            BContentTypeId = dto.BContentTypeId,
 
-                            a_required = dto.a_required,
-                            a_max_limit = dto.a_max_limit,
-                            a_min_limit = dto.a_min_limit,
-                            a_help_text = dto.a_help_text,
+                            ARequired = dto.ARequired,
+                            AMaxLimit = dto.AMaxLimit,
+                            AMinLimit = dto.AMinLimit,
+                            AHelpText = dto.AHelpText,
 
-                            b_required = dto.b_required,
-                            b_max_limit = dto.b_max_limit,
-                            b_min_limit = dto.b_min_limit,
-                            b_help_text = dto.b_help_text,
+                            BRequired = dto.BRequired,
+                            BMaxLimit = dto.BMaxLimit,
+                            BMinLimit = dto.BMinLimit,
+                            BHelpText = dto.BHelpText,
 
-                            a_layout_column = dto.a_layout_column,
-                            a_layout_row = dto.a_layout_row,
-                            b_layout_column = dto.b_layout_column,
-                            b_layout_row = dto.b_layout_row,
+                            ALayoutColumn = dto.ALayoutColumn,
+                            ALayoutRow = dto.ALayoutRow,
+                            BLayoutColumn = dto.BLayoutColumn,
+                            BLayoutRow = dto.BLayoutRow,
                         };
-                        this.dc.StructuredContent_Relationships.InsertOnSubmit(m2m_relationship);
-                        this.dc.SubmitChanges();
+                        this.dataContext.StructuredContent_Relationships.InsertOnSubmit(m2m_relationship);
+                        this.dataContext.SubmitChanges();
 
                         return this.Request.CreateResponse(HttpStatusCode.OK, m2m_relationship.ToDto());
 
@@ -192,72 +192,38 @@ namespace StructuredContent
             }
         }
 
-        [HttpPost]
-        [AllowAnonymous]
-        [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]
-        public HttpResponseMessage Post(RelationshipDTO dto, int content_item_id, int content_type_id)
-        { // this handles saving the relationships between content items - actual items
-            try
-            {
-                StructuredContent_ContentType a_content_type = this.dc.StructuredContent_ContentTypes.Where(i => i.id == dto.a_content_type_id).SingleOrDefault();
-                StructuredContent_ContentType b_content_type = this.dc.StructuredContent_ContentTypes.Where(i => i.id == dto.b_content_type_id).SingleOrDefault();
-
-                // switch (dto.key)
-                // {
-                //    case "o2m": // a=one , b=many
-
-                // sqlHelper.SaveOneToManyRelationship(a_content_type, b_content_type, dto, content_item_id, content_type_id);
-
-                // break;
-
-                // case "m2m": // many-to-many, need junction table
-
-                // sqlHelper.SaveManyToManyRelationship(a_content_type, b_content_type, dto, content_item_id, content_type_id);
-
-                // break;
-                // }
-                this.dc.SubmitChanges();
-                return this.Request.CreateResponse(HttpStatusCode.OK);
-            }
-            catch (Exception ex)
-            {
-                Exceptions.LogException(ex);
-                return this.Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
-            }
-        }
-
         [HttpPut]
         [AllowAnonymous]
         [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]
-        public HttpResponseMessage Put(RelationshipDTO dto)
+        public HttpResponseMessage Put(RelationshipDto dto)
         {
             try
             {
                 // the only things that can be updated are the min/max limits on the relaitonship
-                StructuredContent_Relationship relationship = this.dc.StructuredContent_Relationships.Where(i => i.id == dto.id).SingleOrDefault();
-                if (relationship == null)
+                var item = this.dataContext.StructuredContent_Relationships.Where(i => i.Id == dto.Id).SingleOrDefault();
+                if (item == null)
                 {
                     return this.Request.CreateResponse(HttpStatusCode.NotFound);
                 }
 
-                relationship.a_required = dto.a_required;
-                relationship.a_max_limit = dto.a_max_limit;
-                relationship.a_min_limit = dto.a_min_limit;
-                relationship.a_help_text = dto.a_help_text;
+                item.ARequired = dto.ARequired;
+                item.AMaxLimit = dto.AMaxLimit;
+                item.AMinLimit = dto.AMinLimit;
+                item.AHelpText = dto.AHelpText;
 
-                relationship.b_required = dto.b_required;
-                relationship.b_max_limit = dto.b_max_limit;
-                relationship.b_min_limit = dto.b_min_limit;
-                relationship.b_help_text = dto.b_help_text;
+                item.BRequired = dto.BRequired;
+                item.BMaxLimit = dto.BMaxLimit;
+                item.BMinLimit = dto.BMinLimit;
+                item.BHelpText = dto.BHelpText;
 
-                relationship.a_layout_row = dto.a_layout_row;
-                relationship.a_layout_column = dto.a_layout_column;
-                relationship.b_layout_row = dto.b_layout_row;
-                relationship.b_layout_column = dto.b_layout_column;
+                item.ALayoutRow = dto.ALayoutRow;
+                item.ALayoutColumn = dto.ALayoutColumn;
+                item.BLayoutRow = dto.BLayoutRow;
+                item.BLayoutColumn = dto.BLayoutColumn;
 
-                this.dc.SubmitChanges();
+                this.dataContext.SubmitChanges();
 
-                return this.Request.CreateResponse(HttpStatusCode.OK, relationship.ToDto());
+                return this.Request.CreateResponse(HttpStatusCode.OK, item.ToDto());
             }
             catch (Exception ex)
             {
@@ -273,30 +239,30 @@ namespace StructuredContent
         {
             try
             {
-                StructuredContent_Relationship relationship = this.dc.StructuredContent_Relationships.Where(i => i.id == id).SingleOrDefault();
-                if (relationship == null)
+                var item = this.dataContext.StructuredContent_Relationships.Where(i => i.Id == id).SingleOrDefault();
+                if (item == null)
                 {
                     return this.Request.CreateResponse(HttpStatusCode.NotFound);
                 }
 
-                this.dc.StructuredContent_Relationships.DeleteOnSubmit(relationship);
+                this.dataContext.StructuredContent_Relationships.DeleteOnSubmit(item);
 
-                StructuredContent_ContentType a_content_type = this.dc.StructuredContent_ContentTypes.Where(i => i.id == relationship.a_content_type_id).SingleOrDefault();
-                StructuredContent_ContentType b_content_type = this.dc.StructuredContent_ContentTypes.Where(i => i.id == relationship.b_content_type_id).SingleOrDefault();
+                var aContentType = this.dataContext.StructuredContent_ContentTypes.Where(i => i.Id == item.AContentTypeId).SingleOrDefault();
+                var bContentType = this.dataContext.StructuredContent_ContentTypes.Where(i => i.Id == item.BContentTypeId).SingleOrDefault();
 
                 // do db work
-                switch (relationship.key)
+                switch (item.Key)
                 {
                     case "o2m":
                         // delete the relationship
-                        this.sqlHelper.DeleteOneToManyRelationship(relationship.StructuredContent_ContentType, relationship.StructuredContent_ContentType1);
+                        this.sqlHelper.DeleteOneToManyRelationship(item.StructuredContent_ContentType, item.StructuredContent_ContentType1);
 
                         // delete foreign key field meta of the child table
-                        string o2m_foreign_key_column_name = relationship.StructuredContent_ContentType.singular.ToLower() + "_id";
-                        StructuredContent_ContentField o2m_foreign_key_content_field = this.dc.StructuredContent_ContentFields.Where(i => i.content_type_id == relationship.b_content_type_id && i.column_name == o2m_foreign_key_column_name).FirstOrDefault();
+                        var o2m_foreign_key_ColumnName = item.StructuredContent_ContentType.Singular.ToLower() + "_id";
+                        var o2m_foreign_key_content_field = this.dataContext.StructuredContent_ContentFields.Where(i => i.ContentTypeId == item.BContentTypeId && i.ColumnName == o2m_foreign_key_ColumnName).FirstOrDefault();
                         if (o2m_foreign_key_content_field != null)
                         {
-                            this.dc.StructuredContent_ContentFields.DeleteOnSubmit(o2m_foreign_key_content_field);
+                            this.dataContext.StructuredContent_ContentFields.DeleteOnSubmit(o2m_foreign_key_content_field);
                         }
 
                         // delete the foreign key column
@@ -305,12 +271,12 @@ namespace StructuredContent
                         break;
 
                     case "m2m":
-                        this.sqlHelper.DeleteManyToManyRelationship(a_content_type, b_content_type);
+                        this.sqlHelper.DeleteManyToManyRelationship(aContentType, bContentType);
 
                         break;
                 }
 
-                this.dc.SubmitChanges();
+                this.dataContext.SubmitChanges();
 
                 return this.Request.CreateResponse(HttpStatusCode.OK);
             }

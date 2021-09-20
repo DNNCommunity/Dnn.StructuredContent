@@ -12,15 +12,15 @@ namespace StructuredContent.DAL
         private const string TablePrefix = "StructuredContent_ContentType_";
 
         // derive the table name for the relationship
-        public string table_name
+        public string TableName
         {
             get
             {
-                string a_table_name = TablePrefix + this.StructuredContent_ContentType.table_name;
-                string b_table_name = TablePrefix + this.StructuredContent_ContentType1.table_name;
-                string junction_table_name = a_table_name + "X" + b_table_name;
+                string a_TableName = TablePrefix + this.StructuredContent_ContentType.TableName;
+                string b_TableName = TablePrefix + this.StructuredContent_ContentType1.TableName;
+                string junction_TableName = a_TableName + "X" + b_TableName;
 
-                return junction_table_name;
+                return junction_TableName;
             }
         }
     }

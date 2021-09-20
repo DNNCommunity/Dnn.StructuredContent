@@ -10,9 +10,7 @@
     $scope.contentType = contentType;
     $scope.relationship = relationship;
 
-
     $scope.aContentType = {};
-
     $scope.bContentType = {};
 
     $scope.getContentTypes = function () {
@@ -27,7 +25,7 @@
             },
             function (response) {
                 console.log('getContentTypes failed', response);
-                toastr.error("Error", "There was a problem loading the Content Types");
+                toastr.error("There was a problem loading the Content Types", "Error");
                 deferred.reject();
             }
         );
@@ -45,7 +43,7 @@
             },
             function (response) {
                 console.log('getContentType failed', response);
-                toastr.error("Error", "There was a problem loading the Content type");
+                toastr.error("There was a problem loading the Content type", "Error");
                 deferred.reject();
             }
         );
@@ -83,10 +81,10 @@
     $scope.contentTypeChange = function () {        
         for (var x = 0; x < $scope.contentTypes.length; x++) {
             var contentType = $scope.contentTypes[x];
-            if (contentType.id === $scope.relationship.a_content_type_id) {
+            if (contentType.id === $scope.relationship.aContentTypeId) {
                 $scope.aContentType = contentType;
             }
-            if (contentType.id === $scope.relationship.b_content_type_id) {
+            if (contentType.id === $scope.relationship.bContentTypeId) {
                 $scope.bContentType = contentType;
             }
         }
@@ -105,12 +103,12 @@
             // set defaults for new relationship
             if (!$scope.relationship.id) {
                 $scope.relationship.key = 'o2m';
-                $scope.relationship.a_content_type_id = $scope.relationship.content_type_id;
-                $scope.relationship.b_content_type_id = $scope.relationship.content_type_id;
-                $scope.relationship.a_min_limit = null;
-                $scope.relationship.a_max_limit = null;
-                $scope.relationship.b_min_limit = null;
-                $scope.relationship.b_max_limit = null;
+                $scope.relationship.aContentTypeId = $scope.relationship.contentTypeId;
+                $scope.relationship.bContentTypeId = $scope.relationship.contentTypeId;
+                $scope.relationship.aMinLimit = null;
+                $scope.relationship.aMaxLimit = null;
+                $scope.relationship.bMinLimit = null;
+                $scope.relationship.bMaxLimit = null;
 
                 $scope.contentTypeChange();
             }

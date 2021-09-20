@@ -14,7 +14,7 @@
             },
             function (response) {
                 console.log('delete relationship failed', response);
-                toastr.error("Error", "There was a problem deleteing the relationship");
+                toastr.error("There was a problem deleteing the relationship", "Error");
             }
         );
     };

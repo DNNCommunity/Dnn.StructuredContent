@@ -13,7 +13,7 @@
         <div class="row">
             <div class="col-6">
                 <div class="input-group">
-                    <input id="search" name="search" placeholder="Search..." class="form-control" ng-model="name_search" />
+                    <input id="search" name="search" placeholder="Search..." class="form-control" ng-model="nameSearch" />
                     <span class="input-group-text"><i class="fas fa-search"></i></span>
                 </div>
             </div>
@@ -35,9 +35,9 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="visualizer_template in visualizer_templates | search: 'name':name_search">
+                <tr ng-repeat="visualizerTemplate in visualizerTemplates | search: 'name':nameSearch">
                     <td>
-                        <a href="#" class="text-muted" title="Edit" ng-click="editVisualizerTemplate(visualizer_template.id)">{{visualizer_template.name}}</a>
+                        <a href="#" class="text-muted" title="Edit" ng-click="editVisualizerTemplate(visualizerTemplate.id)">{{visualizerTemplate.name}}</a>
                     </td>
                     <td>
                         <div class="btn-group" role="group">
@@ -45,16 +45,16 @@
                                 <span class="fas fa-ellipsis-h"></span>
                             </a>
                             <div class="dropdown-menu">
-                                <a href="#" class="dropdown-item text-muted" title="Edit" ng-click="editVisualizerTemplate(visualizer_template.id)"><span class="fas fa-edit" /> Edit</a>
-                                <a href="#" class="dropdown-item text-muted" title="Copy" ng-click="copyVisualizerTemplate(visualizer_template.id)"><span class="fas fa-copy" /> Duplicate</a>
-                                <a href="# " class="dropdown-item text-danger" title="Delete" ng-click="deleteVisualizerTemplate(visualizer_template)"><span class="fas fa-trash" /> Delete</a>
+                                <a href="#" class="dropdown-item text-muted" title="Edit" ng-click="editVisualizerTemplate(visualizerTemplate.id)"><span class="fas fa-edit" /> Edit</a>
+                                <a href="#" class="dropdown-item text-muted" title="Copy" ng-click="copyVisualizerTemplate(visualizerTemplate.id)"><span class="fas fa-copy" /> Duplicate</a>
+                                <a href="# " class="dropdown-item text-danger" title="Delete" ng-click="deleteVisualizerTemplate(visualizerTemplate)"><span class="fas fa-trash" /> Delete</a>
                             </div>
                         </div>
                     </td>
                 </tr>
             </tbody>
         </table>
-        <div class="alert alert-info" ng-show="(visualizer_templates | search: 'name':name_search).length==0 ">No visualizers found.</div>
+        <div class="alert alert-info" ng-show="(visualizerTemplates | search: 'name':nameSearch).length==0 ">No visualizers found.</div>
     </div>
 </div>
 

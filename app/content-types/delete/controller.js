@@ -8,13 +8,13 @@
 
     $scope.delete = function () {
 
-        contentTypeService.remove(contentType.id).then(
+        contentTypeService.remove(contentType.Id).then(
             function (response) {                
                 $uibModalInstance.close($scope.contentType.name);
             },
             function (response) {
                 console.log('deleteContentTypes failed', response);
-                toastr.error("Error", "There was a problem deleteing the content type");
+                toastr.error("There was a problem deleteing the content type", "Error");
             }
         );
     };

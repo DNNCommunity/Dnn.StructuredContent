@@ -1,3 +1,3 @@
-﻿app.controller('contentFieldTypeTextController', ['$scope', function ($scope) {    
+﻿app.controller('contentFieldTypeTextController', [function () {
 }]);
 

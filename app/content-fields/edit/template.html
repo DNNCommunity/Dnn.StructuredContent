@@ -37,42 +37,42 @@
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input type="text" name="help_text" class="form-control" ng-model="contentField.help_text" placeholder=" " />
-                        <label for="help_text" class="form-label">Help Text</label>
+                        <input type="text" name="HelpText" class="form-control" ng-model="contentField.helpText" placeholder=" " />
+                        <label for="HelpText" class="form-label">Help Text</label>
                     </div>
 
-                    <div content-field-type-options-text content-field="contentField" ng-if="content_field_type.key=='text'"></div>                    
-                    <div content-field-type-options-number content-field="contentField" ng-if="content_field_type.key=='number'"></div>
-                    <div content-field-type-options-email content-field="contentField" ng-if="content_field_type.key=='email'"></div>
-                    <div content-field-type-options-phone-number content-field="contentField" ng-if="content_field_type.key=='phonenumber'"></div>
-                    <div content-field-type-options-url content-field="contentField" ng-if="content_field_type.key=='url'"></div>
-                    <div content-field-type-options-date-time content-field="contentField" ng-if="content_field_type.key=='datetime'"></div>
-                    <div content-field-type-options-static content-field="contentField" ng-if="content_field_type.key=='static'"></div>
-                    <div content-field-type-options-boolean content-field="contentField" ng-if="content_field_type.key=='boolean'"></div>                    
-                    <div content-field-type-options-choice content-field="contentField" ng-if="content_field_type.key=='choice'"></div>                    
+                    <div content-field-type-options-text content-field="contentField" ng-if="contentFieldType.key=='text'"></div>                    
+                    <div content-field-type-options-number content-field="contentField" ng-if="contentFieldType.key=='number'"></div>
+                    <div content-field-type-options-email content-field="contentField" ng-if="contentFieldType.key=='email'"></div>
+                    <div content-field-type-options-phone-number content-field="contentField" ng-if="contentFieldType.key=='phonenumber'"></div>
+                    <div content-field-type-options-url content-field="contentField" ng-if="contentFieldType.key=='url'"></div>
+                    <div content-field-type-options-date-time content-field="contentField" ng-if="contentFieldType.key=='datetime'"></div>
+                    <div content-field-type-options-static content-field="contentField" ng-if="contentFieldType.key=='static'"></div>
+                    <div content-field-type-options-boolean content-field="contentField" ng-if="contentFieldType.key=='boolean'"></div>                    
+                    <div content-field-type-options-choice content-field="contentField" ng-if="contentFieldType.key=='choice'"></div>                    
                     
-                    <div content-field-type-options-one-to-many content-field="contentField" content-type="contentType" ng-if="content_field_type.key=='onetomany'"></div>
+                    <div content-field-type-options-one-to-many content-field="contentField" content-type="contentType" ng-if="contentFieldType.key=='onetomany'"></div>
 
                 </div>
 
                 <div class="tab-pane fade" id="advanced">
 
-                    <p class="lead">These options let you configure how data will be stored in the database.</p>
+                    <p class="lead">These Options let you configure how data will be stored in the database.</p>
 
                     <p class="alert alert-info" ng-show="contentField.id">
                         Database settings cannot be changed for existing fields (yet)
                     </p>
 
                     <div class="form-floating mb-3">
-                        <input type="text" name="column_name" class="form-control" ng-model="contentField.column_name" required ng-keyup="columnNameChanged()" ng-disabled="contentField.id" ng-class="{'is-invalid': formContentField.column_name.$invalid && submitted,'is-valid': formContentField.column_name.$valid && submitted}" placeholder=" " />
-                        <label for="column_name" class="form-label">Database Column Name <span class="text-danger">*</span></label>
-                        <div class="invalid-feedback" role="alert" ng-messages="formContentField.column_name.$error" ng-if="submitted" ng-cloak>
+                        <input type="text" name="columnName" class="form-control" ng-model="contentField.columnName" required ng-keyup="columnNameChanged()" ng-disabled="contentField.id" ng-class="{'is-invalid': formContentField.columnName.$invalid && submitted,'is-valid': formContentField.columnName.$valid && submitted}" placeholder=" " />
+                        <label for="columnName" class="form-label">Database Column Name <span class="text-danger">*</span></label>
+                        <div class="invalid-feedback" role="alert" ng-messages="formContentField.columnName.$error" ng-if="submitted" ng-cloak>
                             <div ng-message="required">This field is required</div>
                         </div>
                     </div>
 
                     <div class="form-floating mb-3">
-                        <select name="data_type" class="form-select" ng-model="contentField.data_type" required convert-to-number ng-disabled="contentField.id" ng-class="{'is-invalid': formContentField.data_type.$invalid && submitted,'is-valid': formContentField.data_type.$valid && submitted}">
+                        <select name="dataType" class="form-select" ng-model="contentField.dataType" required convert-to-number ng-disabled="contentField.id" ng-class="{'is-invalid': formContentField.dataType.$invalid && submitted,'is-valid': formContentField.dataType.$valid && submitted}">
                             <option value="">-select-</option>
                             <option value="0">nvarchar</option>
                             <option value="1">numeric</option>
@@ -80,14 +80,14 @@
                             <option value="3">bit</option>
                             <option value="4">int</option>
                         </select>
-                        <label for="data_type" class="form-label">Data Type <span class="text-danger">*</span></label>
-                        <div class="invalid-feedback" role="alert" ng-messages="formContentField.data_type.$error" ng-if="submitted" ng-cloak>
+                        <label for="dataType" class="form-label">Data Type <span class="text-danger">*</span></label>
+                        <div class="invalid-feedback" role="alert" ng-messages="formContentField.dataType.$error" ng-if="submitted" ng-cloak>
                             <div ng-message="required">This field is required</div>
                         </div>
                     </div>
 
                     <div class="form-floating mb-3">
-                        <select name="data_length" class="form-select" ng-model="contentField.data_length" ng-disabled="contentField.id">
+                        <select name="dataLength" class="form-select" ng-model="contentField.dataLength" ng-disabled="contentField.id">
                             <option value="">None</option>
                             <option value="50">50</option>
                             <option value="100">100</option>
@@ -95,18 +95,18 @@
                             <option value="500">500</option>
                             <option value="MAX">MAX</option>
                         </select>
-                        <label for="data_length" class="form-label">Data Length </label>
+                        <label for="dataLength" class="form-label">Data Length </label>
                     </div>
 
                     <div class="form-check form-switch mb-3">
-                        <input type="checkbox" class="form-check-input" id="allow_null" ng-model="contentField.allow_null" ng-disabled="contentField.id">
-                        <label class="form-check-label" for="allow_null">Allow Null</label>
+                        <input type="checkbox" class="form-check-input" id="allowNull" ng-model="contentField.allowNull" ng-disabled="contentField.id">
+                        <label class="form-check-label" for="allowNull">Allow Null</label>
                     </div>
 
                     <div class="form-floating mb-4">
-                        <input type="text" name="default_value" class="form-control" ng-model="contentField.default_value" ng-disabled="contentField.id" ng-required="!contentField.allow_null" ng-class="{'is-invalid': formContentField.default_value.$invalid && submitted, 'is-valid': formContentField.default_value.$valid && submitted}" placeholder=" " />
-                        <label for="default_value" class="form-label">Default Value <span class="text-danger" ng-show="!contentField.allow_null">*</span></label>
-                        <div class="invalid-feedback" role="alert" ng-messages="formContentField.default_value.$error" ng-if="submitted" ng-cloak>
+                        <input type="text" name="defaultValue" class="form-control" ng-model="contentField.defaultValue" ng-disabled="contentField.id" ng-required="!contentField.allowNull" ng-class="{'is-invalid': formContentField.defaultValue.$invalid && submitted, 'is-valid': formContentField.defaultValue.$valid && submitted}" placeholder=" " />
+                        <label for="defaultValue" class="form-label">Default Value <span class="text-danger" ng-show="!contentField.allowNull">*</span></label>
+                        <div class="invalid-feedback" role="alert" ng-messages="formContentField.defaultValue.$error" ng-if="submitted" ng-cloak>
                             <div ng-message="required">This field is required</div>
                         </div>
                     </div>
@@ -128,15 +128,15 @@
                 <div class="card-title text-uppercase">Content Field Preview</div>
 
                 <div ng-form="formPreview" class="form" id="formPreview" name="formPreview">
-                    <div content-field-type-text form="formPreview" content-field="contentField" submitted="validate" ng-if="content_field_type.key=='text'"></div>                    
-                    <div content-field-type-number form="formPreview" content-field="contentField" submitted="validate" ng-if="content_field_type.key=='number'"></div>
-                    <div content-field-type-email form="formPreview" content-field="contentField" submitted="validate" ng-if="content_field_type.key=='email'"></div>
-                    <div content-field-type-phone-number form="formPreview" content-field="contentField" submitted="validate" ng-if="content_field_type.key=='phonenumber'"></div>
-                    <div content-field-type-url form="formPreview" content-field="contentField" submitted="validate" ng-if="content_field_type.key=='url'"></div>
-                    <div content-field-type-date-time form="formPreview" content-field="contentField" submitted="validate" ng-if="content_field_type.key=='datetime'"></div>
-                    <div content-field-type-static form="formPreview" content-field="contentField" submitted="validate" ng-if="content_field_type.key=='static'"></div>
-                    <div content-field-type-boolean form="formPreview" content-field="contentField" submitted="validate" ng-if="content_field_type.key=='boolean'"></div>
-                    <div content-field-type-choice form="formPreview" content-field="contentField" submitted="validate" ng-if="content_field_type.key=='choice'"></div>                    
+                    <div content-field-type-text form="formPreview" content-field="contentField" submitted="validate" ng-if="contentFieldType.key=='text'"></div>                    
+                    <div content-field-type-number form="formPreview" content-field="contentField" submitted="validate" ng-if="contentFieldType.key=='number'"></div>
+                    <div content-field-type-email form="formPreview" content-field="contentField" submitted="validate" ng-if="contentFieldType.key=='email'"></div>
+                    <div content-field-type-phone-number form="formPreview" content-field="contentField" submitted="validate" ng-if="contentFieldType.key=='phonenumber'"></div>
+                    <div content-field-type-url form="formPreview" content-field="contentField" submitted="validate" ng-if="contentFieldType.key=='url'"></div>
+                    <div content-field-type-date-time form="formPreview" content-field="contentField" submitted="validate" ng-if="contentFieldType.key=='datetime'"></div>
+                    <div content-field-type-static form="formPreview" content-field="contentField" submitted="validate" ng-if="contentFieldType.key=='static'"></div>
+                    <div content-field-type-boolean form="formPreview" content-field="contentField" submitted="validate" ng-if="contentFieldType.key=='boolean'"></div>
+                    <div content-field-type-choice form="formPreview" content-field="contentField" submitted="validate" ng-if="contentFieldType.key=='choice'"></div>                    
                     
                 </div>
             </div>

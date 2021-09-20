@@ -1,10 +1,10 @@
 ﻿<div class="form-floating mb-3">
-    <input type="url" name="{{contentField.column_name}}" id="{{contentField.column_name}}" class="form-control" ng-model="contentField.value" ng-required="contentField.options.required" placeholder="http://" ng-class="{'is-invalid': form[contentField.column_name].$invalid && submitted,'is-valid': form[contentField.column_name].$valid && submitted }" />
-    <label for="{{contentField.column_name}}" class="form-label">{{contentField.name}} <span class="text-danger" ng-show="contentField.options.required">*</span></label>
-    <div ng-messages="form[contentField.column_name].$error" ng-if="submitted" class="invalid-feedback" role="alert">
+    <input type="url" name="{{contentField.columnName}}" id="{{contentField.columnName}}" class="form-control" ng-model="contentField.value" ng-required="contentField.options.required" placeholder="http://" ng-class="{'is-invalid': form[contentField.columnName].$invalid && submitted,'is-valid': form[contentField.columnName].$valid && submitted }" />
+    <label for="{{contentField.columnName}}" class="form-label">{{contentField.name}} <span class="text-danger" ng-show="contentField.options.required">*</span></label>
+    <div ng-messages="form[contentField.columnName].$error" ng-if="submitted" class="invalid-feedback" role="alert">
         <div ng-message="required">This field is required</div>
         <div ng-message="url">This is not a valid URL</div>
     </div>
-    <small class="form-text" ng-show="contentField.help_text">{{contentField.help_text}}</small>
+    <small class="form-text" ng-show="contentField.helpText">{{contentField.helpText}}</small>
 </div>
 

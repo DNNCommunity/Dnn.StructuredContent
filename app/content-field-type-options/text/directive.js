@@ -4,7 +4,6 @@
         controller: 'contentFieldTypeOptionsTextController',
         scope: {
             contentField: '='
-        },
-        replace: true
+        }
     };
 });

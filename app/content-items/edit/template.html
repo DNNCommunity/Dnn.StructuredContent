@@ -1,6 +1,6 @@
 ﻿<div class="modal-header">
-    <h5 class="modal-title" ng-show="contentItem.id">Edit {{contentType.singular}} - {{contentItem.name}}</h5>
-    <h5 class="modal-title" ng-show="!contentItem.id">New {{contentType.singular}}</h5>
+    <h5 class="modal-title" ng-show="contentItem.id">Edit {{contentType.Singular}} - {{contentItem.name}}</h5>
+    <h5 class="modal-title" ng-show="!contentItem.id">New {{contentType.Singular}}</h5>
     <button type="button" class="btn-close" ng-click="close()"></button>
 </div>
 
@@ -27,18 +27,18 @@
         </div>
         <div class="row" ng-repeat="row in canvas.rows">
             <div class="col" ng-repeat="column in row.columns">
-                <div content-field-type-text="formContentItem" content-field="column.data" submitted="submitted" ng-if="column.data.content_field_type.key=='text'" />                
-                <div content-field-type-number form="formContentItem" content-field="column.data" submitted="submitted" ng-if="column.data.content_field_type.key=='number'" />
-                <div content-field-type-email form="formContentItem" content-field="column.data" submitted="submitted" ng-if="column.data.content_field_type.key=='email'" />
-                <div content-field-type-phone-number form="formContentItem" content-field="column.data" submitted="submitted" ng-if="column.data.content_field_type.key=='phonenumber'" />
-                <div content-field-type-url form="formContentItem" content-field="column.data" submitted="submitted" ng-if="column.data.content_field_type.key=='url'" />
-                <div content-field-type-date-time form="formContentItem" content-field="column.data" submitted="submitted" ng-if="column.data.content_field_type.key=='datetime'" />
-                <div content-field-type-static form="formContentItem" content-field="column.data" submitted="submitted" ng-if="column.data.content_field_type.key=='static'" />
-                <div content-field-type-boolean form="formContentItem" content-field="column.data" submitted="submitted" ng-if="column.data.content_field_type.key=='boolean'" />
-                <div content-field-type-choice form="formContentItem" content-field="column.data" submitted="submitted" ng-if="column.data.content_field_type.key=='choice'" />
+                <div content-field-type-text="formContentItem" content-field="column.Data" submitted="submitted" ng-if="column.Data.ContentFieldType.key=='text'" />                
+                <div content-field-type-number form="formContentItem" content-field="column.Data" submitted="submitted" ng-if="column.Data.ContentFieldType.key=='number'" />
+                <div content-field-type-email form="formContentItem" content-field="column.Data" submitted="submitted" ng-if="column.Data.ContentFieldType.key=='email'" />
+                <div content-field-type-phone-number form="formContentItem" content-field="column.Data" submitted="submitted" ng-if="column.Data.ContentFieldType.key=='phonenumber'" />
+                <div content-field-type-url form="formContentItem" content-field="column.Data" submitted="submitted" ng-if="column.Data.ContentFieldType.key=='url'" />
+                <div content-field-type-date-time form="formContentItem" content-field="column.Data" submitted="submitted" ng-if="column.Data.ContentFieldType.key=='datetime'" />
+                <div content-field-type-static form="formContentItem" content-field="column.Data" submitted="submitted" ng-if="column.Data.ContentFieldType.key=='static'" />
+                <div content-field-type-boolean form="formContentItem" content-field="column.Data" submitted="submitted" ng-if="column.Data.ContentFieldType.key=='boolean'" />
+                <div content-field-type-choice form="formContentItem" content-field="column.Data" submitted="submitted" ng-if="column.Data.ContentFieldType.key=='choice'" />
 
-                <div content-field-type-related-content-single form="formContentItem" relationship="column.data" submitted="submitted" ng-if="column.data.key=='o2m' && column.data.b_content_type_id==contentType.id"></div>
-                <div content-field-type-related-content-multiple-list form="formContentItem" relationship="column.data" submitted="submitted" ng-if="column.data.key=='m2m' || (column.data.key=='o2m' && column.data.a_content_type_id==contentType.id)"></div>
+                <div content-field-type-related-content-single form="formContentItem" relationship="column.Data" submitted="submitted" ng-if="column.Data.key=='o2m' && column.Data.BContentTypeId==contentType.id"></div>
+                <div content-field-type-related-content-multiple-list form="formContentItem" relationship="column.Data" submitted="submitted" ng-if="column.Data.key=='m2m' || (column.Data.key=='o2m' && column.Data.AContentTypeId==contentType.id)"></div>
             </div>
         </div>
     </div>

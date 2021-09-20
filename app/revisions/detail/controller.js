@@ -32,7 +32,7 @@
             },
             function (response) {
                 console.log('getContentType failed', response);
-                toastr.error("Error", "There was a problem loading the Content Type");
+                toastr.error("There was a problem loading the Content Type", "Error");
                 deferred.reject();
             }
         );
@@ -41,14 +41,14 @@
     $scope.getContentFields = function () {
         var deferred = $q.defer();
         $scope.loading = true;
-        contentFieldService.search(content_url_slug, true).then(
+        contentFieldService.search(contentType.urlSlug, true).then(
             function (response) {
                 $scope.contentFields = response.data;
                 $scope.loading = false;
                 deferred.resolve();
             },
             function (response) {
-                toastr.error("Error", "There was a problem loading the Content Fields");
+                toastr.error("There was a problem loading the Content Fields", "Error");
                 $scope.loading = false;
                 deferred.reject();
             }
@@ -67,7 +67,7 @@
             },
             function (response) {
                 console.log('getRevision failed', response);
-                toastr.error("Error", "There was a problem loading the Revision");
+                toastr.error("There was a problem loading the revision", "Error");
                 $scope.loading = false;
                 deferred.reject();
             }

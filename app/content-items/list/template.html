@@ -1,5 +1,5 @@
 ﻿<div class="modal-header">
-    <h5 class="modal-title">{{content_type.plural}}</h5>
+    <h5 class="modal-title">{{contentType.plural}}</h5>
     <button type="button" class="btn-close" ng-click="close()"></button>
 </div>
 <div class="modal-body">
@@ -13,7 +13,7 @@
         <div class="row">
             <div class="col-6">
                 <div class="input-group">
-                    <input id="search" name="search" placeholder="Search..." class="form-control" ng-model="name_search" />
+                    <input id="search" name="search" placeholder="Search..." class="form-control" ng-model="nameSearch" />
                     <span class="input-group-text"><i class="fas fa-search"></i></span>
                 </div>
             </div>
@@ -48,19 +48,19 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="content_item in content_items | search: 'name':name_search">
+                <tr ng-repeat="contentItem in contentItems | search: 'name':nameSearch">
                     <td>
-                        <a href="#" class="text-muted" title="Edit" ng-click="editContentItem(content_item.id)">{{content_item.name}}</a>
+                        <a href="#" class="text-muted" title="Edit" ng-click="editContentItem(contentItem.id)">{{contentItem.name}}</a>
                     </td>
-                    <td>{{content_item.status}}</td>
-                    <td>{{content_item.date_created | date}}</td>
-                    <td>{{content_item.date_modified | date}}</td>
-                    <td>{{content_item.date_published | date}}</td>
+                    <td>{{contentItem.status}}</td>
+                    <td>{{contentItem.dateCreated | date}}</td>
+                    <td>{{contentItem.dateModified | date}}</td>
+                    <td>{{contentItem.datePublished | date}}</td>
                     <td>
-                        <a class="text-muted" title="Version History" ng-click="viewRevisions(content_item)"><span class="fas fa-history"></span></a>
+                        <a class="text-muted" title="Version History" ng-click="viewRevisions(contentItem)"><span class="fas fa-history"></span></a>
                     </td>
                     <td>
-                        <a class="text-muted" title="Translations" ng-click="translationContentItem(content_item)"><span class="fas fa-language"></span></a>
+                        <a class="text-muted" title="Translations" ng-click="translationContentItem(contentItem)"><span class="fas fa-language"></span></a>
                     </td>
                     <td>
                         <div class="btn-group" role="group">
@@ -68,16 +68,16 @@
                                 <span class="fas fa-ellipsis-h"></span>
                             </a>
                             <div class="dropdown-menu">
-                                <a href="#" class="dropdown-item text-muted" title="Edit" ng-click="editContentItem(content_item.id)"><span class="fas fa-edit" /> Edit</a>
-                                <a href="#" class="dropdown-item text-muted" title="Copy" ng-click="copyContentItem(content_item)"><span class="fas fa-copy" /> Duplicate</a>
-                                <a href="# " class="dropdown-item text-danger" title="Delete" ng-click="deleteContentItem(content_item)"><span class="fas fa-trash" /> Delete</a>
+                                <a href="#" class="dropdown-item text-muted" title="Edit" ng-click="editContentItem(contentItem.id)"><span class="fas fa-edit" /> Edit</a>
+                                <a href="#" class="dropdown-item text-muted" title="Copy" ng-click="copyContentItem(contentItem)"><span class="fas fa-copy" /> Duplicate</a>
+                                <a href="# " class="dropdown-item text-danger" title="Delete" ng-click="deleteContentItem(contentItem)"><span class="fas fa-trash" /> Delete</a>
                             </div>
                         </div>
                     </td>
                 </tr>
             </tbody>
         </table>
-        <div class="alert alert-info" ng-show="(content_items | search: 'name':name_search).length==0 ">No {{content_type.plural}} found.</div>
+        <div class="alert alert-info" ng-show="(contentItems | search: 'name':nameSearch).length==0 ">No {{contentType.plural}} found.</div>
     </div>
 
 </div>

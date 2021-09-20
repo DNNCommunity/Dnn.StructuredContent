@@ -15,41 +15,41 @@
     // implementation    
 
     // search
-    function search(content_type = '', name = '', verbose = null, skip = null, take = null) {
+    function search(contentType = '', name = '', verbose = null, skip = null, take = null) {
         var request = $http({
             method: "get",
-            url: base_path + '/' + content_type + '/' + '?name=' + name + '&verbose=' + verbose + '&skip=' + skip + '&take=' + take
+            url: base_path + '/' + contentType + '/' + '?name=' + name + '&verbose=' + verbose + '&skip=' + skip + '&take=' + take
         });
         return request;
     }
 
     // get 
-    function get(content_type, id) {
+    function get(contentType, id) {
         var request = $http({
             method: "get",
-            url: base_path + '/' + content_type + '/' + id
+            url: base_path + '/' + contentType + '/' + id
         });
         return request;
     }
 
     // insert
-    function insert(content_type, item) {
+    function insert(contentType, item) {
         var request = $http({
             method: "post",
             headers: {
                 'Content-Type': "application/json"
             },
-            url: base_path + '/' + content_type,
+            url: base_path + '/' + contentType,
             data: item
         });
         return request;
     }
 
     // update 
-    function update(content_type, item) {
+    function update(contentType, item) {
         var request = $http({
             method: "put",
-            url: base_path + '/' + content_type,
+            url: base_path + '/' + contentType,
             headers: {
                 'Content-Type': "application/json"
             },
@@ -59,21 +59,21 @@
     }
 
     // delete
-    function remove(content_type, id) {
+    function remove(contentType, id) {
         var request = $http({
             method: "delete",
-            url: base_path + '/' + content_type + '/' + id
+            url: base_path + '/' + contentType + '/' + id
         });
         return request;
     }
 
     // save
-    function save(content_type, item) {
+    function save(contentType, item) {
         if (item.id > 0) {
-            return update(content_type, item);
+            return update(contentType, item);
         }
         else {
-            return insert(content_type, item);
+            return insert(contentType, item);
         }
     }
 

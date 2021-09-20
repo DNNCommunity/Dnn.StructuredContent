@@ -64,9 +64,9 @@
         }
     };
 
-    // set default options
-    if (!$scope.contentField.options.control_type) {
-        $scope.contentField.options.control_type = 'dropdown-list';
+    // set default Options
+    if (!$scope.contentField.options.controlType) {
+        $scope.contentField.options.controlType = 'dropdown-list';
     }
 
     if (!$scope.contentField.options.layout) {

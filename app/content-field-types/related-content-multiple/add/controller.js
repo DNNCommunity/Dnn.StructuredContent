@@ -1,10 +1,10 @@
-﻿app.controller('contentFieldTypeRelatedContentMultipleAddController', ['$scope', '$q', 'toastr', '$uibModalInstance', 'contentItemService', 'content_type', function ($scope, $q, toastr, $uibModalInstance, contentItemService, content_type) {
+﻿app.controller('contentFieldTypeRelatedContentMultipleAddController', ['$scope', '$q', 'toastr', '$uibModalInstance', 'contentItemService', 'contentType', function ($scope, $q, toastr, $uibModalInstance, contentItemService, contentType) {
 
     $scope.close = function () {
         $uibModalInstance.dismiss('cancel');
     };
 
-    $scope.content_type = content_type;
+    $scope.contentType = contentType;
     $scope.items;
 
     $scope.form;
@@ -14,7 +14,7 @@
         var deferred = $q.defer();
         $scope.loading = true;
 
-        contentItemService.search($scope.content_type.url_slug, $scope.search_name).then(
+        contentItemService.search($scope.contentType.UrlSlug, $scope.searchName).then(
             function (response) {
                 $scope.items = response.data;
                 $scope.loading = false;
@@ -22,7 +22,7 @@
             },
             function (response) {
                 console.log('getItems failed', response);
-                toastr.error("Error", "There was a problem searching the content items");
+                toastr.error("There was a problem searching the content items", "Error");
                 $scope.loading = false;
                 deferred.reject();
             }
@@ -31,7 +31,7 @@
     };
 
     $scope.clear = function () {
-        $scope.search_name = '';
+        $scope.searchName = '';
         $scope.items = null;
     };
 

@@ -1,4 +1,4 @@
-﻿app.controller('revisionListController', ['$scope', '$q', '$uibModal', '$uibModalInstance', 'toastr', 'revisionService', 'content_type', 'content_item', function ($scope, $q, $uibModal, $uibModalInstance, toastr, revisionService, content_type, content_item) {
+﻿app.controller('revisionListController', ['$scope', '$q', '$uibModal', '$uibModalInstance', 'toastr', 'revisionService', 'contentType', 'contentItem', function ($scope, $q, $uibModal, $uibModalInstance, toastr, revisionService, contentType, contentItem) {
 
     $scope.close = function () {
         $uibModalInstance.dismiss('cancel');
@@ -7,13 +7,13 @@
     $scope.loading = true;
     $scope.revisions = [];
 
-    $scope.content_type = content_type;
-    $scope.content_item = content_item;
+    $scope.contentType = contentType;
+    $scope.contentItem = contentItem;
 
     $scope.getRevisions = function () {
         var deferred = $q.defer();
         $scope.loading = true;
-        revisionService.search($scope.content_type.id, $scope.content_item.id).then(
+        revisionService.search($scope.contentType.id, $scope.contentItem.id).then(
             function (response) {
                 $scope.revisions = response.data;
                 $scope.loading = false;
@@ -21,7 +21,7 @@
             },
             function (response) {
                 console.log('getRevisions failed', response);
-                toastr.error("Error", "There was a problem loading Revisions");
+                toastr.error("There was a problem loading Revisions", "Error");
                 $scope.loading = false;
                 deferred.reject();
             }

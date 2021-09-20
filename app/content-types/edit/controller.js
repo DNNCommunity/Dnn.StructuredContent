@@ -7,7 +7,7 @@
         $uibModalInstance.dismiss('cancel');
     };
     $scope.submitted = false;
-    $scope.content_field_types = [];
+    $scope.contentFieldTypes = [];
 
     $scope.contentType = {
         id: id
@@ -25,13 +25,13 @@
         $scope.loading = true;
         contentFieldTypeService.search("", true).then(
             function (response) {
-                $scope.content_field_types = response.data;
+                $scope.contentFieldTypes = response.data;
                 $scope.loading = false;
                 deferred.resolve();
             },
             function (response) {
                 console.log('getContentFieldTypes failed', response);
-                toastr.error("Error", "There was a problem loading the content-field-types");
+                toastr.error("There was a problem loading the content-field-types", "Error");
                 $scope.loading = false;
                 deferred.reject();
             }
@@ -42,15 +42,15 @@
         var deferred = $q.defer();
         $scope.loading = true;
 
-        contentFieldTypeService.get($scope.contentField.content_field_type_id).then(
+        contentFieldTypeService.get($scope.contentField.contentFieldTypeId).then(
             function (response) {
-                $scope.content_field_type = response.data;
+                $scope.contentFieldType = response.data;
                 $scope.loading = false;
                 deferred.resolve();
             },
             function (response) {
                 console.log('getContentFieldTypes failed', response);
-                toastr.error("Error", "There was a problem loading the Content Field Types");
+                toastr.error("There was a problem loading the Content Field Types", "Error");
                 $scope.loading = false;
                 deferred.reject();
             }
@@ -75,7 +75,7 @@
             },
             function (response) {
                 console.log('getContentType failed', response);
-                toastr.error("Error", "There was a problem loading the Content Type");
+                toastr.error("There was a problem loading the Content Type", "Error");
                 $scope.loading = false;
                 deferred.reject();
             }
@@ -97,11 +97,11 @@
                     $scope.loading = false;
                     $scope.submitted = false;
 
-                    $uibModalInstance.close($scope.contentType.name);
+                    $uibModalInstance.close($scope.contentType);
                 },
                 function (response) {
                     console.log('save ContentType failed', response);
-                    toastr.error("Error", "There was a problem saving the Content Type");
+                    toastr.error("There was a problem saving the Content Type", "Error");
                     $scope.submitted = false;
                     $scope.loading = false;
                 }
@@ -119,34 +119,34 @@
         $scope.relationships.forEach(function (relationship) {
 
             if (relationship.key === 'o2m') {
-                if ($scope.contentType.id === relationship.b_content_type_id) {
-                    relationship.help_text = relationship.a_help_text;
+                if ($scope.contentType.id === relationship.aContentTypeId) {
+                    relationship.helpText = relationship.aHelpText;
                 }
 
-                if ($scope.contentType.id === relationship.a_content_type_id) {
-                    relationship.primary_content_type = relationship.a_content_type;
-                    relationship.related_content_type = relationship.b_content_type;                    
-                    relationship.min_limit = relationship.b_min_limit;
-                    relationship.max_limit = relationship.b_max_limit;
-                    relationship.help_text = relationship.b_help_text;
+                if ($scope.contentType.id === relationship.aContentTypeId) {
+                    relationship.primaryContentType = relationship.aContentType;
+                    relationship.relatedContent_type = relationship.bContentType;                    
+                    relationship.minLimit = relationship.bMinLimit;
+                    relationship.maxLimit = relationship.bMaxLimit;
+                    relationship.helpText = relationship.bHelpText;
                 }
             }
 
             if (relationship.key === 'm2m') {
-                if ($scope.contentType.id === relationship.a_content_type_id) {
-                    relationship.primary_content_type = relationship.a_content_type;
-                    relationship.related_content_type = relationship.b_content_type;                    
-                    relationship.min_limit = relationship.b_min_limit;
-                    relationship.max_limit = relationship.b_max_limit;
-                    relationship.help_text = relationship.b_help_text;
+                if ($scope.contentType.id === relationship.aContentTypeId) {
+                    relationship.primaryContent_type = relationship.aContentType;
+                    relationship.relatedContentType = relationship.aContentType;                    
+                    relationship.minLimit = relationship.bMinLimit;
+                    relationship.maxLimit = relationship.bMaxLimit;
+                    relationship.helpText = relationship.bHelpText;
                 }
 
-                if ($scope.contentType.id === relationship.b_content_type_id) {
-                    relationship.primary_content_type = relationship.b_content_type;
-                    relationship.related_content_type = relationship.a_content_type;
-                    relationship.min_limit = relationship.a_min_limit;
-                    relationship.max_limit = relationship.a_max_limit;
-                    relationship.help_text = relationship.a_help_text;
+                if ($scope.contentType.id === relationship.bContentTypeId) {
+                    relationship.primaryContent_type = relationship.bContentType;
+                    relationship.relatedContent_type = relationship.aContentType;
+                    relationship.minLimit = relationship.aMinLimit;
+                    relationship.maxLimit = relationship.aMaxLimit;
+                    relationship.helpText = relationship.aHelpText;
                 }
             }
         });
@@ -163,7 +163,9 @@
                 break;
         }
     };
-    $scope.copyItem = function (item) { };
+    $scope.copyItem = function (item) {
+        alert("Not implemented yet");
+    };
     $scope.deleteItem = function (item, column) {
         switch (item._type) {
             case "content_field":
@@ -180,7 +182,7 @@
         var deferred = $q.defer();
         $scope.loading = true;
 
-        contentFieldService.search($scope.contentType.url_slug, true).then(
+        contentFieldService.search($scope.contentType.urlSlug, true).then(
             function (response) {
                 $scope.contentFields = response.data;
 
@@ -189,7 +191,7 @@
             },
             function (response) {
                 console.log('getContentFields failed', response);
-                toastr.error("Error", "There was a problem loading the Content Fields for the this Content Type");
+                toastr.error("There was a problem loading the Content Fields for the this Content Type", "Error");
                 $scope.loading = false;
                 deferred.reject();
             }
@@ -206,7 +208,7 @@
             size: 'lg dnn-structured-content',
             backdrop: 'static',
             resolve: {
-                content_field: function () {
+                contentField: function () {
                     return clone;
                 }
             }
@@ -214,8 +216,8 @@
 
         modalInstance.result.then(
             function (content_field) {
-                $scope.canvas.rows[content_field.layout_row].columns[content_field.layout_column].data = content_field;
-                toastr.success("The Content Field '" + content_field.name + "' was saved.", "Success");
+                $scope.canvas.rows[contentField.layoutRow].columns[contentField.layoutColumn].data = contentField;
+                toastr.success("The Content Field '" + contentField.name + "' was saved.", "Success");
             },
             function () { }
         );
@@ -230,8 +232,8 @@
                 contentField: function () {
                     return contentField;
                 },
-                content_type_url_slug: function () {
-                    return $scope.contentType.url_slug;
+                contentType: function () {
+                    return $scope.contentType;
                 }
             }
         });
@@ -239,7 +241,7 @@
         modalInstance.result.then(
             function () {
                 toastr.success("The Content Field '" + contentField.name + "' was deleted.", "Success");
-                column.data = null;
+                column.Data = null;
                 cleanUpEmptyRowsColumns();
                 saveItems();
             },
@@ -261,7 +263,7 @@
             },
             function (response) {
                 console.log('getRelationships failed', response);
-                toastr.error("Error", "There was a problem loading the relationships for the this Content Type");
+                toastr.error("There was a problem loading the relationships for the this Content Type", "Error");
                 $scope.loading = false;
                 deferred.reject();
             }
@@ -285,9 +287,9 @@
         });
 
         modalInstance.result.then(
-            function (ret_relationship) {
-                relationship = ret_relationship;
-                toastr.success("The relationship between " + relationship.aContentType_name + " and " + relationship.bContentType_name + " was saved.", "Success");
+            function (retRelationship) {
+                relationship = retRelationship;
+                toastr.success("The relationship between " + relationship.aContentType.name + " and " + relationship.bContentType.name + " was saved.", "Success");
             },
             function () { }
         );
@@ -348,12 +350,12 @@
 
         if (item._type === "content_field") {
 
-            item.layout_row = row;
-            item.layout_column = column;
+            item.layoutRow = row;
+            item.layoutColumn = column;
 
             item.options = angular.toJson(item.options);
 
-            contentFieldService.save($scope.contentType.url_slug, item).then(
+            contentFieldService.save($scope.contentType.urlSlug, item).then(
                 function (response) {
                     item = response.data;
                     deferred.resolve();
@@ -374,14 +376,14 @@
 
         if (item._type === "relationship") {
 
-            if ($scope.contentType.id === item.a_content_type_id) {
-                item.a_layout_row = row;
-                item.a_layout_column = column;
+            if ($scope.contentType.id === item.aContentTypeId) {
+                item.aLayoutRow = row;
+                item.aLayoutColumn = column;
             }
 
-            if ($scope.contentType.id === item.b_content_type_id) {
-                item.b_layout_row = row;
-                item.b_layout_column = column;
+            if ($scope.contentType.id === item.bContentTypeId) {
+                item.bLayoutRow = row;
+                item.bLayoutColumn = column;
             }
 
             relationshipService.save(item).then(
@@ -410,7 +412,7 @@
 
         var slug;
 
-        slug = $scope.contentType.url_slug;
+        slug = $scope.contentType.urlSlug;
 
         if (!slug) {
             slug = $scope.contentType.name;
@@ -423,8 +425,8 @@
         return slug;
     };
     $scope.urlSlugify = function () {
-        if ($scope.contentType.url_slug) {
-            $scope.contentType.url_slug = slugify($scope.contentType.url_slug);
+        if ($scope.contentType.urlSlug) {
+            $scope.contentType.urlSlug = slugify($scope.contentType.urlSlug);
         }
     };
     $scope.nameAutoFormat = function () {
@@ -436,46 +438,13 @@
         $scope.contentType.plural = pluralize.plural(name);
         $scope.contentType.singular = pluralize.singular(name);
 
-        $scope.contentType.url_slug = $scope.contentType.plural;
+        $scope.contentType.urlSlug = $scope.contentType.plural;
         $scope.urlSlugify();
 
         if (!$scope.contentType.id) {
-            $scope.contentType.table_name = $scope.contentType.url_slug;
+            $scope.contentType.tableName = $scope.contentType.urlSlug;
         }
     };
-
-    //$scope.showSystemChange = function () {
-    //    if ($scope.show_system) {
-    //        $scope.content_field_filter.is_system = undefined;
-    //    }
-    //    else {
-    //        $scope.content_field_filter.is_system = false;
-    //    }
-    //};
-
-    //$scope.relatedContentTypeName = function (relationship) {
-    //    if (relationship.a_content_type_id === $scope.contentType.id) {
-    //        return relationship.b_content_type_name;
-    //    }
-    //    if (relationship.b_content_type_id === $scope.contentType.id) {
-    //        return relationship.a_content_type_name;
-    //    }
-    //};
-
-    //$scope.relationship_filter = function (relationship) {
-    //    if (!$scope.relationship_search) {
-    //        return true;
-    //    }
-
-    //    var relatedContentTypeName = $scope.relatedContentTypeName(relationship);
-
-    //    if (relatedContentTypeName.toLowerCase().includes($scope.relationship_search)) {
-    //        return true;
-    //    }
-    //    else {
-    //        return false;
-    //    }
-    //};
 
     $scope.rowDrop = function (event, index, type, external, dropEffect, callback, item) {
         event.stopPropagation();
@@ -483,12 +452,12 @@
         var newRow = { class: "row", columns: [] };
         var newColumn = { class: "col", data: {} };
 
-        if (type === "content_field_type") {
+        if (type === "contentFieldType") {
 
             if (item.type === "content_field") {
                 var content_field = {
-                    content_field_type_id: item.id,
-                    content_type_id: $scope.contentType.id,
+                    ContentFieldTypeId: item.Id,
+                    ContentTypeId: $scope.contentType.id,
                     _type: "content_field"
                 };
 
@@ -498,18 +467,17 @@
                     size: 'xl dnn-structured-content',
                     backdrop: 'static',
                     resolve: {
-                        content_field: function () {
-                            return content_field;
+                        contentField: function () {
+                            return contentField;
                         }
                     }
                 });
 
                 modalInstanceContentField.result.then(
                     function (content_field) {
-                        console.log('1', content_field);
-                        toastr.success("The Content Field '" + content_field.name + "' was created.", "Success");
+                        toastr.success("The Content Field '" + contentField.name + "' was created.", "Success");
 
-                        newColumn.data = content_field;
+                        newColumn.data = contentField;
                         newRow.columns.push(newColumn);
 
                         $scope.canvas.rows.splice(index, 0, newRow);
@@ -526,7 +494,7 @@
 
             if (item.type === "relationship") {
                 var relationship = {
-                    content_type_id: $scope.contentType.id,
+                    ContentTypeId: $scope.contentType.id,
                     _type: "relationship"
                 };
 
@@ -577,12 +545,12 @@
 
         var newColumn = { class: "col", content_field: {} };
 
-        if (type === "content_field_type") {
+        if (type === "contentFieldType") {
 
             if (item.type === "content_field") {
-                var content_field = {
-                    content_field_type_id: item.id,
-                    content_type_id: $scope.contentType.id,
+                var contentField = {
+                    ContentFieldTypeId: item.id,
+                    ContentTypeId: $scope.contentType.id,
                     _type: "content_field"
                 };
 
@@ -593,16 +561,16 @@
                     backdrop: 'static',
                     resolve: {
                         content_field: function () {
-                            return content_field;
+                            return contentField;
                         }
                     }
                 });
 
                 modalInstanceContentField.result.then(
-                    function (content_field) {
-                        toastr.success("The Content Field '" + content_field.name + "' was created.", "Success");
+                    function (contentField) {
+                        toastr.success("The Content Field '" + contentField.Name + "' was created.", "Success");
 
-                        newColumn.data = content_field;
+                        newColumn.data = contentField;
 
                         row.columns.splice(index, 0, newColumn);
 
@@ -618,7 +586,7 @@
 
             if (item.type === "relationship") {
                 var relationship = {
-                    content_type_id: $scope.contentType.id,
+                    ContentTypeId: $scope.contentType.id,
                     _type: "relationship"
                 };
 
@@ -681,29 +649,29 @@
 
         // iterate over content fields to find max row and column
         $scope.contentFields.forEach(function (item) {
-            if (item.is_system === false) {
-                if (item.layout_row > maxRow) {
-                    maxRow = item.layout_row;
+            if (item.isSystem === false) {
+                if (item.layoutRow > maxRow) {
+                    maxRow = item.layoutRow;
                 }
-                if (item.layout_column > maxColumn) {
-                    maxColumn = item.layout_column;
+                if (item.layoutColumn > maxColumn) {
+                    maxColumn = item.layoutColumn;
                 }
             }
         });
 
         // iterate over relationships to find max row and column
         $scope.relationships.forEach(function (item) {
-            if (item.a_layout_row > maxRow) {
-                maxRow = item.a_layout_row;
+            if (item.aLayoutRow > maxRow) {
+                maxRow = item.aLayoutRow;
             }
-            if (item.b_layout_row > maxRow) {
-                maxRow = item.b_layout_row;
+            if (item.bLayoutRow > maxRow) {
+                maxRow = item.bLayoutRow;
             }
-            if (item.a_layout_column > maxColumn) {
-                maxColumn = item.a_layout_column;
+            if (item.aLayoutColumn > maxColumn) {
+                maxColumn = item.aLayoutColumn;
             }
-            if (item.b_layout_column > maxColumn) {
-                maxColumn = item.b_layout_column;
+            if (item.bLayoutColumn > maxColumn) {
+                maxColumn = item.bLayoutColumn;
             }
         });
 
@@ -724,12 +692,12 @@
             }
         }
 
-        // insert the content_fields
+        // insert the ContentFields
         $scope.contentFields.forEach(function (item) {
-            if (item.is_system === false) { // skip the system fields
+            if (item.isSystem === false) { // skip the system fields
                 item._type = 'content_field';
-                if ($scope.canvas.rows[item.layout_row] && $scope.canvas.rows[item.layout_row].columns[item.layout_column]) {
-                    $scope.canvas.rows[item.layout_row].columns[item.layout_column].data = item;
+                if ($scope.canvas.rows[item.layoutRow] && $scope.canvas.rows[item.layoutRow].columns[item.layoutColumn]) {
+                    $scope.canvas.rows[item.layoutRow].columns[item.layoutColumn].data = item;
                 }
                 else {
                     notPlacedFields.push(item);
@@ -741,18 +709,18 @@
         $scope.relationships.forEach(function (item) {            
             item._type = 'relationship';
 
-            if ($scope.contentType.id === item.a_content_type_id) {
-                if ($scope.canvas.rows[item.a_layout_row] && $scope.canvas.rows[item.a_layout_row].columns[item.a_layout_column]) {
-                    $scope.canvas.rows[item.a_layout_row].columns[item.a_layout_column].data = item;
+            if ($scope.contentType.id === item.aContentTypeId) {
+                if ($scope.canvas.rows[item.aLayoutRow] && $scope.canvas.rows[item.aLayoutRow].columns[item.aLayoutColumn]) {
+                    $scope.canvas.rows[item.aLayoutRow].columns[item.aLayoutColumn].data = item;
                 }
                 else {
                     notPlacedRelationships.push(item);
                 }
             }
 
-            if ($scope.contentType.id === item.b_content_type_id) {
-                if ($scope.canvas.rows[item.b_layout_row] && $scope.canvas.rows[item.b_layout_row].columns[item.b_layout_column]) {
-                    $scope.canvas.rows[item.b_layout_row].columns[item.b_layout_column].data = item;
+            if ($scope.contentType.id === item.bContentTypeId) {
+                if ($scope.canvas.rows[item.bLayoutRow] && $scope.canvas.rows[item.bLayoutRow].columns[item.bLayoutColumn]) {
+                    $scope.canvas.rows[item.bLayoutRow].columns[item.bLayoutColumn].data = item;
                 }
                 else {
                     notPlacedRelationships.push(item);

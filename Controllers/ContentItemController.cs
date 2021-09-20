@@ -23,8 +23,8 @@ namespace StructuredContent
     // [SupportedModules("StructuredContent")]
     public class ContentItemController : DnnApiController
     {
-        private DataContext dataContext;
-        private ISQLHelper sqlHelper;
+        private readonly DataContext dataContext;
+        private readonly ISQLHelper sqlHelper;
 
         public ContentItemController(ISQLHelper sqlHelper)
         {
@@ -34,18 +34,18 @@ namespace StructuredContent
 
         [HttpGet]
         [AllowAnonymous]
-        public HttpResponseMessage Get(string contentType, string name = "", bool? verbose = null, int? skip = null, int? take = null)
+        public HttpResponseMessage Get(string contentTypeUrlSlug, string name = "", bool? verbose = null, int? skip = null, int? take = null)
         {
             try
             {
-                StructuredContent_ContentType content_type = this.dataContext.StructuredContent_ContentTypes.Where(i => i.url_slug.ToLower() == contentType.ToLower()).SingleOrDefault();
+                var contentType = this.dataContext.StructuredContent_ContentTypes.Where(i => i.UrlSlug.ToLower() == contentTypeUrlSlug.ToLower()).SingleOrDefault();
 
-                if (content_type == null)
+                if (contentType == null)
                 {
                     return this.Request.CreateResponse(HttpStatusCode.NotFound);
                 }
 
-                IEnumerable<dynamic> query = this.sqlHelper.SelectDynamicList(content_type, string.Empty);
+                IEnumerable<dynamic> query = this.sqlHelper.SelectDynamicList(contentType, string.Empty);
 
                 var list = query.ToList();
 
@@ -67,6 +67,12 @@ namespace StructuredContent
                     list = list.Take(take.GetValueOrDefault()).ToList();
                 }
 
+                // verbose
+                if (verbose.HasValue)
+                {
+                    // do something
+                }
+
                 return this.Request.CreateResponse(HttpStatusCode.OK, list);
             }
             catch (Exception ex)
@@ -78,18 +84,18 @@ namespace StructuredContent
 
         [HttpGet]
         [AllowAnonymous]
-        public HttpResponseMessage Get(string contentType, int id)
+        public HttpResponseMessage Get(string contentTypeUrlSlug, int id)
         {
             try
             {
-                StructuredContent_ContentType content_type = this.dataContext.StructuredContent_ContentTypes.Where(i => i.name == contentType).SingleOrDefault();
+                var contentType = this.dataContext.StructuredContent_ContentTypes.Where(i => i.UrlSlug == contentTypeUrlSlug).SingleOrDefault();
 
-                if (content_type == null)
+                if (contentType == null)
                 {
                     return this.Request.CreateResponse(HttpStatusCode.NotFound);
                 }
 
-                IDictionary<string, object> item = this.sqlHelper.SelectDynamicItem(content_type, id);
+                var item = this.sqlHelper.SelectDynamicItem(contentType, id);
 
                 if (item == null)
                 {
@@ -98,45 +104,45 @@ namespace StructuredContent
 
                 // this will add related object collections to the requested content item
                 // [TODO] - add verbose flag to supress this
-                var relationships = content_type.StructuredContent_Relationships;
+                var relationships = contentType.StructuredContent_Relationships;
                 foreach (var relationship in relationships)
                 {
-                    IEnumerable<IDictionary<string, object>> items = this.sqlHelper.GetRelatedItems(relationship, content_type, id);
+                    var items = this.sqlHelper.GetRelatedItems(relationship, contentType, id);
 
-                    if (relationship.key == "o2m" && relationship.a_content_type_id == content_type.id)
+                    if (relationship.Key == "o2m" && relationship.AContentTypeId == contentType.Id)
                     {
-                        item[relationship.StructuredContent_ContentType1.plural.ToLower()] = items;
+                        item[relationship.StructuredContent_ContentType1.Plural.ToLower()] = items;
                     }
 
-                    if (relationship.key == "m2m" && relationship.a_content_type_id == content_type.id)
+                    if (relationship.Key == "m2m" && relationship.AContentTypeId == contentType.Id)
                     {
-                        item[relationship.StructuredContent_ContentType1.plural.ToLower()] = items;
+                        item[relationship.StructuredContent_ContentType1.Plural.ToLower()] = items;
                     }
 
-                    if (relationship.key == "m2m" && relationship.b_content_type_id == content_type.id)
+                    if (relationship.Key == "m2m" && relationship.BContentTypeId == contentType.Id)
                     {
-                        item[relationship.StructuredContent_ContentType.plural.ToLower()] = items;
+                        item[relationship.StructuredContent_ContentType.Plural.ToLower()] = items;
                     }
                 }
 
-                var relationships1 = content_type.StructuredContent_Relationships1;
+                var relationships1 = contentType.StructuredContent_Relationships1;
                 foreach (var relationship1 in relationships1)
                 {
-                    IEnumerable<IDictionary<string, object>> items = this.sqlHelper.GetRelatedItems(relationship1, content_type, id);
+                    var items = this.sqlHelper.GetRelatedItems(relationship1, contentType, id);
 
-                    if (relationship1.key == "o2m" && relationship1.a_content_type_id == content_type.id)
+                    if (relationship1.Key == "o2m" && relationship1.AContentTypeId == contentType.Id)
                     {
-                        item[relationship1.StructuredContent_ContentType1.plural.ToLower()] = items;
+                        item[relationship1.StructuredContent_ContentType1.Plural.ToLower()] = items;
                     }
 
-                    if (relationship1.key == "m2m" && relationship1.a_content_type_id == content_type.id)
+                    if (relationship1.Key == "m2m" && relationship1.AContentTypeId == contentType.Id)
                     {
-                        item[relationship1.StructuredContent_ContentType1.plural.ToLower()] = items;
+                        item[relationship1.StructuredContent_ContentType1.Plural.ToLower()] = items;
                     }
 
-                    if (relationship1.key == "m2m" && relationship1.b_content_type_id == content_type.id)
+                    if (relationship1.Key == "m2m" && relationship1.BContentTypeId == contentType.Id)
                     {
-                        item[relationship1.StructuredContent_ContentType.plural.ToLower()] = items;
+                        item[relationship1.StructuredContent_ContentType.Plural.ToLower()] = items;
                     }
                 }
 
@@ -153,20 +159,20 @@ namespace StructuredContent
         [HttpPost]
         [AllowAnonymous]
         [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]
-        public HttpResponseMessage Post(string contentType, [FromBody] JToken item_data)
+        public HttpResponseMessage Post(string contentTypeUrlSlug, [FromBody] JToken itemData)
         {
             try
             {
-                StructuredContent_ContentType content_type = this.dataContext.StructuredContent_ContentTypes.Where(i => i.name == contentType).SingleOrDefault();
+                var contentType = this.dataContext.StructuredContent_ContentTypes.Where(i => i.UrlSlug == contentTypeUrlSlug).SingleOrDefault();
 
-                if (content_type == null)
+                if (contentType == null)
                 {
                     return this.Request.CreateResponse(HttpStatusCode.NotFound);
                 }
 
-                dynamic content_item = JsonConvert.DeserializeObject<dynamic>(item_data.ToString());
+                dynamic item = JsonConvert.DeserializeObject<dynamic>(itemData.ToString());
 
-                int id = this.sqlHelper.InsertContentItem(content_type, content_item);
+                int id = this.sqlHelper.InsertContentItem(contentType, item);
 
                 return this.Request.CreateResponse(HttpStatusCode.OK, id); // send back the inserted record id
             }
@@ -181,105 +187,105 @@ namespace StructuredContent
         [HttpPut]
         [AllowAnonymous]
         [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]
-        public HttpResponseMessage Put(string contentType, [FromBody] JToken item_data)
+        public HttpResponseMessage Put(string contentTypeUrlSlug, [FromBody] JToken itemData)
         {
             try
             {
-                StructuredContent_ContentType primary_content_type = this.dataContext.StructuredContent_ContentTypes.Where(i => i.name == contentType).SingleOrDefault();
+                var primaryContentType = this.dataContext.StructuredContent_ContentTypes.Where(i => i.UrlSlug == contentTypeUrlSlug).SingleOrDefault();
 
-                if (primary_content_type == null)
+                if (primaryContentType == null)
                 {
                     return this.Request.CreateResponse(HttpStatusCode.NotFound);
                 }
 
-                dynamic primary_content_item = JsonConvert.DeserializeObject<dynamic>(item_data.ToString());
-                IDictionary<string, object> old_content_item = this.sqlHelper.SelectDynamicItem(primary_content_type, (int)primary_content_item.id);
+                dynamic primaryContentItem = JsonConvert.DeserializeObject<dynamic>(itemData.ToString());
+                var oldContentItem = this.sqlHelper.SelectDynamicItem(primaryContentType, (int)primaryContentItem.id);
 
-                // record delta
-                int? user_id = DotNetNuke.Entities.Users.UserController.Instance.GetCurrentUserInfo().UserID;
+                // record Delta
+                int? userId = DotNetNuke.Entities.Users.UserController.Instance.GetCurrentUserInfo().UserID;
                 var revision = new StructuredContent_Revision
                 {
-                    revision_date = DateTime.Now,
-                    user_id = user_id,
-                    activity_type = "UPDATE",
-                    content_type_id = primary_content_type.id,
-                    item_id = primary_content_item.id,
+                    RevisionDate = DateTime.Now,
+                    UserId = userId,
+                    ActivityType = "UPDATE",
+                    ContentTypeId = primaryContentType.Id,
+                    ItemId = primaryContentItem.id,
                 };
                 var delta = new ExpandoObject() as IDictionary<string, object>;
-                bool record_changed = false;
-                foreach (var content_field in primary_content_type.StructuredContent_ContentFields)
+                var recordChanged = false;
+                foreach (var contentField in primaryContentType.StructuredContent_ContentFields)
                 {
-                    if (content_field.is_system == false)
+                    if (contentField.IsSystem == false)
                     {
                         if (
-                            (old_content_item[content_field.column_name] is DBNull && primary_content_item[content_field.column_name] != null)
+                            (oldContentItem[contentField.ColumnName] is DBNull && primaryContentItem[contentField.ColumnName] != null)
                             ||
-                            (primary_content_item[content_field.column_name] != old_content_item[content_field.column_name]))
+                            (primaryContentItem[contentField.ColumnName] != oldContentItem[contentField.ColumnName]))
                         {
-                            record_changed = true;
-                            delta[content_field.column_name] = primary_content_item[content_field.column_name];
+                            recordChanged = true;
+                            delta[contentField.ColumnName] = primaryContentItem[contentField.ColumnName];
                         }
                     }
                 }
 
-                if (record_changed)
+                if (recordChanged)
                 {
                     this.dataContext.StructuredContent_Revisions.InsertOnSubmit(revision);
                 }
 
-                revision.delta = JsonConvert.SerializeObject(delta);
-                revision.data = JsonConvert.SerializeObject(old_content_item);
+                revision.Delta = JsonConvert.SerializeObject(delta);
+                revision.Data = JsonConvert.SerializeObject(oldContentItem);
 
-                this.sqlHelper.UpdateContentItem(primary_content_type, primary_content_item);
+                this.sqlHelper.UpdateContentItem(primaryContentType, primaryContentItem);
 
                 // iterate over the relationships for the content item and update the relationships
-                foreach (StructuredContent_Relationship relationship in primary_content_type.StructuredContent_Relationships)
+                foreach (var relationship in primaryContentType.StructuredContent_Relationships)
                 {
-                    if (relationship.key == "m2m")
+                    if (relationship.Key == "m2m")
                     {
                         // delete any existing cross references for the primary_content_type
-                        this.sqlHelper.DeleteManyToManyRelationship(relationship, primary_content_type, (int)primary_content_item.id);
+                        this.sqlHelper.DeleteManyToManyRelationship(relationship, primaryContentType, (int)primaryContentItem.id);
 
                         // add back any related_content_type records present in the data model
-                        StructuredContent_ContentType related_content_type = null;
-                        if (relationship.a_content_type_id == primary_content_type.id)
+                        StructuredContent_ContentType relatedContentType = null;
+                        if (relationship.AContentTypeId == primaryContentType.Id)
                         {
-                            related_content_type = relationship.StructuredContent_ContentType;
+                            relatedContentType = relationship.StructuredContent_ContentType;
                         }
 
-                        if (relationship.a_content_type_id == primary_content_type.id)
+                        if (relationship.AContentTypeId == primaryContentType.Id)
                         {
-                            related_content_type = relationship.StructuredContent_ContentType1;
+                            relatedContentType = relationship.StructuredContent_ContentType1;
                         }
 
-                        string related_content_type_name = related_content_type.plural.ToLower();
-                        if (primary_content_item[related_content_type_name] != null)
+                        var relatedContentTypeName = relatedContentType.Plural.ToLower();
+                        if (primaryContentItem[relatedContentTypeName] != null)
                         {
-                            foreach (var related_content_item in primary_content_item[related_content_type_name])
+                            foreach (var relatedContentItem in primaryContentItem[relatedContentTypeName])
                             {
-                                this.sqlHelper.SaveManyToManyRelationship(relationship, primary_content_type, related_content_type, (int)primary_content_item.id, (int)related_content_item.id);
+                                this.sqlHelper.SaveManyToManyRelationship(relationship, primaryContentType, relatedContentType, (int)primaryContentItem.id, (int)relatedContentItem.id);
                             }
                         }
                     }
 
-                    if (relationship.key == "o2m")
+                    if (relationship.Key == "o2m")
                     {
-                        StructuredContent_ContentType related_content_type = relationship.StructuredContent_ContentType1;
+                        var relatedContentType = relationship.StructuredContent_ContentType1;
 
                         // clear foreign keys
-                        this.sqlHelper.DeleteOneToManyRelationship(primary_content_type, related_content_type, (int)primary_content_item.id);
+                        this.sqlHelper.DeleteOneToManyRelationship(primaryContentType, relatedContentType, (int)primaryContentItem.id);
 
                         // set foreign keys
-                        string related_content_type_name = related_content_type.plural.ToLower();
-                        foreach (var related_content_item in primary_content_item[related_content_type_name])
+                        var relatedContentTypeName = relatedContentType.Plural.ToLower();
+                        foreach (var relatedContentItem in primaryContentItem[relatedContentTypeName])
                         {
-                            this.sqlHelper.SaveOneToManyRelationship(primary_content_type, related_content_type, (int)primary_content_item.id, (int)related_content_item.id);
+                            this.sqlHelper.SaveOneToManyRelationship(primaryContentType, relatedContentType, (int)primaryContentItem.id, (int)relatedContentItem.id);
                         }
                     }
                 }
 
                 this.dataContext.SubmitChanges();
-                int id = primary_content_item.id;
+                int id = primaryContentItem.id;
 
                 return this.Request.CreateResponse(HttpStatusCode.OK, id); // send back the updated record id
             }
@@ -293,11 +299,11 @@ namespace StructuredContent
         [HttpDelete]
         [AllowAnonymous]
         [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]
-        public HttpResponseMessage Delete(string contentType, int id)
+        public HttpResponseMessage Delete(string contentTypeUrlSlug, int id)
         {
             try
             {
-                StructuredContent_ContentType content_type = this.dataContext.StructuredContent_ContentTypes.Where(i => i.name == contentType).SingleOrDefault();
+                var content_type = this.dataContext.StructuredContent_ContentTypes.Where(i => i.UrlSlug == contentTypeUrlSlug).SingleOrDefault();
 
                 if (content_type == null)
                 {

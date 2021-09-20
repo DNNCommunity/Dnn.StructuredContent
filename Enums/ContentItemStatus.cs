@@ -7,7 +7,7 @@ namespace StructuredContent.Enums
     using System;
 
     [Serializable]
-    public enum ContentItenStatus
+    public enum ContentItemStatus
     {
         Draft,
         Staged,

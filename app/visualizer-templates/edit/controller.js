@@ -1,4 +1,4 @@
-﻿app.controller('visualizerTemplateEditController', ['$scope', '$q', '$timeout', '$uibModalInstance', 'toastr', 'contentTypeService', 'visualizerTemplateService', 'id', 'content_type_id', function ($scope, $q, $timeout, $uibModalInstance, toastr, contentTypeService, visualizerTemplateService, id, content_type_id) {
+﻿app.controller('visualizerTemplateEditController', ['$scope', '$q', '$timeout', '$uibModalInstance', 'toastr', 'contentTypeService', 'visualizerTemplateService', 'id', 'contentType', function ($scope, $q, $timeout, $uibModalInstance, toastr, contentTypeService, visualizerTemplateService, id, contentType) {
 
     $scope.loading = false;
     $scope.close = function () {
@@ -8,19 +8,17 @@
 
     $scope.ace_editor;
 
-    $scope.contentType = {
-        id: content_type_id
-    };
-    $scope.visualizer_template = {
+    $scope.contentType = contentType;
+    $scope.visualizerTemplate = {
         id: id,
-        content_type_id: content_type_id,
+        contentTypeId: contentType.id,
         language: 'razor',
-        content_size: 'single'
+        contentSize: 'single'
     };
     $scope.modes = ['Liquid', 'Razor'];
     $scope.mode = $scope.modes[0];
 
-    $scope.content_field_types = [];
+    $scope.contentFieldTypes = [];
     $scope.contentTypes = [];
     $scope.contentFields = [];
     $scope.relationships = [];
@@ -36,7 +34,7 @@
             },
             function (response) {
                 console.log('getContentTypes failed', response);
-                toastr.error("Error", "There was a problem loading the content types");
+                toastr.error("There was a problem loading the content types", "Error");
                 $scope.loading = false;
                 deferred.reject();
             }
@@ -48,13 +46,13 @@
         var deferred = $q.defer();
         $scope.loading = true;
 
-        visualizerTemplateService.get($scope.visualizer_template.id).then(
+        visualizerTemplateService.get($scope.visualizerTemplate.id).then(
             function (response) {
-                $scope.visualizer_template = response.data;
+                $scope.visualizerTemplate = response.data;
             },
             function (response) {
                 console.log('get Visualizer Template failed', response);
-                toastr.error("Error", "There was a problem loading the Visualizer Template");
+                toastr.error("There was a problem loading the Visualizer Template", "Error");
                 $scope.loading = false;
                 deferred.reject();
             }
@@ -66,17 +64,17 @@
         $scope.saving = true;
 
         if ($scope.formVisualizerTemplate.$valid) {
-            visualizerTemplateService.save($scope.visualizer_template).then(
+            visualizerTemplateService.save($scope.visualizerTemplate).then(
                 function (response) {
-                    $scope.visualizer_template.id = response.data.id; // in the case of an insert - need the id
+                    $scope.visualizerTemplate.id = response.data.id; // in the case of an insert - need the id
                     $scope.saving = false;
                     $scope.loading = false;
                     deferred.resolve();
-                    $uibModalInstance.close($scope.visualizer_template);
+                    $uibModalInstance.close($scope.visualizerTemplate);
                 },
                 function (response) {
                     console.log('save Visualizer Template failed', response);
-                    toastr.error("Error", "There was a problem saving the Visualizer Template");
+                    toastr.error("There was a problem saving the Visualizer Template", "Error");
                     $scope.saving = false;
                     $scope.loading = false;
                     deferred.reject();
@@ -123,7 +121,7 @@
     init = function () {
         var promises = [];
         promises.push(getContentType());
-        if ($scope.visualizer_template.id) {
+        if ($scope.visualizerTemplate.id) {
             promises.push(getVisualizerTemplate());
         }
         return $q.all(promises);

@@ -7,35 +7,35 @@
     $scope.form;
     $scope.submitted;
 
-    $scope.control_name = 'relation_' + $scope.relationship.id;
+    $scope.controlName = 'relation_' + $scope.relationship.id;
 
     getRelatedContentType = function () {
         var deferred = $q.defer();
 
-        // the a_content_type is the 'one' side of the o2m relationship
-        // need the url_slug of the content type
-        var related_content_type_id;
-        related_content_type_id = $scope.relationship.a_content_type_id;
+        // the AContentType is the 'one' side of the o2m relationship
+        // need the UrlSlug of the content type
+        var relatedContentTypeId;
+        related_ContentTypeId = $scope.relationship.aContentTypeId;
 
-        contentTypeService.get(related_content_type_id).then(
+        contentTypeService.get(relatedContentTypeId).then(
             function (response) {
                 $scope.relatedContentType = response.data;
 
-                contentItemService.search($scope.relatedContentType.url_slug).then(
+                contentItemService.search($scope.relatedContentType.urlSlug).then(
                     function (response) {
                         $scope.relatedContentItems = response.data;
                         deferred.resolve();
                     },
                     function (response) {
                         console.log('getContentItems failed', response);
-                        toastr.error("Error", "There was a problem loading the Content Items");
+                        toastr.error("There was a problem loading the Content Items");
                         deferred.reject;
                     }
                 );
             },
             function (response) {
                 console.log('getContentType failed', response);
-                toastr.error("Error", "There was a problem loading the Content Type");
+                toastr.error("There was a problem loading the Content Type", "Error");
                 deferred.reject;
             }
         );
@@ -45,10 +45,10 @@
 
     $scope.isRequired = function () {
         if ($scope.relatedContentType && $scope.relationship) {
-            if ($scope.relatedContentType.id === $scope.relationship.b_content_type_id && $scope.relationship.b_required)
+            if ($scope.relatedContentType.id === $scope.relationship.bContentTypeId && $scope.relationship.bRequired)
                 return true;
 
-            if ($scope.relatedContentType.id === $scope.relationship.a_content_type_id && $scope.relationship.a_required)
+            if ($scope.relatedContentType.id === $scope.relationship.aContentTypeId && $scope.relationship.aRequired)
                 return true;
         }
         return false;

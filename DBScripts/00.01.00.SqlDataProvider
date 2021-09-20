@@ -8,19 +8,19 @@ BEGIN
 CREATE TABLE {databaseOwner}{objectQualifier}[StructuredContent_ContentField](
 	[id] [int] IDENTITY(1,1) NOT NULL,
 	[name] [nvarchar](256) NOT NULL,
-	[content_type_id] [int] NOT NULL,
-	[is_system] [bit] NOT NULL,
-	[ordinal] [int] NOT NULL,
-	[column_name] [nvarchar](256) NOT NULL,
-	[data_type] [int] NOT NULL,
-	[data_length] [nvarchar](50) NULL,
-	[allow_null] [bit] NOT NULL,
-	[default_value] [nvarchar](50) NULL,
-	[help_text] [nvarchar](256) NULL,
-	[content_field_type_id] [int] NULL,
-	[options] [nvarchar](max) NULL,
-	[layout_row] [int] NULL,
-	[layout_column] [int] NULL,
+	[ContentTypeId] [int] NOT NULL,
+	[IsSystem] [bit] NOT NULL,
+	[Ordinal] [int] NOT NULL,
+	[ColumnName] [nvarchar](256) NOT NULL,
+	[DataType] [int] NOT NULL,
+	[DataLength] [nvarchar](50) NULL,
+	[AllowNull] [bit] NOT NULL,
+	[DefaultValue] [nvarchar](50) NULL,
+	[HelpText] [nvarchar](256) NULL,
+	[ContentFieldTypeId] [int] NULL,
+	[Options] [nvarchar](max) NULL,
+	[LayoutRow] [int] NULL,
+	[LayoutColumn] [int] NULL,
  CONSTRAINT [PK_StructuredContent_ContentField] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
@@ -40,11 +40,11 @@ CREATE TABLE {databaseOwner}{objectQualifier}[StructuredContent_ContentFieldType
 	[key] [varchar](50) NOT NULL,
 	[type] [varchar](20) NOT NULL,
 	[name] [varchar](50) NOT NULL,
-	[ordinal] [int] NOT NULL,
-	[default_data_type] [int] NOT NULL,
-	[default_data_length] [varchar](10) NULL,
-	[default_options] [nvarchar](500) NULL,
-	[icon] [nvarchar](50) NULL,
+	[Ordinal] [int] NOT NULL,
+	[DefaultDataType] [int] NOT NULL,
+	[DefaultDataLength] [varchar](10) NULL,
+	[DefaultOptions] [nvarchar](500) NULL,
+	[Icon] [nvarchar](50) NULL,
  CONSTRAINT [PK_StructuredContent_ContentFieldType] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
@@ -62,11 +62,11 @@ BEGIN
 CREATE TABLE {databaseOwner}{objectQualifier}[StructuredContent_ContentType](
 	[id] [int] IDENTITY(1,1) NOT NULL,
 	[name] [nvarchar](250) NOT NULL,
-	[singular] [nvarchar](250) NOT NULL,
-	[plural] [nvarchar](250) NOT NULL,
-	[url_slug] [nvarchar](250) NOT NULL,
-	[table_name] [nvarchar](250) NOT NULL,
-	[is_system] [bit] NOT NULL,
+	[Singular] [nvarchar](250) NOT NULL,
+	[Plural] [nvarchar](250) NOT NULL,
+	[UrlSlug] [nvarchar](250) NOT NULL,
+	[TableName] [nvarchar](250) NOT NULL,
+	[IsSystem] [bit] NOT NULL,
  CONSTRAINT [PK_StructuredContent_ContentType] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
@@ -84,20 +84,20 @@ BEGIN
 CREATE TABLE {databaseOwner}{objectQualifier}[StructuredContent_Relationship](
 	[id] [int] IDENTITY(1,1) NOT NULL,
 	[key] [varchar](3) NOT NULL,
-	[a_content_type_id] [int] NOT NULL,
-	[b_content_type_id] [int] NOT NULL,
-	[a_required] [bit] NULL,
-	[a_min_limit] [int] NULL,
-	[a_max_limit] [int] NULL,
-	[a_help_text] [nvarchar](256) NULL,
-	[b_required] [bit] NULL,
-	[b_min_limit] [int] NULL,
-	[b_max_limit] [int] NULL,
-	[b_help_text] [nvarchar](256) NULL,
-	[a_layout_row] [int] NULL,
-	[a_layout_column] [int] NULL,
-	[b_layout_row] [int] NULL,
-	[b_layout_column] [int] NULL,
+	[AContentTypeId] [int] NOT NULL,
+	[BContentTypeId] [int] NOT NULL,
+	[ARequired] [bit] NULL,
+	[AMinLimit] [int] NULL,
+	[AMaxLimit] [int] NULL,
+	[AHelpText] [nvarchar](256) NULL,
+	[BRequired] [bit] NULL,
+	[BMinLimit] [int] NULL,
+	[BMaxLimit] [int] NULL,
+	[BHelpText] [nvarchar](256) NULL,
+	[ALayoutRow] [int] NULL,
+	[ALayoutColumn] [int] NULL,
+	[BLayoutRow] [int] NULL,
+	[BLayoutColumn] [int] NULL,
  CONSTRAINT [PK_StructuredContent_Relationship] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
@@ -114,12 +114,12 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{database
 BEGIN
 CREATE TABLE {databaseOwner}{objectQualifier}[StructuredContent_Revision](
 	[id] [int] IDENTITY(1,1) NOT NULL,
-	[revision_date] [datetime] NOT NULL,
-	[user_id] [int] NULL,
-	[activity_type] [nvarchar](15) NOT NULL,
-	[content_type_id] [int] NOT NULL,
-	[item_id] [int] NOT NULL,
-	[delta] [nvarchar](max) NOT NULL,
+	[RevisionDate] [datetime] NOT NULL,
+	[UserId] [int] NULL,
+	[ActivityType] [nvarchar](15) NOT NULL,
+	[ContentTypeId] [int] NOT NULL,
+	[ItemId] [int] NOT NULL,
+	[Delta] [nvarchar](max) NOT NULL,
 	[data] [nvarchar](max) NOT NULL,
  CONSTRAINT [PK_StructuredContent_Revision] PRIMARY KEY CLUSTERED 
 (
@@ -137,11 +137,11 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{database
 BEGIN
 CREATE TABLE {databaseOwner}{objectQualifier}[StructuredContent_Visualizer](
 	[id] [int] IDENTITY(1,1) NOT NULL,
-	[module_id] [int] NOT NULL,
-	[content_type_id] [int] NOT NULL,
-	[visualizer_template_id] [int] NULL,
-	[item_id] [int] NULL,
-	[item_filter] [nvarchar](max) NULL,
+	[ModuleId] [int] NOT NULL,
+	[ContentTypeId] [int] NOT NULL,
+	[VisualizerTemplateId] [int] NULL,
+	[ItemId] [int] NULL,
+	[ItemFilter] [nvarchar](max) NULL,
  CONSTRAINT [PK_StructuredContent_Visualizer] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
@@ -158,14 +158,14 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{database
 BEGIN
 CREATE TABLE {databaseOwner}{objectQualifier}[StructuredContent_VisualizerTemplate](
 	[id] [int] IDENTITY(1,1) NOT NULL,
-	[content_type_id] [int] NOT NULL,
+	[ContentTypeId] [int] NOT NULL,
 	[name] [nvarchar](250) NOT NULL,
 	[description] [nvarchar](max) NULL,
 	[script] [nvarchar](max) NULL,
 	[css] [nvarchar](max) NULL,
 	[template] [nvarchar](max) NULL,
 	[language] [varchar](10) NULL,
-	[content_size] [varchar](10) NULL,
+	[ContentSize] [varchar](10) NULL,
  CONSTRAINT [PK_StructuredContent_VisualizerTemplate] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
@@ -174,18 +174,18 @@ CREATE TABLE {databaseOwner}{objectQualifier}[StructuredContent_VisualizerTempla
 END
 GO
 SET IDENTITY_INSERT {databaseOwner}{objectQualifier}[StructuredContent_ContentFieldType] ON 
-INSERT {databaseOwner}{objectQualifier}[StructuredContent_ContentFieldType] ([id], [key], [type], [name], [ordinal], [default_data_type], [default_data_length], [default_options], [icon]) VALUES (1, N'text', N'content_field', N'Text', 1, 0, N'50', NULL, N'fas fa-font')
-INSERT {databaseOwner}{objectQualifier}[StructuredContent_ContentFieldType] ([id], [key], [type], [name], [ordinal], [default_data_type], [default_data_length], [default_options], [icon]) VALUES (2, N'number', N'content_field', N'Number', 4, 1, NULL, NULL, N'fas fa-hashtag')
-INSERT {databaseOwner}{objectQualifier}[StructuredContent_ContentFieldType] ([id], [key], [type], [name], [ordinal], [default_data_type], [default_data_length], [default_options], [icon]) VALUES (3, N'email', N'content_field', N'Email', 5, 0, N'50', NULL, N'far fa-envelope')
-INSERT {databaseOwner}{objectQualifier}[StructuredContent_ContentFieldType] ([id], [key], [type], [name], [ordinal], [default_data_type], [default_data_length], [default_options], [icon]) VALUES (4, N'url', N'content_field', N'URL', 7, 0, N'50', NULL, N'fas fa-link')
-INSERT {databaseOwner}{objectQualifier}[StructuredContent_ContentFieldType] ([id], [key], [type], [name], [ordinal], [default_data_type], [default_data_length], [default_options], [icon]) VALUES (5, N'datetime', N'content_field', N'Date/Time', 8, 2, NULL, NULL, N'fas fa-calendar')
-INSERT {databaseOwner}{objectQualifier}[StructuredContent_ContentFieldType] ([id], [key], [type], [name], [ordinal], [default_data_type], [default_data_length], [default_options], [icon]) VALUES (6, N'boolean', N'content_field', N'Boolean', 10, 3, NULL, NULL, N'far fa-check-square')
-INSERT {databaseOwner}{objectQualifier}[StructuredContent_ContentFieldType] ([id], [key], [type], [name], [ordinal], [default_data_type], [default_data_length], [default_options], [icon]) VALUES (7, N'choice', N'content_field', N'Choice', 12, 0, N'50', N'{"choices":[{"text":"Choice 1","value":"choice1"},{"text":"Choice 2","value":"choice2"}, {"text":"Choice 3","value":"choice3"}], "default_value":null}', N'fas fa-list')
-INSERT {databaseOwner}{objectQualifier}[StructuredContent_ContentFieldType] ([id], [key], [type], [name], [ordinal], [default_data_type], [default_data_length], [default_options], [icon]) VALUES (8, N'relatedcontent', N'relationship', N'Related Content Type', 16, 0, NULL, NULL, N'fas fa-sitemap')
+INSERT {databaseOwner}{objectQualifier}[StructuredContent_ContentFieldType] ([id], [key], [type], [name], [Ordinal], [DefaultDataType], [DefaultDataLength], [DefaultOptions], [Icon]) VALUES (1, N'text', N'content_field', N'Text', 1, 0, N'50', NULL, N'fas fa-font')
+INSERT {databaseOwner}{objectQualifier}[StructuredContent_ContentFieldType] ([id], [key], [type], [name], [Ordinal], [DefaultDataType], [DefaultDataLength], [DefaultOptions], [Icon]) VALUES (2, N'number', N'content_field', N'Number', 4, 1, NULL, NULL, N'fas fa-hashtag')
+INSERT {databaseOwner}{objectQualifier}[StructuredContent_ContentFieldType] ([id], [key], [type], [name], [Ordinal], [DefaultDataType], [DefaultDataLength], [DefaultOptions], [Icon]) VALUES (3, N'email', N'content_field', N'Email', 5, 0, N'50', NULL, N'far fa-envelope')
+INSERT {databaseOwner}{objectQualifier}[StructuredContent_ContentFieldType] ([id], [key], [type], [name], [Ordinal], [DefaultDataType], [DefaultDataLength], [DefaultOptions], [Icon]) VALUES (4, N'url', N'content_field', N'URL', 7, 0, N'50', NULL, N'fas fa-link')
+INSERT {databaseOwner}{objectQualifier}[StructuredContent_ContentFieldType] ([id], [key], [type], [name], [Ordinal], [DefaultDataType], [DefaultDataLength], [DefaultOptions], [Icon]) VALUES (5, N'datetime', N'content_field', N'Date/Time', 8, 2, NULL, NULL, N'fas fa-calendar')
+INSERT {databaseOwner}{objectQualifier}[StructuredContent_ContentFieldType] ([id], [key], [type], [name], [Ordinal], [DefaultDataType], [DefaultDataLength], [DefaultOptions], [Icon]) VALUES (6, N'boolean', N'content_field', N'Boolean', 10, 3, NULL, NULL, N'far fa-check-square')
+INSERT {databaseOwner}{objectQualifier}[StructuredContent_ContentFieldType] ([id], [key], [type], [name], [Ordinal], [DefaultDataType], [DefaultDataLength], [DefaultOptions], [Icon]) VALUES (7, N'choice', N'content_field', N'Choice', 12, 0, N'50', N'{"choices":[{"text":"Choice 1","value":"choice1"},{"text":"Choice 2","value":"choice2"}, {"text":"Choice 3","value":"choice3"}], "DefaultValue":null}', N'fas fa-list')
+INSERT {databaseOwner}{objectQualifier}[StructuredContent_ContentFieldType] ([id], [key], [type], [name], [Ordinal], [DefaultDataType], [DefaultDataLength], [DefaultOptions], [Icon]) VALUES (8, N'relatedcontent', N'relationship', N'Related Content Type', 16, 0, NULL, NULL, N'fas fa-sitemap')
 SET IDENTITY_INSERT {databaseOwner}{objectQualifier}[StructuredContent_ContentFieldType] OFF
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FK_StructuredContent_ContentField_StructuredContent_ContentFieldType]') AND parent_object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent_ContentField]'))
-ALTER TABLE {databaseOwner}{objectQualifier}[StructuredContent_ContentField]  WITH CHECK ADD  CONSTRAINT [FK_StructuredContent_ContentField_StructuredContent_ContentFieldType] FOREIGN KEY([content_field_type_id])
+ALTER TABLE {databaseOwner}{objectQualifier}[StructuredContent_ContentField]  WITH CHECK ADD  CONSTRAINT [FK_StructuredContent_ContentField_StructuredContent_ContentFieldType] FOREIGN KEY([ContentFieldTypeId])
 REFERENCES {databaseOwner}{objectQualifier}[StructuredContent_ContentFieldType] ([id])
 ON UPDATE CASCADE
 ON DELETE SET NULL
@@ -194,7 +194,7 @@ IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databa
 ALTER TABLE {databaseOwner}{objectQualifier}[StructuredContent_ContentField] CHECK CONSTRAINT [FK_StructuredContent_ContentField_StructuredContent_ContentFieldType]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FK_StructuredContent_ContentField_StructuredContent_ContentType]') AND parent_object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent_ContentField]'))
-ALTER TABLE {databaseOwner}{objectQualifier}[StructuredContent_ContentField]  WITH CHECK ADD  CONSTRAINT [FK_StructuredContent_ContentField_StructuredContent_ContentType] FOREIGN KEY([content_type_id])
+ALTER TABLE {databaseOwner}{objectQualifier}[StructuredContent_ContentField]  WITH CHECK ADD  CONSTRAINT [FK_StructuredContent_ContentField_StructuredContent_ContentType] FOREIGN KEY([ContentTypeId])
 REFERENCES {databaseOwner}{objectQualifier}[StructuredContent_ContentType] ([id])
 ON UPDATE CASCADE
 ON DELETE CASCADE
@@ -203,21 +203,21 @@ IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databa
 ALTER TABLE {databaseOwner}{objectQualifier}[StructuredContent_ContentField] CHECK CONSTRAINT [FK_StructuredContent_ContentField_StructuredContent_ContentType]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FK_StructuredContent_RelationshipType_StructuredContent_ContentType]') AND parent_object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent_Relationship]'))
-ALTER TABLE {databaseOwner}{objectQualifier}[StructuredContent_Relationship]  WITH CHECK ADD  CONSTRAINT [FK_StructuredContent_RelationshipType_StructuredContent_ContentType] FOREIGN KEY([a_content_type_id])
+ALTER TABLE {databaseOwner}{objectQualifier}[StructuredContent_Relationship]  WITH CHECK ADD  CONSTRAINT [FK_StructuredContent_RelationshipType_StructuredContent_ContentType] FOREIGN KEY([AContentTypeId])
 REFERENCES {databaseOwner}{objectQualifier}[StructuredContent_ContentType] ([id])
 GO
 IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FK_StructuredContent_RelationshipType_StructuredContent_ContentType]') AND parent_object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent_Relationship]'))
 ALTER TABLE {databaseOwner}{objectQualifier}[StructuredContent_Relationship] CHECK CONSTRAINT [FK_StructuredContent_RelationshipType_StructuredContent_ContentType]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FK_StructuredContent_RelationshipType_StructuredContent_ContentType1]') AND parent_object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent_Relationship]'))
-ALTER TABLE {databaseOwner}{objectQualifier}[StructuredContent_Relationship]  WITH CHECK ADD  CONSTRAINT [FK_StructuredContent_RelationshipType_StructuredContent_ContentType1] FOREIGN KEY([b_content_type_id])
+ALTER TABLE {databaseOwner}{objectQualifier}[StructuredContent_Relationship]  WITH CHECK ADD  CONSTRAINT [FK_StructuredContent_RelationshipType_StructuredContent_ContentType1] FOREIGN KEY([BContentTypeId])
 REFERENCES {databaseOwner}{objectQualifier}[StructuredContent_ContentType] ([id])
 GO
 IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FK_StructuredContent_RelationshipType_StructuredContent_ContentType1]') AND parent_object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent_Relationship]'))
 ALTER TABLE {databaseOwner}{objectQualifier}[StructuredContent_Relationship] CHECK CONSTRAINT [FK_StructuredContent_RelationshipType_StructuredContent_ContentType1]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FK_StructuredContent_Revision_StructuredContent_ContentType]') AND parent_object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent_Revision]'))
-ALTER TABLE {databaseOwner}{objectQualifier}[StructuredContent_Revision]  WITH CHECK ADD  CONSTRAINT [FK_StructuredContent_Revision_StructuredContent_ContentType] FOREIGN KEY([content_type_id])
+ALTER TABLE {databaseOwner}{objectQualifier}[StructuredContent_Revision]  WITH CHECK ADD  CONSTRAINT [FK_StructuredContent_Revision_StructuredContent_ContentType] FOREIGN KEY([ContentTypeId])
 REFERENCES {databaseOwner}{objectQualifier}[StructuredContent_ContentType] ([id])
 ON UPDATE CASCADE
 ON DELETE CASCADE
@@ -226,7 +226,7 @@ IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databa
 ALTER TABLE {databaseOwner}{objectQualifier}[StructuredContent_Revision] CHECK CONSTRAINT [FK_StructuredContent_Revision_StructuredContent_ContentType]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FK_StructuredContent_Visualizer_Modules]') AND parent_object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent_Visualizer]'))
-ALTER TABLE {databaseOwner}{objectQualifier}[StructuredContent_Visualizer]  WITH CHECK ADD  CONSTRAINT [FK_StructuredContent_Visualizer_Modules] FOREIGN KEY([module_id])
+ALTER TABLE {databaseOwner}{objectQualifier}[StructuredContent_Visualizer]  WITH CHECK ADD  CONSTRAINT [FK_StructuredContent_Visualizer_Modules] FOREIGN KEY([ModuleId])
 REFERENCES {databaseOwner}{objectQualifier}[Modules] ([ModuleID])
 ON UPDATE CASCADE
 ON DELETE CASCADE
@@ -235,7 +235,7 @@ IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databa
 ALTER TABLE {databaseOwner}{objectQualifier}[StructuredContent_Visualizer] CHECK CONSTRAINT [FK_StructuredContent_Visualizer_Modules]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FK_StructuredContent_Visualizer_StructuredContent_ContentType]') AND parent_object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent_Visualizer]'))
-ALTER TABLE {databaseOwner}{objectQualifier}[StructuredContent_Visualizer]  WITH CHECK ADD  CONSTRAINT [FK_StructuredContent_Visualizer_StructuredContent_ContentType] FOREIGN KEY([content_type_id])
+ALTER TABLE {databaseOwner}{objectQualifier}[StructuredContent_Visualizer]  WITH CHECK ADD  CONSTRAINT [FK_StructuredContent_Visualizer_StructuredContent_ContentType] FOREIGN KEY([ContentTypeId])
 REFERENCES {databaseOwner}{objectQualifier}[StructuredContent_ContentType] ([id])
 ON UPDATE CASCADE
 ON DELETE CASCADE
@@ -244,14 +244,14 @@ IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databa
 ALTER TABLE {databaseOwner}{objectQualifier}[StructuredContent_Visualizer] CHECK CONSTRAINT [FK_StructuredContent_Visualizer_StructuredContent_ContentType]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FK_StructuredContent_Visualizer_StructuredContent_VisualizerTemplate]') AND parent_object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent_Visualizer]'))
-ALTER TABLE {databaseOwner}{objectQualifier}[StructuredContent_Visualizer]  WITH CHECK ADD  CONSTRAINT [FK_StructuredContent_Visualizer_StructuredContent_VisualizerTemplate] FOREIGN KEY([visualizer_template_id])
+ALTER TABLE {databaseOwner}{objectQualifier}[StructuredContent_Visualizer]  WITH CHECK ADD  CONSTRAINT [FK_StructuredContent_Visualizer_StructuredContent_VisualizerTemplate] FOREIGN KEY([VisualizerTemplateId])
 REFERENCES {databaseOwner}{objectQualifier}[StructuredContent_VisualizerTemplate] ([id])
 GO
 IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FK_StructuredContent_Visualizer_StructuredContent_VisualizerTemplate]') AND parent_object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent_Visualizer]'))
 ALTER TABLE {databaseOwner}{objectQualifier}[StructuredContent_Visualizer] CHECK CONSTRAINT [FK_StructuredContent_Visualizer_StructuredContent_VisualizerTemplate]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FK_StructuredContent_VisualizerTemplate_StructuredContent_ContentType]') AND parent_object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent_VisualizerTemplate]'))
-ALTER TABLE {databaseOwner}{objectQualifier}[StructuredContent_VisualizerTemplate]  WITH CHECK ADD  CONSTRAINT [FK_StructuredContent_VisualizerTemplate_StructuredContent_ContentType] FOREIGN KEY([content_type_id])
+ALTER TABLE {databaseOwner}{objectQualifier}[StructuredContent_VisualizerTemplate]  WITH CHECK ADD  CONSTRAINT [FK_StructuredContent_VisualizerTemplate_StructuredContent_ContentType] FOREIGN KEY([ContentTypeId])
 REFERENCES {databaseOwner}{objectQualifier}[StructuredContent_ContentType] ([id])
 ON UPDATE CASCADE
 ON DELETE CASCADE

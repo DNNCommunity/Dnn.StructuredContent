@@ -1,6 +1,6 @@
 ﻿<div class="modal-header">
-    <h5 class="modal-title" ng-if="visualizer_template.id">Edit Visualizer Template - {{visualizer_template.name}}</h5>
-    <h5 class="modal-title" ng-if="!visualizer_template.id">New Visualizer Template</h5>
+    <h5 class="modal-title" ng-if="visualizerTemplate.id">Edit Visualizer Template - {{visualizerTemplate.name}}</h5>
+    <h5 class="modal-title" ng-if="!visualizerTemplate.id">New Visualizer Template</h5>
     <button type="button" class="btn-close" ng-click="close()"></button>
 </div>
 
@@ -11,7 +11,7 @@
             <button type="button" class="nav-link active" data-bs-toggle="tab" data-bs-target="#details" data-toggle="tab" data-target="#details" >Details</button>
         </li>
         <li class="nav-item">
-            <button type="button" class="nav-link" data-bs-toggle="tab" data-bs-target="#editor" data-toggle="tab" data-target="#editor">Editor</buttona>
+            <button type="button" class="nav-link" data-bs-toggle="tab" data-bs-target="#editor" data-toggle="tab" data-target="#editor">Editor</button>
         </li>
     </ul>
     <div class="tab-content">
@@ -19,7 +19,7 @@
             <div ng-form="formVisualizerTemplate" class="form" id="formVisualizerTemplate" name="formVisualizerTemplate">
 
                 <div class="form-floating mb-3">
-                    <input type="text" name="name" class="form-control" ng-model="visualizer_template.name" required ng-class="{'is-invalid': formVisualizer.name.$invalid && submitted,'is-valid': formVisualizer.name.$valid && submitted }" />
+                    <input type="text" name="name" class="form-control" ng-model="visualizerTemplate.name" required ng-class="{'is-invalid': formVisualizer.name.$invalid && submitted,'is-valid': formVisualizer.name.$valid && submitted }" />
                     <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
                     <div ng-messages="formVisualizer.name.$error" ng-show="submitted" class="invalid-feedback" role="alert">
                         <div ng-message="required">This field is required</div>
@@ -27,7 +27,7 @@
                 </div>
 
                 <div class="form-floating mb-3">
-                    <textarea name="description" class="form-control" ng-model="visualizer_template.description" rows="5" style="min-height:7rem"></textarea>
+                    <textarea name="description" class="form-control" ng-model="visualizerTemplate.description" rows="5" style="min-height:7rem"></textarea>
                     <label for="description" class="form-label">Description</label>
                 </div>
 
@@ -54,7 +54,7 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-floating mb-3">
-                                <select name="language" class="form-select" ng-model="visualizer_template.language" ng-change="modeChanged()">
+                                <select name="language" class="form-select" ng-model="visualizerTemplate.language" ng-change="modeChanged()">
                                     <option value="liquid">Liquid</option>
                                     <option value="razor">Razor</option>
                                 </select>
@@ -66,11 +66,11 @@
                                 <label for="type" class="form-label">Content Size</label>
                                 <div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="content_size" id="single" value="single" ng-model="visualizer_template.content_size">
+                                        <input class="form-check-input" type="radio" name="ContentSize" id="single" value="single" ng-model="visualizerTemplate.contentSize">
                                         <label class="form-check-label" for="single">Single {{contentType.singular}}</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="content_size" id="multiple" value="multiple" ng-model="visualizer_template.content_size">
+                                        <input class="form-check-input" type="radio" name="ContentSize" id="multiple" value="multiple" ng-model="visualizerTemplate.contentSize">
                                         <label class="form-check-label" for="multiple">Multiple {{contentType.plural}}</label>
                                     </div>
                                 </div>
@@ -83,19 +83,19 @@
                     
                     <hr />
 
-                    <div name="template" ng-model="visualizer_template.template" rows="5" ui-ace="templateEditorOptions"></div>
+                    <div name="template" ng-model="visualizerTemplate.template" rows="5" ui-ace="templateEditorOptions"></div>
 
                 </div>
                 <div class="tab-pane fade" id="script">
                     <h3>Javascript</h3>
                     <p>You can include custom javascript with this visualizer template.</p>
 
-                    <div name="script" ng-model="visualizer_template.script" rows="5" ui-ace="scriptEditorOptions"></div>
+                    <div name="script" ng-model="visualizerTemplate.script" rows="5" ui-ace="scriptEditorOptions"></div>
                 </div>
                 <div class="tab-pane fade" id="css">
                     <h3>CSS</h3>
                     <p>You can include custom CSS with this visualizer template.</p>
-                    <div name="css" ng-model="visualizer_template.css" rows="5" ui-ace="cssEditorOptions"></div>
+                    <div name="css" ng-model="visualizerTemplate.css" rows="5" ui-ace="cssEditorOptions"></div>
                 </div>
             </div>
         </div>

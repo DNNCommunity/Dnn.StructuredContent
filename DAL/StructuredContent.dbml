@@ -1,117 +1,116 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="dnn9" EntityNamespace="StructuredContent.DAL" ContextNamespace="StructuredContent.DAL" Class="DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=.;Initial Catalog=dnn9;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="SiteSqlServer" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.[StructuredContent_VisualizerTemplate]" Member="StructuredContent_VisualizerTemplates">
-    <Type Name="StructuredContent_VisualizerTemplate">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="content_type_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="name" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
-      <Column Name="description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="script" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="css" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="template" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="language" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
-      <Column Name="content_size" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
-      <Association Name="StructuredContent_VisualizerTemplate_StructuredContent_Visualizer" Member="StructuredContent_Visualizers" ThisKey="id" OtherKey="visualizer_template_id" Type="StructuredContent_Visualizer" />
-      <Association Name="StructuredContent_ContentType_StructuredContent_VisualizerTemplate" Member="StructuredContent_ContentType" ThisKey="content_type_id" OtherKey="id" Type="StructuredContent_ContentType" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.[StructuredContent_ContentType]" Member="StructuredContent_ContentTypes">
-    <Type Name="StructuredContent_ContentType">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="name" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
-      <Column Name="singular" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
-      <Column Name="plural" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
-      <Column Name="url_slug" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
-      <Column Name="table_name" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
-      <Column Name="is_system" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Association Name="StructuredContent_ContentType_StructuredContent_VisualizerTemplate" Member="StructuredContent_VisualizerTemplates" ThisKey="id" OtherKey="content_type_id" Type="StructuredContent_VisualizerTemplate" />
-      <Association Name="StructuredContent_ContentType_StructuredContent_Relationship" Member="StructuredContent_Relationships" ThisKey="id" OtherKey="a_content_type_id" Type="StructuredContent_Relationship" />
-      <Association Name="StructuredContent_ContentType_StructuredContent_Relationship1" Member="StructuredContent_Relationships1" ThisKey="id" OtherKey="b_content_type_id" Type="StructuredContent_Relationship" />
-      <Association Name="StructuredContent_ContentType_StructuredContent_Revision" Member="StructuredContent_Revisions" ThisKey="id" OtherKey="content_type_id" Type="StructuredContent_Revision" />
-      <Association Name="StructuredContent_ContentType_StructuredContent_ContentField" Member="StructuredContent_ContentFields" ThisKey="id" OtherKey="content_type_id" Type="StructuredContent_ContentField" />
-      <Association Name="StructuredContent_ContentType_StructuredContent_Visualizer" Member="StructuredContent_Visualizers" ThisKey="id" OtherKey="content_type_id" Type="StructuredContent_Visualizer" />
-    </Type>
-  </Table>
-  <Table Name="dbo.[StructuredContent_Relationship]" Member="StructuredContent_Relationships">
-    <Type Name="StructuredContent_Relationship">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="[key]" Member="key" Type="System.String" DbType="VarChar(3) NOT NULL" CanBeNull="false" />
-      <Column Name="a_content_type_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="b_content_type_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="a_required" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="a_min_limit" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="a_max_limit" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="a_help_text" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
-      <Column Name="b_required" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="b_min_limit" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="b_max_limit" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="b_help_text" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
-      <Column Name="a_layout_row" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="a_layout_column" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="b_layout_row" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="b_layout_column" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="StructuredContent_ContentType_StructuredContent_Relationship" Member="StructuredContent_ContentType" ThisKey="a_content_type_id" OtherKey="id" Type="StructuredContent_ContentType" IsForeignKey="true" />
-      <Association Name="StructuredContent_ContentType_StructuredContent_Relationship1" Member="StructuredContent_ContentType1" ThisKey="b_content_type_id" OtherKey="id" Type="StructuredContent_ContentType" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.[StructuredContent_Revision]" Member="StructuredContent_Revisions">
-    <Type Name="StructuredContent_Revision">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="revision_date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="user_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="activity_type" Type="System.String" DbType="NVarChar(15) NOT NULL" CanBeNull="false" />
-      <Column Name="content_type_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="item_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="delta" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
-      <Column Name="data" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
-      <Association Name="StructuredContent_ContentType_StructuredContent_Revision" Member="StructuredContent_ContentType" ThisKey="content_type_id" OtherKey="id" Type="StructuredContent_ContentType" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.[StructuredContent_ContentField]" Member="StructuredContent_ContentFields">
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DNN_StructuredContent" EntityNamespace="StructuredContent.DAL" ContextNamespace="StructuredContent.DAL" Class="DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="dbo.StructuredContent_ContentField" Member="StructuredContent_ContentFields">
     <Type Name="StructuredContent_ContentField">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="name" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
-      <Column Name="content_type_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="is_system" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="ordinal" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="column_name" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
-      <Column Name="data_type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="data_length" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="allow_null" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="default_value" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="help_text" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
-      <Column Name="content_field_type_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="options" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="layout_row" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="layout_column" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="StructuredContent_ContentType_StructuredContent_ContentField" Member="StructuredContent_ContentType" ThisKey="content_type_id" OtherKey="id" Type="StructuredContent_ContentType" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
-      <Association Name="StructuredContent_ContentFieldType_StructuredContent_ContentField" Member="StructuredContent_ContentFieldType" ThisKey="content_field_type_id" OtherKey="id" Type="StructuredContent_ContentFieldType" IsForeignKey="true" DeleteRule="SET NULL" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="ContentTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsSystem" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Ordinal" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ColumnName" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="DataType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DataLength" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="AllowNull" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DefaultValue" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="HelpText" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="ContentFieldTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Options" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="LayoutRow" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LayoutColumn" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="StructuredContent_ContentFieldType_StructuredContent_ContentField" Member="StructuredContent_ContentFieldType" ThisKey="ContentFieldTypeId" OtherKey="Id" Type="StructuredContent_ContentFieldType" IsForeignKey="true" DeleteRule="SET NULL" />
+      <Association Name="StructuredContent_ContentType_StructuredContent_ContentField" Member="StructuredContent_ContentType" ThisKey="ContentTypeId" OtherKey="Id" Type="StructuredContent_ContentType" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.[StructuredContent_Visualizer]" Member="StructuredContent_Visualizers">
-    <Type Name="StructuredContent_Visualizer">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="module_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="content_type_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="visualizer_template_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="item_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="item_filter" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Association Name="StructuredContent_ContentType_StructuredContent_Visualizer" Member="StructuredContent_ContentType" ThisKey="content_type_id" OtherKey="id" Type="StructuredContent_ContentType" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
-      <Association Name="StructuredContent_VisualizerTemplate_StructuredContent_Visualizer" Member="StructuredContent_VisualizerTemplate" ThisKey="visualizer_template_id" OtherKey="id" Type="StructuredContent_VisualizerTemplate" IsForeignKey="true" />
+  <Table Name="dbo.StructuredContent_VisualizerTemplate" Member="StructuredContent_VisualizerTemplates">
+    <Type Name="StructuredContent_VisualizerTemplate">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ContentTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Script" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Css" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Template" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Language" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="ContentSize" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Association Name="StructuredContent_VisualizerTemplate_StructuredContent_Visualizer" Member="StructuredContent_Visualizers" ThisKey="Id" OtherKey="VisualizerTemplateId" Type="StructuredContent_Visualizer" />
+      <Association Name="StructuredContent_ContentType_StructuredContent_VisualizerTemplate" Member="StructuredContent_ContentType" ThisKey="ContentTypeId" OtherKey="Id" Type="StructuredContent_ContentType" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.[StructuredContent_ContentFieldType]" Member="StructuredContent_ContentFieldTypes">
+  <Table Name="dbo.StructuredContent_ContentFieldType" Member="StructuredContent_ContentFieldTypes">
     <Type Name="StructuredContent_ContentFieldType">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="[key]" Member="key" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="type" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
-      <Column Name="name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="ordinal" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="default_data_type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="default_data_length" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
-      <Column Name="default_options" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
-      <Column Name="icon" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Association Name="StructuredContent_ContentFieldType_StructuredContent_ContentField" Member="StructuredContent_ContentFields" ThisKey="id" OtherKey="content_field_type_id" Type="StructuredContent_ContentField" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="[Key]" Member="Key" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Ordinal" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DefaultDataType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DefaultDataLength" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="DefaultOptions" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Icon" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="StructuredContent_ContentFieldType_StructuredContent_ContentField" Member="StructuredContent_ContentFields" ThisKey="Id" OtherKey="ContentFieldTypeId" Type="StructuredContent_ContentField" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StructuredContent_ContentType" Member="StructuredContent_ContentTypes">
+    <Type Name="StructuredContent_ContentType">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="Singular" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="Plural" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="UrlSlug" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="TableName" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="IsSystem" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="StructuredContent_ContentType_StructuredContent_ContentField" Member="StructuredContent_ContentFields" ThisKey="Id" OtherKey="ContentTypeId" Type="StructuredContent_ContentField" />
+      <Association Name="StructuredContent_ContentType_StructuredContent_VisualizerTemplate" Member="StructuredContent_VisualizerTemplates" ThisKey="Id" OtherKey="ContentTypeId" Type="StructuredContent_VisualizerTemplate" />
+      <Association Name="StructuredContent_ContentType_StructuredContent_Relationship" Member="StructuredContent_Relationships" ThisKey="Id" OtherKey="AContentTypeId" Type="StructuredContent_Relationship" />
+      <Association Name="StructuredContent_ContentType_StructuredContent_Relationship1" Member="StructuredContent_Relationships1" ThisKey="Id" OtherKey="BContentTypeId" Type="StructuredContent_Relationship" />
+      <Association Name="StructuredContent_ContentType_StructuredContent_Revision" Member="StructuredContent_Revisions" ThisKey="Id" OtherKey="ContentTypeId" Type="StructuredContent_Revision" />
+      <Association Name="StructuredContent_ContentType_StructuredContent_Visualizer" Member="StructuredContent_Visualizers" ThisKey="Id" OtherKey="ContentTypeId" Type="StructuredContent_Visualizer" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StructuredContent_Relationship" Member="StructuredContent_Relationships">
+    <Type Name="StructuredContent_Relationship">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="[Key]" Member="Key" Type="System.String" DbType="VarChar(3) NOT NULL" CanBeNull="false" />
+      <Column Name="AContentTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BContentTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ARequired" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="AMinLimit" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AMaxLimit" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AHelpText" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="BRequired" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="BMinLimit" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BMaxLimit" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BHelpText" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="ALayoutRow" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ALayoutColumn" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BLayoutRow" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BLayoutColumn" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="StructuredContent_ContentType_StructuredContent_Relationship" Member="StructuredContent_ContentType" ThisKey="AContentTypeId" OtherKey="Id" Type="StructuredContent_ContentType" IsForeignKey="true" />
+      <Association Name="StructuredContent_ContentType_StructuredContent_Relationship1" Member="StructuredContent_ContentType1" ThisKey="BContentTypeId" OtherKey="Id" Type="StructuredContent_ContentType" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StructuredContent_Revision" Member="StructuredContent_Revisions">
+    <Type Name="StructuredContent_Revision">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RevisionDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ActivityType" Type="System.String" DbType="NVarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="ContentTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ItemId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Delta" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Data" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="StructuredContent_ContentType_StructuredContent_Revision" Member="StructuredContent_ContentType" ThisKey="ContentTypeId" OtherKey="Id" Type="StructuredContent_ContentType" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StructuredContent_Visualizer" Member="StructuredContent_Visualizers">
+    <Type Name="StructuredContent_Visualizer">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ModuleId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ContentTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="VisualizerTemplateId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ItemId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ItemFilter" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="StructuredContent_ContentType_StructuredContent_Visualizer" Member="StructuredContent_ContentType" ThisKey="ContentTypeId" OtherKey="Id" Type="StructuredContent_ContentType" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="StructuredContent_VisualizerTemplate_StructuredContent_Visualizer" Member="StructuredContent_VisualizerTemplate" ThisKey="VisualizerTemplateId" OtherKey="Id" Type="StructuredContent_VisualizerTemplate" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

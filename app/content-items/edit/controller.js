@@ -1,4 +1,4 @@
-﻿app.controller('contentItemEditController', ['$scope', '$q', '$uibModalInstance', 'toastr', 'contentTypeService', 'contentItemService', 'contentFieldService', 'relationshipService', 'id', 'content_type_id', 'content_url_slug', function ($scope, $q, $uibModalInstance, toastr, contentTypeService, contentItemService, contentFieldService, relationshipService, id, content_type_id, content_url_slug) {
+﻿app.controller('contentItemEditController', ['$scope', '$q', '$uibModalInstance', 'toastr', 'contentTypeService', 'contentItemService', 'contentFieldService', 'relationshipService', 'id', 'contentType', function ($scope, $q, $uibModalInstance, toastr, contentTypeService, contentItemService, contentFieldService, relationshipService, id, contentType) {
 
     $scope.loading = true;
     $scope.submitted = false;
@@ -7,12 +7,11 @@
         $uibModalInstance.dismiss('cancel');
     };
 
-    $scope.contentType = {
-        id: content_type_id
-    };
+    $scope.contentType = contentType;
+
     $scope.contentItem = {
         id: id,
-        content_type_id: content_type_id,
+        contentTypeId: contentTypeId,
         status: "Draft"
     };
     $scope.contentFields = [];
@@ -50,7 +49,7 @@
     getContentFields = function () {
         var deferred = $q.defer();
         $scope.loading = true;
-        contentFieldService.search(content_url_slug, true).then(
+        contentFieldService.search(contentType.urlSlug, true).then(
             function (response) {
                 $scope.contentFields = response.data;
                 $scope.loading = false;
@@ -91,11 +90,11 @@
         if ($scope.formContentItem.name.$valid) {
 
             $scope.contentItem.status = "Draft";
-            $scope.contentItem.date_published = null;
+            $scope.contentItem.datePublished = null;
 
             prepItemForSave();
 
-            contentItemService.save(content_url_slug, $scope.contentItem).then(
+            contentItemService.save(contentType.urlSlug, $scope.contentItem).then(
                 function (response) {
                     $scope.contentItem.id = response.data;
                     deferred.resolve();
@@ -133,7 +132,7 @@
 
             prepItemForSave();
 
-            contentItemService.save(content_url_slug, $scope.contentItem).then(
+            contentItemService.save(contentType.urlSlug, $scope.contentItem).then(
                 function (response) {
                     $scope.contentItem.id = response.data; // in the case of an insert - need the id
                     deferred.resolve();
@@ -165,47 +164,13 @@
         $scope.saving = true;
         $scope.loading = true;
 
-        //console.log(relationship);
-
-        //// prep relationships for save by sending back just the id of each related content item
-        //var a_values = [];
-        //if (relationship.a_value) {
-        //    relationship.a_value.forEach(function (item) {
-        //        a_values.push(item.id);
-        //    });
-        //}
-        //relationship.a_value = a_values;      
-
-        //var b_values = [];
-        //if (relationship.b_value) {
-        //    relationship.b_value.forEach(function (item) {
-        //        b_values.push(item.id);
-        //    });
-        //}
-        //relationship.b_value = b_values;        
-
-        //relationshipService.save_relationship(relationship, $scope.contentItem.id, $scope.contentType.id).then(
-        //    function (response) {
-        //        $scope.saving = false;
-        //        $scope.loading = false;
-        //        deferred.resolve();
-        //    },
-        //    function (response) {
-        //        console.log('save relationship failed', response);
-        //        toastr.error("Error", "There was a problem saving the relationship");
-        //        $scope.saving = false;
-        //        $scope.loading = false;
-        //        deferred.reject();
-        //    }
-        //);
-
         return deferred.promise;
     };
 
     getContentItem = function () {
         var deferred = $q.defer();
         $scope.loading = true;
-        contentItemService.get(content_url_slug, $scope.contentItem.id).then(
+        contentItemService.get(contentType.urlSlug, $scope.contentItem.id).then(
             function (response) {
                 $scope.contentItem = response.data;
                 $scope.loading = false;
@@ -224,45 +189,45 @@
     prepItemFromLoad = function () {
 
         // move the values from the content_item object to the content_field collection for editing
-        $scope.contentFields.forEach(function (content_field) {
-            content_field.value = $scope.contentItem[content_field.column_name];
+        $scope.contentFields.forEach(function (contentField) {
+            contentField.value = $scope.contentItem[contentField.columnName];
         });
 
         // for each relationship, determine the primary and related content types
         $scope.relationships.forEach(function (relationship) {
 
             if (relationship.key === 'o2m') {
-                if ($scope.contentType.id === relationship.b_content_type_id) {
-                    relationship.a_value = $scope.contentItem[relationship.a_column_name];
+                if ($scope.contentType.id === relationship.bContentTypeId) {
+                    relationship.aValue = $scope.contentItem[relationship.aColumnName];
                 }
 
-                if ($scope.contentType.id === relationship.a_content_type_id) {
-                    relationship.primary_content_type = relationship.a_content_type;
-                    relationship.related_content_type = relationship.b_content_type;
-                    relationship.related_items = $scope.contentItem[relationship.b_content_type.plural.toLowerCase()];
-                    relationship.min_limit = relationship.b_min_limit;
-                    relationship.max_limit = relationship.b_max_limit;
-                    relationship.help_text = relationship.b_help_text;
+                if ($scope.contentType.id === relationship.aContentTypeId) {
+                    relationship.primaryContenType = relationship.aContentType;
+                    relationship.relatedContentType = relationship.bContentType;
+                    relationship.relatedItems = $scope.contentItem[relationship.bContentType.plural.toLowerCase()];
+                    relationship.minLimit = relationship.bMinLimit;
+                    relationship.maxLimit = relationship.bMaxLimit;
+                    relationship.helpText = relationship.bHelpText;
                 }
             }
 
             if (relationship.key === 'm2m') {
-                if ($scope.contentType.id === relationship.a_content_type_id) {
-                    relationship.primary_content_type = relationship.a_content_type;
-                    relationship.related_content_type = relationship.b_content_type;
-                    relationship.related_items = $scope.contentItem[relationship.b_content_type.plural.toLowerCase()];
-                    relationship.min_limit = relationship.b_min_limit;
-                    relationship.max_limit = relationship.b_max_limit;
-                    relationship.help_text = relationship.b_help_text;
+                if ($scope.contentType.id === relationship.aContentTypeId) {
+                    relationship.primaryContentType = relationship.aContentType;
+                    relationship.relatedContentType = relationship.bContentType;
+                    relationship.relatedItems = $scope.contentItem[relationship.bContentType.plural.toLowerCase()];
+                    relationship.minLimit = relationship.bMinLimit;
+                    relationship.maxLimit = relationship.bMaxLimit;
+                    relationship.helpText = relationship.bHelpText;
                 }
 
-                if ($scope.contentType.id === relationship.b_content_type_id) {
-                    relationship.primary_content_type = relationship.b_content_type;
-                    relationship.related_content_type = relationship.a_content_type;
-                    relationship.related_items = $scope.contentItem[relationship.a_content_type.plural.toLowerCase()];
-                    relationship.min_limit = relationship.a_min_limit;
-                    relationship.max_limit = relationship.a_max_limit;
-                    relationship.help_text = relationship.a_help_text;
+                if ($scope.contentType.id === relationship.bContentTypeId) {
+                    relationship.primaryContentType = relationship.bContentType;
+                    relationship.relatedContentType = relationship.aContentType;
+                    relationship.relatedItems = $scope.contentItem[relationship.aContentType.plural.toLowerCase()];
+                    relationship.minLimit = relationship.aMinLimit;
+                    relationship.maxLimit = relationship.aMaxLimit;
+                    relationship.helpText = relationship.aHelpText;
                 }
             }
         });
@@ -273,8 +238,8 @@
         for (var indexField = 0; indexField < $scope.contentFields.length; indexField++) {
             var contentField = $scope.contentFields[indexField];
 
-            if (!contentField.is_system) {
-                $scope.contentItem[contentField.column_name] = contentField.value;
+            if (!contentField.isSystem) {
+                $scope.contentItem[contentField.columnName] = contentField.value;
             }
         }
     };
@@ -293,23 +258,23 @@
 
         // content fields
         $scope.contentFields.forEach(function (item) {
-            if (item.is_system === false) {
-                if (item.layout_row > maxRow) {
-                    maxRow = item.layout_row;
+            if (item.isSystem === false) {
+                if (item.layoutRow > maxRow) {
+                    maxRow = item.layoutRow;
                 }
-                if (item.layout_column > maxColumn) {
-                    maxColumn = item.layout_column;
+                if (item.layoutColumn > maxColumn) {
+                    maxColumn = item.layoutColumn;
                 }
             }
         });
 
         // relationships
         $scope.relationships.forEach(function (item) {
-            if (item.layout_row > maxRow) {
-                maxRow = item.layout_row;
+            if (item.layoutRow > maxRow) {
+                maxRow = item.layoutRow;
             }
-            if (item.layout_column > maxColumn) {
-                maxColumn = item.layout_column;
+            if (item.layoutColumn > maxColumn) {
+                maxColumn = item.layoutColumn;
             }
         });
 
@@ -332,12 +297,12 @@
         }
 
 
-        // insert the content_fields
+        // insert the ContentFields
         $scope.contentFields.forEach(function (item) {
-            if (item.is_system === false) {
+            if (item.isSystem === false) {
                 item._type = 'content_field';
-                if ($scope.canvas.rows[item.layout_row] && $scope.canvas.rows[item.layout_row].columns[item.layout_column]) {
-                    $scope.canvas.rows[item.layout_row].columns[item.layout_column].data = item;
+                if ($scope.canvas.rows[item.layoutRow] && $scope.canvas.rows[item.layoutRow].columns[item.layoutColumn]) {
+                    $scope.canvas.rows[item.layoutRow].columns[item.layoutColumn].data = item;
                 }
                 else {
                     notPlacedFields.push(item);
@@ -348,8 +313,8 @@
         // insert the relationships 
         $scope.relationships.forEach(function (item) {
             item._type = 'relationship';
-            if ($scope.canvas.rows[item.layout_row] && $scope.canvas.rows[item.layout_row].columns[item.layout_column]) {
-                $scope.canvas.rows[item.layout_row].columns[item.layout_column].data = item;
+            if ($scope.canvas.rows[item.layoutRow] && $scope.canvas.rows[item.layoutRow].columns[item.layoutColumn]) {
+                $scope.canvas.rows[item.layoutRow].columns[item.layoutColumn].data = item;
             }
             else {
                 notPlacedRelationships.push(item);

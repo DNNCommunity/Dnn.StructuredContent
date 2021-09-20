@@ -9,10 +9,10 @@ namespace StructuredContent.Enums
     [Serializable]
     public enum DataTypes
     {
-        nvarchar,
-        numeric,
-        datetime,
-        bit,
-        integer,
+        Nvarchar,
+        Numeric,
+        Datetime,
+        Bit,
+        Integer,
     }
 }

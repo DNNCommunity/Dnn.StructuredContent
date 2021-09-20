@@ -1,11 +1,11 @@
 ﻿<div class="form-floating mb-3">
-    <select name="{{control_name}}" class="form-select" ng-model="relationship.a_value" ng-required="isRequired()" ng-class="{'is-invalid': form[contentField.column_name].$invalid && submitted,'is-valid': form[contentField.column_name].$valid && submitted}">
+    <select name="{{controlName}}" class="form-select" ng-model="relationship.aValue" ng-required="isRequired()" ng-class="{'is-invalid': form[contentField.columnName].$invalid && submitted,'is-valid': form[contentField.columnName].$valid && submitted}">
         <option value="">-select-</option>
         <option ng-repeat="relatedContentItem in relatedContentItems" ng-value="relatedContentItem.id">{{relatedContentItem.name}}</option>
     </select>
     <label for="related_content" class="form-label">{{relatedContentType.singular}} <span class="text-danger" ng-show="isRequired()">*</span></label>
-    <div ng-messages="form[control_name].$error" ng-if="submitted" class="invalid-feedback" role="alert">
+    <div ng-messages="form[controlName].$error" ng-if="submitted" class="invalid-feedback" role="alert">
         <div ng-message="required">This field is required</div>
     </div>
-    <small class="form-text">{{relationship.help_text}}</small>    
+    <small class="form-text">{{relationship.helpText}}</small>    
 </div>

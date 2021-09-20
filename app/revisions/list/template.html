@@ -2,7 +2,7 @@
     <button class="btn btn-link text-muted float-right" ng-click="close()"><span class="fas fa-times" /></button>
     <h3 class="modal-title">
         Revision History<br />
-        <small>{{content_type.name}} - {{content_item.name}}</small>
+        <small>{{contentType.name}} - {{contentItem.name}}</small>
     </h3>
 </div>
 
@@ -31,8 +31,8 @@
                     <td>
                         <a href="#" class="text-muted" title="View" ng-click="viewRevision(revision.id)"><span class="fas fa-eye"></span></a>
                     </td>
-                    <td>{{revision.revision_date | date : "medium"}}</td>
-                    <td>{{revision.activity_type}}</td>
+                    <td>{{revision.revisionDate | date : "medium"}}</td>
+                    <td>{{revision.activityType}}</td>
                 </tr>
             </tbody>
         </table>

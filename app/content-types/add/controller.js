@@ -38,7 +38,7 @@
     };
 
     $scope.getUrlSlug = function () {
-        var slug = $scope.contentType.url_slug;
+        var slug = $scope.contentType.urlSlug;
 
         if (!slug) {
             slug = $scope.contentType.name;
@@ -51,8 +51,8 @@
         return slug;
     };
     $scope.urlSlugify = function () {
-        if ($scope.contentType.url_slug) {
-            $scope.contentType.url_slug = slugify($scope.contentType.url_slug);
+        if ($scope.contentType.urlSlug) {
+            $scope.contentType.urlSlug = slugify($scope.contentType.urlSlug);
         }
     };
     $scope.nameAutoFormat = function () {
@@ -64,10 +64,10 @@
         $scope.contentType.plural = pluralize.plural(name);
         $scope.contentType.singular = pluralize.singular(name);
 
-        $scope.contentType.url_slug = $scope.contentType.plural;
+        $scope.contentType.urlSlug = $scope.contentType.plural;
         $scope.urlSlugify();
 
-        $scope.contentType.table_name = $scope.contentType.url_slug;
+        $scope.contentType.tableName = $scope.contentType.urlSlug;
     };
 
 }]);
