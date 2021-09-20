@@ -1,20 +1,25 @@
-﻿using DotLiquid;
-using DotNetNuke.Security;
-using DotNetNuke.Services.Exceptions;
-using DotNetNuke.Web.Api;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using StructuredContent.DAL;
-using System.Dynamic;
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for more information
 
 namespace StructuredContent
 {
-    //[SupportedModules("StructuredContent")]
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Dynamic;
+    using System.Linq;
+    using System.Net;
+    using System.Net.Http;
+    using System.Web.Http;
+
+    using DotLiquid;
+    using DotNetNuke.Security;
+    using DotNetNuke.Services.Exceptions;
+    using DotNetNuke.Web.Api;
+    using StructuredContent.DAL;
+
+    // [SupportedModules("StructuredContent")]
     public class VisualizerController : DnnApiController
     {
         DataContext dc = new DataContext();
@@ -22,12 +27,11 @@ namespace StructuredContent
 
         [HttpGet]
         [AllowAnonymous]
-        public HttpResponseMessage Get(Nullable<int> skip = null, Nullable<int> take = null)
+        public HttpResponseMessage Get(int? skip = null, int? take = null)
         {
             try
             {
-                var query = dc.StructuredContent_Visualizers.AsQueryable();
-
+                var query = this.dc.StructuredContent_Visualizers.AsQueryable();
 
                 // skip
                 if (skip.HasValue)
@@ -49,12 +53,12 @@ namespace StructuredContent
                     dtos.Add(dto);
                 }
 
-                return Request.CreateResponse(HttpStatusCode.OK, dtos);
+                return this.Request.CreateResponse(HttpStatusCode.OK, dtos);
             }
             catch (Exception ex)
             {
                 Exceptions.LogException(ex);
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
+                return this.Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
             }
         }
 
@@ -64,10 +68,10 @@ namespace StructuredContent
         {
             try
             {
-                StructuredContent_Visualizer visualizer = dc.StructuredContent_Visualizers.Where(i => i.module_id == module_id).SingleOrDefault();
+                StructuredContent_Visualizer visualizer = this.dc.StructuredContent_Visualizers.Where(i => i.module_id == module_id).SingleOrDefault();
                 if (visualizer == null)
                 {
-                    return Request.CreateResponse(HttpStatusCode.NotFound);
+                    return this.Request.CreateResponse(HttpStatusCode.NotFound);
                 }
 
                 VisualizerDTO dto = visualizer.ToDto();
@@ -80,10 +84,10 @@ namespace StructuredContent
                     switch (visualizer_template.content_size)
                     {
                         case "single":
-                            IDictionary<string, object> content_item = sqlHelper.SelectDynamicItem(content_type, visualizer.item_id.GetValueOrDefault());
+                            IDictionary<string, object> content_item = this.sqlHelper.SelectDynamicItem(content_type, visualizer.item_id.GetValueOrDefault());
                             if (content_item == null)
                             {
-                                return Request.CreateResponse(HttpStatusCode.NotFound);
+                                return this.Request.CreateResponse(HttpStatusCode.NotFound);
                             }
 
                             switch (visualizer_template.language)
@@ -107,7 +111,7 @@ namespace StructuredContent
 
                             IDictionary<string, object> content = new Dictionary<string, object>();
 
-                            List<IDictionary<string, object>> items = sqlHelper.SelectDynamicList(content_type, string.Empty).ToList();
+                            List<IDictionary<string, object>> items = this.sqlHelper.SelectDynamicList(content_type, string.Empty).ToList();
                             content.Add("items", items);
 
                             switch (visualizer_template.language)
@@ -132,17 +136,14 @@ namespace StructuredContent
                     }
                 }
 
-
-                return Request.CreateResponse(HttpStatusCode.OK, dto);
+                return this.Request.CreateResponse(HttpStatusCode.OK, dto);
             }
             catch (Exception ex)
             {
                 Exceptions.LogException(ex);
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
+                return this.Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
             }
         }
-
-
 
         [HttpPost]
         [AllowAnonymous]
@@ -153,16 +154,16 @@ namespace StructuredContent
             {
                 StructuredContent_Visualizer content_type = dto.ToItem(null);
 
-                dc.StructuredContent_Visualizers.InsertOnSubmit(content_type);
+                this.dc.StructuredContent_Visualizers.InsertOnSubmit(content_type);
 
-                dc.SubmitChanges();
+                this.dc.SubmitChanges();
 
-                return Request.CreateResponse(HttpStatusCode.OK, content_type.ToDto());
+                return this.Request.CreateResponse(HttpStatusCode.OK, content_type.ToDto());
             }
             catch (Exception ex)
             {
                 Exceptions.LogException(ex);
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
+                return this.Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
             }
         }
 
@@ -173,21 +174,21 @@ namespace StructuredContent
         {
             try
             {
-                StructuredContent_Visualizer item = dc.StructuredContent_Visualizers.Where(i => i.id == dto.id).SingleOrDefault();
+                StructuredContent_Visualizer item = this.dc.StructuredContent_Visualizers.Where(i => i.id == dto.id).SingleOrDefault();
                 if (item == null)
                 {
-                    return Request.CreateResponse(HttpStatusCode.NotFound);
+                    return this.Request.CreateResponse(HttpStatusCode.NotFound);
                 }
 
                 item = dto.ToItem(item);
-                dc.SubmitChanges();
+                this.dc.SubmitChanges();
 
-                return Request.CreateResponse(HttpStatusCode.OK, item.ToDto());
+                return this.Request.CreateResponse(HttpStatusCode.OK, item.ToDto());
             }
             catch (Exception ex)
             {
                 Exceptions.LogException(ex);
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
+                return this.Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
             }
         }
 
@@ -198,23 +199,22 @@ namespace StructuredContent
         {
             try
             {
-                StructuredContent_Visualizer content_type = dc.StructuredContent_Visualizers.Where(i => i.id == id).SingleOrDefault();
+                StructuredContent_Visualizer content_type = this.dc.StructuredContent_Visualizers.Where(i => i.id == id).SingleOrDefault();
                 if (content_type == null)
                 {
-                    return Request.CreateResponse(HttpStatusCode.NotFound);
+                    return this.Request.CreateResponse(HttpStatusCode.NotFound);
                 }
 
-                dc.StructuredContent_Visualizers.DeleteOnSubmit(content_type);
-                dc.SubmitChanges();
+                this.dc.StructuredContent_Visualizers.DeleteOnSubmit(content_type);
+                this.dc.SubmitChanges();
 
-                return Request.CreateResponse(HttpStatusCode.OK);
+                return this.Request.CreateResponse(HttpStatusCode.OK);
             }
             catch (Exception ex)
             {
                 Exceptions.LogException(ex);
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
+                return this.Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
             }
         }
-
     }
 }
