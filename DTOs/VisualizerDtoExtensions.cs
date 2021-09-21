@@ -4,8 +4,6 @@
 
 namespace StructuredContent.DAL
 {
-    using System;
-
     public static partial class VisualizerDtoExtensions
     {
         public static VisualizerDto ToDto(this StructuredContent_Visualizer item)

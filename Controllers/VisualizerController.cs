@@ -7,11 +7,11 @@ namespace StructuredContent
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Dynamic;
     using System.Linq;
     using System.Net;
     using System.Net.Http;
     using System.Web.Http;
+
     using Dnn.StructuredContent.Controllers.Serializers;
     using DotLiquid;
     using DotNetNuke.Security;
@@ -19,17 +19,30 @@ namespace StructuredContent
     using DotNetNuke.Web.Api;
     using StructuredContent.DAL;
 
+    /// <summary>
+    /// Web API to manage Visualizers.
+    /// </summary>
     [JsonCamelCaseSerializer]
     public class VisualizerController : DnnApiController
     {
         private readonly DataContext dataContext = new DataContext();
         private readonly ISQLHelper sqlHelper;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VisualizerController"/> class.
+        /// </summary>
+        /// <param name="sqlHelper">The sql helper to use.</param>
         public VisualizerController(ISQLHelper sqlHelper)
         {
             this.sqlHelper = sqlHelper;
         }
 
+        /// <summary>
+        /// Gets a list of Visualizers.
+        /// </summary>
+        /// <param name="skip">How many items to skip (for paging).</param>
+        /// <param name="take">How many items to take (for paging).</param>
+        /// <returns>A list of <see cref="VisualizerDto"/>.</returns>
         [HttpGet]
         [AllowAnonymous]
         public HttpResponseMessage Get(int? skip = null, int? take = null)
@@ -67,6 +80,11 @@ namespace StructuredContent
             }
         }
 
+        /// <summary>
+        /// Gets a single Visualizer.
+        /// </summary>
+        /// <param name="moduleId">The ID of the module for which to get the template for.</param>
+        /// <returns>A single <see cref="VisualizerDto"/>.</returns>
         [HttpGet]
         [AllowAnonymous]
         public HttpResponseMessage Get(int moduleId)
@@ -150,6 +168,11 @@ namespace StructuredContent
             }
         }
 
+        /// <summary>
+        /// Creates a visualizer.
+        /// </summary>
+        /// <param name="dto"><see cref="VisualizerDto"/>.</param>
+        /// <returns>The created <see cref="VisualizerDto"/>.</returns>
         [HttpPost]
         [AllowAnonymous]
         [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]
@@ -172,6 +195,11 @@ namespace StructuredContent
             }
         }
 
+        /// <summary>
+        /// Updates an existing visualizer.
+        /// </summary>
+        /// <param name="dto"><see cref="VisualizerDto"/>.</param>
+        /// <returns>The updated <see cref="VisualizerDto"/>.</returns>
         [HttpPut]
         [AllowAnonymous]
         [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]
@@ -197,6 +225,11 @@ namespace StructuredContent
             }
         }
 
+        /// <summary>
+        /// Deletes an existing visualizer.
+        /// </summary>
+        /// <param name="id">The ID of the visualizer to delete.</param>
+        /// <returns>OK or InternalServerError.</returns>
         [HttpDelete]
         [AllowAnonymous]
         [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]

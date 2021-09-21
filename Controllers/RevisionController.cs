@@ -11,18 +11,30 @@ namespace StructuredContent
     using System.Net;
     using System.Net.Http;
     using System.Web.Http;
+
     using Dnn.StructuredContent.Controllers.Serializers;
     using DotNetNuke.Security;
     using DotNetNuke.Services.Exceptions;
     using DotNetNuke.Web.Api;
-    using Newtonsoft.Json;
     using StructuredContent.DAL;
 
+    /// <summary>
+    /// Web API to manage content revisions (for audit logs).
+    /// </summary>
     [JsonCamelCaseSerializer]
     public class RevisionController : DnnApiController
     {
         private readonly DataContext dataContext = new DataContext();
 
+        /// <summary>
+        /// Gets a list of content revisions.
+        /// </summary>
+        /// <param name="contentTypeId">The ID of the content type to get revisions for.</param>
+        /// <param name="itemId">The ID of the item to get (optionsal).</param>
+        /// <param name="verbose">Whether to return verbose results.</param>
+        /// <param name="skip">The number of items to skip (for paging).</param>
+        /// <param name="take">The number of items to take (for paging).</param>
+        /// <returns>A list of <see cref="RevisionDto"/>.</returns>
         [HttpGet]
         [AllowAnonymous]
         public HttpResponseMessage Get(int? contentTypeId = null, int? itemId = null, bool? verbose = null, int? skip = null, int? take = null)
@@ -75,6 +87,11 @@ namespace StructuredContent
             }
         }
 
+        /// <summary>
+        /// Gets a single revision.
+        /// </summary>
+        /// <param name="id">The ID of the revision to get.</param>
+        /// <returns><see cref="RevisionDto"/>.</returns>
         [HttpGet]
         [AllowAnonymous]
         public HttpResponseMessage Get(int id)
@@ -96,6 +113,11 @@ namespace StructuredContent
             }
         }
 
+        /// <summary>
+        /// Creates a new revision.
+        /// </summary>
+        /// <param name="dto"><see cref="RevisionDto"/>.</param>
+        /// <returns>The created <see cref="RevisionDto"/>.</returns>
         [HttpPost]
         [AllowAnonymous]
         [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]
@@ -118,6 +140,11 @@ namespace StructuredContent
             }
         }
 
+        /// <summary>
+        /// Updates an existing revision.
+        /// </summary>
+        /// <param name="dto"><see cref="RevisionDto"/>.</param>
+        /// <returns>The updated <see cref="RevisionDto"/>.</returns>
         [HttpPut]
         [AllowAnonymous]
         [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]
@@ -143,6 +170,11 @@ namespace StructuredContent
             }
         }
 
+        /// <summary>
+        /// Deletes an existing revision.
+        /// </summary>
+        /// <param name="id">The id of the revision to delete.</param>
+        /// <returns>OK or InternalServerError.</returns>
         [HttpDelete]
         [AllowAnonymous]
         [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]

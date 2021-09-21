@@ -11,24 +11,40 @@ namespace StructuredContent
     using System.Net;
     using System.Net.Http;
     using System.Web.Http;
+
     using Dnn.StructuredContent.Controllers.Serializers;
-    using DotLiquid;
     using DotNetNuke.Security;
     using DotNetNuke.Services.Exceptions;
     using DotNetNuke.Web.Api;
     using StructuredContent.DAL;
 
+    /// <summary>
+    /// Web API to manage Visualizer Templates.
+    /// </summary>
     [JsonCamelCaseSerializer]
     public class VisualizerTemplateController : DnnApiController
     {
         private readonly DataContext dataContext = new DataContext();
         private readonly ISQLHelper sqlHelper;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VisualizerTemplateController"/> class.
+        /// </summary>
+        /// <param name="sqlHelper">The sql helper to use.</param>
         public VisualizerTemplateController(ISQLHelper sqlHelper)
         {
             this.sqlHelper = sqlHelper;
         }
 
+        /// <summary>
+        /// Gets a list of visualizer templates.
+        /// </summary>
+        /// <param name="name">The name of the templates to search for.</param>
+        /// <param name="contentTypeId">The ID of the content type to get.</param>
+        /// <param name="verbose">Wheter to return verbosely or not.</param>
+        /// <param name="skip">Amount of items to skip (for paging).</param>
+        /// <param name="take">Amount of items to take (for paging).</param>
+        /// <returns>A list of visualizer templates <see cref="VisualizerTemplateDto"/>.</returns>
         [HttpGet]
         [AllowAnonymous]
         public HttpResponseMessage Get(string name = "", int? contentTypeId = null, bool? verbose = null, int? skip = null, int? take = null)
@@ -87,6 +103,11 @@ namespace StructuredContent
             }
         }
 
+        /// <summary>
+        /// Gets a single Visualizer template.
+        /// </summary>
+        /// <param name="id">The ID of the template to get.</param>
+        /// <returns>A single visualizer template <see cref="VisualizerTemplateDto"/>.</returns>
         [HttpGet]
         [AllowAnonymous]
         public HttpResponseMessage Get(int id)
@@ -108,6 +129,11 @@ namespace StructuredContent
             }
         }
 
+        /// <summary>
+        /// Creates a new Visualizer Template.
+        /// </summary>
+        /// <param name="dto"><see cref="VisualizerTemplateDto"/>.</param>
+        /// <returns>The item DTO on success or an exception if it fails.</returns>
         [HttpPost]
         [AllowAnonymous]
         [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]
@@ -130,6 +156,11 @@ namespace StructuredContent
             }
         }
 
+        /// <summary>
+        /// Updates an existing Visualizer template.
+        /// </summary>
+        /// <param name="dto"><see cref="VisualizerTemplateDto"/>.</param>
+        /// <returns>A <see cref="VisualizerTemplateDto"/>.</returns>
         [HttpPut]
         [AllowAnonymous]
         [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]
@@ -155,6 +186,11 @@ namespace StructuredContent
             }
         }
 
+        /// <summary>
+        /// Deletes an existing Visualizer template.
+        /// </summary>
+        /// <param name="id">The id of the template to delete.</param>
+        /// <returns>OK or an exception.</returns>
         [HttpDelete]
         [AllowAnonymous]
         [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]
@@ -178,17 +214,6 @@ namespace StructuredContent
                 Exceptions.LogException(ex);
                 return this.Request.CreateResponse(HttpStatusCode.InternalServerError, ex);
             }
-        }
-
-        public override bool Equals(object obj)
-        {
-            return obj is VisualizerTemplateController controller &&
-                   EqualityComparer<ISQLHelper>.Default.Equals(this.sqlHelper, controller.sqlHelper);
-        }
-
-        public override int GetHashCode()
-        {
-            return -566121293 + EqualityComparer<ISQLHelper>.Default.GetHashCode(this.sqlHelper);
         }
     }
 }

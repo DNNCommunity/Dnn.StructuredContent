@@ -4,7 +4,6 @@
 
 namespace StructuredContent
 {
-    using System;
 
     using DotNetNuke.Common.Utilities;
     using StructuredContent.DAL;

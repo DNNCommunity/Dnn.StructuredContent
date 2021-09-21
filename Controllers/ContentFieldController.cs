@@ -5,12 +5,12 @@
 namespace StructuredContent
 {
     using System;
-    using System.Collections.Generic;
     using System.Data;
     using System.Linq;
     using System.Net;
     using System.Net.Http;
     using System.Web.Http;
+
     using Dnn.StructuredContent.Controllers.Serializers;
     using DotNetNuke.Security;
     using DotNetNuke.Services.Exceptions;
@@ -18,7 +18,7 @@ namespace StructuredContent
     using StructuredContent.DAL;
 
     /// <summary>
-    /// Manages Content Fields.
+    /// Web API to manage Content Fields.
     /// </summary>
     [JsonCamelCaseSerializer]
     public class ContentFieldController : DnnApiController
@@ -26,11 +26,23 @@ namespace StructuredContent
         private readonly ISQLHelper sqlHelper;
         private readonly DataContext dataContext = new DataContext();
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ContentFieldController"/> class.
+        /// </summary>
+        /// <param name="sqlHelper">The sql helper to use.</param>
         public ContentFieldController(ISQLHelper sqlHelper)
         {
             this.sqlHelper = sqlHelper;
         }
 
+        /// <summary>
+        /// Gets a list of content fields.
+        /// </summary>
+        /// <param name="contentTypeUrlSlug">The url slug of the type of fields to get.</param>
+        /// <param name="verbose">Whether to return verbose details.</param>
+        /// <param name="skip">The number of items to skip (for paging).</param>
+        /// <param name="take">The number of tiems to take (for paging).</param>
+        /// <returns>A list of <see cref="ContentFieldDto"/>.</returns>
         [HttpGet]
         [AllowAnonymous]
         public HttpResponseMessage Get(string contentTypeUrlSlug, bool? verbose = null, int? skip = null, int? take = null)
@@ -70,6 +82,12 @@ namespace StructuredContent
             }
         }
 
+        /// <summary>
+        /// Gets a single content field.
+        /// </summary>
+        /// <param name="contentTypeUrlSlug">The url slug of the content field type to get the field from.</param>
+        /// <param name="id">The id of the content field.</param>
+        /// <returns><see cref="ContentFieldDto"/>.</returns>
         [HttpGet]
         [AllowAnonymous]
         public HttpResponseMessage Get(string contentTypeUrlSlug, int id)
@@ -92,6 +110,12 @@ namespace StructuredContent
             }
         }
 
+        /// <summary>
+        /// Creates a new field.
+        /// </summary>
+        /// <param name="contentTypeUrlSlug">The url slug of the field type.</param>
+        /// <param name="dto"><see cref="ContentFieldDto"/>.</param>
+        /// <returns>The created <see cref="ContentFieldDto"/>.</returns>
         [HttpPost]
         [AllowAnonymous]
         [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]
@@ -143,6 +167,12 @@ namespace StructuredContent
             }
         }
 
+        /// <summary>
+        /// Updates an existing field.
+        /// </summary>
+        /// <param name="contentTypeUrlSlug">The url slug of the field type to update the field for.</param>
+        /// <param name="dto"><see cref="ContentFieldDto"/>.</param>
+        /// <returns>The recently updates <see cref="ContentFieldDto"/>.</returns>
         [HttpPut]
         [AllowAnonymous]
         [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]
@@ -177,6 +207,12 @@ namespace StructuredContent
             }
         }
 
+        /// <summary>
+        /// Deletes an existing field.
+        /// </summary>
+        /// <param name="contentTypeUrlSlug">The URL slug for the type of field.</param>
+        /// <param name="id">The id of the field to delete.</param>
+        /// <returns>Ok or InternalServerError.</returns>
         [HttpDelete]
         [AllowAnonymous]
         [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]

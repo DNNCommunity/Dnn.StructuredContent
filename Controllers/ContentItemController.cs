@@ -12,6 +12,7 @@ namespace StructuredContent
     using System.Net;
     using System.Net.Http;
     using System.Web.Http;
+
     using Dnn.StructuredContent.Controllers.Serializers;
     using DotNetNuke.Security;
     using DotNetNuke.Services.Exceptions;
@@ -20,18 +21,34 @@ namespace StructuredContent
     using Newtonsoft.Json.Linq;
     using StructuredContent.DAL;
 
+    /// <summary>
+    /// Web API to manage ContentItems.
+    /// </summary>
     [JsonCamelCaseSerializer]
     public class ContentItemController : DnnApiController
     {
         private readonly DataContext dataContext;
         private readonly ISQLHelper sqlHelper;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ContentItemController"/> class.
+        /// </summary>
+        /// <param name="sqlHelper">The sql helper to use.</param>
         public ContentItemController(ISQLHelper sqlHelper)
         {
             this.dataContext = new DataContext();
             this.sqlHelper = sqlHelper;
         }
 
+        /// <summary>
+        /// Gets content items.
+        /// </summary>
+        /// <param name="contentTypeUrlSlug">The URL slug for this type of content item.</param>
+        /// <param name="name">The name of the item to filter for (optional).</param>
+        /// <param name="verbose">Wheter to return verbose results.</param>
+        /// <param name="skip">The number of items to skip (for paging).</param>
+        /// <param name="take">The number of items to take (for paging).</param>
+        /// <returns>A list of items.</returns>
         [HttpGet]
         [AllowAnonymous]
         public HttpResponseMessage Get(string contentTypeUrlSlug, string name = "", bool? verbose = null, int? skip = null, int? take = null)
@@ -82,6 +99,12 @@ namespace StructuredContent
             }
         }
 
+        /// <summary>
+        /// Gets a single content item.
+        /// </summary>
+        /// <param name="contentTypeUrlSlug">The url slug of the content type to get items for.</param>
+        /// <param name="id">The id of the content item to get.</param>
+        /// <returns>A single content item.</returns>
         [HttpGet]
         [AllowAnonymous]
         public HttpResponseMessage Get(string contentTypeUrlSlug, int id)
@@ -155,7 +178,12 @@ namespace StructuredContent
             }
         }
 
-        // insert
+        /// <summary>
+        /// Creates a new content item.
+        /// </summary>
+        /// <param name="contentTypeUrlSlug">The url slug of the content type for this item.</param>
+        /// <param name="itemData">The details of the content item.</param>
+        /// <returns>The ID of the created item.</returns>
         [HttpPost]
         [AllowAnonymous]
         [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]
@@ -174,7 +202,7 @@ namespace StructuredContent
 
                 int id = this.sqlHelper.InsertContentItem(contentType, item);
 
-                return this.Request.CreateResponse(HttpStatusCode.OK, id); // send back the inserted record id
+                return this.Request.CreateResponse(HttpStatusCode.OK, id);
             }
             catch (Exception ex)
             {
@@ -183,7 +211,12 @@ namespace StructuredContent
             }
         }
 
-        // update
+        /// <summary>
+        /// Updates an existing content item.
+        /// </summary>
+        /// <param name="contentTypeUrlSlug">The URL slug of the content type to update the item for.</param>
+        /// <param name="itemData">The details of the item to update.</param>
+        /// <returns>The ID of the updated item.</returns>
         [HttpPut]
         [AllowAnonymous]
         [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]
@@ -287,7 +320,7 @@ namespace StructuredContent
                 this.dataContext.SubmitChanges();
                 int id = primaryContentItem.id;
 
-                return this.Request.CreateResponse(HttpStatusCode.OK, id); // send back the updated record id
+                return this.Request.CreateResponse(HttpStatusCode.OK, id);
             }
             catch (Exception ex)
             {
@@ -296,6 +329,12 @@ namespace StructuredContent
             }
         }
 
+        /// <summary>
+        /// Deletes an existing content item.
+        /// </summary>
+        /// <param name="contentTypeUrlSlug">The url slug of the content type of the item to delete.</param>
+        /// <param name="id">The id of the content item.</param>
+        /// <returns>OK or InternalServerError.</returns>
         [HttpDelete]
         [AllowAnonymous]
         [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]
