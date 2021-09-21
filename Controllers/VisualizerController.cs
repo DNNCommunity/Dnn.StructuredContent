@@ -12,14 +12,14 @@ namespace StructuredContent
     using System.Net;
     using System.Net.Http;
     using System.Web.Http;
-
+    using Dnn.StructuredContent.Controllers.Serializers;
     using DotLiquid;
     using DotNetNuke.Security;
     using DotNetNuke.Services.Exceptions;
     using DotNetNuke.Web.Api;
     using StructuredContent.DAL;
 
-    // [SupportedModules("StructuredContent")]
+    [JsonCamelCaseSerializer]
     public class VisualizerController : DnnApiController
     {
         private readonly DataContext dataContext = new DataContext();

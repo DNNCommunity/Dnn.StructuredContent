@@ -12,7 +12,7 @@ namespace StructuredContent
     using System.Net;
     using System.Net.Http;
     using System.Web.Http;
-
+    using Dnn.StructuredContent.Controllers.Serializers;
     using DotNetNuke.Security;
     using DotNetNuke.Services.Exceptions;
     using DotNetNuke.Web.Api;
@@ -20,7 +20,7 @@ namespace StructuredContent
     using Newtonsoft.Json.Linq;
     using StructuredContent.DAL;
 
-    // [SupportedModules("StructuredContent")]
+    [JsonCamelCaseSerializer]
     public class ContentItemController : DnnApiController
     {
         private readonly DataContext dataContext;

@@ -11,7 +11,7 @@ namespace StructuredContent
     using System.Net;
     using System.Net.Http;
     using System.Web.Http;
-
+    using Dnn.StructuredContent.Controllers.Serializers;
     using DotNetNuke.Security;
     using DotNetNuke.Services.Exceptions;
     using DotNetNuke.Web.Api;
@@ -20,6 +20,7 @@ namespace StructuredContent
     /// <summary>
     /// Manages Content Fields.
     /// </summary>
+    [JsonCamelCaseSerializer]
     public class ContentFieldController : DnnApiController
     {
         private readonly ISQLHelper sqlHelper;
