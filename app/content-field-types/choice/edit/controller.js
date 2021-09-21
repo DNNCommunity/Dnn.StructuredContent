@@ -1,4 +1,4 @@
-﻿app.controller('contentFieldTypeChoiceEditController', ['$scope', '$q', '$uibModalInstance', 'toastr', 'choice', function ($scope, $q, $uibModalInstance, toastr, choice) {
+﻿app.controller('contentFieldTypeChoiceEditController', ['$scope', '$uibModalInstance', 'choice', function ($scope, $uibModalInstance, choice) {
 
     $scope.choice = choice;
 

@@ -28,15 +28,15 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="content_type in content_types | search: 'name':name_search">
+            <tr ng-repeat="contentType in contentTypes | search: 'name':nameSearch">
                 <td>
-                    <a href="#" class="text-muted" title="Edit" ng-click="viewContentItems(content_type.id)">{{content_type.name}}</a>
+                    <a href="#" class="text-muted" title="Edit" ng-click="viewContentItems(contentType.id)">{{contentType.name}}</a>
                 </td>
                 <td>
-                    <a href="#" class="text-muted" title="Content Type Settings" ng-click="editContentType(content_type.id)"><span class="fas fa-cogs"></span></a>
+                    <a href="#" class="text-muted" title="Content Type Settings" ng-click="editContentType(contentType.id)"><span class="fas fa-cogs"></span></a>
                 </td>
                 <td>
-                    <a href="#" class="text-muted" title="Visualizer Templates" ng-click="viewVisualizers(content_type.id)"><span class="fas fa-vector-square"></span></a>
+                    <a href="#" class="text-muted" title="Visualizer Templates" ng-click="viewVisualizers(contentType.id)"><span class="fas fa-vector-square"></span></a>
                 </td>
                 <td>
                     <div class="btn-group" role="group">
@@ -44,17 +44,17 @@
                             <span class="fas fa-ellipsis-h"></span>
                         </a>
                         <div class="dropdown-menu">
-                            <a href="#" class="dropdown-item text-muted" title="View" ng-click="viewContentItems(content_type.id)"><span class="fas fa-search" /> View</a>
-                            <a href="#" class="dropdown-item text-muted" title="Settings" ng-click="editContentType(content_type.id)"><span class="fas fa-cogs" /> Settings</a>
-                            <a href="#" class="dropdown-item text-muted" title="Templates" ng-click="viewVisualizers(content_type.id)"><span class="fas fa-vector-square" /> Templates</a>
-                            <a href="#" class="dropdown-item text-muted" title="Duplicate" ng-click="copyContentType(content_type.id)"><span class="fas fa-copy" /> Duplicate</a>
-                            <a href="# " class="dropdown-item text-danger" title="Delete" ng-click="deleteContentType(content_type)"><span class="fas fa-trash" /> Delete</a>
+                            <a href="#" class="dropdown-item text-muted" title="View" ng-click="viewContentItems(contentType.id)"><span class="fas fa-search" /> View</a>
+                            <a href="#" class="dropdown-item text-muted" title="Settings" ng-click="editContentType(contentType.id)"><span class="fas fa-cogs" /> Settings</a>
+                            <a href="#" class="dropdown-item text-muted" title="Templates" ng-click="viewVisualizers(contentType.id)"><span class="fas fa-vector-square" /> Templates</a>
+                            <a href="#" class="dropdown-item text-muted" title="Duplicate" ng-click="copyContentType(contentType.id)"><span class="fas fa-copy" /> Duplicate</a>
+                            <a href="# " class="dropdown-item text-danger" title="Delete" ng-click="deleteContentType(contentType)"><span class="fas fa-trash" /> Delete</a>
                         </div>
                     </div>
                 </td>
             </tr>
         </tbody>
     </table>
-    <div class="alert alert-info" ng-show="(content_types | search: 'name':name_search).length==0 ">No content types found.</div>
+    <div class="alert alert-info" ng-show="(contentTypes | search: 'name':nameSearch).length==0">No content types found.</div>
 
 </div>

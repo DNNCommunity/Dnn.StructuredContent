@@ -1,3 +1,3 @@
-﻿app.controller('contentFieldTypeEmailController', ['$scope', function ($scope) {
+﻿app.controller('contentFieldTypeEmailController', [function () {
 }]);
 

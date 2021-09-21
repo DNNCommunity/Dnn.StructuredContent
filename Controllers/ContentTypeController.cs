@@ -19,8 +19,8 @@ namespace StructuredContent
 
     public class ContentTypeController : DnnApiController
     {
-        private ISQLHelper sqlHelper;
-        DataContext dc = new DataContext();
+        private readonly ISQLHelper sqlHelper;
+        private readonly DataContext dataContext = new DataContext();
 
         public ContentTypeController(ISQLHelper sqlHelper)
         {
@@ -33,12 +33,12 @@ namespace StructuredContent
         {
             try
             {
-                var query = this.dc.StructuredContent_ContentTypes.OrderBy(i => i.name).AsQueryable();
+                var query = this.dataContext.StructuredContent_ContentTypes.OrderBy(i => i.Name).AsQueryable();
 
                 // name
                 if (!string.IsNullOrEmpty(name))
                 {
-                    query = query.Where(i => i.name.ToLower().Contains(name.ToLower()));
+                    query = query.Where(i => i.Name.ToLower().Contains(name.ToLower()));
                 }
 
                 // skip
@@ -56,16 +56,16 @@ namespace StructuredContent
                 // verbose
                 if (verbose.GetValueOrDefault() == false)
                 {
-                    var list = query.Select(i => new { i.id, i.name });
+                    var list = query.Select(i => new { i.Id, i.Name });
                     return this.Request.CreateResponse(HttpStatusCode.OK, list);
                 }
                 else
                 {
-                    List<ContentTypeDTO> dtos = new List<ContentTypeDTO>();
+                    var dtos = new List<ContentTypeDto>();
 
-                    foreach (StructuredContent_ContentType item in query)
+                    foreach (var item in query)
                     {
-                        ContentTypeDTO dto = item.ToDto();
+                        var dto = item.ToDto();
                         dtos.Add(dto);
                     }
 
@@ -85,7 +85,7 @@ namespace StructuredContent
         {
             try
             {
-                StructuredContent_ContentType item = this.dc.StructuredContent_ContentTypes.Where(i => i.id == id).SingleOrDefault();
+                var item = this.dataContext.StructuredContent_ContentTypes.Where(i => i.Id == id).SingleOrDefault();
                 if (item == null)
                 {
                     return this.Request.CreateResponse(HttpStatusCode.NotFound);
@@ -103,90 +103,90 @@ namespace StructuredContent
         [HttpPost]
         [AllowAnonymous]
         [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]
-        public HttpResponseMessage Post(ContentTypeDTO dto)
+        public HttpResponseMessage Post(ContentTypeDto dto)
         {
             try
             {
-                StructuredContent_ContentType content_type = dto.ToItem(null);
+                var item = dto.ToItem(null);
 
-                this.dc.StructuredContent_ContentTypes.InsertOnSubmit(content_type);
+                this.dataContext.StructuredContent_ContentTypes.InsertOnSubmit(item);
 
-                this.sqlHelper.CreateContentTable(content_type);
+                this.sqlHelper.CreateContentTable(item);
 
                 // record the field definitions for the system fields
-                StructuredContent_ContentField idField = new StructuredContent_ContentField()
+                var idField = new StructuredContent_ContentField()
                 {
-                    name = "ID",
-                    is_system = true,
-                    ordinal = 0,
-                    column_name = "id",
-                    data_type = (int)Enums.DataTypes.integer,
-                    allow_null = false,
+                    Name = "ID",
+                    IsSystem = true,
+                    Ordinal = 0,
+                    ColumnName = "id",
+                    DataType = (int)Enums.DataTypes.Integer,
+                    AllowNull = false,
                 };
-                content_type.StructuredContent_ContentFields.Add(idField);
+                item.StructuredContent_ContentFields.Add(idField);
 
-                StructuredContent_ContentField nameField = new StructuredContent_ContentField()
+                var nameField = new StructuredContent_ContentField()
                 {
-                    name = "Name",
-                    is_system = true,
-                    ordinal = 0,
-                    column_name = "name",
-                    data_type = (int)Enums.DataTypes.nvarchar,
-                    data_length = "250",
-                    allow_null = false,
-                    options = "{'required':true, 'control_type':'textbox'}",
+                    Name = "Name",
+                    IsSystem = true,
+                    Ordinal = 0,
+                    ColumnName = "name",
+                    DataType = (int)Enums.DataTypes.Nvarchar,
+                    DataLength = "250",
+                    AllowNull = false,
+                    Options = "{'required':true, 'control_type':'textbox'}",
                 };
-                content_type.StructuredContent_ContentFields.Add(nameField);
+                item.StructuredContent_ContentFields.Add(nameField);
 
-                StructuredContent_ContentField statusField = new StructuredContent_ContentField()
+                var statusField = new StructuredContent_ContentField()
                 {
-                    name = "Status",
-                    is_system = true,
-                    ordinal = 0,
-                    column_name = "status",
-                    data_type = (int)Enums.DataTypes.nvarchar,
-                    data_length = "250",
-                    allow_null = false,
-                    options = "{'required':true}",
+                    Name = "Status",
+                    IsSystem = true,
+                    Ordinal = 0,
+                    ColumnName = "status",
+                    DataType = (int)Enums.DataTypes.Nvarchar,
+                    DataLength = "250",
+                    AllowNull = false,
+                    Options = "{'required':true}",
                 };
-                content_type.StructuredContent_ContentFields.Add(statusField);
+                item.StructuredContent_ContentFields.Add(statusField);
 
-                StructuredContent_ContentField dateCreatedField = new StructuredContent_ContentField()
+                var dateCreatedField = new StructuredContent_ContentField()
                 {
-                    name = "Date Created",
-                    is_system = true,
-                    ordinal = 0,
-                    column_name = "date_created",
-                    data_type = (int)Enums.DataTypes.datetime,
-                    allow_null = false,
+                    Name = "Date Created",
+                    IsSystem = true,
+                    Ordinal = 0,
+                    ColumnName = "DateCreated",
+                    DataType = (int)Enums.DataTypes.Datetime,
+                    AllowNull = false,
                 };
-                content_type.StructuredContent_ContentFields.Add(dateCreatedField);
+                item.StructuredContent_ContentFields.Add(dateCreatedField);
 
-                StructuredContent_ContentField dateUpdatedField = new StructuredContent_ContentField()
+                var dateUpdatedField = new StructuredContent_ContentField()
                 {
-                    name = "Date Modified",
-                    is_system = true,
-                    ordinal = 0,
-                    column_name = "date_modified",
-                    data_type = (int)Enums.DataTypes.datetime,
-                    allow_null = false,
+                    Name = "Date Modified",
+                    IsSystem = true,
+                    Ordinal = 0,
+                    ColumnName = "DateModified",
+                    DataType = (int)Enums.DataTypes.Datetime,
+                    AllowNull = false,
                 };
-                content_type.StructuredContent_ContentFields.Add(dateUpdatedField);
+                item.StructuredContent_ContentFields.Add(dateUpdatedField);
 
-                StructuredContent_ContentField datePublishedField = new StructuredContent_ContentField()
+                var datePublishedField = new StructuredContent_ContentField()
                 {
-                    name = "Date Published",
-                    is_system = true,
-                    ordinal = 0,
-                    column_name = "date_published",
-                    data_type = (int)Enums.DataTypes.datetime,
-                    allow_null = false,
+                    Name = "Date Published",
+                    IsSystem = true,
+                    Ordinal = 0,
+                    ColumnName = "DatePublished",
+                    DataType = (int)Enums.DataTypes.Datetime,
+                    AllowNull = false,
                 };
-                content_type.StructuredContent_ContentFields.Add(datePublishedField);
+                item.StructuredContent_ContentFields.Add(datePublishedField);
 
-                this.dc.SubmitChanges();
+                this.dataContext.SubmitChanges();
 
-                return this.Request.CreateResponse(HttpStatusCode.OK, content_type.ToDto());
+                return this.Request.CreateResponse(HttpStatusCode.OK, item.ToDto());
             }
             catch (Exception ex)
             {
@@ -198,18 +198,18 @@ namespace StructuredContent
         [HttpPut]
         [AllowAnonymous]
         [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]
-        public HttpResponseMessage Put(ContentTypeDTO dto)
+        public HttpResponseMessage Put(ContentTypeDto dto)
         {
             try
             {
-                StructuredContent_ContentType item = this.dc.StructuredContent_ContentTypes.Where(i => i.id == dto.id).SingleOrDefault();
+                var item = this.dataContext.StructuredContent_ContentTypes.Where(i => i.Id == dto.Id).SingleOrDefault();
                 if (item == null)
                 {
                     return this.Request.CreateResponse(HttpStatusCode.NotFound);
                 }
 
                 item = dto.ToItem(item);
-                this.dc.SubmitChanges();
+                this.dataContext.SubmitChanges();
 
                 return this.Request.CreateResponse(HttpStatusCode.OK, item.ToDto());
             }
@@ -227,17 +227,17 @@ namespace StructuredContent
         {
             try
             {
-                StructuredContent_ContentType content_type = this.dc.StructuredContent_ContentTypes.Where(i => i.id == id).SingleOrDefault();
-                if (content_type == null)
+                var item = this.dataContext.StructuredContent_ContentTypes.Where(i => i.Id == id).SingleOrDefault();
+                if (item == null)
                 {
                     return this.Request.CreateResponse(HttpStatusCode.NotFound);
                 }
 
                 // delete all the relationships first
-                var relationships = this.dc.StructuredContent_Relationships.Where(i => i.a_content_type_id == content_type.id || i.b_content_type_id == content_type.id).Distinct().ToList();
+                var relationships = this.dataContext.StructuredContent_Relationships.Where(i => i.AContentTypeId == item.Id || i.BContentTypeId == item.Id).Distinct().ToList();
                 foreach (var relationship in relationships)
                 {
-                    switch (relationship.key)
+                    switch (relationship.Key)
                     {
                         case "o2m":
                             this.sqlHelper.DeleteOneToManyRelationship(relationship.StructuredContent_ContentType, relationship.StructuredContent_ContentType1);
@@ -249,13 +249,13 @@ namespace StructuredContent
                     }
                 }
 
-                this.dc.StructuredContent_Relationships.DeleteAllOnSubmit(relationships);
+                this.dataContext.StructuredContent_Relationships.DeleteAllOnSubmit(relationships);
 
                 // delete the table
-                this.sqlHelper.DeleteContentTable(content_type);
+                this.sqlHelper.DeleteContentTable(item);
 
-                this.dc.StructuredContent_ContentTypes.DeleteOnSubmit(content_type);
-                this.dc.SubmitChanges();
+                this.dataContext.StructuredContent_ContentTypes.DeleteOnSubmit(item);
+                this.dataContext.SubmitChanges();
 
                 return this.Request.CreateResponse(HttpStatusCode.OK);
             }

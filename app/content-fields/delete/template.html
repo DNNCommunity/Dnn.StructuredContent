@@ -12,7 +12,7 @@
 
     <div ng-form="formContentFieldDelete" class="form">
         <div class="form-floating mb-3">
-            <input type="text" name="name" class="form-control" ng-model="content_field_name" placeholder=" " />
+            <input type="text" name="name" class="form-control" ng-model="contentFieldName" placeholder=" " />
             <label for="name" class="form-label">Type the name of the field to confirm deletion</label>
         </div>
     </div>
@@ -20,6 +20,6 @@
 </div>
 <div class="modal-footer">
     <button class="btn btn-link pull-left" ng-click="close()"><span ng-show="!formContentFieldDelete.$dirty">Close</span><span ng-show="formContentFieldDelete.$dirty">Cancel</span></button>
-    <button class="btn btn-danger" ng-click="delete()" ng-disabled="contentField.name!=content_field_name">Delete</button>
+    <button class="btn btn-danger" ng-click="delete()" ng-disabled="contentField.name!=contentFieldName">Delete</button>
 </div>
 

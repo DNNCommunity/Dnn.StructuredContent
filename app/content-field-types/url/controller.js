@@ -1,3 +1,3 @@
-﻿app.controller('contentFieldTypeUrlController', ['$scope', function ($scope) {
+﻿app.controller('contentFieldTypeUrlController', [function () {
 }]);
 

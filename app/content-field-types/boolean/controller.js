@@ -1,10 +1,10 @@
 ﻿app.controller('contentFieldTypeBooleanController', ['$scope', function ($scope) {
 
-    $scope.true_label;
-    $scope.false_label;
+    $scope.trueLabel;
+    $scope.falseLabel;
 
     // convert true/false into string values for the radiobutton control
-    if ($scope.contentField.options.control_type === 'radiobuttons') {
+    if ($scope.contentField.options.controlType === 'radiobuttons') {
         if ($scope.contentField.value === true) {
             $scope.contentField.value = "true";
         }
@@ -13,17 +13,17 @@
         }
     }
 
-    $scope.true_label = function () {
-        if ($scope.contentField.options.custom_labels === true) {
-            return $scope.contentField.options.label_true;
+    $scope.trueLabel = function () {
+        if ($scope.contentField.options.customLabels === true) {
+            return $scope.contentField.options.labelTrue;
         }
         else {
             return "True";
         }
     };
-    $scope.false_label = function () {
-        if ($scope.contentField.options.custom_labels === true) {
-            return $scope.contentField.options.label_false;
+    $scope.falseLabel = function () {
+        if ($scope.contentField.options.customLabels === true) {
+            return $scope.contentField.options.labelFalse;
         }
         else {
             return "False";

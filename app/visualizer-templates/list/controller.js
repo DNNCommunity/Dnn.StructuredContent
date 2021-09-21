@@ -1,4 +1,4 @@
-﻿app.controller('visualizerTemplateListController', ['$scope', '$q', '$uibModal', '$uibModalInstance', 'toastr', 'contentTypeService', 'visualizerTemplateService', 'content_type_id', function ($scope, $q, $uibModal, $uibModalInstance, toastr, contentTypeService, visualizerTemplateService, content_type_id) {
+﻿app.controller('visualizerTemplateListController', ['$scope', '$q', '$uibModal', '$uibModalInstance', 'toastr', 'contentTypeService', 'visualizerTemplateService', 'contentType', function ($scope, $q, $uibModal, $uibModalInstance, toastr, contentTypeService, visualizerTemplateService, contentType) {
 
     $scope.loading = false;
     $scope.close = function () {
@@ -6,9 +6,7 @@
     };
 
     $scope.visualizer_templates = [];
-    $scope.contentType = {
-        id: content_type_id
-    };
+    $scope.contentType = contentType;
 
     getContentType = function () {
         $scope.loading = true;
@@ -24,7 +22,7 @@
             },
             function (response) {
                 console.log('getContentType failed', response);
-                toastr.error("Error", "There was a problem loading the Content Type");
+                toastr.error("There was a problem loading the Content Type", "Error");
                 $scope.loading = false;
                 deferred.reject();
             }
@@ -43,7 +41,7 @@
             },
             function (response) {
                 console.log('getVisualizerTemplates failed', response);
-                toastr.error("Error", "There was a problem loading the visualzier Temaplates");
+                toastr.error("There was a problem loading the visualzier Temaplates", "Error");
                 $scope.loading = false;
                 deferred.reject();
             }
@@ -61,11 +59,11 @@
                 id: function () {
                     return null;
                 },
-                content_type_id: function () {
+                ContentTypeId: function () {
                     return $scope.contentType.id;
                 },
-                content_url_slug: function () {
-                    return $scope.contentType.url_slug;
+                content_UrlSlug: function () {
+                    return $scope.contentType.UrlSlug;
                 }
             }
         });
@@ -92,11 +90,8 @@
                 id: function () {
                     return id;
                 },
-                content_type_id: function () {
-                    return $scope.contentType.id;
-                },
-                content_url_slug: function () {
-                    return $scope.contentType.url_slug;
+                contentType: function () {
+                    return $scope.contentType;
                 }
             }
         });
@@ -112,23 +107,23 @@
         );
 
     };
-    $scope.deleteVisualizerTemplate = function (visualizer_template) {
+    $scope.deleteVisualizerTemplate = function (visualizerTemplate) {
         var modalInstance = $uibModal.open({
             templateUrl: '/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/visualizer-templates/delete/template.html?c=' + new Date().getTime(),
             controller: 'visualizerTemplateDeleteController',
             size: 'lg dnn-structured-content',
             backdrop: 'static',
             resolve: {
-                visualizer_template: function () {
-                    return visualizer_template;
+                visualizerTemplate: function () {
+                    return visualizerTemplate;
                 }
             }
         });
 
         modalInstance.result.then(
-            function (visualizer_template) {
+            function (visualizerTemplate) {
                 getVisualizerTemplates();
-                toastr.success("The visualizer template '" + visualizer_template.name + "' was deleted.", "Success");
+                toastr.success("The visualizer template '" + visualizerTemplate.name + "' was deleted.", "Success");
             },
             function () {
                 getVisualizerTemplates();

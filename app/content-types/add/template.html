@@ -46,19 +46,19 @@
         <div class="row">
             <div class="col">
                 <div class="form-floating">
-                    <input type="text" name="url_slug" class="form-control " ng-model="contentType.url_slug" required placeholder=" " ng-blur="urlSlugify()" ng-keyup="urlSlugify()" ng-class="{'is-invalid': formContentType.url_slug.$invalid && submitted,'is-valid': formContentType.url_slug.$valid && submitted}" />
-                    <label for="url_slug" class="form-label">URL Slug <span class="text-danger">*</span></label>
+                    <input type="text" name="urlSlug" class="form-control " ng-model="contentType.urlSlug" required placeholder=" " ng-blur="urlSlugify()" ng-keyup="urlSlugify()" ng-class="{'is-invalid': formContentType.urlSlug.$invalid && submitted,'is-valid': formContentType.urlSlug.$valid && submitted}" />
+                    <label for="urlSlug" class="form-label">URL Slug <span class="text-danger">*</span></label>
                     <small class="form-text">API for this content type: <code>/api/content/{{getUrlSlug()}}</code></small>
-                    <div class="invalid-feedback" role="alert" ng-messages="formContentType.url_slug.$error" ng-if="formContentType.url_slug.$invalid && submitted" ng-cloak>
+                    <div class="invalid-feedback" role="alert" ng-messages="formContentType.urlSlug.$error" ng-if="formContentType.urlSlug.$invalid && submitted" ng-cloak>
                         <div ng-message="required">This field is required</div>
                     </div>
                 </div>
             </div>
             <div class="col">
                 <div class="form-floating">
-                    <input type="text" name="table_name" class="form-control form-control-sm" ng-model="contentType.table_name" required ng-disabled="contentType.id" ng-class="{'is-invalid': formContentType.table_name.$invalid && submitted,'is-valid': formContentType.table_name.$valid && submitted}" placeholder=" " />
-                    <label for="table_name" class="form-label">Database Table Name <span class="text-danger">*</span></label>
-                    <div class="invalid-feedback" role="alert" ng-messages="formContentType.table_name.$error" ng-if="formContentType.table_name.$invalid && submitted" ng-cloak>
+                    <input type="text" name="tableName" class="form-control form-control-sm" ng-model="contentType.tableName" required ng-disabled="contentType.id" ng-class="{'is-invalid': formContentType.tableName.$invalid && submitted,'is-valid': formContentType.tableName.$valid && submitted}" placeholder=" " />
+                    <label for="tableName" class="form-label">Database Table Name <span class="text-danger">*</span></label>
+                    <div class="invalid-feedback" role="alert" ng-messages="formContentType.tableName.$error" ng-if="formContentType.tableName.$invalid && submitted" ng-cloak>
                         <div ng-message="required">This field is required</div>
                     </div>
                     <small class="form-text" ng-show="!contentType.id">All table names are automatically prepended with "StructuredContent_ContentType_"</small>

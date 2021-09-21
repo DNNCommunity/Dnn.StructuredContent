@@ -1,3 +1,3 @@
-﻿app.controller('contentFieldTypeNumberController', ['$parse', '$scope', '$q', 'toastr', function ($parse, $scope, $q, toastr) {
+﻿app.controller('contentFieldTypeNumberController', [function () {
 }]);
 

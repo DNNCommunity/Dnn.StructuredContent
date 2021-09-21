@@ -5,32 +5,32 @@
     </div>
 
     <div class="form-floating mb-3">
-        <select name="control_type" id="control_type" class="form-select" ng-model="contentField.options.control_type">
+        <select name="ControlType" id="controlType" class="form-select" ng-model="contentField.options.controlType">
             <option value="checkbox">Checkbox</option>
             <option value="switch">Switch</option>
             <option value="radiobuttons">Radiobuttons</option>
         </select>
-        <label class="form-label" for="control">Control Type</label>
+        <label class="form-label" for="controlType">Control Type</label>
     </div>
 
-    <div ng-if="contentField.options.control_type=='radiobuttons'">
+    <div ng-if="contentField.options.controlType=='radiobuttons'">
 
         <div class="form-check form-switch mb-3">
-            <input type="checkbox" class="form-check-input" id="custom_labels" ng-model="contentField.options.custom_labels">
-            <label class="form-check-label" for="custom_labels">Custom Labels</label>
+            <input type="checkbox" class="form-check-input" id="customLabels" ng-model="contentField.options.customLabels">
+            <label class="form-check-label" for="customLabels">Custom Labels</label>
         </div>
 
-        <div class="row" ng-if="contentField.options.custom_labels==true">
+        <div class="row" ng-if="contentField.options.customLabels==true">
             <div class="col">
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="label_true" ng-model="contentField.options.label_true" placeholder=" ">
-                    <label class="form-label" for="label_true">True Label</label>
+                    <input type="text" class="form-control" id="labelTrue" ng-model="contentField.options.labelTrue" placeholder=" ">
+                    <label class="form-label" for="labelTrue">True Label</label>
                 </div>
             </div>
             <div class="col">
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="label_false" ng-model="contentField.options.label_false" placeholder=" ">
-                    <label class="form-label" for="label_false">False Label</label>
+                    <input type="text" class="form-control" id="labelFalse" ng-model="contentField.options.labelFalse" placeholder=" ">
+                    <label class="form-label" for="labelFalse">False Label</label>
                 </div>
             </div>
         </div>

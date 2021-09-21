@@ -22,8 +22,8 @@ namespace StructuredContent
     // [SupportedModules("StructuredContent")]
     public class VisualizerController : DnnApiController
     {
-        DataContext dc = new DataContext();
-        private ISQLHelper sqlHelper;
+        private readonly DataContext dataContext = new DataContext();
+        private readonly ISQLHelper sqlHelper;
 
         public VisualizerController(ISQLHelper sqlHelper)
         {
@@ -36,7 +36,7 @@ namespace StructuredContent
         {
             try
             {
-                var query = this.dc.StructuredContent_Visualizers.AsQueryable();
+                var query = this.dataContext.StructuredContent_Visualizers.AsQueryable();
 
                 // skip
                 if (skip.HasValue)
@@ -50,11 +50,11 @@ namespace StructuredContent
                     query = query.Take(take.GetValueOrDefault());
                 }
 
-                List<VisualizerDTO> dtos = new List<VisualizerDTO>();
+                var dtos = new List<VisualizerDto>();
 
-                foreach (StructuredContent_Visualizer item in query)
+                foreach (var item in query)
                 {
-                    VisualizerDTO dto = item.ToDto();
+                    var dto = item.ToDto();
                     dtos.Add(dto);
                 }
 
@@ -69,37 +69,37 @@ namespace StructuredContent
 
         [HttpGet]
         [AllowAnonymous]
-        public HttpResponseMessage Get(int module_id)
+        public HttpResponseMessage Get(int moduleId)
         {
             try
             {
-                StructuredContent_Visualizer visualizer = this.dc.StructuredContent_Visualizers.Where(i => i.module_id == module_id).SingleOrDefault();
+                var visualizer = this.dataContext.StructuredContent_Visualizers.Where(i => i.ModuleId == moduleId).SingleOrDefault();
                 if (visualizer == null)
                 {
                     return this.Request.CreateResponse(HttpStatusCode.NotFound);
                 }
 
-                VisualizerDTO dto = visualizer.ToDto();
+                var dto = visualizer.ToDto();
 
-                StructuredContent_VisualizerTemplate visualizer_template = visualizer.StructuredContent_VisualizerTemplate;
-                if (visualizer_template != null)
+                var visualizerTemplate = visualizer.StructuredContent_VisualizerTemplate;
+                if (visualizerTemplate != null)
                 {
-                    var content_type = visualizer_template.StructuredContent_ContentType;
+                    var content_type = visualizerTemplate.StructuredContent_ContentType;
 
-                    switch (visualizer_template.content_size)
+                    switch (visualizerTemplate.ContentSize)
                     {
                         case "single":
-                            IDictionary<string, object> content_item = this.sqlHelper.SelectDynamicItem(content_type, visualizer.item_id.GetValueOrDefault());
-                            if (content_item == null)
+                            var contentItem = this.sqlHelper.SelectDynamicItem(content_type, visualizer.ItemId.GetValueOrDefault());
+                            if (contentItem == null)
                             {
                                 return this.Request.CreateResponse(HttpStatusCode.NotFound);
                             }
 
-                            switch (visualizer_template.language)
+                            switch (visualizerTemplate.Language)
                             {
                                 case "liquid":
-                                    Template template = Template.Parse(visualizer_template.template);
-                                    dto.content = template.Render(Hash.FromDictionary(content_item));
+                                    var template = Template.Parse(visualizerTemplate.Template);
+                                    dto.Content = template.Render(Hash.FromDictionary(contentItem));
 
                                     break;
 
@@ -116,14 +116,14 @@ namespace StructuredContent
 
                             IDictionary<string, object> content = new Dictionary<string, object>();
 
-                            List<IDictionary<string, object>> items = this.sqlHelper.SelectDynamicList(content_type, string.Empty).ToList();
+                            var items = this.sqlHelper.SelectDynamicList(content_type, string.Empty).ToList();
                             content.Add("items", items);
 
-                            switch (visualizer_template.language)
+                            switch (visualizerTemplate.Language)
                             {
                                 case "liquid":
-                                    Template template = Template.Parse(visualizer_template.template);
-                                    dto.content = template.Render(Hash.FromDictionary(content));
+                                    var template = Template.Parse(visualizerTemplate.Template);
+                                    dto.Content = template.Render(Hash.FromDictionary(content));
 
                                     break;
 
@@ -153,17 +153,17 @@ namespace StructuredContent
         [HttpPost]
         [AllowAnonymous]
         [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]
-        public HttpResponseMessage Post(VisualizerDTO dto)
+        public HttpResponseMessage Post(VisualizerDto dto)
         {
             try
             {
-                StructuredContent_Visualizer content_type = dto.ToItem(null);
+                var item = dto.ToItem(null);
 
-                this.dc.StructuredContent_Visualizers.InsertOnSubmit(content_type);
+                this.dataContext.StructuredContent_Visualizers.InsertOnSubmit(item);
 
-                this.dc.SubmitChanges();
+                this.dataContext.SubmitChanges();
 
-                return this.Request.CreateResponse(HttpStatusCode.OK, content_type.ToDto());
+                return this.Request.CreateResponse(HttpStatusCode.OK, item.ToDto());
             }
             catch (Exception ex)
             {
@@ -175,18 +175,18 @@ namespace StructuredContent
         [HttpPut]
         [AllowAnonymous]
         [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]
-        public HttpResponseMessage Put(VisualizerDTO dto)
+        public HttpResponseMessage Put(VisualizerDto dto)
         {
             try
             {
-                StructuredContent_Visualizer item = this.dc.StructuredContent_Visualizers.Where(i => i.id == dto.id).SingleOrDefault();
+                var item = this.dataContext.StructuredContent_Visualizers.Where(i => i.Id == dto.Id).SingleOrDefault();
                 if (item == null)
                 {
                     return this.Request.CreateResponse(HttpStatusCode.NotFound);
                 }
 
                 item = dto.ToItem(item);
-                this.dc.SubmitChanges();
+                this.dataContext.SubmitChanges();
 
                 return this.Request.CreateResponse(HttpStatusCode.OK, item.ToDto());
             }
@@ -204,14 +204,14 @@ namespace StructuredContent
         {
             try
             {
-                StructuredContent_Visualizer content_type = this.dc.StructuredContent_Visualizers.Where(i => i.id == id).SingleOrDefault();
-                if (content_type == null)
+                var item = this.dataContext.StructuredContent_Visualizers.Where(i => i.Id == id).SingleOrDefault();
+                if (item == null)
                 {
                     return this.Request.CreateResponse(HttpStatusCode.NotFound);
                 }
 
-                this.dc.StructuredContent_Visualizers.DeleteOnSubmit(content_type);
-                this.dc.SubmitChanges();
+                this.dataContext.StructuredContent_Visualizers.DeleteOnSubmit(item);
+                this.dataContext.SubmitChanges();
 
                 return this.Request.CreateResponse(HttpStatusCode.OK);
             }

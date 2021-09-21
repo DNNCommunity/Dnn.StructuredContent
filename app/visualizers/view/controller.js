@@ -1,9 +1,9 @@
-﻿app.controller('visualizerController', ['$scope', '$q', '$uibModal', '$sce', '$window', 'toastr', 'contentTypeService', 'contentItemService', 'contentFieldService', 'relationshipService', 'visualizerService', function ($scope, $q, $uibModal, $sce, $window, toastr, contentTypeService, contentItemService, contentFieldService, relationshipService, visualizerService) {
+﻿app.controller('visualizerController', ['$scope', '$q', '$uibModal', '$sce', '$window', 'toastr', 'visualizerService', function ($scope, $q, $uibModal, $sce, $window, toastr, visualizerService) {
 
-    $scope.module_id = module_id;
+    $scope.moduleId = ModuleId;
 
     $scope.visualizer = {
-        module_id: module_id
+        moduleId: ModuleId
     };
 
     $scope.trustedHtml;
@@ -11,7 +11,7 @@
     getVisualizer = function () {
         $scope.loading = true;
 
-        visualizerService.get($scope.visualizer.module_id).then(
+        visualizerService.get($scope.visualizer.moduleId).then(
             function (response) {
                 $scope.visualizer = response.data;
 
@@ -25,7 +25,7 @@
                 }
                 else {
                     console.log('getVisualizer failed', response);
-                    toastr.error("Error", "There was a problem loading the visualizer");
+                    toastr.error("There was a problem loading the visualizer", "Error");
                     $scope.loading = false;
                 }
             }
@@ -56,8 +56,7 @@
     };
     $scope.manageContent = function () {
 
-        console.log($scope.visualizer);
-        var id = $scope.visualizer.content_type_id;
+        var id = $scope.visualizer.contentTypeId;
 
         var modalInstance;
         if (id) {
@@ -67,7 +66,7 @@
                 size: 'xl dnn-structured-content',
                 backdrop: 'static',
                 resolve: {
-                    content_type_id: function () {
+                    contentTypeId: function () {
                         return id;
                     }
                 }

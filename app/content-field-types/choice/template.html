@@ -1,41 +1,41 @@
 ﻿
-<div class="form-floating mb-3" ng-if="contentField.options.control_type=='dropdown-list'">
-    <select id="{{contentField.column_name}}" name="{{contentField.column_name}}" class="form-select" ng-model="contentField.value" ng-required="contentField.options.required" ng-class="{'is-invalid': form[contentField.column_name].$invalid && submitted,'is-valid': form[contentField.column_name].$valid && submitted}">
+<div class="form-floating mb-3" ng-if="contentField.options.ControlType=='dropdown-list'">
+    <select id="{{contentField.ColumnName}}" name="{{contentField.ColumnName}}" class="form-select" ng-model="contentField.value" ng-required="contentField.options.required" ng-class="{'is-invalid': form[contentField.ColumnName].$invalid && submitted,'is-valid': form[contentField.ColumnName].$valid && submitted}">
         <option value="">-select-</option>
-        <option ng-repeat="choice in contentField.options.choices" value="{{choice.value}}">{{choice.text}}</option>
+        <option ng-repeat="choice in contentField.options.Choices" value="{{choice.Value}}">{{choice.Text}}</option>
     </select>
-    <label for="{{contentField.column_name}}" class="form-label">{{contentField.name}} <span class="text-danger" ng-show="contentField.options.required">*</span></label>
-    <div ng-messages="form[contentField.column_name].$error" ng-if="submitted" class="invalid-feedback" role="alert">
+    <label for="{{contentField.ColumnName}}" class="form-label">{{contentField.Name}} <span class="text-danger" ng-show="contentField.options.Required">*</span></label>
+    <div ng-messages="form[contentField.ColumnName].$error" ng-if="submitted" class="invalid-feedback" role="alert">
         <div ng-message="required">This field is required</div>
     </div>
-    <small class="form-text" ng-show="contentField.help_text">{{contentField.help_text}}</small>
+    <small class="form-text" ng-show="contentField.HelpText">{{contentField.HelpText}}</small>
 </div>
 
 
-<div class="mb-3" ng-if="contentField.options.control_type=='radio-button-list'">
-    <label class="form-label">{{contentField.name}} <span class="text-danger" ng-show="contentField.options.required">*</span></label>
+<div class="mb-3" ng-if="contentField.options.ControlType=='radio-button-list'">
+    <label class="form-label">{{contentField.Name}} <span class="text-danger" ng-show="contentField.options.Required">*</span></label>
     <div ng-class="contentField.options.layout">
-        <div class="form-check" ng-repeat="choice in contentField.options.choices">
-            <input type="radio" name="{{contentField.column_name}}" id="{{contentField.column_name}}{{$index}}" class="form-check-input" ng-model="contentField.value" ng-value="choice.value" ng-required="contentField.options.required" ng-selected="choice.value==contentField.options.default_value" ng-class="{'is-invalid': form[contentField.column_name].$invalid && submitted,'is-valid': form[contentField.column_name].$valid && submitted}" />
-            <label class="form-check-label" for="{{contentField.column_name}}{{$index}}">{{choice.text}}</label>
+        <div class="form-check" ng-repeat="choice in contentField.options.Choices">
+            <input type="radio" name="{{contentField.ColumnName}}" id="{{contentField.ColumnName}}{{$index}}" class="form-check-input" ng-model="contentField.Value" ng-value="choice.Value" ng-required="contentField.options.Required" ng-selected="choice.value==contentField.options.DefaultValue" ng-class="{'is-invalid': form[contentField.ColumnName].$invalid && submitted,'is-valid': form[contentField.ColumnName].$valid && submitted}" />
+            <label class="form-check-label" for="{{contentField.ColumnName}}{{$index}}">{{choice.Text}}</label>
         </div>
-        <div ng-messages="form[contentField.column_name].$error" ng-if="submitted" class="text-danger" role="alert">
+        <div ng-messages="form[contentField.ColumnName].$error" ng-if="submitted" class="text-danger" role="alert">
             <div ng-message="required">This field is required</div>
         </div>
-        <small class="form-text" ng-show="contentField.help_text">{{contentField.help_text}}</small>
+        <small class="form-text" ng-show="contentField.HelpText">{{contentField.HelpText}}</small>
     </div>
 </div>
 
-<div class="mb-3" ng-if="contentField.options.control_type=='checkbox-list'">
-    <label class="form-label">{{contentField.name}} <span class="text-danger" ng-show="contentField.options.required">*</span></label>
+<div class="mb-3" ng-if="contentField.options.ControlType=='checkbox-list'">
+    <label class="form-label">{{contentField.Name}} <span class="text-danger" ng-show="contentField.options.Required">*</span></label>
     <div ng-class="contentField.options.layout">
-        <div class="form-check" ng-repeat="(key, choice) in contentField.options.choices">
-            <input type="checkbox" id="{{contentField.column_name}}{{$index}}" name="{{contentField.column_name}}" class="form-check-input" ng-model="selected[choice.value]" ng-required="contentField.options.required && !anySelected(selected)" ng-click="checkBoxClick(choice.value)" ng-class="{'is-invalid': form[contentField.column_name].$invalid && submitted,'is-valid': form[contentField.column_name].$valid && submitted}" />
-            <label class="form-check-label" for="{{contentField.column_name}}{{$index}}">{{choice.text}}</label>
+        <div class="form-check" ng-repeat="(key, choice) in contentField.options.Choices">
+            <input type="checkbox" id="{{contentField.ColumnName}}{{$index}}" name="{{contentField.ColumnName}}" class="form-check-input" ng-model="selected[choice.Value]" ng-required="contentField.options.Required && !anySelected(selected)" ng-click="checkBoxClick(choice.Value)" ng-class="{'is-invalid': form[contentField.ColumnName].$invalid && submitted,'is-valid': form[contentField.ColumnName].$valid && submitted}" />
+            <label class="form-check-label" for="{{contentField.ColumnName}}{{$index}}">{{choice.Text}}</label>
         </div>
-        <div ng-messages="form[contentField.column_name].$error" ng-if="submitted" class="text-danger" role="alert">
+        <div ng-messages="form[contentField.ColumnName].$error" ng-if="submitted" class="text-danger" role="alert">
             <div ng-message="required">This field is required</div>
         </div>
-        <small class="form-text" ng-show="contentField.help_text">{{contentField.help_text}}</small>
+        <small class="form-text" ng-show="contentField.HelpText">{{contentField.HelpText}}</small>
     </div>
 </div>

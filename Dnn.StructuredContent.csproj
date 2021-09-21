@@ -83,14 +83,26 @@
     <Compile Include="DAL\ISQLHelper.cs" />
     <Compile Include="DAL\Relationship.cs" />
     <Compile Include="DAL\ContentField.cs" />
-    <Compile Include="DTOs\Visualizer.cs" />
+    <Compile Include="DAL\StructuredContent.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StructuredContent.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="DTOs\ContentFieldDtoExtensions.cs" />
+    <Compile Include="DTOs\ContentFieldTypeDtoExtensions.cs" />
+    <Compile Include="DTOs\ContentTypeDtoExtensions.cs" />
+    <Compile Include="DTOs\RelationshipDtoExtensions.cs" />
+    <Compile Include="DTOs\RevisionDtoExtensions.cs" />
+    <Compile Include="DTOs\VisualizerDtoExtensions.cs" />
+    <Compile Include="DTOs\VisualizerDto.cs" />
     <Compile Include="DAL\SQLHelper.cs" />
-    <Compile Include="DTOs\ContentItem.cs" />
-    <Compile Include="DTOs\VisualizerTemplate.cs" />
-    <Compile Include="DTOs\Revision.cs" />
-    <Compile Include="DTOs\ContentFieldType.cs" />
+    <Compile Include="DTOs\ContentItemDto.cs" />
+    <Compile Include="DTOs\VisualizerTemplateDtoExtensions.cs" />
+    <Compile Include="DTOs\VisualizerTemplateDto.cs" />
+    <Compile Include="DTOs\RevisionDto.cs" />
+    <Compile Include="DTOs\ContentFieldTypeDto.cs" />
     <Compile Include="Controllers\ContentFieldController.cs" />
-    <Compile Include="DTOs\Relationship.cs" />
+    <Compile Include="DTOs\RelationshipDto.cs" />
     <Compile Include="Enums\DataType.cs" />
     <Compile Include="Enums\ContentItemStatus.cs" />
     <Compile Include="Startup.cs" />
@@ -201,6 +213,7 @@
     <Content Include="css\ContentLibrary.css" />
     <Content Include="License.html" />
     <Content Include="module.css" />
+    <Content Include="module.web\src\index.html" />
     <Content Include="plugins\ace\ace.js" />
     <Content Include="plugins\ace\mode-liquid.js" />
     <Content Include="plugins\ace\worker-javascript.js" />
@@ -218,40 +231,48 @@
     <Content Include="scripts\ContentLibrary.js" />
     <Content Include=".github\workflows\build.yml" />
     <Content Include=".github\mergeable.yml" />
-    <None Include=".editorconfig" />
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
     <Compile Include="Controllers\ContentTypeController.cs" />
-    <Compile Include="DTOs\ContentField.cs" />
-    <Compile Include="DTOs\ContentType.cs" />
-    <Compile Include="DAL\StructuredContent.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>StructuredContent.dbml</DependentUpon>
-    </Compile>
+    <Compile Include="DTOs\ContentFieldDto.cs" />
+    <Compile Include="DTOs\ContentTypeDto.cs" />
     <Compile Include="ModuleBase.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RouteMapper.cs" />
-    <Content Include="Visualizer.ascx" />
+    <Content Include="Visualizer.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="plugins\bootstrap\css\bootstrap.css.map" />
     <Content Include="plugins\bootstrap\css\bootstrap.min.css.map" />
     <Content Include="plugins\bootstrap\js\bootstrap.bundle.min.js.map" />
-    <Content Include="web.config" />
     <Content Include="GitVersion.yml" />
     <Content Include="global.json" />
     <Content Include="manifest.dnn" />
     <Content Include="DBScripts\00.01.00.SqlDataProvider" />
     <Content Include="readme.md" />
+    <None Include="DAL\StructuredContent.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>StructuredContent.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DAL\StructuredContent.dbml.layout">
+      <DependentUpon>StructuredContent.dbml</DependentUpon>
+    </None>
+    <None Include="module.web\.editorconfig" />
+    <None Include="module.web\.gitignore" />
+    <None Include="module.web\.prettierrc.json" />
+    <None Include="module.web\LICENSE" />
+    <None Include="module.web\package-lock.json" />
+    <None Include="module.web\package.json" />
+    <None Include="module.web\readme.md" />
+    <None Include="module.web\src\.eslintrc.json" />
+    <None Include="module.web\src\components\sample-component\readme.md" />
+    <None Include="module.web\src\components\sample-component\sample-component.scss" />
+    <None Include="module.web\tsconfig.json" />
     <AdditionalFiles Include="stylecop.json" />
-    <None Include="web.Debug.config">
-      <DependentUpon>web.config</DependentUpon>
-    </None>
-    <None Include="web.Release.config">
-      <DependentUpon>web.config</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
@@ -271,7 +292,6 @@
     <Content Include="app\content-field-type-options\text\directive.js" />
     <Content Include="app\content-field-types\text\controller.js" />
     <Content Include="app\content-types\list\directive.js" />
-    <Content Include="app\content-field-type-options\text\directive.js" />
     <Content Include="app\content-field-types\text\directive.js" />
     <Content Include="app\content-fields\service.js" />
     <Content Include="app\content-types\service.js" />
@@ -282,16 +302,8 @@
     <Content Include="app\content-types\list\template.html" />
     <Content Include="app\content-field-type-options\text\template.html" />
     <Content Include="app\content-field-types\text\template.html" />
-    <Content Include="DAL\StructuredContent.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>StructuredContent.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="plugins\angular-toastr\angular-toastr.min.css" />
     <Content Include="plugins\angular-toastr\angular-toastr.tpls.min.js" />
-    <None Include="DAL\StructuredContent.dbml.layout">
-      <DependentUpon>StructuredContent.dbml</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="DotLiquid">
@@ -302,6 +314,9 @@
     </PackageReference>
     <PackageReference Include="DotNetNuke.WebApi">
       <Version>9.10.1</Version>
+    </PackageReference>
+    <PackageReference Include="EntityFramework">
+      <Version>6.4.4</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.AspNet.WebApi.Core">
       <Version>5.2.7</Version>
@@ -315,6 +330,15 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="module.web\src\components.d.ts" />
+    <TypeScriptCompile Include="module.web\src\components\sample-component\sample-component.tsx" />
+    <TypeScriptCompile Include="module.web\src\index.ts" />
+    <TypeScriptCompile Include="module.web\src\utils\utils.spec.ts" />
+    <TypeScriptCompile Include="module.web\src\utils\utils.ts" />
+    <TypeScriptCompile Include="module.web\stencil.config.ts" />
+  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

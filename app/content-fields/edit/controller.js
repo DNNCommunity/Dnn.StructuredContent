@@ -1,4 +1,4 @@
-﻿app.controller('contentFieldEditController', ['$scope', '$q', '$timeout', '$uibModalInstance', 'toastr', 'contentTypeService', 'contentFieldService', 'contentFieldTypeService', 'content_field', function ($scope, $q, $timeout, $uibModalInstance, toastr, contentTypeService, contentFieldService, contentFieldTypeService, content_field) {
+﻿app.controller('contentFieldEditController', ['$scope', '$q', '$timeout', '$uibModalInstance', 'toastr', 'contentTypeService', 'contentFieldService', 'contentFieldTypeService', 'contentField', function ($scope, $q, $timeout, $uibModalInstance, toastr, contentTypeService, contentFieldService, contentFieldTypeService, contentField) {
 
     $scope.close = function () {
         $uibModalInstance.dismiss('cancel');
@@ -8,29 +8,29 @@
     $scope.submitted = false;
     $scope.validate = false;
 
-    $scope.contentField = content_field;
+    $scope.contentField = contentField;
 
-    $scope.content_field_type = {
-        id: content_field.content_field_type_id
+    $scope.contentFieldType = {
+        id: contentField.ContentFieldTypeId
     };
 
     $scope.contentType = {
-        id: content_field.content_type_id
+        id: contentField.ContentTypeId
     };
 
     $scope.getContentFieldType = function () {
         var deferred = $q.defer();
         $scope.loading = true;
 
-        contentFieldTypeService.get($scope.content_field_type.id).then(
+        contentFieldTypeService.get($scope.contentFieldType.id).then(
             function (response) {
-                $scope.content_field_type = response.data;
+                $scope.contentFieldType = response.data;
                 $scope.loading = false;
                 deferred.resolve();
             },
             function (response) {
                 console.log('getContentFieldType failed', response);
-                toastr.error("Error", "There was a problem loading the content field type");
+                toastr.error("There was a problem loading the content field type", "Error");
                 $scope.loading = false;
                 deferred.reject();
             }
@@ -51,7 +51,7 @@
             },
             function (response) {
                 console.log('getContentType failed', response);
-                toastr.error("Error", "There was a problem loading the Content type");
+                toastr.error("There was a problem loading the Content type", "Error");
                 $scope.loading = false;
                 deferred.reject();
             }
@@ -66,7 +66,7 @@
 
             $scope.contentField.options = angular.toJson($scope.contentField.options);
 
-            contentFieldService.save($scope.contentType.url_slug, $scope.contentField).then(
+            contentFieldService.save($scope.contentType.urlSlug, $scope.contentField).then(
                 function (response) {
                     $scope.contentField.id = response.data.id;
                     $scope.submitted = false;
@@ -108,13 +108,13 @@
     $scope.nameChanged = function () {
         if (!$scope.contentField.id) {
             if ($scope.contentField.name) {
-                $scope.contentField.column_name = safeColumnName($scope.contentField.name);
+                $scope.contentField.columnName = safeColumnName($scope.contentField.name);
             }
         }
     };
     $scope.columnNameChanged = function () {
-        if ($scope.contentField.column_name) {
-            $scope.contentField.column_name = safeColumnName($scope.contentField.column_name);
+        if ($scope.contentField.columnName) {
+            $scope.contentField.columnName = safeColumnName($scope.contentField.columnName);
         }
     };
 
@@ -124,7 +124,7 @@
         if ($scope.contentType.id) {
             promises.push($scope.getContentType());
         }
-        if ($scope.content_field_type.id) {
+        if ($scope.ContentFieldType.id) {
             promises.push($scope.getContentFieldType());
         }
         return $q.all(promises);
@@ -132,13 +132,13 @@
     init().then(
         function () {
             if (!$scope.contentField.id) {
-                $scope.contentField.name = "New " + $scope.content_field_type.name;
+                $scope.contentField.name = "New " + $scope.contentFieldType.name;
                 $scope.nameChanged();
-                $scope.contentField.data_type = $scope.content_field_type.default_data_type;
-                $scope.contentField.data_length = $scope.content_field_type.default_data_length;
-                $scope.contentField.content_field_type = $scope.content_field_type;                
-                $scope.contentField.options = angular.copy($scope.content_field_type.default_options);
-                $scope.contentField.allow_null = true;
+                $scope.contentField.dataType = $scope.contentFieldType.defaultDataType;
+                $scope.contentField.dataLength = $scope.ContentFieldType.defaultDataLength;
+                $scope.contentField.contentFieldType = $scope.contentFieldType;                
+                $scope.contentField.options = angular.copy($scope.contentFieldType.defaultOptions);
+                $scope.contentField.allowNull = true;
             }
         }
     );

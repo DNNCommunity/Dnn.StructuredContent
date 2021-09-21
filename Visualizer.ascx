@@ -5,6 +5,6 @@
 </div>
 
 <script>
-    var module_id = <%= ModuleId %>;
+    var ModuleId = <%= ModuleId %>;
 </script>
 

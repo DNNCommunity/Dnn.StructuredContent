@@ -1,20 +1,21 @@
 ﻿app.controller('contentTypeListController', ['$scope', '$q', '$uibModal', 'toastr', 'contentTypeService', function ($scope, $q, $uibModal, toastr, contentTypeService) {
 
     $scope.loading = true;
-    $scope.content_types = [];
+    $scope.contentTypes = [];
 
     getContentTypes = function () {
         var deferred = $q.defer();
         $scope.loading = true;
         contentTypeService.search().then(
             function (response) {
-                $scope.content_types = response.data;
+                console.log(response);
+                $scope.contentTypes = response.data;
                 $scope.loading = false;
                 deferred.resolve();
             },
             function (response) {
                 console.log('getContentTypes failed', response);
-                toastr.error("Error", "There was a problem loading Content Types");
+                toastr.error("There was a problem loading Content Types", "Error");
                 $scope.loading = false;
                 deferred.reject();
             }
@@ -31,11 +32,11 @@
         });
 
         modalInstance.result.then(
-            function (content_type) {
+            function (contentType) {
                 getContentTypes();
-                toastr.success("The Content Type '" + content_type.name + "' was created.", "Success");
+                toastr.success("The Content Type '" + contentType.name + "' was created.", "Success");
 
-                $scope.editContentType(content_type.id);
+                $scope.editContentType(contentType.id);
             },
             function () {
                 getContentTypes();
@@ -57,9 +58,9 @@
         });
 
         modalInstance.result.then(
-            function (content_type_name) {
+            function (contentType) {
                 getContentTypes();
-                toastr.success("The Content Type '" + content_type_name + "' was saved.", "Success");
+                toastr.success("The Content Type '" + contentType.name + "' was saved.", "Success");
             },
             function () {
                 getContentTypes();
@@ -81,9 +82,9 @@
         });
 
         modalInstance.result.then(
-            function (content_type_name) {
+            function (contentType) {
                 getContentTypes();
-                toastr.success("The Content Type '" + content_type_name + "' was deleted.", "Success");
+                toastr.success("The Content Type '" + contentType.name + "' was deleted.", "Success");
             },
             function () {
                 getContentTypes();
@@ -98,7 +99,7 @@
             size: 'xl dnn-structured-content',
             backdrop: 'static',
             resolve: {
-                content_type_id: function () {
+                contentTypeId: function () {
                     return id;
                 }
             }
@@ -117,7 +118,7 @@
             size: 'lg dnn-structured-content',
             backdrop: 'static',
             resolve: {
-                content_type_id: function () {
+                contentTypeId: function () {
                     return id;
                 }
             }

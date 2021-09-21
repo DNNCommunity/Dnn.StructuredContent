@@ -16,20 +16,20 @@
                 <div class="form-row">
                     <div class="col">
                         <div class="form-group">
-                            <label for="revision_date" class="form-label">Revision Date</label>
-                            <div class="form-control-static">{{revision.revision_date | date : "medium"}}</div>
+                            <label for="RevisionDate" class="form-label">Revision Date</label>
+                            <div class="form-control-static">{{revision.revisionDate | date : "medium"}}</div>
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group">
-                            <label for="user_id" class="form-label">User ID</label>
-                            <div class="form-control-static">{{revision.user_id}}</div>
+                            <label for="UserId" class="form-label">User ID</label>
+                            <div class="form-control-static">{{revision.userId}}</div>
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group">
-                            <label for="activity_type" class="form-label">Activity Type</label>
-                            <div class="form-control-static">{{revision.activity_type}}</div>
+                            <label for="ActivityType" class="form-label">Activity Type</label>
+                            <div class="form-control-static">{{revision.activityType}}</div>
                         </div>
                     </div>
                 </div>
@@ -49,20 +49,6 @@
             </div>
         </div>
 
-        <!--<div class="form-row">
-            <div class="col">
-                <div class="form-group">
-                    <label for="name" class="form-label">Name</label>
-                    <input type="text" name="name" class="form-control" ng-model="revision.data.name" disabled />
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-group" ng-show="revision.delta.name">
-                    <label for="name" class="form-label">Name</label>
-                    <input type="text" name="name" class="form-control" ng-model="revision.delta.name" disabled />
-                </div>
-            </div>
-        </div>-->
     </div>
 </div>
 

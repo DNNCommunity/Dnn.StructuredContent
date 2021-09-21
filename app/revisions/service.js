@@ -15,10 +15,10 @@
     // implementation    
 
     // search
-    function search(content_type_id = null, item_id = null, verbose = null, skip = null, take = null) {
+    function search(contentTypeId = null, itemId = null, verbose = null, skip = null, take = null) {
         var request = $http({
             method: "get",
-            url: base_path + '?content_type_id=' + content_type_id + '&item_id=' + item_id + '&verbose=' + verbose + '& skip=' + skip + '& take=' + take
+            url: base_path + '?contentTypeId=' + contentTypeId + '&itemId=' + ItemId + '&verbose=' + verbose + '& skip=' + skip + '& take=' + take
         });
         return request;
     }

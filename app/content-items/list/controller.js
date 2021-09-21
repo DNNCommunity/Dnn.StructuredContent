@@ -1,4 +1,4 @@
-﻿app.controller('contentItemListController', ['$parse', '$scope', '$q', '$uibModal', '$uibModalInstance', 'toastr', 'contentItemService', 'contentTypeService', 'content_type_id', function ($parse, $scope, $q, $uibModal, $uibModalInstance, toastr, contentItemService, contentTypeService, content_type_id) {
+﻿app.controller('contentItemListController', ['$parse', '$scope', '$q', '$uibModal', '$uibModalInstance', 'toastr', 'contentItemService', 'contentTypeService', 'ContentTypeId', function ($parse, $scope, $q, $uibModal, $uibModalInstance, toastr, contentItemService, contentTypeService, ContentTypeId) {
 
     $scope.loading = true;
     $scope.close = function () {
@@ -7,7 +7,7 @@
 
     $scope.content_items = [];
     $scope.content_type = {
-        id: content_type_id
+        id: ContentTypeId
     };
 
     getContentType = function () {
@@ -24,7 +24,7 @@
             },
             function (response) {
                 console.log('getContentType failed', response);
-                toastr.error("Error", "There was a problem loading the Content Type");
+                toastr.error("There was a problem loading the Content Type", "Error");
                 $scope.loading = false;
                 deferred.reject();
             }
@@ -39,7 +39,7 @@
             backdrop: 'static',
             resolve: {
                 id: function () {
-                    return $scope.content_type.id;
+                    return $scope.contentType.id;
                 }
             }
         });
@@ -56,7 +56,7 @@
     getContentItems = function () {
         var deferred = $q.defer();
         $scope.loading = true;
-        contentItemService.search($scope.content_type.url_slug).then(
+        contentItemService.search($scope.content_type.UrlSlug).then(
             function (response) {
                 $scope.content_items = response.data;
                 $scope.loading = false;
@@ -64,7 +64,7 @@
             },
             function (response) {
                 console.log('getContentItems failed', response);
-                toastr.error("Error", "There was a problem loading Content Items");
+                toastr.error("There was a problem loading Content Items", "Error");
                 $scope.loading = false;
                 deferred.reject();
             }
@@ -81,11 +81,11 @@
                 id: function () {
                     return null;
                 },
-                content_type_id: function () {
+                ContentTypeId: function () {
                     return $scope.content_type.id;
                 },
-                content_url_slug: function () {
-                    return $scope.content_type.url_slug;
+                content_UrlSlug: function () {
+                    return $scope.content_type.UrlSlug;
                 }
             }
         });
@@ -110,11 +110,8 @@
                 id: function () {
                     return id;
                 },
-                content_type_id: function () {
-                    return $scope.content_type.id;
-                },
-                content_url_slug: function () {
-                    return $scope.content_type.url_slug;
+                contentType: function () {
+                    return $scope.contentType;
                 }
             }
         });
@@ -139,8 +136,8 @@
                 contentItem: function () {
                     return contentItem;
                 },
-                content_type_url_slug: function () {
-                    return $scope.content_type.url_slug;
+                content_type_UrlSlug: function () {
+                    return $scope.content_type.UrlSlug;
                 }
             }
         });

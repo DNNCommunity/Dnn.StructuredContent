@@ -1,3 +1,3 @@
-﻿app.controller('contentFieldTypePhoneNumberController', ['$scope', function ($scope) {
+﻿app.controller('contentFieldTypePhoneNumberController', [function () {
 }]);
 

@@ -24,10 +24,10 @@
     }
 
     // get 
-    function get(module_id) {
+    function get(moduleId) {
         var request = $http({
             method: "get",
-            url: base_path + '?module_id=' + module_id
+            url: base_path + '?moduleId=' + moduleId
         });
         return request;
     }

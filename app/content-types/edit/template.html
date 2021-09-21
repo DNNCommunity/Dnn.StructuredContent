@@ -43,13 +43,13 @@
                     <div class="col-auto ">
 
                         <ul class="content-field-types ">
-                            <li ng-repeat="content_field_type in content_field_types"
-                                dnd-draggable="content_field_type"
+                            <li ng-repeat="contentFieldType in cntentFieldTypes"
+                                dnd-draggable="contentFieldType"
                                 dnd-effect-allowed="copy"
-                                dnd-type="'content_field_type'"
+                                dnd-type="'contentFieldType'"
                                 class="d-grid gap-2">
                                 <button type="button" class="btn btn-outline-secondary text-start">
-                                    <span class="{{content_field_type.icon}}"></span>&nbsp;{{content_field_type.name}}
+                                    <span class="{{contentFieldType.icon}}"></span>&nbsp;{{contentFieldType.name}}
                                 </button>
                             </li>
                         </ul>
@@ -103,18 +103,18 @@
                                                                     <a href="#" class="text-muted" ng-click="copyItem(column.data)"><span class="fas fa-copy" /></a>
                                                                     <a href="#" class="text-danger" ng-click="deleteItem(column.data, column)"><span class="fas fa-trash" /></a>
                                                                 </div>
-                                                                <div content-field-type-text form="formPreview" content-field="column.data" submitted="validate" ng-if="column.data.content_field_type.key=='text'" />
-                                                                <div content-field-type-number form="formPreview" content-field="column.data" submitted="validate" ng-if="column.data.content_field_type.key=='number'" />
-                                                                <div content-field-type-email form="formPreview" content-field="column.data" submitted="validate" ng-if="column.data.content_field_type.key=='email'" />
-                                                                <div content-field-type-phone-number form="formPreview" content-field="column.data" submitted="validate" ng-if="column.data.content_field_type.key=='phonenumber'" />
-                                                                <div content-field-type-url form="formPreview" content-field="column.data" submitted="validate" ng-if="column.data.content_field_type.key=='url'" />
-                                                                <div content-field-type-date-time form="formPreview" content-field="column.data" submitted="validate" ng-if="column.data.content_field_type.key=='datetime'" />
-                                                                <div content-field-type-static form="formPreview" content-field="column.data" submitted="validate" ng-if="column.data.content_field_type.key=='static'" />
-                                                                <div content-field-type-boolean form="formPreview" content-field="column.data" submitted="validate" ng-if="column.data.content_field_type.key=='boolean'" />                                                                
-                                                                <div content-field-type-choice form="formPreview" content-field="column.data" submitted="validate" ng-if="column.data.content_field_type.key=='choice'" />                                                                
+                                                                <div content-field-type-text form="formPreview" content-field="column.data" submitted="validate" ng-if="column.data.contentFieldType.key=='text'" />
+                                                                <div content-field-type-number form="formPreview" content-field="column.data" submitted="validate" ng-if="column.data.contentFieldType.key=='number'" />
+                                                                <div content-field-type-email form="formPreview" content-field="column.data" submitted="validate" ng-if="column.data.contentFieldType.key=='email'" />
+                                                                <div content-field-type-phone-number form="formPreview" content-field="column.data" submitted="validate" ng-if="column.data.contentFieldType.key=='phonenumber'" />
+                                                                <div content-field-type-url form="formPreview" content-field="column.data" submitted="validate" ng-if="column.data.contentFieldType.key=='url'" />
+                                                                <div content-field-type-date-time form="formPreview" content-field="column.data" submitted="validate" ng-if="column.data.contentFieldType.key=='datetime'" />
+                                                                <div content-field-type-static form="formPreview" content-field="column.data" submitted="validate" ng-if="column.data.contentFieldType.key=='static'" />
+                                                                <div content-field-type-boolean form="formPreview" content-field="column.data" submitted="validate" ng-if="column.data.contentFieldType.key=='boolean'" />                                                                
+                                                                <div content-field-type-choice form="formPreview" content-field="column.data" submitted="validate" ng-if="column.data.contentFieldType.key=='choice'" />                                                                
 
-                                                                <div content-field-type-related-content-single form="formPreview" relationship="column.data" submitted="validate" ng-if="column.data.key=='o2m' && column.data.b_content_type_id==contentType.id"></div>
-                                                                <div content-field-type-related-content-multiple-list form="formPreview" relationship="column.data" submitted="validate" ng-if="column.data.key=='m2m' || (column.data.key=='o2m' && column.data.a_content_type_id==contentType.id)"></div>
+                                                                <div content-field-type-related-content-single form="formPreview" relationship="column.data" submitted="validate" ng-if="column.data.key=='o2m' && column.data.aContentTypeId==contentType.id"></div>
+                                                                <div content-field-type-related-content-multiple-list form="formPreview" relationship="column.data" submitted="validate" ng-if="column.data.key=='m2m' || (column.data.key=='o2m' && column.data.aContentTypeId==contentType.id)"></div>
 
                                                             </div>
                                                         </div>
@@ -177,28 +177,28 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <label for="url_slug" class="form-label">URL Slug <span class="text-danger">*</span></label>
-                            <input type="text" name="url_slug" class="form-control" ng-model="contentType.url_slug" required placeholder="E.g post" ng-blur="urlSlugify()" ng-keyup="urlSlugify()" ng-class="{'is-invalid': formContentType.url_slug.$invalid && submitted,'is-valid': formContentType.url_slug.$valid && submitted}" />
+                            <label for="urlSlug" class="form-label">URL Slug <span class="text-danger">*</span></label>
+                            <input type="text" name="urlSlug" class="form-control" ng-model="contentType.urlSlug" required placeholder="E.g post" ng-blur="urlSlugify()" ng-keyup="urlSlugify()" ng-class="{'is-invalid': formContentType.urlSlug.$invalid && submitted,'is-valid': formContentType.urlSlug.$valid && submitted}" />
                             <small class="form-text">API for this content type: <code>/api/content/{{getUrlSlug()}}</code></small>
-                            <div class="invalid-feedback" role="alert" ng-messages="formContentType.url_slug.$error" ng-if="formContentType.url_slug.$invalid && submitted" ng-cloak>
+                            <div class="invalid-feedback" role="alert" ng-messages="formContentType.urlSlug.$error" ng-if="formContentType.urlSlug.$invalid && submitted" ng-cloak>
                                 <div ng-message="required">This field is required</div>
                             </div>
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group">
-                            <label for="table_name" class="form-label">Database Table Name <span class="text-danger">*</span></label>
-                            <div class="input-group" ng-class="{'is-invalid': formContentType.table_name.$invalid && submitted,'is-valid': formContentType.table_name.$valid && submitted}">
+                            <label for="tableName" class="form-label">Database Table Name <span class="text-danger">*</span></label>
+                            <div class="input-group" ng-class="{'is-invalid': formContentType.tableName.$invalid && submitted,'is-valid': formContentType.tableName.$valid && submitted}">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
                                         StructuredContent_ContentType_
                                     </div>
                                 </div>
-                                <input type="text" name="table_name" class="form-control" ng-model="contentType.table_name" required ng-disabled="contentType.id" />
+                                <input type="text" name="tableName" class="form-control" ng-model="contentType.tableName" required ng-disabled="contentType.id" />
                             </div>
                             <small class="form-text" ng-show="!contentType.id">All table names are automatically prepended with the prefix "sc-"</small>
                             <small class="form-text" ng-show="contentType.id">The table name cannot be changed</small>
-                            <div class="invalid-feedback" role="alert" ng-messages="formContentType.table_name.$error" ng-if="formContentType.table_name.$invalid && submitted" ng-cloak>
+                            <div class="invalid-feedback" role="alert" ng-messages="formContentType.tableName.$error" ng-if="formContentType.tableName.$invalid && submitted" ng-cloak>
                                 <div ng-message="required">This field is required</div>
                             </div>
                         </div>

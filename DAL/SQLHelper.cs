@@ -21,18 +21,18 @@ namespace StructuredContent.DAL
     {
         private const string TablePrefix = "StructuredContent_ContentType_";
 
-        private string connectionString = ConfigurationManager.ConnectionStrings["SiteSqlServer"].ToString();
+        private readonly string connectionString = ConfigurationManager.ConnectionStrings["SiteSqlServer"].ToString();
 
         /// <inheritdoc/>
         public void ExecuteNonQuery(string query)
         {
             try
             {
-                using (SqlConnection sqlConnection = new SqlConnection(this.connectionString))
+                using (var sqlConnection = new SqlConnection(this.connectionString))
                 {
                     sqlConnection.Open();
 
-                    using (SqlCommand sqlCommand = new SqlCommand(query, sqlConnection))
+                    using (var sqlCommand = new SqlCommand(query, sqlConnection))
                     {
                         sqlCommand.ExecuteNonQuery();
                     }
@@ -49,13 +49,13 @@ namespace StructuredContent.DAL
         {
             try
             {
-                using (SqlConnection sqlConnection = new SqlConnection(this.connectionString))
+                using (var sqlConnection = new SqlConnection(this.connectionString))
                 {
                     sqlConnection.Open();
 
-                    using (SqlCommand sqlCommand = new SqlCommand(query, sqlConnection))
+                    using (var sqlCommand = new SqlCommand(query, sqlConnection))
                     {
-                        object ret = sqlCommand.ExecuteScalar();
+                        var ret = sqlCommand.ExecuteScalar();
                         return ret;
                     }
                 }
@@ -67,23 +67,23 @@ namespace StructuredContent.DAL
         }
 
         /// <inheritdoc/>
-        public void CreateContentTable(StructuredContent_ContentType content_type)
+        public void CreateContentTable(StructuredContent_ContentType contentType)
         {
             try
             {
-                string table_name = TablePrefix + content_type.table_name;
+                var tableName = TablePrefix + contentType.TableName;
 
                 // TSQL for CREATE TABLE
-                StringBuilder sb = new StringBuilder();
-                sb.Append("CREATE TABLE [dbo].[" + table_name + "] ");
+                var sb = new StringBuilder();
+                sb.Append("CREATE TABLE [dbo].[" + tableName + "] ");
                 sb.Append("(");
                 sb.Append("[id] [int] IDENTITY(1,1) NOT NULL, ");
                 sb.Append("[name] [nvarchar](256) NOT NULL, ");
                 sb.Append("[status] [varchar](10) NOT NULL, ");
-                sb.Append("[date_created] [datetime] NOT NULL, ");
-                sb.Append("[date_modified] [datetime] NOT NULL, ");
+                sb.Append("[DateCreated] [datetime] NOT NULL, ");
+                sb.Append("[DateModified] [datetime] NOT NULL, ");
                 sb.Append("[date_published] [datetime] NULL, ");
-                sb.Append("CONSTRAINT [PK_" + table_name + "] PRIMARY KEY CLUSTERED ([id] ASC)");
+                sb.Append("CONSTRAINT [PK_" + tableName + "] PRIMARY KEY CLUSTERED ([id] ASC)");
                 sb.Append(")");
 
                 this.ExecuteNonQuery(sb.ToString());
@@ -95,15 +95,15 @@ namespace StructuredContent.DAL
         }
 
         /// <inheritdoc/>
-        public void DeleteContentTable(StructuredContent_ContentType content_type)
+        public void DeleteContentTable(StructuredContent_ContentType contentType)
         {
             try
             {
-                string table_name = TablePrefix + content_type.table_name;
+                var tableName = TablePrefix + contentType.TableName;
 
                 // TSQL for DELETE TABLE
-                StringBuilder sb = new StringBuilder();
-                sb.Append("DROP TABLE [dbo].[" + table_name + "] ");
+                var sb = new StringBuilder();
+                sb.Append("DROP TABLE [dbo].[" + tableName + "] ");
 
                 this.ExecuteNonQuery(sb.ToString());
             }
@@ -114,34 +114,34 @@ namespace StructuredContent.DAL
         }
 
         /// <inheritdoc/>
-        public void AddColumn(StructuredContent_ContentField content_field)
+        public void AddColumn(StructuredContent_ContentField contentField)
         {
             try
             {
-                string table_name = TablePrefix + content_field.StructuredContent_ContentType.table_name;
-                string column_name = content_field.column_name;
-                string data_type = content_field.data_type_name;
-                string data_length = content_field.data_length;
-                bool allow_null = content_field.allow_null;
-                string default_value = content_field.default_value;
+                var tableName = TablePrefix + contentField.StructuredContent_ContentType.TableName;
+                var columnName = contentField.ColumnName;
+                var dataType = contentField.DataType_name;
+                var dataLength = contentField.DataLength;
+                var allowNull = contentField.AllowNull;
+                var defaultValue = contentField.DefaultValue;
 
                 // TSQL for ADD COLUMN
-                StringBuilder sbAddColumn = new StringBuilder();
-                sbAddColumn.Append("ALTER TABLE [dbo].[" + table_name + "]");
-                sbAddColumn.Append(" ADD [" + column_name + "] [" + data_type.ToLower() + "]" + (!string.IsNullOrEmpty(data_length) ? "(" + data_length + ")" : string.Empty) + (allow_null ? string.Empty : " NOT") + " NULL");
+                var sbAddColumn = new StringBuilder();
+                sbAddColumn.Append("ALTER TABLE [dbo].[" + tableName + "]");
+                sbAddColumn.Append(" ADD [" + columnName + "] [" + dataType.ToLower() + "]" + (!string.IsNullOrEmpty(dataLength) ? "(" + dataLength + ")" : string.Empty) + (allowNull ? string.Empty : " NOT") + " NULL");
 
-                if (!string.IsNullOrEmpty(default_value))
+                if (!string.IsNullOrEmpty(defaultValue))
                 {
-                    string constraint_name = "DF_" + table_name + "_" + column_name;
+                    var constraint_name = "DF_" + tableName + "_" + columnName;
 
                     sbAddColumn.Append(" CONSTRAINT [" + constraint_name + "] DEFAULT ");
-                    if (data_type == "nvarchar")
+                    if (dataType == "nvarchar")
                     {
-                        sbAddColumn.Append(" N'" + default_value + "'");
+                        sbAddColumn.Append(" N'" + defaultValue + "'");
                     }
                     else
                     {
-                        sbAddColumn.Append(" " + default_value);
+                        sbAddColumn.Append(" " + defaultValue);
                     }
                 }
 
@@ -154,28 +154,28 @@ namespace StructuredContent.DAL
         }
 
         /// <inheritdoc/>
-        public void DeleteColumn(StructuredContent_ContentField content_field)
+        public void DeleteColumn(StructuredContent_ContentField contentField)
         {
             try
             {
-                string table_name = TablePrefix + content_field.StructuredContent_ContentType.table_name;
-                string column_name = content_field.column_name;
+                var tableName = TablePrefix + contentField.StructuredContent_ContentType.TableName;
+                var columnName = contentField.ColumnName;
 
-                // DROP default_value constraints?
-                if (!string.IsNullOrEmpty(content_field.default_value))
+                // DROP DefaultValue constraints?
+                if (!string.IsNullOrEmpty(contentField.DefaultValue))
                 {
-                    string constraint_name = "DF_" + table_name + "_" + column_name;
-                    StringBuilder sbDropConstraint = new StringBuilder();
-                    sbDropConstraint.Append("ALTER TABLE [dbo].[" + table_name + "]");
+                    var constraint_name = "DF_" + tableName + "_" + columnName;
+                    var sbDropConstraint = new StringBuilder();
+                    sbDropConstraint.Append("ALTER TABLE [dbo].[" + tableName + "]");
                     sbDropConstraint.Append(" DROP CONSTRAINT [" + constraint_name + "]");
 
                     this.ExecuteNonQuery(sbDropConstraint.ToString());
                 }
 
                 // TSQL for DROP COLUMN
-                StringBuilder sbDropColumn = new StringBuilder();
-                sbDropColumn.Append("ALTER TABLE [dbo].[" + table_name + "] ");
-                sbDropColumn.Append("DROP COLUMN [" + column_name + "]");
+                var sbDropColumn = new StringBuilder();
+                sbDropColumn.Append("ALTER TABLE [dbo].[" + tableName + "] ");
+                sbDropColumn.Append("DROP COLUMN [" + columnName + "]");
 
                 this.ExecuteNonQuery(sbDropColumn.ToString());
             }
@@ -186,7 +186,7 @@ namespace StructuredContent.DAL
         }
 
         /// <inheritdoc/>
-        public void CreateOneToManyRelationship(StructuredContent_ContentType one_content_type, StructuredContent_ContentType many_content_type)
+        public void CreateOneToManyRelationship(StructuredContent_ContentType oneContentType, StructuredContent_ContentType manyContentType)
         {
             try
             {
@@ -194,11 +194,11 @@ namespace StructuredContent.DAL
                 // create the foreign key  on the child table
 
                 // set up relationship
-                StringBuilder sb = new StringBuilder();
-                sb.Append("ALTER TABLE [dbo].[" + TablePrefix + many_content_type.table_name + "]");
-                sb.Append(" ADD CONSTRAINT [FK_" + TablePrefix + one_content_type.table_name + "_" + TablePrefix + many_content_type.table_name + "]");
-                sb.Append(" FOREIGN KEY (" + one_content_type.singular + "_id" + ")");
-                sb.Append(" REFERENCES [dbo].[" + TablePrefix + one_content_type.table_name + "] (id)");
+                var sb = new StringBuilder();
+                sb.Append("ALTER TABLE [dbo].[" + TablePrefix + manyContentType.TableName + "]");
+                sb.Append(" ADD CONSTRAINT [FK_" + TablePrefix + oneContentType.TableName + "_" + TablePrefix + manyContentType.TableName + "]");
+                sb.Append(" FOREIGN KEY (" + oneContentType.Singular + "_id" + ")");
+                sb.Append(" REFERENCES [dbo].[" + TablePrefix + oneContentType.TableName + "] (id)");
                 sb.Append(" ON UPDATE NO ACTION");
                 sb.Append(" ON DELETE NO ACTION");
 
@@ -215,12 +215,12 @@ namespace StructuredContent.DAL
         {
             try
             {
-                string foreign_key_column_name = one_content_type.singular.ToLower() + "_id";
+                var foreign_key_ColumnName = one_content_type.Singular.ToLower() + "_id";
 
                 // drop relationship
-                StringBuilder sbOneToMany = new StringBuilder();
-                sbOneToMany.Append("ALTER TABLE [dbo].[" + TablePrefix + many_content_type.table_name + "]");
-                sbOneToMany.Append(" DROP CONSTRAINT [FK_" + TablePrefix + one_content_type.table_name + "_" + TablePrefix + many_content_type.table_name + "]");
+                var sbOneToMany = new StringBuilder();
+                sbOneToMany.Append("ALTER TABLE [dbo].[" + TablePrefix + many_content_type.TableName + "]");
+                sbOneToMany.Append(" DROP CONSTRAINT [FK_" + TablePrefix + one_content_type.TableName + "_" + TablePrefix + many_content_type.TableName + "]");
 
                 this.ExecuteNonQuery(sbOneToMany.ToString());
             }
@@ -231,46 +231,46 @@ namespace StructuredContent.DAL
         }
 
         /// <inheritdoc/>
-        public void CreateManyToManyRelationship(StructuredContent_ContentType a_content_type, StructuredContent_ContentType b_content_type)
+        public void CreateManyToManyRelationship(StructuredContent_ContentType aContentType, StructuredContent_ContentType bContentType)
         {
             try
             {
                 // create the junction table
-                string a_table_name = TablePrefix + a_content_type.table_name;
-                string b_table_name = TablePrefix + b_content_type.table_name;
-                string junction_table_name = a_table_name + "X" + b_table_name;
+                var aTableName = TablePrefix + aContentType.TableName;
+                var bTableName = TablePrefix + bContentType.TableName;
+                var junctionTableName = aTableName + "X" + bTableName;
 
-                string a_foreign_key_column_name = a_content_type.singular.ToLower() + "_id";
-                string b_foreign_key_column_name = b_content_type.singular.ToLower() + "_id";
+                var a_foreign_key_ColumnName = aContentType.Singular.ToLower() + "_id";
+                var b_foreign_key_ColumnName = bContentType.Singular.ToLower() + "_id";
 
                 // TSQL for CREATE TABLE
-                StringBuilder sbCreateJunctionTable = new StringBuilder();
-                sbCreateJunctionTable.Append("CREATE TABLE [dbo].[" + junction_table_name + "] ");
+                var sbCreateJunctionTable = new StringBuilder();
+                sbCreateJunctionTable.Append("CREATE TABLE [dbo].[" + junctionTableName + "] ");
                 sbCreateJunctionTable.Append("(");
                 sbCreateJunctionTable.Append("[id] [int] IDENTITY(1,1) NOT NULL, ");
-                sbCreateJunctionTable.Append("[" + a_foreign_key_column_name + "] [int] NOT NULL, ");
-                sbCreateJunctionTable.Append("[" + b_foreign_key_column_name + "] [int] NOT NULL, ");
-                sbCreateJunctionTable.Append("CONSTRAINT [PK_" + junction_table_name + "] PRIMARY KEY CLUSTERED ([id] ASC)");
+                sbCreateJunctionTable.Append("[" + a_foreign_key_ColumnName + "] [int] NOT NULL, ");
+                sbCreateJunctionTable.Append("[" + b_foreign_key_ColumnName + "] [int] NOT NULL, ");
+                sbCreateJunctionTable.Append("CONSTRAINT [PK_" + junctionTableName + "] PRIMARY KEY CLUSTERED ([id] ASC)");
                 sbCreateJunctionTable.Append(")");
 
                 this.ExecuteNonQuery(sbCreateJunctionTable.ToString());
 
                 // TSQL to set up relationships
-                StringBuilder sbARelationship = new StringBuilder();
-                sbARelationship.Append("ALTER TABLE [dbo].[" + junction_table_name + "]");
-                sbARelationship.Append(" ADD CONSTRAINT [FK_" + junction_table_name + "_" + a_table_name + "]");
-                sbARelationship.Append(" FOREIGN KEY (" + a_foreign_key_column_name + ")");
-                sbARelationship.Append(" REFERENCES [dbo].[" + a_table_name + "] (id)");
+                var sbARelationship = new StringBuilder();
+                sbARelationship.Append("ALTER TABLE [dbo].[" + junctionTableName + "]");
+                sbARelationship.Append(" ADD CONSTRAINT [FK_" + junctionTableName + "_" + aTableName + "]");
+                sbARelationship.Append(" FOREIGN KEY (" + a_foreign_key_ColumnName + ")");
+                sbARelationship.Append(" REFERENCES [dbo].[" + aTableName + "] (id)");
                 sbARelationship.Append(" ON UPDATE CASCADE");
                 sbARelationship.Append(" ON DELETE CASCADE");
 
                 this.ExecuteNonQuery(sbARelationship.ToString());
 
-                StringBuilder sbBRelationship = new StringBuilder();
-                sbBRelationship.Append("ALTER TABLE [dbo].[" + junction_table_name + "]");
-                sbBRelationship.Append(" ADD CONSTRAINT [FK_" + junction_table_name + "_" + b_table_name + "]");
-                sbBRelationship.Append(" FOREIGN KEY (" + b_foreign_key_column_name + ")");
-                sbBRelationship.Append(" REFERENCES [dbo].[" + b_table_name + "] (id)");
+                var sbBRelationship = new StringBuilder();
+                sbBRelationship.Append("ALTER TABLE [dbo].[" + junctionTableName + "]");
+                sbBRelationship.Append(" ADD CONSTRAINT [FK_" + junctionTableName + "_" + bTableName + "]");
+                sbBRelationship.Append(" FOREIGN KEY (" + b_foreign_key_ColumnName + ")");
+                sbBRelationship.Append(" REFERENCES [dbo].[" + bTableName + "] (id)");
                 sbBRelationship.Append(" ON UPDATE CASCADE");
                 sbBRelationship.Append(" ON DELETE CASCADE");
 
@@ -283,34 +283,34 @@ namespace StructuredContent.DAL
         }
 
         /// <inheritdoc/>
-        public void DeleteManyToManyRelationship(StructuredContent_ContentType a_content_type, StructuredContent_ContentType b_content_type)
+        public void DeleteManyToManyRelationship(StructuredContent_ContentType aContentType, StructuredContent_ContentType bContentType)
         {
             try
             {
                 // delete the junction table
-                string a_table_name = TablePrefix + a_content_type.table_name;
-                string b_table_name = TablePrefix + b_content_type.table_name;
-                string junction_table_name = a_table_name + "X" + b_table_name;
+                var aTableName = TablePrefix + aContentType.TableName;
+                var bTableName = TablePrefix + bContentType.TableName;
+                var junctionTableName = aTableName + "X" + bTableName;
 
-                string a_foreign_key_column_name = a_content_type.singular.ToLower() + "_id";
-                string b_foreign_key_column_name = b_content_type.singular.ToLower() + "_id";
+                var aForeignKeyColumnName = aContentType.Singular.ToLower() + "_id";
+                var bForeignKeyColumnName = bContentType.Singular.ToLower() + "_id";
 
                 // TSQL to remove relationships
-                StringBuilder sbARelationship = new StringBuilder();
-                sbARelationship.Append("ALTER TABLE [dbo].[" + junction_table_name + "]");
-                sbARelationship.Append(" DROP CONSTRAINT [FK_" + junction_table_name + "_" + a_table_name + "]");
+                var sbARelationship = new StringBuilder();
+                sbARelationship.Append("ALTER TABLE [dbo].[" + junctionTableName + "]");
+                sbARelationship.Append(" DROP CONSTRAINT [FK_" + junctionTableName + "_" + aTableName + "]");
 
                 this.ExecuteNonQuery(sbARelationship.ToString());
 
-                StringBuilder sbBRelationship = new StringBuilder();
-                sbBRelationship.Append("ALTER TABLE [dbo].[" + junction_table_name + "]");
-                sbBRelationship.Append(" DROP CONSTRAINT [FK_" + junction_table_name + "_" + b_table_name + "]");
+                var sbBRelationship = new StringBuilder();
+                sbBRelationship.Append("ALTER TABLE [dbo].[" + junctionTableName + "]");
+                sbBRelationship.Append(" DROP CONSTRAINT [FK_" + junctionTableName + "_" + bTableName + "]");
 
                 this.ExecuteNonQuery(sbBRelationship.ToString());
 
                 // TSQL for CREATE TABLE
-                StringBuilder sbCreateJunctionTable = new StringBuilder();
-                sbCreateJunctionTable.Append("DROP TABLE [dbo].[" + junction_table_name + "] ");
+                var sbCreateJunctionTable = new StringBuilder();
+                sbCreateJunctionTable.Append("DROP TABLE [dbo].[" + junctionTableName + "] ");
 
                 this.ExecuteNonQuery(sbCreateJunctionTable.ToString());
             }
@@ -323,23 +323,23 @@ namespace StructuredContent.DAL
         /// <inheritdoc/>
         public IEnumerable<IDictionary<string, object>> SelectDynamicList(StructuredContent_ContentType content_type, string where_clause)
         {
-            var table_name = TablePrefix + content_type.table_name;
+            var tableName = TablePrefix + content_type.TableName;
 
             // TSQL to get item
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             sb.Append("SELECT * ");
-            sb.Append("FROM [" + table_name + "] ");
+            sb.Append("FROM [" + tableName + "] ");
 
             if (!string.IsNullOrEmpty(where_clause))
             {
                 sb.Append("WHERE " + where_clause);
             }
 
-            using (SqlConnection sqlConnection = new SqlConnection(this.connectionString))
+            using (var sqlConnection = new SqlConnection(this.connectionString))
             {
                 sqlConnection.Open();
 
-                using (SqlCommand sqlCommand = new SqlCommand(sb.ToString(), sqlConnection))
+                using (var sqlCommand = new SqlCommand(sb.ToString(), sqlConnection))
                 {
                     using (var reader = sqlCommand.ExecuteReader())
                     {
@@ -365,32 +365,32 @@ namespace StructuredContent.DAL
             try
             {
                 // related content types
-                List<StructuredContent_ContentType> related_content_types = new List<StructuredContent_ContentType>();
+                var related_content_types = new List<StructuredContent_ContentType>();
 
-                var table_name = TablePrefix + content_type.table_name;
+                var tableName = TablePrefix + content_type.TableName;
 
                 // TSQL to get item
-                StringBuilder sb = new StringBuilder();
+                var sb = new StringBuilder();
                 sb.Append("SELECT *");
-                sb.Append(" FROM [" + table_name + "]");
+                sb.Append(" FROM [" + tableName + "]");
                 sb.Append(" WHERE [id]=" + id.ToString());
 
-                using (SqlConnection sqlConnection = new SqlConnection(this.connectionString))
+                using (var sqlConnection = new SqlConnection(this.connectionString))
                 {
                     sqlConnection.Open();
 
-                    using (SqlCommand sqlCommand = new SqlCommand(sb.ToString(), sqlConnection))
+                    using (var sqlCommand = new SqlCommand(sb.ToString(), sqlConnection))
                     {
                         using (var reader = sqlCommand.ExecuteReader())
                         {
                             var names = Enumerable.Range(0, reader.FieldCount).Select(reader.GetName).ToList();
 
-                            DataTable dt = new DataTable();
+                            var dt = new DataTable();
                             dt.Load(reader);
 
                             if (dt.Rows.Count > 0)
                             {
-                                DataRow dataRow = dt.Rows[0];
+                                var dataRow = dt.Rows[0];
 
                                 var item = new Dictionary<string, object>();
                                 foreach (var name in names)
@@ -419,18 +419,18 @@ namespace StructuredContent.DAL
         {
             try
             {
-                string table_name = TablePrefix + content_type.table_name;
+                var tableName = TablePrefix + content_type.TableName;
 
                 // TSQL FOR INSERT
-                StringBuilder sbInsert = new StringBuilder();
-                sbInsert.Append("INSERT INTO [dbo].[" + table_name + "]");
-                sbInsert.Append(" ([name], [status], [date_created], [date_modified], [date_published]");
+                var sbInsert = new StringBuilder();
+                sbInsert.Append("INSERT INTO [dbo].[" + tableName + "]");
+                sbInsert.Append(" ([name], [status], [DateCreated], [DateModified], [date_published]");
 
-                foreach (StructuredContent_ContentField content_field in content_type.StructuredContent_ContentFields)
+                foreach (var content_field in content_type.StructuredContent_ContentFields)
                 {
-                    if (content_field.is_system == false)
+                    if (content_field.IsSystem == false)
                     {
-                        sbInsert.Append(", [" + content_field.column_name + "]");
+                        sbInsert.Append(", [" + content_field.ColumnName + "]");
                     }
                 }
 
@@ -453,13 +453,13 @@ namespace StructuredContent.DAL
                     sbInsert.Append(", null");
                 }
 
-                foreach (StructuredContent_ContentField content_field in content_type.StructuredContent_ContentFields)
+                foreach (var content_field in content_type.StructuredContent_ContentFields)
                 {
-                    if (content_field.is_system == false)
+                    if (content_field.IsSystem == false)
                     {
                         sbInsert.Append(", ");
 
-                        object value = content_item[content_field.column_name];
+                        object value = content_item[content_field.ColumnName];
 
                         if (value == null)
                         {
@@ -467,9 +467,9 @@ namespace StructuredContent.DAL
                         }
                         else
                         {
-                            switch (content_field.data_type)
+                            switch (content_field.DataType)
                             {
-                                case (int)Enums.DataTypes.bit:
+                                case (int)Enums.DataTypes.Bit:
                                     if (bool.Parse(value.ToString()))
                                     {
                                         sbInsert.Append("1");
@@ -481,8 +481,8 @@ namespace StructuredContent.DAL
 
                                     break;
 
-                                case (int)Enums.DataTypes.nvarchar:
-                                case (int)Enums.DataTypes.datetime:
+                                case (int)Enums.DataTypes.Nvarchar:
+                                case (int)Enums.DataTypes.Datetime:
                                     sbInsert.Append("'" + value + "'");
                                     break;
 
@@ -498,11 +498,11 @@ namespace StructuredContent.DAL
 
                 this.ExecuteNonQuery(sbInsert.ToString());
 
-                StringBuilder sbID = new StringBuilder();
+                var sbID = new StringBuilder();
                 sbID.Append("SELECT MAX([id])");
-                sbID.Append(" FROM [" + table_name + "]");
+                sbID.Append(" FROM [" + tableName + "]");
 
-                int id = (int)this.ExecuteScalar(sbID.ToString());
+                var id = (int)this.ExecuteScalar(sbID.ToString());
 
                 return id;
             }
@@ -513,22 +513,22 @@ namespace StructuredContent.DAL
         }
 
         /// <inheritdoc/>
-        public void UpdateContentItem(StructuredContent_ContentType content_type, dynamic content_item)
+        public void UpdateContentItem(StructuredContent_ContentType contentType, dynamic contentIitem)
         {
             try
             {
-                string table_name = TablePrefix + content_type.table_name;
+                var tableName = TablePrefix + contentType.TableName;
 
                 // T-SQL TO UPDATE CONTENT ITEM
-                StringBuilder sbUpdateContentItem = new StringBuilder();
-                sbUpdateContentItem.Append("UPDATE [dbo].[" + table_name + "]");
+                var sbUpdateContentItem = new StringBuilder();
+                sbUpdateContentItem.Append("UPDATE [dbo].[" + tableName + "]");
                 sbUpdateContentItem.Append(" SET");
 
-                sbUpdateContentItem.Append(" [name]='" + content_item.name + "'");
-                sbUpdateContentItem.Append(", [status]='" + content_item.status + "'");
-                sbUpdateContentItem.Append(", [date_modified]='" + DateTime.Now.ToShortDateString() + "'");
+                sbUpdateContentItem.Append(" [name]='" + contentIitem.name + "'");
+                sbUpdateContentItem.Append(", [status]='" + contentIitem.status + "'");
+                sbUpdateContentItem.Append(", [DateModified]='" + DateTime.Now.ToShortDateString() + "'");
 
-                if (content_item.status == "Published")
+                if (contentIitem.status == "Published")
                 {
                     sbUpdateContentItem.Append(", [date_published]='" + DateTime.Now.ToShortDateString() + "'");
                 }
@@ -538,25 +538,25 @@ namespace StructuredContent.DAL
                 }
 
                 // iterate over the content fields for the content item to build the T-SQL
-                foreach (StructuredContent_ContentField content_field in content_type.StructuredContent_ContentFields)
+                foreach (var contentField in contentType.StructuredContent_ContentFields)
                 {
-                    if (content_field.is_system == false)
+                    if (contentField.IsSystem == false)
                     {
-                        sbUpdateContentItem.Append(", [" + content_field.column_name + "]");
+                        sbUpdateContentItem.Append(", [" + contentField.ColumnName + "]");
                         sbUpdateContentItem.Append("=");
 
-                        var field_value = content_item[content_field.column_name];
+                        var fieldValue = contentIitem[contentField.ColumnName];
 
-                        if (field_value == default(dynamic))
+                        if (fieldValue == default(dynamic))
                         {
                             sbUpdateContentItem.Append("null");
                         }
                         else
                         {
-                            switch (content_field.data_type)
+                            switch (contentField.DataType)
                             {
-                                case (int)Enums.DataTypes.bit:
-                                    if (bool.Parse(field_value.ToString()))
+                                case (int)Enums.DataTypes.Bit:
+                                    if (bool.Parse(fieldValue.ToString()))
                                     {
                                         sbUpdateContentItem.Append("1");
                                     }
@@ -567,20 +567,20 @@ namespace StructuredContent.DAL
 
                                     break;
 
-                                case (int)Enums.DataTypes.nvarchar:
-                                case (int)Enums.DataTypes.datetime:
-                                    sbUpdateContentItem.Append("'" + field_value + "'");
+                                case (int)Enums.DataTypes.Nvarchar:
+                                case (int)Enums.DataTypes.Datetime:
+                                    sbUpdateContentItem.Append("'" + fieldValue + "'");
                                     break;
 
                                 default:
-                                    sbUpdateContentItem.Append(field_value);
+                                    sbUpdateContentItem.Append(fieldValue);
                                     break;
                             }
                         }
                     }
                 }
 
-                sbUpdateContentItem.Append(" WHERE [id]=" + content_item.id.ToString());
+                sbUpdateContentItem.Append(" WHERE [id]=" + contentIitem.id.ToString());
                 this.ExecuteNonQuery(sbUpdateContentItem.ToString());
             }
             catch (Exception ex)
@@ -594,11 +594,11 @@ namespace StructuredContent.DAL
         {
             try
             {
-                string table_name = TablePrefix + content_type.table_name;
+                var tableName = TablePrefix + content_type.TableName;
 
                 // TSQL FOR DELETE
-                StringBuilder sb = new StringBuilder();
-                sb.Append("DELETE FROM [dbo].[" + table_name + "]");
+                var sb = new StringBuilder();
+                sb.Append("DELETE FROM [dbo].[" + tableName + "]");
                 sb.Append(" WHERE [id]=" + id.ToString());
                 this.ExecuteNonQuery(sb.ToString());
             }
@@ -609,117 +609,117 @@ namespace StructuredContent.DAL
         }
 
         /// <inheritdoc/>
-        public void DeleteManyToManyRelationship(StructuredContent_Relationship relationship, StructuredContent_ContentType primary_content_type, int primary_content_item_id)
+        public void DeleteManyToManyRelationship(StructuredContent_Relationship relationship, StructuredContent_ContentType primary_content_type, int primary_content_ItemId)
         {
-            string table_name = relationship.table_name;
-            string primary_foreign_key_column_name = primary_content_type.singular.ToLower() + "_id";
+            var tableName = relationship.TableName;
+            var primary_foreign_key_ColumnName = primary_content_type.Singular.ToLower() + "_id";
 
             // delete all the related cross reference table records
-            StringBuilder sbDelete = new StringBuilder();
-            sbDelete.Append("DELETE FROM [" + table_name + "]");
-            sbDelete.Append(" WHERE [" + primary_foreign_key_column_name + "] = " + primary_content_item_id.ToString());
+            var sbDelete = new StringBuilder();
+            sbDelete.Append("DELETE FROM [" + tableName + "]");
+            sbDelete.Append(" WHERE [" + primary_foreign_key_ColumnName + "] = " + primary_content_ItemId.ToString());
             this.ExecuteNonQuery(sbDelete.ToString());
         }
 
         /// <inheritdoc/>
-        public void SaveManyToManyRelationship(StructuredContent_Relationship relationship, StructuredContent_ContentType primary_content_type, StructuredContent_ContentType related_content_type, int primary_content_item_id, int related_content_item_id)
+        public void SaveManyToManyRelationship(StructuredContent_Relationship relationship, StructuredContent_ContentType primary_content_type, StructuredContent_ContentType related_content_type, int primary_content_ItemId, int related_content_ItemId)
         {
-            string table_name = relationship.table_name;
-            string primary_foreign_key_column_name = primary_content_type.singular.ToLower() + "_id";
-            string related_foreign_key_column_name = related_content_type.singular.ToLower() + "_id";
+            var tableName = relationship.TableName;
+            var primaryForeignKeyColumnName = primary_content_type.Singular.ToLower() + "_id";
+            var relatedForeignKeyColumnName = related_content_type.Singular.ToLower() + "_id";
 
             // insert the related cross reference table record
-            StringBuilder sbInsert = new StringBuilder();
-            sbInsert.Append("INSERT INTO [" + table_name + "]");
-            sbInsert.Append(" (" + primary_foreign_key_column_name + ", " + related_foreign_key_column_name + ") ");
-            sbInsert.Append(" VALUES (" + primary_content_item_id.ToString() + ", " + related_content_item_id.ToString() + ")");
+            var sbInsert = new StringBuilder();
+            sbInsert.Append("INSERT INTO [" + tableName + "]");
+            sbInsert.Append(" (" + primaryForeignKeyColumnName + ", " + relatedForeignKeyColumnName + ") ");
+            sbInsert.Append(" VALUES (" + primary_content_ItemId.ToString() + ", " + related_content_ItemId.ToString() + ")");
             this.ExecuteNonQuery(sbInsert.ToString());
         }
 
         /// <inheritdoc/>
-        public void DeleteOneToManyRelationship(StructuredContent_ContentType primary_content_type, StructuredContent_ContentType related_content_type, int primary_content_item_id)
+        public void DeleteOneToManyRelationship(StructuredContent_ContentType primaryContentType, StructuredContent_ContentType relatedContentType, int primaryContentItemId)
         {
-            string related_content_table_name = TablePrefix + related_content_type.table_name;
-            string foreign_key_column_name = primary_content_type.singular.ToLower() + "_id";
+            var relatedContentTableName = TablePrefix + relatedContentType.TableName;
+            var foreignKeyColumnName = primaryContentType.Singular.ToLower() + "_id";
 
             // delete all the related cross reference table records
-            StringBuilder sbMany = new StringBuilder();
-            sbMany.Append("UPDATE [" + related_content_table_name + "]");
-            sbMany.Append(" SET [" + foreign_key_column_name + "] = NULL");
-            sbMany.Append(" WHERE [" + foreign_key_column_name + "] = " + primary_content_item_id.ToString());
+            var sbMany = new StringBuilder();
+            sbMany.Append("UPDATE [" + relatedContentTableName + "]");
+            sbMany.Append(" SET [" + foreignKeyColumnName + "] = NULL");
+            sbMany.Append(" WHERE [" + foreignKeyColumnName + "] = " + primaryContentItemId.ToString());
             this.ExecuteNonQuery(sbMany.ToString());
         }
 
         /// <inheritdoc/>
-        public void SaveOneToManyRelationship(StructuredContent_ContentType primary_content_type, StructuredContent_ContentType related_content_type, int primary_content_item_id, int related_content_item_id)
+        public void SaveOneToManyRelationship(StructuredContent_ContentType primaryContentType, StructuredContent_ContentType relatedContentType, int primaryContentItemId, int relatedContentItemId)
         {
-            string related_content_table_name = TablePrefix + related_content_type.table_name;
-            string foreign_key_column_name = primary_content_type.singular.ToLower() + "_id";
+            var related_content_TableName = TablePrefix + relatedContentType.TableName;
+            var foreign_key_ColumnName = primaryContentType.Singular.ToLower() + "_id";
 
             // delete all the related cross reference table records
-            StringBuilder sbMany = new StringBuilder();
-            sbMany.Append("UPDATE [" + related_content_table_name + "]");
-            sbMany.Append(" SET [" + foreign_key_column_name + "] = " + primary_content_item_id.ToString());
-            sbMany.Append(" WHERE [id] = " + related_content_item_id.ToString());
+            var sbMany = new StringBuilder();
+            sbMany.Append("UPDATE [" + related_content_TableName + "]");
+            sbMany.Append(" SET [" + foreign_key_ColumnName + "] = " + primaryContentItemId.ToString());
+            sbMany.Append(" WHERE [id] = " + relatedContentItemId.ToString());
             this.ExecuteNonQuery(sbMany.ToString());
         }
 
         /// <inheritdoc/>
         public IEnumerable<IDictionary<string, object>> GetRelatedItems(StructuredContent_Relationship relationship, StructuredContent_ContentType content_type, int id)
         {
-            string source_table_name = string.Empty;
+            var source_TableName = string.Empty;
 
-            string a_foreign_key_column_name = relationship.StructuredContent_ContentType.singular.ToLower() + "_id";
-            string b_foreign_key_column_name = relationship.StructuredContent_ContentType1.singular.ToLower() + "_id";
+            var a_foreign_key_ColumnName = relationship.StructuredContent_ContentType.Singular.ToLower() + "_id";
+            var b_foreign_key_ColumnName = relationship.StructuredContent_ContentType1.Singular.ToLower() + "_id";
 
-            string a_table_name = TablePrefix + relationship.StructuredContent_ContentType.table_name;
-            string b_table_name = TablePrefix + relationship.StructuredContent_ContentType1.table_name;
-            string junction_table_name = a_table_name + "X" + b_table_name;
+            var a_TableName = TablePrefix + relationship.StructuredContent_ContentType.TableName;
+            var b_TableName = TablePrefix + relationship.StructuredContent_ContentType1.TableName;
+            var junction_TableName = a_TableName + "X" + b_TableName;
 
-            StringBuilder sbWhere = new StringBuilder();
+            var sbWhere = new StringBuilder();
 
-            if (relationship.key == "o2m" && relationship.a_content_type_id == content_type.id)
+            if (relationship.Key == "o2m" && relationship.AContentTypeId == content_type.Id)
             {
-                source_table_name = b_table_name;
-                sbWhere.Append(a_foreign_key_column_name + "=" + id);
+                source_TableName = b_TableName;
+                sbWhere.Append(a_foreign_key_ColumnName + "=" + id);
             }
 
-            if (relationship.key == "m2m" && relationship.a_content_type_id == content_type.id)
+            if (relationship.Key == "m2m" && relationship.AContentTypeId == content_type.Id)
             {
-                source_table_name = TablePrefix + relationship.StructuredContent_ContentType1.table_name;
+                source_TableName = TablePrefix + relationship.StructuredContent_ContentType1.TableName;
                 sbWhere.Append("[id] IN");
                 sbWhere.Append(" (");
-                sbWhere.Append(" SELECT [" + b_foreign_key_column_name + "]");
-                sbWhere.Append(" FROM [" + junction_table_name + "]");
-                sbWhere.Append(" WHERE [" + a_foreign_key_column_name + "] = " + id.ToString());
+                sbWhere.Append(" SELECT [" + b_foreign_key_ColumnName + "]");
+                sbWhere.Append(" FROM [" + junction_TableName + "]");
+                sbWhere.Append(" WHERE [" + a_foreign_key_ColumnName + "] = " + id.ToString());
                 sbWhere.Append(" )");
             }
 
-            if (relationship.key == "m2m" && relationship.b_content_type_id == content_type.id)
+            if (relationship.Key == "m2m" && relationship.BContentTypeId == content_type.Id)
             {
-                source_table_name = TablePrefix + relationship.StructuredContent_ContentType.table_name;
+                source_TableName = TablePrefix + relationship.StructuredContent_ContentType.TableName;
                 sbWhere.Append("[id] IN");
                 sbWhere.Append(" (");
-                sbWhere.Append(" SELECT [" + a_foreign_key_column_name + "]");
-                sbWhere.Append(" FROM [" + junction_table_name + "]");
-                sbWhere.Append(" WHERE [" + b_foreign_key_column_name + "] = " + id.ToString());
+                sbWhere.Append(" SELECT [" + a_foreign_key_ColumnName + "]");
+                sbWhere.Append(" FROM [" + junction_TableName + "]");
+                sbWhere.Append(" WHERE [" + b_foreign_key_ColumnName + "] = " + id.ToString());
                 sbWhere.Append(" )");
             }
 
             // TSQL to get item
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             sb.Append("SELECT *");
-            sb.Append(" FROM [" + source_table_name + "]");
+            sb.Append(" FROM [" + source_TableName + "]");
             if (!string.IsNullOrEmpty(sbWhere.ToString()))
             {
                 sb.Append(" WHERE " + sbWhere.ToString());
             }
 
-            using (SqlConnection sqlConnection = new SqlConnection(this.connectionString))
+            using (var sqlConnection = new SqlConnection(this.connectionString))
             {
                 sqlConnection.Open();
 
-                using (SqlCommand sqlCommand = new SqlCommand(sb.ToString(), sqlConnection))
+                using (var sqlCommand = new SqlCommand(sb.ToString(), sqlConnection))
                 {
                     using (var reader = sqlCommand.ExecuteReader())
                     {
