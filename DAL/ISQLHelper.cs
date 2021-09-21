@@ -14,14 +14,14 @@ namespace StructuredContent.DAL
         /// <summary>
         /// Adds a column to a Structured Content table.
         /// </summary>
-        /// <param name="content_field"><see cref="StructuredContent_ContentField"/>.</param>
-        void AddColumn(StructuredContent_ContentField content_field);
+        /// <param name="contentField"><see cref="StructuredContent_ContentField"/>.</param>
+        void AddColumn(StructuredContent_ContentField contentField);
 
         /// <summary>
         /// Creates a custom table for Structured Content.
         /// </summary>
-        /// <param name="content_type">The content type to create the table for, <see cref="StructuredContent_ContentType"/>.</param>
-        void CreateContentTable(StructuredContent_ContentType content_type);
+        /// <param name="contentType">The content type to create the table for, <see cref="StructuredContent_ContentType"/>.</param>
+        void CreateContentTable(StructuredContent_ContentType contentType);
 
         /// <summary>
         /// Creates the tables needed for a many-to-many relationship.
@@ -46,9 +46,9 @@ namespace StructuredContent.DAL
         /// <summary>
         /// Deletes a row in the content table.
         /// </summary>
-        /// <param name="content_type">The structured content type.</param>
+        /// <param name="contentType">The structured content type.</param>
         /// <param name="id">The id of the item to delete.</param>
-        void DeleteContentItem(StructuredContent_ContentType content_type, int id);
+        void DeleteContentItem(StructuredContent_ContentType contentType, int id);
 
         /// <summary>
         /// Deletes a whole content type table.
@@ -114,7 +114,7 @@ namespace StructuredContent.DAL
         /// <param name="contentType">The type of the item.</param>
         /// <param name="contentIitem">The item itself.</param>
         /// <returns>The Id of the inserted row.</returns>
-        int InsertContentItem(StructuredContent_ContentType contentType, dynamic contentIitem);
+        int InsertContentItem(StructuredContent_ContentType contentType, dynamic contentItem);
 
         /// <summary>
         /// Creates a many-to-many relationship between two items.
@@ -154,8 +154,8 @@ namespace StructuredContent.DAL
         /// <summary>
         /// Updates an item.
         /// </summary>
-        /// <param name="content_type">The type of the item to update.</param>
-        /// <param name="content_item">The actual item information to update.</param>
-        void UpdateContentItem(StructuredContent_ContentType content_type, dynamic content_item);
+        /// <param name="contentType">The type of the item to update.</param>
+        /// <param name="contentItem">The actual item information to update.</param>
+        void UpdateContentItem(StructuredContent_ContentType contentType, dynamic contentItem);
     }
 }

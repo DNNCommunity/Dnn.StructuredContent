@@ -253,7 +253,6 @@
     <Content Include="manifest.dnn" />
     <Content Include="DBScripts\00.01.00.SqlDataProvider" />
     <Content Include="readme.md" />
-    <None Include="DAL\Install.SqlDataProvider" />
     <None Include="DAL\StructuredContent.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>StructuredContent.designer.cs</LastGenOutput>

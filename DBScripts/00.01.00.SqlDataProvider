@@ -1,13 +1,9 @@
-﻿/****** Object:  Table {databaseOwner}{objectQualifier}[StructuredContent_ContentField]    Script Date: 9/18/2021 5:35:29 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+﻿
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent_ContentField]') AND type in (N'U'))
 BEGIN
 CREATE TABLE {databaseOwner}{objectQualifier}[StructuredContent_ContentField](
-	[id] [int] IDENTITY(1,1) NOT NULL,
-	[name] [nvarchar](256) NOT NULL,
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](256) NOT NULL,
 	[ContentTypeId] [int] NOT NULL,
 	[IsSystem] [bit] NOT NULL,
 	[Ordinal] [int] NOT NULL,
@@ -28,18 +24,14 @@ CREATE TABLE {databaseOwner}{objectQualifier}[StructuredContent_ContentField](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 END
 GO
-/****** Object:  Table {databaseOwner}{objectQualifier}[StructuredContent_ContentFieldType]    Script Date: 9/18/2021 5:35:29 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent_ContentFieldType]') AND type in (N'U'))
 BEGIN
 CREATE TABLE {databaseOwner}{objectQualifier}[StructuredContent_ContentFieldType](
-	[id] [int] IDENTITY(1,1) NOT NULL,
-	[key] [varchar](50) NOT NULL,
-	[type] [varchar](20) NOT NULL,
-	[name] [varchar](50) NOT NULL,
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Key] [varchar](50) NOT NULL,
+	[Type] [varchar](20) NOT NULL,
+	[Name] [varchar](50) NOT NULL,
 	[Ordinal] [int] NOT NULL,
 	[DefaultDataType] [int] NOT NULL,
 	[DefaultDataLength] [varchar](10) NULL,
@@ -52,16 +44,12 @@ CREATE TABLE {databaseOwner}{objectQualifier}[StructuredContent_ContentFieldType
 ) ON [PRIMARY]
 END
 GO
-/****** Object:  Table {databaseOwner}{objectQualifier}[StructuredContent_ContentType]    Script Date: 9/18/2021 5:35:29 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent_ContentType]') AND type in (N'U'))
 BEGIN
 CREATE TABLE {databaseOwner}{objectQualifier}[StructuredContent_ContentType](
-	[id] [int] IDENTITY(1,1) NOT NULL,
-	[name] [nvarchar](250) NOT NULL,
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](250) NOT NULL,
 	[Singular] [nvarchar](250) NOT NULL,
 	[Plural] [nvarchar](250) NOT NULL,
 	[UrlSlug] [nvarchar](250) NOT NULL,
@@ -74,16 +62,12 @@ CREATE TABLE {databaseOwner}{objectQualifier}[StructuredContent_ContentType](
 ) ON [PRIMARY]
 END
 GO
-/****** Object:  Table {databaseOwner}{objectQualifier}[StructuredContent_Relationship]    Script Date: 9/18/2021 5:35:29 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent_Relationship]') AND type in (N'U'))
 BEGIN
 CREATE TABLE {databaseOwner}{objectQualifier}[StructuredContent_Relationship](
-	[id] [int] IDENTITY(1,1) NOT NULL,
-	[key] [varchar](3) NOT NULL,
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Key] [varchar](3) NOT NULL,
 	[AContentTypeId] [int] NOT NULL,
 	[BContentTypeId] [int] NOT NULL,
 	[ARequired] [bit] NULL,
@@ -105,15 +89,11 @@ CREATE TABLE {databaseOwner}{objectQualifier}[StructuredContent_Relationship](
 ) ON [PRIMARY]
 END
 GO
-/****** Object:  Table {databaseOwner}{objectQualifier}[StructuredContent_Revision]    Script Date: 9/18/2021 5:35:29 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent_Revision]') AND type in (N'U'))
 BEGIN
 CREATE TABLE {databaseOwner}{objectQualifier}[StructuredContent_Revision](
-	[id] [int] IDENTITY(1,1) NOT NULL,
+	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[RevisionDate] [datetime] NOT NULL,
 	[UserId] [int] NULL,
 	[ActivityType] [nvarchar](15) NOT NULL,
@@ -128,15 +108,11 @@ CREATE TABLE {databaseOwner}{objectQualifier}[StructuredContent_Revision](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 END
 GO
-/****** Object:  Table {databaseOwner}{objectQualifier}[StructuredContent_Visualizer]    Script Date: 9/18/2021 5:35:29 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent_Visualizer]') AND type in (N'U'))
 BEGIN
 CREATE TABLE {databaseOwner}{objectQualifier}[StructuredContent_Visualizer](
-	[id] [int] IDENTITY(1,1) NOT NULL,
+	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[ModuleId] [int] NOT NULL,
 	[ContentTypeId] [int] NOT NULL,
 	[VisualizerTemplateId] [int] NULL,
@@ -149,22 +125,18 @@ CREATE TABLE {databaseOwner}{objectQualifier}[StructuredContent_Visualizer](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 END
 GO
-/****** Object:  Table {databaseOwner}{objectQualifier}[StructuredContent_VisualizerTemplate]    Script Date: 9/18/2021 5:35:29 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent_VisualizerTemplate]') AND type in (N'U'))
 BEGIN
 CREATE TABLE {databaseOwner}{objectQualifier}[StructuredContent_VisualizerTemplate](
-	[id] [int] IDENTITY(1,1) NOT NULL,
+	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[ContentTypeId] [int] NOT NULL,
-	[name] [nvarchar](250) NOT NULL,
-	[description] [nvarchar](max) NULL,
-	[script] [nvarchar](max) NULL,
-	[css] [nvarchar](max) NULL,
-	[template] [nvarchar](max) NULL,
-	[language] [varchar](10) NULL,
+	[Name] [nvarchar](250) NOT NULL,
+	[Description] [nvarchar](max) NULL,
+	[Script] [nvarchar](max) NULL,
+	[Css] [nvarchar](max) NULL,
+	[Template] [nvarchar](max) NULL,
+	[Language] [varchar](10) NULL,
 	[ContentSize] [varchar](10) NULL,
  CONSTRAINT [PK_StructuredContent_VisualizerTemplate] PRIMARY KEY CLUSTERED 
 (
@@ -174,14 +146,14 @@ CREATE TABLE {databaseOwner}{objectQualifier}[StructuredContent_VisualizerTempla
 END
 GO
 SET IDENTITY_INSERT {databaseOwner}{objectQualifier}[StructuredContent_ContentFieldType] ON 
-INSERT {databaseOwner}{objectQualifier}[StructuredContent_ContentFieldType] ([id], [key], [type], [name], [Ordinal], [DefaultDataType], [DefaultDataLength], [DefaultOptions], [Icon]) VALUES (1, N'text', N'content_field', N'Text', 1, 0, N'50', NULL, N'fas fa-font')
-INSERT {databaseOwner}{objectQualifier}[StructuredContent_ContentFieldType] ([id], [key], [type], [name], [Ordinal], [DefaultDataType], [DefaultDataLength], [DefaultOptions], [Icon]) VALUES (2, N'number', N'content_field', N'Number', 4, 1, NULL, NULL, N'fas fa-hashtag')
-INSERT {databaseOwner}{objectQualifier}[StructuredContent_ContentFieldType] ([id], [key], [type], [name], [Ordinal], [DefaultDataType], [DefaultDataLength], [DefaultOptions], [Icon]) VALUES (3, N'email', N'content_field', N'Email', 5, 0, N'50', NULL, N'far fa-envelope')
-INSERT {databaseOwner}{objectQualifier}[StructuredContent_ContentFieldType] ([id], [key], [type], [name], [Ordinal], [DefaultDataType], [DefaultDataLength], [DefaultOptions], [Icon]) VALUES (4, N'url', N'content_field', N'URL', 7, 0, N'50', NULL, N'fas fa-link')
-INSERT {databaseOwner}{objectQualifier}[StructuredContent_ContentFieldType] ([id], [key], [type], [name], [Ordinal], [DefaultDataType], [DefaultDataLength], [DefaultOptions], [Icon]) VALUES (5, N'datetime', N'content_field', N'Date/Time', 8, 2, NULL, NULL, N'fas fa-calendar')
-INSERT {databaseOwner}{objectQualifier}[StructuredContent_ContentFieldType] ([id], [key], [type], [name], [Ordinal], [DefaultDataType], [DefaultDataLength], [DefaultOptions], [Icon]) VALUES (6, N'boolean', N'content_field', N'Boolean', 10, 3, NULL, NULL, N'far fa-check-square')
-INSERT {databaseOwner}{objectQualifier}[StructuredContent_ContentFieldType] ([id], [key], [type], [name], [Ordinal], [DefaultDataType], [DefaultDataLength], [DefaultOptions], [Icon]) VALUES (7, N'choice', N'content_field', N'Choice', 12, 0, N'50', N'{"choices":[{"text":"Choice 1","value":"choice1"},{"text":"Choice 2","value":"choice2"}, {"text":"Choice 3","value":"choice3"}], "DefaultValue":null}', N'fas fa-list')
-INSERT {databaseOwner}{objectQualifier}[StructuredContent_ContentFieldType] ([id], [key], [type], [name], [Ordinal], [DefaultDataType], [DefaultDataLength], [DefaultOptions], [Icon]) VALUES (8, N'relatedcontent', N'relationship', N'Related Content Type', 16, 0, NULL, NULL, N'fas fa-sitemap')
+INSERT {databaseOwner}{objectQualifier}[StructuredContent_ContentFieldType] ([Id], [Key], [Type], [Name], [Ordinal], [DefaultDataType], [DefaultDataLength], [DefaultOptions], [Icon]) VALUES (1, N'text', N'content_field', N'Text', 1, 0, N'50', NULL, N'fas fa-font')
+INSERT {databaseOwner}{objectQualifier}[StructuredContent_ContentFieldType] ([Id], [Key], [Type], [Name], [Ordinal], [DefaultDataType], [DefaultDataLength], [DefaultOptions], [Icon]) VALUES (2, N'number', N'content_field', N'Number', 4, 1, NULL, NULL, N'fas fa-hashtag')
+INSERT {databaseOwner}{objectQualifier}[StructuredContent_ContentFieldType] ([Id], [Key], [Type], [Name], [Ordinal], [DefaultDataType], [DefaultDataLength], [DefaultOptions], [Icon]) VALUES (3, N'email', N'content_field', N'Email', 5, 0, N'50', NULL, N'far fa-envelope')
+INSERT {databaseOwner}{objectQualifier}[StructuredContent_ContentFieldType] ([Id], [Key], [Type], [Name], [Ordinal], [DefaultDataType], [DefaultDataLength], [DefaultOptions], [Icon]) VALUES (4, N'url', N'content_field', N'URL', 7, 0, N'50', NULL, N'fas fa-link')
+INSERT {databaseOwner}{objectQualifier}[StructuredContent_ContentFieldType] ([Id], [Key], [Type], [Name], [Ordinal], [DefaultDataType], [DefaultDataLength], [DefaultOptions], [Icon]) VALUES (5, N'datetime', N'content_field', N'Date/Time', 8, 2, NULL, NULL, N'fas fa-calendar')
+INSERT {databaseOwner}{objectQualifier}[StructuredContent_ContentFieldType] ([Id], [Key], [Type], [Name], [Ordinal], [DefaultDataType], [DefaultDataLength], [DefaultOptions], [Icon]) VALUES (6, N'boolean', N'content_field', N'Boolean', 10, 3, NULL, NULL, N'far fa-check-square')
+INSERT {databaseOwner}{objectQualifier}[StructuredContent_ContentFieldType] ([Id], [Key], [Type], [Name], [Ordinal], [DefaultDataType], [DefaultDataLength], [DefaultOptions], [Icon]) VALUES (7, N'choice', N'content_field', N'Choice', 12, 0, N'50', N'{"choices":[{"text":"Choice 1","value":"choice1"},{"text":"Choice 2","value":"choice2"}, {"text":"Choice 3","value":"choice3"}], "DefaultValue":null}', N'fas fa-list')
+INSERT {databaseOwner}{objectQualifier}[StructuredContent_ContentFieldType] ([Id], [Key], [Type], [Name], [Ordinal], [DefaultDataType], [DefaultDataLength], [DefaultOptions], [Icon]) VALUES (8, N'relatedcontent', N'relationship', N'Related Content Type', 16, 0, NULL, NULL, N'fas fa-sitemap')
 SET IDENTITY_INSERT {databaseOwner}{objectQualifier}[StructuredContent_ContentFieldType] OFF
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FK_StructuredContent_ContentField_StructuredContent_ContentFieldType]') AND parent_object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[StructuredContent_ContentField]'))
