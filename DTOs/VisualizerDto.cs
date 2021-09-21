@@ -4,8 +4,6 @@
 
 namespace StructuredContent.DAL
 {
-    using System;
-
     public class VisualizerDto
     {
         public int Id { get; set; }

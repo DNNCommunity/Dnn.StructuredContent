@@ -12,21 +12,38 @@ namespace StructuredContent
     using System.Net.Http;
     using System.Web.Http;
 
+    using Dnn.StructuredContent.Controllers.Serializers;
     using DotNetNuke.Security;
     using DotNetNuke.Services.Exceptions;
     using DotNetNuke.Web.Api;
     using StructuredContent.DAL;
 
+    /// <summary>
+    /// Web API controller to manage Content Types.
+    /// </summary>
+    [JsonCamelCaseSerializer]
     public class ContentTypeController : DnnApiController
     {
         private readonly ISQLHelper sqlHelper;
         private readonly DataContext dataContext = new DataContext();
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ContentTypeController"/> class.
+        /// </summary>
+        /// <param name="sqlHelper">The sql helper to use.</param>
         public ContentTypeController(ISQLHelper sqlHelper)
         {
             this.sqlHelper = sqlHelper;
         }
 
+        /// <summary>
+        /// Gets a list of content types.
+        /// </summary>
+        /// <param name="name">The name of the content type to filter for (optional).</param>
+        /// <param name="verbose">Whether to return verbose results (optional).</param>
+        /// <param name="skip">The number of items to skip (for paging).</param>
+        /// <param name="take">The number of items to get (for paging).</param>
+        /// <returns>A list of <see cref="ContentTypeDto"/>.</returns>
         [HttpGet]
         [AllowAnonymous]
         public HttpResponseMessage Get(string name = "", bool? verbose = null, int? skip = null, int? take = null)
@@ -79,6 +96,11 @@ namespace StructuredContent
             }
         }
 
+        /// <summary>
+        /// Gets a single content type.
+        /// </summary>
+        /// <param name="id">The ID of the content type to get.</param>
+        /// <returns><see cref="ContentTypeDto"/>.</returns>
         [HttpGet]
         [AllowAnonymous]
         public HttpResponseMessage Get(int id)
@@ -100,6 +122,11 @@ namespace StructuredContent
             }
         }
 
+        /// <summary>
+        /// Creates a new content type.
+        /// </summary>
+        /// <param name="dto"><see cref="ContentTypeDto"/>.</param>
+        /// <returns>The created <see cref="ContentTypeDto"/>.</returns>
         [HttpPost]
         [AllowAnonymous]
         [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]
@@ -195,6 +222,11 @@ namespace StructuredContent
             }
         }
 
+        /// <summary>
+        /// Updates an existing content type.
+        /// </summary>
+        /// <param name="dto"><see cref="ContentTypeDto"/>.</param>
+        /// <returns>The updated <see cref="ContentTypeDto"/>.</returns>
         [HttpPut]
         [AllowAnonymous]
         [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]
@@ -220,6 +252,11 @@ namespace StructuredContent
             }
         }
 
+        /// <summary>
+        /// Deletes an existing content type.
+        /// </summary>
+        /// <param name="id">The ID of the content type to delete.</param>
+        /// <returns>OK or InternalServerError.</returns>
         [HttpDelete]
         [AllowAnonymous]
         [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]

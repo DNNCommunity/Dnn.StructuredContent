@@ -4,7 +4,6 @@
 
 namespace StructuredContent.DAL
 {
-    using System;
 
     using Newtonsoft.Json;
 

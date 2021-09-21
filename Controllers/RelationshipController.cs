@@ -12,22 +12,35 @@ namespace StructuredContent
     using System.Net.Http;
     using System.Web.Http;
 
+    using Dnn.StructuredContent.Controllers.Serializers;
     using DotNetNuke.Security;
     using DotNetNuke.Services.Exceptions;
     using DotNetNuke.Web.Api;
     using StructuredContent.DAL;
 
-    // [SupportedModules("StructuredContent")]
+    /// <summary>
+    /// Web API to manage relationships.
+    /// </summary>
+    [JsonCamelCaseSerializer]
     public class RelationshipController : DnnApiController
     {
         private readonly ISQLHelper sqlHelper;
         private readonly DataContext dataContext = new DataContext();
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RelationshipController"/> class.
+        /// </summary>
+        /// <param name="sqlHelper">The sql helper to use.</param>
         public RelationshipController(ISQLHelper sqlHelper)
         {
             this.sqlHelper = sqlHelper;
         }
 
+        /// <summary>
+        /// Gets relationsips.
+        /// </summary>
+        /// <param name="contentTypeId">The ID of the content type to get relationships for.</param>
+        /// <returns>A list of <see cref="RelationshipDto"/>.</returns>
         [HttpGet]
         [AllowAnonymous]
         public HttpResponseMessage Get(int? contentTypeId = null)
@@ -59,6 +72,11 @@ namespace StructuredContent
             }
         }
 
+        /// <summary>
+        /// Gets a single relationship.
+        /// </summary>
+        /// <param name="id">The ID of the relashionship to get.</param>
+        /// <returns><see cref="RelationshipDto"/>.</returns>
         [HttpGet]
         [AllowAnonymous]
         public HttpResponseMessage Get(int id)
@@ -80,6 +98,11 @@ namespace StructuredContent
             }
         }
 
+        /// <summary>
+        /// Creates a new relationship.
+        /// </summary>
+        /// <param name="dto"><see cref="RelationshipDto"/>.</param>
+        /// <returns>The created <see cref="RelationshipDto"/>.</returns>
         [HttpPost]
         [AllowAnonymous]
         [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]
@@ -192,6 +215,11 @@ namespace StructuredContent
             }
         }
 
+        /// <summary>
+        /// Updates an existing relationship.
+        /// </summary>
+        /// <param name="dto"><see cref="RelationshipDto"/>.</param>
+        /// <returns>The updated <see cref="RelationshipDto"/>.</returns>
         [HttpPut]
         [AllowAnonymous]
         [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]
@@ -232,6 +260,11 @@ namespace StructuredContent
             }
         }
 
+        /// <summary>
+        /// Deletes an existing relationship.
+        /// </summary>
+        /// <param name="id">The ID of the relationship to delete.</param>
+        /// <returns>OK or InternalServerError.</returns>
         [HttpDelete]
         [AllowAnonymous]
         [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]

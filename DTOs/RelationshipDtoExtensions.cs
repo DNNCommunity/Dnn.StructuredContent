@@ -4,8 +4,6 @@
 
 namespace StructuredContent.DAL
 {
-    using System;
-
     public static partial class RelationshipDtoExtensions
     {
         public static RelationshipDto ToDto(this StructuredContent_Relationship item)

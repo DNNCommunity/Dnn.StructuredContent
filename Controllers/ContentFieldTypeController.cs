@@ -5,23 +5,34 @@
 namespace StructuredContent
 {
     using System;
-    using System.Collections.Generic;
     using System.Data;
     using System.Linq;
     using System.Net;
     using System.Net.Http;
     using System.Web.Http;
 
+    using Dnn.StructuredContent.Controllers.Serializers;
     using DotNetNuke.Security;
     using DotNetNuke.Services.Exceptions;
     using DotNetNuke.Web.Api;
     using StructuredContent.DAL;
 
-    // [SupportedModules("StructuredContent")]
+    /// <summary>
+    /// Web API to manage content field types.
+    /// </summary>
+    [JsonCamelCaseSerializer]
     public class ContentFieldTypeController : DnnApiController
     {
         private readonly DataContext dataContext = new DataContext();
 
+        /// <summary>
+        /// Gets a list of content field types.
+        /// </summary>
+        /// <param name="name">The name of the field type.</param>
+        /// <param name="verbose">Whether to return verbose results.</param>
+        /// <param name="skip">The number of items to skip (for paging).</param>
+        /// <param name="take">The number of items to take (for paging).</param>
+        /// <returns>A list of <see cref="ContentFieldTypeDto"/>.</returns>
         [HttpGet]
         [AllowAnonymous]
         public HttpResponseMessage Get(string name = "", bool? verbose = null, int? skip = null, int? take = null)
@@ -67,6 +78,11 @@ namespace StructuredContent
             }
         }
 
+        /// <summary>
+        /// Gets a single content field type.
+        /// </summary>
+        /// <param name="id">The id of the field type to get.</param>
+        /// <returns><see cref="ContentFieldTypeDto"/>.</returns>
         [HttpGet]
         [AllowAnonymous]
         public HttpResponseMessage Get(int id)
@@ -88,6 +104,11 @@ namespace StructuredContent
             }
         }
 
+        /// <summary>
+        /// Creates a new content field type.
+        /// </summary>
+        /// <param name="dto"><see cref="ContentFieldTypeDto"/>.</param>
+        /// <returns>The recently created <see cref="ContentFieldTypeDto"/>.</returns>
         [HttpPost]
         [AllowAnonymous]
         [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]
@@ -110,6 +131,11 @@ namespace StructuredContent
             }
         }
 
+        /// <summary>
+        /// Updates an existing content field type.
+        /// </summary>
+        /// <param name="dto"><see cref="ContentFieldTypeDto"/>.</param>
+        /// <returns>The recently updated <see cref="ContentFieldTypeDto"/>.</returns>
         [HttpPut]
         [AllowAnonymous]
         [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]
@@ -135,6 +161,11 @@ namespace StructuredContent
             }
         }
 
+        /// <summary>
+        /// Deletes an existing content field type.
+        /// </summary>
+        /// <param name="id">The ID of the content field type to delete.</param>
+        /// <returns>OK or InternalServerError.</returns>
         [HttpDelete]
         [AllowAnonymous]
         [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Anonymous)]
