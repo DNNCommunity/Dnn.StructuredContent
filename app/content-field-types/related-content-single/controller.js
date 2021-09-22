@@ -2,8 +2,6 @@
 
     $scope.relationship;
 
-    //$scope.primaryContentType;
-    //$scope.relatedContentType;
     $scope.relatedContentItems;
 
     $scope.controlName = 'relation_' + $scope.relationship.id;
