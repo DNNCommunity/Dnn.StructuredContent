@@ -5,6 +5,7 @@
         scope: {
             form: '=',
             contentField: '=',
+            contentItem: '=',
             submitted: '='
         }
     };

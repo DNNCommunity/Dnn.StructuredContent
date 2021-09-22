@@ -113,36 +113,42 @@ namespace StructuredContent
                 var aContentType = this.dataContext.StructuredContent_ContentTypes.Where(i => i.Id == dto.AContentTypeId).SingleOrDefault();
                 var bContentType = this.dataContext.StructuredContent_ContentTypes.Where(i => i.Id == dto.BContentTypeId).SingleOrDefault();
 
-                var o2m_relationship = new StructuredContent_Relationship();
-                var m2o_relationship = new StructuredContent_Relationship();
+                var o2mRelationship = new StructuredContent_Relationship();
+                var m2oRrelationship = new StructuredContent_Relationship();
 
                 switch (dto.Key)
                 {
                     case "o2m": // a=one , b=many
 
                         // check for duplicate column name
-                        var o2m_foreign_key_ColumnName = aContentType.Singular.ToLower() + "_id";
-                        var o2m_duplicate_check = this.dataContext.StructuredContent_ContentFields.Where(i => i.ContentTypeId == dto.BContentTypeId && (i.Name == o2m_foreign_key_ColumnName || i.ColumnName == o2m_foreign_key_ColumnName)).Any();
-                        if (o2m_duplicate_check)
+                        var foreignKeyContentType = this.dataContext.StructuredContent_ContentTypes.Where(i => i.Id == dto.AContentTypeId).SingleOrDefault();
+                        if (foreignKeyContentType == null)
+                        {
+                            return this.Request.CreateResponse(HttpStatusCode.NotFound);
+                        };
+                        var o2mForeignKeyColumnName = foreignKeyContentType.Singular + "Id";
+                        var o2mDuplicateCheck = this.dataContext.StructuredContent_ContentFields.Where(i => i.ContentTypeId == dto.BContentTypeId && (i.Name == o2mForeignKeyColumnName || i.ColumnName == o2mForeignKeyColumnName)).Any();
+                        if (o2mDuplicateCheck)
                         {
                             return this.Request.CreateResponse(HttpStatusCode.Conflict);
                         }
 
                         // record foreign key field of the one table
-                        var content_field = new StructuredContent_ContentField
+                        var contentField = new StructuredContent_ContentField
                         {
                             StructuredContent_ContentType = bContentType,
-                            Name = o2m_foreign_key_ColumnName,
-                            ColumnName = o2m_foreign_key_ColumnName,
+                            Name = o2mForeignKeyColumnName,
+                            ColumnName = o2mForeignKeyColumnName,
                             Ordinal = 0,
                             DataType = (int)Enums.DataTypes.Integer,
                             AllowNull = true,
                             IsSystem = true,
+                            ContentFieldTypeId = this.dataContext.StructuredContent_ContentFieldTypes.Where(i => i.Key == "relatedcontent").SingleOrDefault().Id,
                         };
-                        this.dataContext.StructuredContent_ContentFields.InsertOnSubmit(content_field);
+                        this.dataContext.StructuredContent_ContentFields.InsertOnSubmit(contentField);
 
                         // record relationship == 1->many
-                        o2m_relationship = new StructuredContent_Relationship
+                        o2mRelationship = new StructuredContent_Relationship
                         {
                             Key = "o2m",
                             AContentTypeId = dto.AContentTypeId,
@@ -163,14 +169,14 @@ namespace StructuredContent
                             BLayoutColumn = dto.BLayoutColumn,
                             BLayoutRow = dto.BLayoutRow,
                         };
-                        this.dataContext.StructuredContent_Relationships.InsertOnSubmit(o2m_relationship);
+                        this.dataContext.StructuredContent_Relationships.InsertOnSubmit(o2mRelationship);
 
-                        this.sqlHelper.AddColumn(content_field);
+                        this.sqlHelper.AddColumn(contentField);
                         this.sqlHelper.CreateOneToManyRelationship(aContentType, bContentType);
 
                         this.dataContext.SubmitChanges();
 
-                        return this.Request.CreateResponse(HttpStatusCode.OK, o2m_relationship.ToDto());
+                        return this.Request.CreateResponse(HttpStatusCode.OK, o2mRelationship.ToDto());
 
                     case "m2m": // many-to-many, need junction table
 
@@ -178,7 +184,7 @@ namespace StructuredContent
                         this.sqlHelper.CreateManyToManyRelationship(aContentType, bContentType);
 
                         // record relationship == a->b
-                        var m2m_relationship = new StructuredContent_Relationship
+                        var m2mRelationship = new StructuredContent_Relationship
                         {
                             Key = "m2m",
                             AContentTypeId = dto.AContentTypeId,
@@ -199,10 +205,10 @@ namespace StructuredContent
                             BLayoutColumn = dto.BLayoutColumn,
                             BLayoutRow = dto.BLayoutRow,
                         };
-                        this.dataContext.StructuredContent_Relationships.InsertOnSubmit(m2m_relationship);
+                        this.dataContext.StructuredContent_Relationships.InsertOnSubmit(m2mRelationship);
                         this.dataContext.SubmitChanges();
 
-                        return this.Request.CreateResponse(HttpStatusCode.OK, m2m_relationship.ToDto());
+                        return this.Request.CreateResponse(HttpStatusCode.OK, m2mRelationship.ToDto());
 
                     default:
                         return this.Request.CreateResponse(HttpStatusCode.OK);
@@ -291,15 +297,15 @@ namespace StructuredContent
                         this.sqlHelper.DeleteOneToManyRelationship(item.StructuredContent_ContentType, item.StructuredContent_ContentType1);
 
                         // delete foreign key field meta of the child table
-                        var o2m_foreign_key_ColumnName = item.StructuredContent_ContentType.Singular.ToLower() + "_id";
-                        var o2m_foreign_key_content_field = this.dataContext.StructuredContent_ContentFields.Where(i => i.ContentTypeId == item.BContentTypeId && i.ColumnName == o2m_foreign_key_ColumnName).FirstOrDefault();
-                        if (o2m_foreign_key_content_field != null)
+                        var o2mForeignKeyColumnName = item.StructuredContent_ContentType.Singular + "Id";
+                        var o2mForeignKeyContentField = this.dataContext.StructuredContent_ContentFields.Where(i => i.ContentTypeId == item.BContentTypeId && i.ColumnName == o2mForeignKeyColumnName).FirstOrDefault();
+                        if (o2mForeignKeyContentField != null)
                         {
-                            this.dataContext.StructuredContent_ContentFields.DeleteOnSubmit(o2m_foreign_key_content_field);
+                            this.dataContext.StructuredContent_ContentFields.DeleteOnSubmit(o2mForeignKeyContentField);
                         }
 
                         // delete the foreign key column
-                        this.sqlHelper.DeleteColumn(o2m_foreign_key_content_field);
+                        this.sqlHelper.DeleteColumn(o2mForeignKeyContentField);
 
                         break;
 

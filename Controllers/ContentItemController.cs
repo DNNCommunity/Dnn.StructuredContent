@@ -272,23 +272,25 @@ namespace StructuredContent
                 this.sqlHelper.UpdateContentItem(primaryContentType, primaryContentItem);
 
                 // iterate over the relationships for the content item and update the relationships
-                foreach (var relationship in primaryContentType.StructuredContent_Relationships)
+                var relationships = primaryContentType.StructuredContent_Relationships.ToList();
+                relationships.AddRange(primaryContentType.StructuredContent_Relationships1.ToList());
+                foreach (var relationship in relationships)
                 {
                     if (relationship.Key == "m2m")
                     {
-                        // delete any existing cross references for the primary_content_type
+                        // delete any existing cross references for the primaryContentType
                         this.sqlHelper.DeleteManyToManyRelationship(relationship, primaryContentType, (int)primaryContentItem.id);
 
-                        // add back any related_content_type records present in the data model
+                        // add back any relatedContentType records present in the data model
                         StructuredContent_ContentType relatedContentType = null;
                         if (relationship.AContentTypeId == primaryContentType.Id)
                         {
-                            relatedContentType = relationship.StructuredContent_ContentType;
+                            relatedContentType = relationship.StructuredContent_ContentType1;
                         }
 
-                        if (relationship.AContentTypeId == primaryContentType.Id)
+                        if (relationship.BContentTypeId == primaryContentType.Id)
                         {
-                            relatedContentType = relationship.StructuredContent_ContentType1;
+                            relatedContentType = relationship.StructuredContent_ContentType;
                         }
 
                         var relatedContentTypeName = relatedContentType.Plural.ToLower();

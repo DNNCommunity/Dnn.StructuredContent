@@ -15,59 +15,59 @@
     // implementation    
 
     // search
-    function search(contentType = '', verbose = null, skip = null, take = null) {
+    function search(contentTypeUrlSlug = '', verbose = null, skip = null, take = null) {
         var request = $http({
             method: "get",
-            url: base_path + '/' + contentType + '/' + '?verbose=' + verbose + '&skip=' + skip + '&take=' + take
+            url: base_path + '/' + contentTypeUrlSlug + '/' + '?verbose=' + verbose + '&skip=' + skip + '&take=' + take
         });
         return request;
     }
 
     // get 
-    function get(contentType, id) {
+    function get(contentTypeUrlSlug, id) {
         var request = $http({
             method: "get",
-            url: base_path + '/' + contentType + '/' + id
+            url: base_path + '/' + contentTypeUrlSlug + '/' + id
         });
         return request;
     }
 
     // insert
-    function insert(contentType, item) {
+    function insert(contentTypeUrlSlug, item) {
         var request = $http({
             method: "post",
-            url: base_path + '/' + contentType,
+            url: base_path + '/' + contentTypeUrlSlug,
             data: item
         });
         return request;
     }
 
     // update 
-    function update(contentType, item) {
+    function update(contentTypeUrlSlug, item) {
         var request = $http({
             method: "put",
-            url: base_path + '/' + contentType,
+            url: base_path + '/' + contentTypeUrlSlug,
             data: item
         });
         return request;
     }
 
     // delete
-    function remove(contecontentTypent_type, id) {
+    function remove(contentTypeUrlSlug, id) {
         var request = $http({
             method: "delete",
-            url: base_path + '/' + contentType + '/' + id
+            url: base_path + '/' + contentTypeUrlSlug + '/' + id
         });
         return request;
     }
 
     // save
-    function save(contentType, item) {
+    function save(contentTypeUrlSlug, item) {
         if (item.id > 0) {
-            return update(contentType, item);
+            return update(contentTypeUrlSlug, item);
         }
         else {
-            return insert(contentType, item);
+            return insert(contentTypeUrlSlug, item);
         }
     }
 

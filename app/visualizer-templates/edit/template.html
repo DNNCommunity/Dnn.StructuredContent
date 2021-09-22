@@ -1,6 +1,6 @@
 ﻿<div class="modal-header">
-    <h5 class="modal-title" ng-if="visualizerTemplate.id">Edit Visualizer Template - {{visualizerTemplate.name}}</h5>
-    <h5 class="modal-title" ng-if="!visualizerTemplate.id">New Visualizer Template</h5>
+    <h5 class="modal-title" ng-if="visualizerTemplate.id">Edit '{{visualizerTemplate.name}}' of '{{contentType.name}}'</h5>
+    <h5 class="modal-title" ng-if="!visualizerTemplate.id">New Visualizer Template for '{{contentType.name}}'</h5>
     <button type="button" class="btn-close" ng-click="close()"></button>
 </div>
 

@@ -1,4 +1,4 @@
-﻿app.controller('contentItemEditController', ['$scope', '$q', '$uibModalInstance', 'toastr', 'contentTypeService', 'contentItemService', 'contentFieldService', 'relationshipService', 'id', 'contentType', function ($scope, $q, $uibModalInstance, toastr, contentTypeService, contentItemService, contentFieldService, relationshipService, id, contentType) {
+﻿app.controller('contentItemEditController', ['$scope', '$q', '$uibModalInstance', 'toastr', 'contentTypeService', 'contentItemService', 'contentFieldService', 'relationshipService', 'contentType', 'id', function ($scope, $q, $uibModalInstance, toastr, contentTypeService, contentItemService, contentFieldService, relationshipService, contentType, id) {
 
     $scope.loading = true;
     $scope.submitted = false;
@@ -8,49 +8,42 @@
     };
 
     $scope.contentType = contentType;
-
     $scope.contentItem = {
         id: id,
-        contentTypeId: contentTypeId,
+        contentTypeId: contentType.id,
         status: "Draft"
     };
+
     $scope.contentFields = [];
     $scope.relationships = [];
 
-    getContentType = function () {
+    getContentItem = function () {
         var deferred = $q.defer();
         $scope.loading = true;
-
-        contentTypeService.get($scope.contentType.id).then(
+        contentItemService.get(contentType.urlSlug, $scope.contentItem.id).then(
             function (response) {
-                $scope.contentType = response.data;
-
-                $q.all([getContentFields(), getRelationships()]).then(
-                    function () {
-                        buildCanvas();
-                        $scope.loading = false;
-                        deferred.resolve();
-                    },
-                    function () {
-                        $scope.loading = false;
-                        deferred.resolve();
-                    }
-                );
+                console.log(response.data);
+                $scope.contentItem = response.data;
+                $scope.loading = false;
+                deferred.resolve();
             },
             function (response) {
-                console.log('getContentType failed', response);
+                console.log('getContentItem failed', response);
+                toastr.error("There was a problem loading the Content Item", "Error");
                 $scope.loading = false;
-                toastr.error("There was a problem loading the Content Type", "Error");
                 deferred.reject();
             }
         );
         return deferred.promise;
     };
+
     getContentFields = function () {
+        // get a list of contentFields for this contentType so that we can populate the contentItem' data into the edit control for the contentField
         var deferred = $q.defer();
         $scope.loading = true;
         contentFieldService.search(contentType.urlSlug, true).then(
             function (response) {
+                console.log('contentFields', response.data);
                 $scope.contentFields = response.data;
                 $scope.loading = false;
                 deferred.resolve();
@@ -65,10 +58,12 @@
         return deferred.promise;
     };
     getRelationships = function () {
+        // get a list of relationships for this contentType so that we can populate the contentItem' data into the edit control for the contentField
         var deferred = $q.defer();
         $scope.loading = true;
-        relationshipService.search($scope.contentType.id, $scope.contentType.id).then(
+        relationshipService.search($scope.contentType.id).then(
             function (response) {
+                console.log('relationships', response.data);
                 $scope.relationships = response.data;
                 $scope.loading = false;
                 deferred.resolve();
@@ -92,7 +87,6 @@
             $scope.contentItem.status = "Draft";
             $scope.contentItem.datePublished = null;
 
-            prepItemForSave();
 
             contentItemService.save(contentType.urlSlug, $scope.contentItem).then(
                 function (response) {
@@ -130,7 +124,6 @@
 
             $scope.contentItem.status = "Published";
 
-            prepItemForSave();
 
             contentItemService.save(contentType.urlSlug, $scope.contentItem).then(
                 function (response) {
@@ -159,36 +152,9 @@
         return deferred.promise;
     };
 
-    saveRelationship = function (relationship) {
-        var deferred = $q.defer();
-        $scope.saving = true;
-        $scope.loading = true;
-
-        return deferred.promise;
-    };
-
-    getContentItem = function () {
-        var deferred = $q.defer();
-        $scope.loading = true;
-        contentItemService.get(contentType.urlSlug, $scope.contentItem.id).then(
-            function (response) {
-                $scope.contentItem = response.data;
-                $scope.loading = false;
-                deferred.resolve();
-            },
-            function (response) {
-                console.log('getContentItem failed', response);
-                toastr.error("There was a problem loading the Content Item", "Error");
-                $scope.loading = false;
-                deferred.reject();
-            }
-        );
-        return deferred.promise;
-    };
-
     prepItemFromLoad = function () {
+        // move values from the contentItem object into the contentField editors 
 
-        // move the values from the content_item object to the content_field collection for editing
         $scope.contentFields.forEach(function (contentField) {
             contentField.value = $scope.contentItem[contentField.columnName];
         });
@@ -198,51 +164,42 @@
 
             if (relationship.key === 'o2m') {
                 if ($scope.contentType.id === relationship.bContentTypeId) {
-                    relationship.aValue = $scope.contentItem[relationship.aColumnName];
+                    // the current item is on the many side of a o2m
+                    relationship.aValue = $scope.contentItem[relationship.aContentType.singular.toLowerCase() + "_id"];
                 }
 
                 if ($scope.contentType.id === relationship.aContentTypeId) {
-                    relationship.primaryContenType = relationship.aContentType;
-                    relationship.relatedContentType = relationship.bContentType;
-                    relationship.relatedItems = $scope.contentItem[relationship.bContentType.plural.toLowerCase()];
-                    relationship.minLimit = relationship.bMinLimit;
-                    relationship.maxLimit = relationship.bMaxLimit;
-                    relationship.helpText = relationship.bHelpText;
+                    // the current item is on the one side of a o2m
+                    relationship.relatedContentItems = $scope.contentItem[relationship.bContentType.plural.toLowerCase()];
                 }
             }
 
-            if (relationship.key === 'm2m') {
+            if (relationship.key === 'm2m') {                
                 if ($scope.contentType.id === relationship.aContentTypeId) {
-                    relationship.primaryContentType = relationship.aContentType;
-                    relationship.relatedContentType = relationship.bContentType;
-                    relationship.relatedItems = $scope.contentItem[relationship.bContentType.plural.toLowerCase()];
-                    relationship.minLimit = relationship.bMinLimit;
-                    relationship.maxLimit = relationship.bMaxLimit;
-                    relationship.helpText = relationship.bHelpText;
+                    relationship.relatedContentItems = $scope.contentItem[relationship.bContentType.plural.toLowerCase()];
                 }
 
                 if ($scope.contentType.id === relationship.bContentTypeId) {
-                    relationship.primaryContentType = relationship.bContentType;
-                    relationship.relatedContentType = relationship.aContentType;
-                    relationship.relatedItems = $scope.contentItem[relationship.aContentType.plural.toLowerCase()];
-                    relationship.minLimit = relationship.aMinLimit;
-                    relationship.maxLimit = relationship.aMaxLimit;
-                    relationship.helpText = relationship.aHelpText;
+                    relationship.relatedContentItems = $scope.contentItem[relationship.aContentType.plural.toLowerCase()];
                 }
             }
         });
     };
 
-    // move data from content_field editors into content_item
-    prepItemForSave = function () {
-        for (var indexField = 0; indexField < $scope.contentFields.length; indexField++) {
-            var contentField = $scope.contentFields[indexField];
+    //prepItemForSave = function () {
+    //    // move data from content_field editors into content_item
+    //    $scope.contentFields.forEach(function (contentField) {
+    //        if (!contentField.isSystem) {
+    //            $scope.contentItem[contentField.columnName] = contentField.value;
+    //        }
+    //    });
 
-            if (!contentField.isSystem) {
-                $scope.contentItem[contentField.columnName] = contentField.value;
-            }
-        }
-    };
+    //    $scope.relationships.forEach(function (relationship) {
+    //        if (relationship.key === 'o2m') {
+    //            $scope.contentItem[relationship.aContentType.singular.toLowerCase() + "_id"] = relationship.aValue;
+    //        }
+    //    });
+    //};
 
     buildCanvas = function () {
 
@@ -372,10 +329,8 @@
 
     init = function () {
         var promises = [];
-
-        if ($scope.contentType.id) {
-            promises.push(getContentType());
-        }
+        promises.push(getContentFields());
+        promises.push(getRelationships());
 
         if ($scope.contentItem.id) {
             promises.push(getContentItem());
@@ -386,7 +341,8 @@
 
     init().then(
         function () {
-            prepItemFromLoad();
+            //prepItemFromLoad();
+            buildCanvas();
         }
     );
 

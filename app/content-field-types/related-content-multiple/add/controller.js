@@ -13,8 +13,7 @@
     $scope.search = function () {
         var deferred = $q.defer();
         $scope.loading = true;
-
-        contentItemService.search($scope.contentType.UrlSlug, $scope.searchName).then(
+        contentItemService.search($scope.contentType.urlSlug, $scope.searchName).then(
             function (response) {
                 $scope.items = response.data;
                 $scope.loading = false;

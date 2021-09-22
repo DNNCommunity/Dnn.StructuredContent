@@ -1,7 +1,7 @@
 ﻿<div class="card">
     <div class="card-body">
 
-        <label for="relatedContent" class="form-label">Related {{relationship.relatedContentType.name}} <span class="text-danger" ng-show="isRequired()">*</span> <span ng-if="relationship.minLimit">(min:{{relationship.minLimit}})</span> <span ng-if="relationship.maxLimit">(max:{{relationship.maxLimit}})</span></label>
+        <label for="relatedContent" class="form-label">Related {{relatedContentType().name}} <span class="text-danger" ng-show="isRequired()">*</span> <span ng-if="minLimit()">(min:{{minLimit()}})</span> <span ng-if="maxLimit()">(max:{{maxLimit()}})</span></label>
 
         <table class="table table-striped">
             <colgroup>
@@ -15,7 +15,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="item in relatedItems">
+                <tr ng-repeat="item in relatedContentItems">
                     <td>{{item.name}}</td>
                     <td><button class="btn btn-sm" ng-click="deleteRelatedContentItem($index)"><span class="fas fa-trash"></span></button></td>
                 </tr>
@@ -24,14 +24,15 @@
 
         <div class="form-row">
             <div class="col-sm-6">
-                <small class="form-text">{{relationship.helpText}}</small>
+                <small class="form-text">{{helpText()}}</small>
             </div>
             <div class="col-sm-6 text-right">
                 <div ng-messages="form[controlName].$error" ng-if="submitted" class="invalid-feedback" role="alert">
-                    <div ng-message="minTags">A minimum of {{getMinTags()}} is required</div>
-                    <div ng-message="maxTags">A maximum of {{getMaxTags()}} is allowed</div>
+                    <div ng-message="minTags">A minimum of {{minLimit()}} is required</div>
+                    <div ng-message="maxTags">A maximum of {{maxLimit()}} is allowed</div>
                 </div>
             </div>
         </div>
+
     </div>
 </div>

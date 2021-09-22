@@ -89,7 +89,7 @@
             }
         }
     };
-
+    
     $scope.init = function () {
         var promises = [];
         promises.push($scope.getContentTypes());
@@ -103,8 +103,8 @@
             // set defaults for new relationship
             if (!$scope.relationship.id) {
                 $scope.relationship.key = 'o2m';
-                $scope.relationship.aContentTypeId = $scope.relationship.contentTypeId;
-                $scope.relationship.bContentTypeId = $scope.relationship.contentTypeId;
+                $scope.relationship.aContentTypeId = $scope.contentType.id;
+                $scope.relationship.bContentTypeId = $scope.contentType.id;
                 $scope.relationship.aMinLimit = null;
                 $scope.relationship.aMaxLimit = null;
                 $scope.relationship.bMinLimit = null;

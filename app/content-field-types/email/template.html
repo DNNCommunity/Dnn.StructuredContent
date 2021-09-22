@@ -1,5 +1,5 @@
 ﻿<div class="form-floating mb-3">
-    <input type="email" name="{{contentField.columnName}}" id="{{contentField.columnName}}" class="form-control" ng-model="contentField.value" ng-required="contentField.options.required" email ng-class="{'is-invalid': form[contentField.columnName].$invalid && submitted,'is-valid': form[contentField.columnName].$valid && submitted}" placeholder=" " />
+    <input type="email" name="{{contentField.columnName}}" id="{{contentField.columnName}}" class="form-control" ng-model="contentItem[contentField.columnName]" ng-required="contentField.options.required" email ng-class="{'is-invalid': form[contentField.columnName].$invalid && submitted,'is-valid': form[contentField.columnName].$valid && submitted}" placeholder=" " />
     <label for="{{contentField.columnName}}" class="form-label">{{contentField.name}} <span class="text-danger" ng-show="contentField.options.required">*</span></label>
     <div ng-messages="form[contentField.columnName].$error" ng-if="submitted" class="invalid-feedback" role="alert">
         <div ng-message="required">This field is required</div>

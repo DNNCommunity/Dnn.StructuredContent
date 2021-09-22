@@ -1,36 +1,13 @@
-﻿app.controller('contentItemListController', ['$parse', '$scope', '$q', '$uibModal', '$uibModalInstance', 'toastr', 'contentItemService', 'contentTypeService', 'ContentTypeId', function ($parse, $scope, $q, $uibModal, $uibModalInstance, toastr, contentItemService, contentTypeService, ContentTypeId) {
+﻿app.controller('contentItemListController', ['$scope', '$q', '$uibModal', '$uibModalInstance', 'toastr', 'contentItemService', 'contentType', function ($scope, $q, $uibModal, $uibModalInstance, toastr, contentItemService, contentType) {
 
     $scope.loading = true;
     $scope.close = function () {
         $uibModalInstance.dismiss('cancel');
     };
 
-    $scope.content_items = [];
-    $scope.content_type = {
-        id: ContentTypeId
-    };
+    $scope.contentType = contentType;
+    $scope.contentItems = [];
 
-    getContentType = function () {
-        $scope.loading = true;
-        var deferred = $q.defer();
-
-        contentTypeService.get($scope.content_type.id).then(
-            function (response) {
-                $scope.content_type = response.data;
-
-                getContentItems();
-                $scope.loading = false;
-                deferred.resolve();
-            },
-            function (response) {
-                console.log('getContentType failed', response);
-                toastr.error("There was a problem loading the Content Type", "Error");
-                $scope.loading = false;
-                deferred.reject();
-            }
-        );
-        return deferred.promise;
-    };
     $scope.editContentType = function () {
         var modalInstance = $uibModal.open({
             templateUrl: '/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-types/edit/template.html?c=' + new Date().getTime(),
@@ -38,9 +15,7 @@
             size: 'full dnn-structured-content',
             backdrop: 'static',
             resolve: {
-                id: function () {
-                    return $scope.contentType.id;
-                }
+                contentType: $scope.contentType
             }
         });
 
@@ -56,9 +31,9 @@
     getContentItems = function () {
         var deferred = $q.defer();
         $scope.loading = true;
-        contentItemService.search($scope.content_type.UrlSlug).then(
+        contentItemService.search($scope.contentType.urlSlug).then(
             function (response) {
-                $scope.content_items = response.data;
+                $scope.contentItems = response.data;
                 $scope.loading = false;
                 deferred.resolve();
             },
@@ -78,21 +53,14 @@
             size: 'xl dnn-structured-content',
             backdrop: 'static',
             resolve: {
-                id: function () {
-                    return null;
-                },
-                ContentTypeId: function () {
-                    return $scope.content_type.id;
-                },
-                content_UrlSlug: function () {
-                    return $scope.content_type.UrlSlug;
-                }
+                contentType: $scope.contentType,
+                id: null                
             }
         });
 
         modalInstance.result.then(
-            function (content_item) {
-                toastr.success("'" + content_item.name + "' was saved.", "Success");
+            function (contentItem) {
+                toastr.success("'" + contentItem.name + "' was saved.", "Success");
                 getContentItems();
             },
             function () {
@@ -107,18 +75,14 @@
             size: 'xl dnn-structured-content',
             backdrop: 'static',
             resolve: {
-                id: function () {
-                    return id;
-                },
-                contentType: function () {
-                    return $scope.contentType;
-                }
+                id: id,
+                contentType: $scope.contentType
             }
         });
 
         modalInstance.result.then(
-            function (content_item) {
-                toastr.success("'" + content_item.name + "' was saved.", "Success");
+            function (contentItem) {
+                toastr.success("'" + contentItem.name + "' was saved.", "Success");
                 getContentItems();
             },
             function () {
@@ -133,12 +97,8 @@
             size: 'lg dnn-structured-content',
             backdrop: 'static',
             resolve: {
-                contentItem: function () {
-                    return contentItem;
-                },
-                content_type_UrlSlug: function () {
-                    return $scope.content_type.UrlSlug;
-                }
+                contentItem: contentItem,
+                contentType: $scope.contentType.urlSlug
             }
         });
 
@@ -167,12 +127,8 @@
             size: 'lg dnn-structured-content',
             backdrop: 'static',
             resolve: {
-                content_type: function () {
-                    return $scope.content_type;
-                },
-                content_item: function () {
-                    return item;
-                }
+                contentType: $scope.contentType,
+                contentItem: item
             }
         });
 
@@ -189,7 +145,7 @@
 
     init = function () {
         var promises = [];
-        promises.push(getContentType());
+        promises.push(getContentItems());
         return $q.all(promises);
     };
     init();

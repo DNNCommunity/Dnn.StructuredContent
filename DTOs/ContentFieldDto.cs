@@ -38,6 +38,5 @@ namespace StructuredContent
 
         public ContentFieldTypeDto ContentFieldType { get; set; }
 
-        public object Value { get; set; }
     }
 }

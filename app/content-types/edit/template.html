@@ -43,7 +43,7 @@
                     <div class="col-auto ">
 
                         <ul class="content-field-types ">
-                            <li ng-repeat="contentFieldType in cntentFieldTypes"
+                            <li ng-repeat="contentFieldType in contentFieldTypes"
                                 dnd-draggable="contentFieldType"
                                 dnd-effect-allowed="copy"
                                 dnd-type="'contentFieldType'"
@@ -113,8 +113,8 @@
                                                                 <div content-field-type-boolean form="formPreview" content-field="column.data" submitted="validate" ng-if="column.data.contentFieldType.key=='boolean'" />                                                                
                                                                 <div content-field-type-choice form="formPreview" content-field="column.data" submitted="validate" ng-if="column.data.contentFieldType.key=='choice'" />                                                                
 
-                                                                <div content-field-type-related-content-single form="formPreview" relationship="column.data" submitted="validate" ng-if="column.data.key=='o2m' && column.data.aContentTypeId==contentType.id"></div>
-                                                                <div content-field-type-related-content-multiple-list form="formPreview" relationship="column.data" submitted="validate" ng-if="column.data.key=='m2m' || (column.data.key=='o2m' && column.data.aContentTypeId==contentType.id)"></div>
+                                                                <div content-field-type-related-content-single form="formPreview" relationship="column.data" content-type="contentType" submitted="validate" ng-if="column.data.key=='o2m' && column.data.bContentTypeId==contentType.id"></div>
+                                                                <div content-field-type-related-content-multiple-list form="formPreview" relationship="column.data" content-type="contentType" submitted="validate" ng-if="column.data.key=='m2m' || (column.data.key=='o2m' && column.data.aContentTypeId==contentType.id)"></div>
 
                                                             </div>
                                                         </div>
