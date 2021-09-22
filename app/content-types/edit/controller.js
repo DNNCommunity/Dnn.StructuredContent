@@ -24,7 +24,6 @@
         $scope.loading = true;
         contentFieldTypeService.search("", true).then(
             function (response) {
-                console.log('getContentFieldTypes', response.data);
                 $scope.contentFieldTypes = response.data;
                 $scope.loading = false;
                 deferred.resolve();
