@@ -217,7 +217,6 @@
 
         relationshipService.search($scope.contentType.id).then(
             function (response) {
-                console.log('getRelationships', response.data);
                 $scope.relationships = response.data;
                 $scope.loading = false;
                 deferred.resolve();
