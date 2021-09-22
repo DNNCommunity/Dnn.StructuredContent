@@ -144,7 +144,6 @@
 
         contentFieldService.search($scope.contentType.urlSlug, true).then(
             function (response) {
-                console.log('getContentFields', response.data);
                 $scope.contentFields = response.data;
 
                 $scope.loading = false;
