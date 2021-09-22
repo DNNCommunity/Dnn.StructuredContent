@@ -8,7 +8,6 @@
     $scope.form;
     $scope.submitted;
 
-    //$scope.selected = [];
     $scope.controlName = 'relation_' + $scope.relationship.id;
 
     $scope.checkValidity = function () {
@@ -129,37 +128,20 @@
         }
     };
 
-    //$scope.relatedContentItems = function () {
-    //    if ($scope.relationship.key === 'o2m') {
-    //        if ($scope.contentType.id === $scope.relationship.aContentTypeId) {
-    //            // the edited item is on the one side of a o2m, so the related items are in on the b (many) side
-    //            return $scope.contentItem[$scope.relationship.bContentType.plural.toLowerCase()];
-    //        }
-    //    }
-
-    //    //if (relationship.key === 'm2m') {
-    //    //    if ($scope.contentType.id === relationship.aContentTypeId) {
-    //    //        relationship.relatedContentItems = $scope.contentItem[relationship.bContentType.plural.toLowerCase()];
-    //    //    }
-
-    //    //    if ($scope.contentType.id === relationship.bContentTypeId) {
-    //    //        relationship.relatedContentItems = $scope.contentItem[relationship.aContentType.plural.toLowerCase()];
-    //    //    }
-    //    //}
-    //};
-
-    if ($scope.relationship.key === 'o2m') {
-        if ($scope.contentType.id === $scope.relationship.aContentTypeId) {
-            $scope.relatedContentItems = $scope.contentItem[$scope.relationship.bContentType.plural.toLowerCase()];
+    if ($scope.contentItem) {
+        if ($scope.relationship.key === 'o2m') {
+            if ($scope.contentType.id === $scope.relationship.aContentTypeId) {
+                $scope.relatedContentItems = $scope.contentItem[$scope.relationship.bContentType.plural.toLowerCase()];
+            }
         }
-    }
-    if ($scope.relationship.key === 'm2m') {
-        if ($scope.contentType.id === $scope.relationship.aContentTypeId) {
-            $scope.relatedContentItems = $scope.contentItem[$scope.relationship.bContentType.plural.toLowerCase()];
-        }
+        if ($scope.relationship.key === 'm2m') {
+            if ($scope.contentType.id === $scope.relationship.aContentTypeId) {
+                $scope.relatedContentItems = $scope.contentItem[$scope.relationship.bContentType.plural.toLowerCase()];
+            }
 
-        if ($scope.contentType.id === $scope.relationship.bContentTypeId) {
-            $scope.relatedContentItems = $scope.contentItem[$scope.relationship.aContentType.plural.toLowerCase()];
+            if ($scope.contentType.id === $scope.relationship.bContentTypeId) {
+                $scope.relatedContentItems = $scope.contentItem[$scope.relationship.aContentType.plural.toLowerCase()];
+            }
         }
     }
 
