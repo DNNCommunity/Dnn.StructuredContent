@@ -43,7 +43,6 @@
 
         contentFieldTypeService.get($scope.contentField.contentFieldTypeId).then(
             function (response) {
-                console.log('getContentFieldType', response.data);
                 $scope.contentFieldType = response.data;
                 $scope.loading = false;
                 deferred.resolve();
