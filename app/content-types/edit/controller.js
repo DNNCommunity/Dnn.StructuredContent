@@ -1,4 +1,4 @@
-﻿app.controller('contentTypeEditController', ['$scope', '$q', '$uibModal', '$uibModalInstance', 'toastr', 'contentTypeService', 'contentFieldService', 'relationshipService', 'contentFieldTypeService', 'id', function ($scope, $q, $uibModal, $uibModalInstance, toastr, contentTypeService, contentFieldService, relationshipService, contentFieldTypeService, id) {
+﻿app.controller('contentTypeEditController', ['$scope', '$q', '$uibModal', '$uibModalInstance', 'toastr', 'contentTypeService', 'contentFieldService', 'relationshipService', 'contentFieldTypeService', 'contentType', function ($scope, $q, $uibModal, $uibModalInstance, toastr, contentTypeService, contentFieldService, relationshipService, contentFieldTypeService, contentType) {
 
     $scope.loading = false;
     $scope.validate = false;
@@ -9,9 +9,8 @@
     $scope.submitted = false;
     $scope.contentFieldTypes = [];
 
-    $scope.contentType = {
-        id: id
-    };
+    $scope.contentType = contentType;
+
     $scope.contentFields = [];
     $scope.relationships = [];
 
@@ -25,6 +24,7 @@
         $scope.loading = true;
         contentFieldTypeService.search("", true).then(
             function (response) {
+                console.log('getContentFieldTypes', response.data);
                 $scope.contentFieldTypes = response.data;
                 $scope.loading = false;
                 deferred.resolve();
@@ -44,6 +44,7 @@
 
         contentFieldTypeService.get($scope.contentField.contentFieldTypeId).then(
             function (response) {
+                console.log('getContentFieldType', response.data);
                 $scope.contentFieldType = response.data;
                 $scope.loading = false;
                 deferred.resolve();
@@ -64,10 +65,10 @@
 
         contentTypeService.get($scope.contentType.id).then(
             function (response) {
+                console.log('getContentType', response.data);
                 $scope.contentType = response.data;
 
                 $q.all([getContentFields(), getRelationships()]).then(function () {
-                    prepItemFromLoad();
                     buildCanvas();
                     $scope.loading = false;
                     deferred.resolve();
@@ -113,44 +114,6 @@
         }
     };
 
-    prepItemFromLoad = function () {
-        
-        // for each relationship, determine the primary and related content types
-        $scope.relationships.forEach(function (relationship) {
-
-            if (relationship.key === 'o2m') {
-                if ($scope.contentType.id === relationship.aContentTypeId) {
-                    relationship.helpText = relationship.aHelpText;
-                }
-
-                if ($scope.contentType.id === relationship.aContentTypeId) {
-                    relationship.primaryContentType = relationship.aContentType;
-                    relationship.relatedContent_type = relationship.bContentType;                    
-                    relationship.minLimit = relationship.bMinLimit;
-                    relationship.maxLimit = relationship.bMaxLimit;
-                    relationship.helpText = relationship.bHelpText;
-                }
-            }
-
-            if (relationship.key === 'm2m') {
-                if ($scope.contentType.id === relationship.aContentTypeId) {
-                    relationship.primaryContent_type = relationship.aContentType;
-                    relationship.relatedContentType = relationship.aContentType;                    
-                    relationship.minLimit = relationship.bMinLimit;
-                    relationship.maxLimit = relationship.bMaxLimit;
-                    relationship.helpText = relationship.bHelpText;
-                }
-
-                if ($scope.contentType.id === relationship.bContentTypeId) {
-                    relationship.primaryContent_type = relationship.bContentType;
-                    relationship.relatedContent_type = relationship.aContentType;
-                    relationship.minLimit = relationship.aMinLimit;
-                    relationship.maxLimit = relationship.aMaxLimit;
-                    relationship.helpText = relationship.aHelpText;
-                }
-            }
-        });
-    };
     $scope.editItem = function (item) {
 
         switch (item._type) {
@@ -184,6 +147,7 @@
 
         contentFieldService.search($scope.contentType.urlSlug, true).then(
             function (response) {
+                console.log('getContentFields', response.data);
                 $scope.contentFields = response.data;
 
                 $scope.loading = false;
@@ -241,7 +205,7 @@
         modalInstance.result.then(
             function () {
                 toastr.success("The Content Field '" + contentField.name + "' was deleted.", "Success");
-                column.Data = null;
+                column.data = null;
                 cleanUpEmptyRowsColumns();
                 saveItems();
             },
@@ -257,6 +221,7 @@
 
         relationshipService.search($scope.contentType.id).then(
             function (response) {
+                console.log('getRelationships', response.data);
                 $scope.relationships = response.data;
                 $scope.loading = false;
                 deferred.resolve();
@@ -447,17 +412,18 @@
     };
 
     $scope.rowDrop = function (event, index, type, external, dropEffect, callback, item) {
+        console.log('type=' + type, 'item=' + item);
         event.stopPropagation();
 
         var newRow = { class: "row", columns: [] };
         var newColumn = { class: "col", data: {} };
 
-        if (type === "contentFieldType") {
+        if (type === "contentfieldtype") {
 
             if (item.type === "content_field") {
-                var content_field = {
-                    ContentFieldTypeId: item.Id,
-                    ContentTypeId: $scope.contentType.id,
+                var contentField = {
+                    contentFieldTypeId: item.id,
+                    contentTypeId: $scope.contentType.id,
                     _type: "content_field"
                 };
 
@@ -541,16 +507,17 @@
 
     };
     $scope.columnDrop = function (event, index, type, dropEffect, item, row) {
+        console.log('type=' + type, 'item=' + item);
         event.stopPropagation();
 
-        var newColumn = { class: "col", content_field: {} };
+        var newColumn = { class: "col", data: {} };
 
-        if (type === "contentFieldType") {
+        if (type === "contentfieldtype") {
 
             if (item.type === "content_field") {
                 var contentField = {
-                    ContentFieldTypeId: item.id,
-                    ContentTypeId: $scope.contentType.id,
+                    contentFieldTypeId: item.id,
+                    contentTypeId: $scope.contentType.id,
                     _type: "content_field"
                 };
 
@@ -560,7 +527,7 @@
                     size: 'lg dnn-structured-content',
                     backdrop: 'static',
                     resolve: {
-                        content_field: function () {
+                        contentField: function () {
                             return contentField;
                         }
                     }
@@ -586,7 +553,7 @@
 
             if (item.type === "relationship") {
                 var relationship = {
-                    ContentTypeId: $scope.contentType.id,
+                    contentTypeId: $scope.contentType.id,
                     _type: "relationship"
                 };
 
@@ -706,7 +673,7 @@
         });
 
         // insert the relationships 
-        $scope.relationships.forEach(function (item) {            
+        $scope.relationships.forEach(function (item) {
             item._type = 'relationship';
 
             if ($scope.contentType.id === item.aContentTypeId) {

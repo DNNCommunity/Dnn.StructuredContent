@@ -112,7 +112,7 @@ namespace StructuredContent.DAL
         /// Inserts a new content item in its table.
         /// </summary>
         /// <param name="contentType">The type of the item.</param>
-        /// <param name="contentIitem">The item itself.</param>
+        /// <param name="contentItem">The item itself.</param>
         /// <returns>The Id of the inserted row.</returns>
         int InsertContentItem(StructuredContent_ContentType contentType, dynamic contentItem);
 

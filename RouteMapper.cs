@@ -29,7 +29,7 @@ namespace StructuredContent.DAL
             mapRouteManager.MapHttpRoute(
                 moduleFolderName: "ContentField",
                 routeName: "ContentField",
-                url: "{contentType}/{id}",
+                url: "{contentTypeUrlSlug}/{id}",
                 defaults: new
                 {
                     id = RouteParameter.Optional,
@@ -78,7 +78,7 @@ namespace StructuredContent.DAL
             mapRouteManager.MapHttpRoute(
                 moduleFolderName: "content",
                 routeName: "content",
-                url: "{contentType}/{id}",
+                url: "{contentTypeUrlSlug}/{id}",
                 defaults: new
                 {
                     id = RouteParameter.Optional,

@@ -11,11 +11,11 @@
     $scope.contentField = contentField;
 
     $scope.contentFieldType = {
-        id: contentField.ContentFieldTypeId
+        id: contentField.contentFieldTypeId
     };
 
     $scope.contentType = {
-        id: contentField.ContentTypeId
+        id: contentField.contentTypeId
     };
 
     $scope.getContentFieldType = function () {
@@ -24,17 +24,17 @@
 
         contentFieldTypeService.get($scope.contentFieldType.id).then(
             function (response) {
+                console.log('contentFieldType', response.data);
                 $scope.contentFieldType = response.data;
-                $scope.loading = false;
                 deferred.resolve();
             },
             function (response) {
                 console.log('getContentFieldType failed', response);
-                toastr.error("There was a problem loading the content field type", "Error");
-                $scope.loading = false;
+                toastr.error("There was a problem loading the content field type", "Error");        
                 deferred.reject();
             }
         );
+        $scope.loading = false;
         return deferred.promise;
     };
 
@@ -44,18 +44,17 @@
 
         contentTypeService.get($scope.contentType.id).then(
             function (response) {
+                console.log('contentType', response.data);
                 $scope.contentType = response.data;
-
-                $scope.loading = false;
                 deferred.resolve();
             },
             function (response) {
                 console.log('getContentType failed', response);
-                toastr.error("There was a problem loading the Content type", "Error");
-                $scope.loading = false;
+                toastr.error("There was a problem loading the Content type", "Error");                
                 deferred.reject();
             }
         );
+        $scope.loading = false;
         return deferred.promise;
     };
 
@@ -66,6 +65,7 @@
 
             $scope.contentField.options = angular.toJson($scope.contentField.options);
 
+            console.log($scope.contentType.urlSlug, $scope.contentField);
             contentFieldService.save($scope.contentType.urlSlug, $scope.contentField).then(
                 function (response) {
                     $scope.contentField.id = response.data.id;
@@ -124,7 +124,7 @@
         if ($scope.contentType.id) {
             promises.push($scope.getContentType());
         }
-        if ($scope.ContentFieldType.id) {
+        if ($scope.contentFieldType.id) {
             promises.push($scope.getContentFieldType());
         }
         return $q.all(promises);
@@ -135,7 +135,7 @@
                 $scope.contentField.name = "New " + $scope.contentFieldType.name;
                 $scope.nameChanged();
                 $scope.contentField.dataType = $scope.contentFieldType.defaultDataType;
-                $scope.contentField.dataLength = $scope.ContentFieldType.defaultDataLength;
+                $scope.contentField.dataLength = $scope.contentFieldType.defaultDataLength;
                 $scope.contentField.contentFieldType = $scope.contentFieldType;                
                 $scope.contentField.options = angular.copy($scope.contentFieldType.defaultOptions);
                 $scope.contentField.allowNull = true;

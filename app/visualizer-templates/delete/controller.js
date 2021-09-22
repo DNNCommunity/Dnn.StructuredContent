@@ -1,9 +1,10 @@
-﻿app.controller('visualizerTemplateDeleteController', ['$scope', '$uibModalInstance', 'toastr', 'visualizerTemplateService', 'visualizer_template', function ($scope, $uibModalInstance, toastr, visualizerTemplateService, visualizerTemplate) {
+﻿app.controller('visualizerTemplateDeleteController', ['$scope', '$uibModalInstance', 'toastr', 'visualizerTemplateService', 'contentType', 'visualizerTemplate', function ($scope, $uibModalInstance, toastr, visualizerTemplateService, contentType, visualizerTemplate) {
 
     $scope.close = function () {
         $uibModalInstance.dismiss('cancel');
     };
 
+    $scope.contentType = contentType;
     $scope.visualizerTemplate = visualizerTemplate;
 
     $scope.delete = function () {

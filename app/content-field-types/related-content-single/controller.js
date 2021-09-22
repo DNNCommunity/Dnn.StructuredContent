@@ -1,41 +1,24 @@
-﻿app.controller('contentFieldTypeRelatedContentSingleController', ['$scope', '$q', 'toastr', 'contentTypeService', 'contentItemService', function ($scope, $q, toastr, contentTypeService, contentItemService) {
+﻿app.controller('contentFieldTypeRelatedContentSingleController', ['$scope', '$q', 'toastr', 'contentItemService', function ($scope, $q, toastr, contentItemService) {
 
     $scope.relationship;
-    $scope.primaryContentType;
-    $scope.relatedContentType;
+
+    //$scope.primaryContentType;
+    //$scope.relatedContentType;
     $scope.relatedContentItems;
-    $scope.form;
-    $scope.submitted;
 
     $scope.controlName = 'relation_' + $scope.relationship.id;
 
-    getRelatedContentType = function () {
+    getRelatedItems = function () {
         var deferred = $q.defer();
 
-        // the AContentType is the 'one' side of the o2m relationship
-        // need the UrlSlug of the content type
-        var relatedContentTypeId;
-        related_ContentTypeId = $scope.relationship.aContentTypeId;
-
-        contentTypeService.get(relatedContentTypeId).then(
+        contentItemService.search($scope.relationship.aContentType.urlSlug).then(
             function (response) {
-                $scope.relatedContentType = response.data;
-
-                contentItemService.search($scope.relatedContentType.urlSlug).then(
-                    function (response) {
-                        $scope.relatedContentItems = response.data;
-                        deferred.resolve();
-                    },
-                    function (response) {
-                        console.log('getContentItems failed', response);
-                        toastr.error("There was a problem loading the Content Items");
-                        deferred.reject;
-                    }
-                );
+                $scope.relatedContentItems = response.data;
+                deferred.resolve();
             },
             function (response) {
-                console.log('getContentType failed', response);
-                toastr.error("There was a problem loading the Content Type", "Error");
+                console.log('getContentItems failed', response);
+                toastr.error("There was a problem loading the Content Items");
                 deferred.reject;
             }
         );
@@ -43,20 +26,8 @@
         return deferred.promise;
     };
 
-    $scope.isRequired = function () {
-        if ($scope.relatedContentType && $scope.relationship) {
-            if ($scope.relatedContentType.id === $scope.relationship.bContentTypeId && $scope.relationship.bRequired)
-                return true;
+    getRelatedItems();
 
-            if ($scope.relatedContentType.id === $scope.relationship.aContentTypeId && $scope.relationship.aRequired)
-                return true;
-        }
-        return false;
-    };
-
-    $scope.$watch('relationship', function () {
-        getRelatedContentType();
-    });
 }]);
 
 

@@ -1,6 +1,6 @@
 ﻿<div class="mb-3" ng-if="contentField.options.controlType=='checkbox'">
     <div class="form-check">
-        <input type="checkbox" name="{{contentField.columnName}}" id="{{contentField.columnName}}" class="form-check-input " ng-model="contentField.value" ng-required="contentField.options.required" ng-class="{'is-invalid': form[contentField.columnName].$invalid && submitted,'is-valid': form[contentField.columnName].$valid && submitted}" />
+        <input type="checkbox" name="{{contentField.columnName}}" id="{{contentField.columnName}}" class="form-check-input " ng-model="contentItem[contentField.columnName]" ng-required="contentField.options.required" ng-class="{'is-invalid': form[contentField.columnName].$invalid && submitted,'is-valid': form[contentField.columnName].$valid && submitted}" />
         <label for="{{contentField.columnName}}" class="form-check-label">{{contentField.name}} <span class="text-danger" ng-show="contentField.options.required">*</span></label>
         <div ng-messages="form[contentField.columnName].$error" ng-if="submitted" class="invalid-feedback" role="alert">
             <div ng-message="required">This field is required</div>
@@ -11,7 +11,7 @@
 
 <div class="mb-3" ng-if="contentField.options.controlType=='switch'">
     <div class="form-check" ng-class="{'form-switch': contentField.options.controlType=='switch'}">
-        <input type="checkbox" name="{{contentField.columnName}}" id="{{contentField.columnName}}" class="form-check-input " ng-model="contentField.value" ng-required="contentField.options.required" ng-class="{'is-invalid': form[contentField.columnName].$invalid && submitted,'is-valid': form[contentField.columnName].$valid && submitted}" />
+        <input type="checkbox" name="{{contentField.columnName}}" id="{{contentField.columnName}}" class="form-check-input " ng-model="contentItem[contentField.columnName]" ng-required="contentField.options.required" ng-class="{'is-invalid': form[contentField.columnName].$invalid && submitted,'is-valid': form[contentField.columnName].$valid && submitted}" />
         <label for="{{contentField.columnName}}" class="form-check-label">{{contentField.name}} <span class="text-danger" ng-show="contentField.options.required">*</span></label>
         <div ng-messages="form[contentField.columnName].$error" ng-if="submitted" class="invalid-feedback" role="alert">
             <div ng-message="required">This field is required</div>
@@ -26,12 +26,12 @@
 
     <div>
         <div class="form-check form-check-inline">
-            <input type="radio" name="{{contentField.columnName}}" id="{{contentField.columnName}}_true" value='true' class="form-check-input " ng-model="contentField.value" ng-required="contentField.options.required" ng-class="{'is-invalid': form[contentField.columnName].$invalid && submitted,'is-valid': form[contentField.columnName].$valid && submitted}" />
+            <input type="radio" name="{{contentField.columnName}}" id="{{contentField.columnName}}_true" value='true' class="form-check-input " ng-model="contentItem[contentField.columnName]" ng-required="contentField.options.required" ng-class="{'is-invalid': form[contentField.columnName].$invalid && submitted,'is-valid': form[contentField.columnName].$valid && submitted}" />
             <label for="{{contentField.columnName}}_true" class="form-check-label">{{trueLabel()}}</label>
         </div>
 
         <div class="form-check form-check-inline">
-            <input type="radio" name="{{contentField.columnName}}" id="{{contentField.columnName}}_false" value='false' class="form-check-input " ng-model="contentField.value" ng-required="contentField.options.required" ng-class="{'is-invalid': form[contentField.columnName].$invalid && submitted,'is-valid': form[contentField.columnName].$valid && submitted}" />
+            <input type="radio" name="{{contentField.columnName}}" id="{{contentField.columnName}}_false" value='false' class="form-check-input " ng-model="contentItem[contentField.columnName]" ng-required="contentField.options.required" ng-class="{'is-invalid': form[contentField.columnName].$invalid && submitted,'is-valid': form[contentField.columnName].$valid && submitted}" />
             <label for="{{contentField.columnName}}_false" class="form-check-label">{{falseLabel()}}</label>
         </div>
     </div>

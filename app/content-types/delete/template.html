@@ -9,13 +9,13 @@
     <div ng-form="formContentTypeDelete" class="form">
         <div class="form-floating mb-3">
             <input type="text" name="name" class="form-control" ng-model="contentTypeName" />
-            <label for="name" class="form-label">Please enter the 'Content Type Name' to confirm deletion</label>
+            <label for="name" class="form-label">Please enter the Content Type Name to confirm deletion</label>
         </div>
     </div>
         
 </div>
 <div class="modal-footer">
     <button class="btn btn-link pull-left" ng-click="close()"><span ng-show="!formContentTypeDelete.$dirty">Close</span><span ng-show="formContentTypeDelete.$dirty">Cancel</span></button>
-    <button class="btn btn-danger" ng-click="delete()" ng-disabled="contentType.Name!=contentTypeName">Delete</button>
+    <button class="btn btn-danger" ng-click="delete()" ng-disabled="contentType.name!=contentTypeName">Delete</button>
 </div>
 

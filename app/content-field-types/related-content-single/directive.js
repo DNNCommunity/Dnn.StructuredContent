@@ -5,8 +5,9 @@
         scope: {
             form: '=',
             relationship: '=',
-            submitted: '=',
-            primaryContentType: '='
+            contentType: "=",
+            contentItem:"=",
+            submitted: '='
         }
     };
 });

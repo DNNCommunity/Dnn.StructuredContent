@@ -5,37 +5,15 @@
         $uibModalInstance.dismiss('cancel');
     };
 
-    $scope.visualizer_templates = [];
+    $scope.visualizerTemplates = [];
     $scope.contentType = contentType;
-
-    getContentType = function () {
-        $scope.loading = true;
-        var deferred = $q.defer();
-
-        contentTypeService.get($scope.contentType.id).then(
-            function (response) {
-                $scope.contentType = response.data;
-
-                getVisualizerTemplates();
-                $scope.loading = false;
-                deferred.resolve();
-            },
-            function (response) {
-                console.log('getContentType failed', response);
-                toastr.error("There was a problem loading the Content Type", "Error");
-                $scope.loading = false;
-                deferred.reject();
-            }
-        );
-        return deferred.promise;
-    };
 
     getVisualizerTemplates = function () {
         var deferred = $q.defer();
         $scope.loading = true;
         visualizerTemplateService.search('', $scope.contentType.id).then(
             function (response) {
-                $scope.visualizer_templates = response.data;
+                $scope.visualizerTemplates = response.data;
                 $scope.loading = false;
                 deferred.resolve();
             },
@@ -56,15 +34,8 @@
             size: 'fullscreen dnn-structured-content',
             backdrop: 'static',
             resolve: {
-                id: function () {
-                    return null;
-                },
-                ContentTypeId: function () {
-                    return $scope.contentType.id;
-                },
-                content_UrlSlug: function () {
-                    return $scope.contentType.UrlSlug;
-                }
+                id: null,
+                contentType: $scope.contentType
             }
         });
 
@@ -87,12 +58,8 @@
             size: 'fullscreen dnn-structured-content',
             backdrop: 'static',
             resolve: {
-                id: function () {
-                    return id;
-                },
-                contentType: function () {
-                    return $scope.contentType;
-                }
+                id: id,
+                contentType: $scope.contentType
             }
         });
 
@@ -114,9 +81,8 @@
             size: 'lg dnn-structured-content',
             backdrop: 'static',
             resolve: {
-                visualizerTemplate: function () {
-                    return visualizerTemplate;
-                }
+                contentType: $scope.contentType,
+                visualizerTemplate: visualizerTemplate
             }
         });
 
@@ -134,7 +100,7 @@
 
     init = function () {
         var promises = [];
-        promises.push(getContentType());
+        promises.push(getVisualizerTemplates());
         return $q.all(promises);
     };
     init();

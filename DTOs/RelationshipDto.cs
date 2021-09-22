@@ -62,5 +62,55 @@ namespace StructuredContent.DAL
         public ContentTypeDto AContentType { get; set; }
 
         public ContentTypeDto BContentType { get; set; }
+
+        public string AColumnName
+        {
+            get
+            {
+                if (this.AContentType != null)
+                {
+                    switch (this.Key)
+                    {
+                        case "o2m":
+                            return this.AContentType.Singular.ToLower() + "Id";
+
+                        case "m2m":
+                            return this.AContentType.Plural.ToLower();
+
+                        default:
+                            return string.Empty;
+                    }
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
+        }
+
+        public string BColumnName
+        {
+            get
+            {
+                if (this.BContentType != null)
+                {
+                    switch (this.Key)
+                    {
+                        case "o2m":
+                            return this.AContentType.Plural.ToLower();
+
+                        case "m2m":
+                            return this.BContentType.Plural.ToLower();
+
+                        default:
+                            return string.Empty;
+                    }
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
+        }
     }
 }

@@ -35,6 +35,8 @@ namespace StructuredContent.DAL
                 BContentType = item.StructuredContent_ContentType1?.ToDto(),
             };
 
+           
+
             return dto;
         }
 

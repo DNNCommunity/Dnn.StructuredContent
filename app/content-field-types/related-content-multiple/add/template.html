@@ -1,15 +1,22 @@
 ﻿<div class="modal-header">
-    <h5 class="modal-title">Search {{contentType.name}}</h5>
+    <h5 class="modal-title">Search '{{contentType.plural}}'</h5>
     <button type="button" class="btn-close" ng-click="close()"></button>
 </div>
 <div class="modal-body">
-    <div class="form-floating mb-3">
-        <input type="text" name="search" id="name" class="form-control" ng-model="searchName" placeholder=" " />
-        <label for="search" class="form-label">Name</label>
+
+    <div class="row">
+        <div class="col">
+            <input type="text" name="search" id="name" class="form-control form-control-sm" ng-model="searchName" placeholder="search... " />
+
+        </div>
+        <div class="col-auto">
+            <button class="btn btn-primary" ng-click="search()">Search</button>
+            <button class="btn btn-link" ng-click="clear()">Clear</button>
+        </div>
     </div>
 
-    <button class="btn btn-primary" ng-click="search()">Search</button>
-    <button class="btn btn-link" ng-click="clear()">Clear</button>
+
+
 
     <table class="table table-striped" ng-show="items.length>0">
         <colgroup>

@@ -23,25 +23,6 @@
     $scope.contentFields = [];
     $scope.relationships = [];
 
-    getContentType = function () {
-        var deferred = $q.defer();
-        $scope.loading = true;
-        contentTypeService.get($scope.contentType.id).then(
-            function (response) {
-                $scope.contentType = response.data;
-                $scope.loading = false;
-                deferred.resolve();
-            },
-            function (response) {
-                console.log('getContentTypes failed', response);
-                toastr.error("There was a problem loading the content types", "Error");
-                $scope.loading = false;
-                deferred.reject();
-            }
-        );
-        return deferred.promise;
-    };
-
     getVisualizerTemplate = function () {
         var deferred = $q.defer();
         $scope.loading = true;
@@ -119,8 +100,7 @@
     };
 
     init = function () {
-        var promises = [];
-        promises.push(getContentType());
+        var promises = [];        
         if ($scope.visualizerTemplate.id) {
             promises.push(getVisualizerTemplate());
         }

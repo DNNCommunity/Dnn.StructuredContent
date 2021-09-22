@@ -1,4 +1,4 @@
-﻿app.controller('contentFieldTypeRelatedContentMultipleDeleteController', ['$scope', '$uibModalInstance', 'item', 'content_type', function ($scope,  $uibModalInstance, item, contentType) {
+﻿app.controller('contentFieldTypeRelatedContentMultipleDeleteController', ['$scope', '$uibModalInstance', 'contentItem', 'contentType', function ($scope, $uibModalInstance, contentItem, contentType) {
 
     $scope.close = function () {
         $uibModalInstance.dismiss('cancel');
@@ -7,7 +7,7 @@
         $uibModalInstance.close();
     };
 
-    $scope.item = item;
+    $scope.contentItem = contentItem;
     $scope.contentType = contentType;
 
     $scope.form;

@@ -1,6 +1,6 @@
 ﻿<div class="modal-header">
-    <h5 class="modal-title" ng-show="contentItem.id">Edit {{contentType.Singular}} - {{contentItem.name}}</h5>
-    <h5 class="modal-title" ng-show="!contentItem.id">New {{contentType.Singular}}</h5>
+    <h5 class="modal-title" ng-show="contentItem.id">Edit '{{contentType.singular}}' - '{{contentItem.name}}'</h5>
+    <h5 class="modal-title" ng-show="!contentItem.id">New '{{contentType.singular}}'</h5>
     <button type="button" class="btn-close" ng-click="close()"></button>
 </div>
 
@@ -11,8 +11,6 @@
     </div>
 
     <div class="form" ng-form="formContentItem" ng-show="!loading" id="formContentItem" name="formContentItem">
-
-        <pre>{{contentItem|json}}</pre>
 
         <div class="row">
             <div class="col">
@@ -27,18 +25,18 @@
         </div>
         <div class="row" ng-repeat="row in canvas.rows">
             <div class="col" ng-repeat="column in row.columns">
-                <div content-field-type-text="formContentItem" content-field="column.Data" submitted="submitted" ng-if="column.Data.ContentFieldType.key=='text'" />                
-                <div content-field-type-number form="formContentItem" content-field="column.Data" submitted="submitted" ng-if="column.Data.ContentFieldType.key=='number'" />
-                <div content-field-type-email form="formContentItem" content-field="column.Data" submitted="submitted" ng-if="column.Data.ContentFieldType.key=='email'" />
-                <div content-field-type-phone-number form="formContentItem" content-field="column.Data" submitted="submitted" ng-if="column.Data.ContentFieldType.key=='phonenumber'" />
-                <div content-field-type-url form="formContentItem" content-field="column.Data" submitted="submitted" ng-if="column.Data.ContentFieldType.key=='url'" />
-                <div content-field-type-date-time form="formContentItem" content-field="column.Data" submitted="submitted" ng-if="column.Data.ContentFieldType.key=='datetime'" />
-                <div content-field-type-static form="formContentItem" content-field="column.Data" submitted="submitted" ng-if="column.Data.ContentFieldType.key=='static'" />
-                <div content-field-type-boolean form="formContentItem" content-field="column.Data" submitted="submitted" ng-if="column.Data.ContentFieldType.key=='boolean'" />
-                <div content-field-type-choice form="formContentItem" content-field="column.Data" submitted="submitted" ng-if="column.Data.ContentFieldType.key=='choice'" />
+                <div content-field-type-text="formContentItem" content-field="column.data" content-item="contentItem" submitted="submitted" ng-if="column.data.contentFieldType.key=='text'" />
+                <div content-field-type-number form="formContentItem" content-field="column.data" content-item="contentItem" submitted="submitted" ng-if="column.data.contentFieldType.key=='number'" />
+                <div content-field-type-email form="formContentItem" content-field="column.data" content-item="contentItem" submitted="submitted" ng-if="column.data.contentFieldType.key=='email'" />
+                <div content-field-type-phone-number form="formContentItem" content-field="column.data" content-item="contentItem" submitted="submitted" ng-if="column.data.contentFieldType.key=='phonenumber'" />
+                <div content-field-type-url form="formContentItem" content-field="column.data" content-item="contentItem" submitted="submitted" ng-if="column.data.contentFieldType.key=='url'" />
+                <div content-field-type-date-time form="formContentItem" content-field="column.data" content-item="contentItem" submitted="submitted" ng-if="column.data.contentFieldType.key=='datetime'" />
+                <div content-field-type-static form="formContentItem" content-field="column.data" content-item="contentItem" submitted="submitted" ng-if="column.data.contentFieldType.key=='static'" />
+                <div content-field-type-boolean form="formContentItem" content-field="column.data" content-item="contentItem" submitted="submitted" ng-if="column.data.contentFieldType.key=='boolean'" />
+                <div content-field-type-choice form="formContentItem" content-field="column.data" content-item="contentItem"submitted="submitted" ng-if="column.data.contentFieldType.key=='choice'" />
 
-                <div content-field-type-related-content-single form="formContentItem" relationship="column.Data" submitted="submitted" ng-if="column.Data.key=='o2m' && column.Data.BContentTypeId==contentType.id"></div>
-                <div content-field-type-related-content-multiple-list form="formContentItem" relationship="column.Data" submitted="submitted" ng-if="column.Data.key=='m2m' || (column.Data.key=='o2m' && column.Data.AContentTypeId==contentType.id)"></div>
+                <div content-field-type-related-content-single form="formContentItem" relationship="column.data" content-item="contentItem" content-type="contentType" submitted="submitted" ng-if="column.data.key=='o2m' && column.data.bContentTypeId==contentType.id"></div>
+                <div content-field-type-related-content-multiple-list form="formContentItem" relationship="column.data" content-item="contentItem" content-type="contentType" submitted="submitted" ng-if="column.data.key=='m2m' || (column.data.key=='o2m' && column.data.aContentTypeId==contentType.id)"></div>
             </div>
         </div>
     </div>
@@ -49,11 +47,9 @@
 
     <span style="position: absolute; left: 20px;"><strong>Status: {{contentItem.status}}</strong></span>
 
-        <button class="btn btn-link pull-left" ng-click="close()"><span ng-show="!formContentItem.$dirty">Close</span><span ng-show="formContentItem.$dirty">Cancel</span></button>
+    <button class="btn btn-link pull-left" ng-click="close()"><span ng-show="!formContentItem.$dirty">Close</span><span ng-show="formContentItem.$dirty">Cancel</span></button>
 
-        <button class="btn btn-info" ng-click="saveDraft()" ng-disabled="saving"><span ng-show="contentItem.status==='Draft'">Save</span><span ng-show="contentItem.status!='Draft'">Save as Draft</span></button>
-        <button class="btn btn-primary" ng-click="savePublish()" ng-disabled="saving"><span ng-show="contentItem.status==='Draft'">Publish</span><span ng-show="contentItem.status!=='Draft'">Save</span></button>
+    <button class="btn btn-info" ng-click="saveDraft()" ng-disabled="saving"><span ng-show="contentItem.status==='Draft'">Save</span><span ng-show="contentItem.status!='Draft'">Save as Draft</span></button>
+    <button class="btn btn-primary" ng-click="savePublish()" ng-disabled="saving"><span ng-show="contentItem.status==='Draft'">Publish</span><span ng-show="contentItem.status!=='Draft'">Save</span></button>
 
 </div>
-
-

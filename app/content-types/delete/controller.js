@@ -8,7 +8,7 @@
 
     $scope.delete = function () {
 
-        contentTypeService.remove(contentType.Id).then(
+        contentTypeService.remove(contentType.id).then(
             function (response) {                
                 $uibModalInstance.close($scope.contentType.name);
             },
