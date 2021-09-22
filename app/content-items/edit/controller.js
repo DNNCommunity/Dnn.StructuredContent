@@ -87,7 +87,6 @@
             $scope.contentItem.status = "Draft";
             $scope.contentItem.datePublished = null;
 
-            //prepItemForSave();
 
             contentItemService.save(contentType.urlSlug, $scope.contentItem).then(
                 function (response) {
