@@ -4,11 +4,18 @@
 
 namespace StructuredContent.DAL
 {
-
     using Newtonsoft.Json;
 
+    /// <summary>
+    /// Extends the RevisionDto class to provide converters to/from the StructuredContent_Revision database object.
+    /// </summary>
     public static partial class RevisionDtoExtensions
     {
+        /// <summary>
+        /// Converts a StructuredContent_Revision database object into a RevisionDto.
+        /// </summary>
+        /// <param name="item">The StructuredContent_Revision object.</param>
+        /// <returns>A RevisionDto object.</returns>
         public static RevisionDto ToDto(this StructuredContent_Revision item)
         {
             var dto = new RevisionDto
@@ -26,6 +33,12 @@ namespace StructuredContent.DAL
             return dto;
         }
 
+        /// <summary>
+        /// Converts a RevisionDto into a StructuredContent_Revision database object.
+        /// </summary>
+        /// <param name="dto">The RevisionDto.</param>
+        /// <param name="item">The StructuredContent_Revision.</param>
+        /// <returns>A StructuredContent_Revision.</returns>
         public static StructuredContent_Revision ToItem(this RevisionDto dto, StructuredContent_Revision item)
         {
             if (item == null)

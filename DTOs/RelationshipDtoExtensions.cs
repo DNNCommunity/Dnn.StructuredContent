@@ -4,8 +4,16 @@
 
 namespace StructuredContent.DAL
 {
+    /// <summary>
+    /// Extends the RelationshipDto class to provide converters to/from the StructuredContent_Relationship database object.
+    /// </summary>
     public static partial class RelationshipDtoExtensions
     {
+        /// <summary>
+        /// Converts a StructuredContent_Relationship database object into a DTO.
+        /// </summary>
+        /// <param name="item">The incoming StructuredContent_Relationship database object.</param>
+        /// <returns>A RelationshipDto.</returns>
         public static RelationshipDto ToDto(this StructuredContent_Relationship item)
         {
             var dto = new RelationshipDto
@@ -38,6 +46,12 @@ namespace StructuredContent.DAL
             return dto;
         }
 
+        /// <summary>
+        /// Converts a RelationshipDto into a StructuredContent_Relationship database object.
+        /// </summary>
+        /// <param name="dto">The RelationshipDto object.</param>
+        /// <param name="item">The StructuredContent_Relationship object.</param>
+        /// <returns>A StructuredContent_Relationship.</returns>
         public static StructuredContent_Relationship ToItem(this RelationshipDto dto, StructuredContent_Relationship item)
         {
             if (item == null)

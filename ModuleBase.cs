@@ -10,8 +10,14 @@ namespace StructuredContent
     using DotNetNuke.Framework.JavaScriptLibraries;
     using DotNetNuke.Web.Client.ClientResourceManagement;
 
+    /// <inheritdoc/>
     public class ModuleBase : PortalModuleBase
     {
+        /// <summary>
+        /// Hooks into the Page_Load event.
+        /// </summary>
+        /// <param name="sender">The page.</param>
+        /// <param name="e">The event.</param>
         protected void Page_Load(object sender, EventArgs e)
         {
             JavaScript.RequestRegistration(CommonJs.jQuery);
