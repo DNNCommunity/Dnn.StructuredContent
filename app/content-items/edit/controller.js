@@ -124,7 +124,6 @@
 
             $scope.contentItem.status = "Published";
 
-            //prepItemForSave();
 
             contentItemService.save(contentType.urlSlug, $scope.contentItem).then(
                 function (response) {
