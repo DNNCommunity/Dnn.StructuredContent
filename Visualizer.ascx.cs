@@ -9,8 +9,16 @@ namespace StructuredContent
     using DotNetNuke.Services.Exceptions;
     using DotNetNuke.Web.Client.ClientResourceManagement;
 
+    /// <summary>
+    /// The Visualizer page module.
+    /// </summary>
     public partial class Visualizer : ModuleBase
     {
+        /// <summary>
+        /// Hooks into the Page_Load event.
+        /// </summary>
+        /// <param name="sender">The page.</param>
+        /// <param name="e">The event.</param>
         protected new void Page_Load(object sender, EventArgs e)
         {
             try

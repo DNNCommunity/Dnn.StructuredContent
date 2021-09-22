@@ -4,40 +4,94 @@
 
 namespace StructuredContent.DAL
 {
+    /// <summary>
+    /// A DTO representing a Relationship.
+    /// </summary>
     public class RelationshipDto
     {
+        /// <summary>
+        /// Gets or sets Id.
+        /// </summary>
         public int Id { get; set; }
 
+        /// <summary>
+        /// Gets or sets Key.
+        /// </summary>
         public string Key { get; set; }
 
+        /// <summary>
+        /// Gets or sets AContentTypeId.
+        /// </summary>
         public int AContentTypeId { get; set; }
 
+        /// <summary>
+        /// Gets or sets BContentTypeId.
+        /// </summary>
         public int BContentTypeId { get; set; }
 
+        /// <summary>
+        /// Gets or sets ARequired.
+        /// </summary>
         public bool? ARequired { get; set; }
 
+        /// <summary>
+        /// Gets or sets AMinLimit.
+        /// </summary>
         public int? AMinLimit { get; set; }
 
+        /// <summary>
+        /// Gets or sets AMaxLimit.
+        /// </summary>
         public int? AMaxLimit { get; set; }
 
+        /// <summary>
+        /// Gets or sets AHelpText.
+        /// </summary>
         public string AHelpText { get; set; }
 
+        /// <summary>
+        /// Gets or sets BRequired.
+        /// </summary>
         public bool? BRequired { get; set; }
 
+        /// <summary>
+        /// Gets or sets AMinLimit.
+        /// </summary>
         public int? BMinLimit { get; set; }
 
+        /// <summary>
+        /// Gets or sets BMaxLimit.
+        /// </summary>
         public int? BMaxLimit { get; set; }
 
+        /// <summary>
+        /// Gets or sets BHelpText.
+        /// </summary>
         public string BHelpText { get; set; }
 
+        /// <summary>
+        /// Gets or sets ALayoutRow.
+        /// </summary>
         public int? ALayoutRow { get; set; }
 
+        /// <summary>
+        /// Gets or sets ALayoutColumn.
+        /// </summary>
         public int? ALayoutColumn { get; set; }
 
+        /// <summary>
+        /// Gets or sets BLayoutRow.
+        /// </summary>
         public int? BLayoutRow { get; set; }
 
+        /// <summary>
+        /// Gets or sets BLayoutColumn.
+        /// </summary>
         public int? BLayoutColumn { get; set; }
 
+        /// <summary>
+        /// Gets RelationshipName.
+        /// </summary>
         public string RelationshipName
         {
             get
@@ -59,10 +113,19 @@ namespace StructuredContent.DAL
             }
         }
 
+        /// <summary>
+        /// Gets or sets AContentType.
+        /// </summary>
         public ContentTypeDto AContentType { get; set; }
 
+        /// <summary>
+        /// Gets or sets AContentType.
+        /// </summary>
         public ContentTypeDto BContentType { get; set; }
 
+        /// <summary>
+        /// Gets AColumnName.
+        /// </summary>
         public string AColumnName
         {
             get
@@ -88,6 +151,9 @@ namespace StructuredContent.DAL
             }
         }
 
+        /// <summary>
+        /// Gets BColumnName.
+        /// </summary>
         public string BColumnName
         {
             get

@@ -125,7 +125,8 @@ namespace StructuredContent
                         if (foreignKeyContentType == null)
                         {
                             return this.Request.CreateResponse(HttpStatusCode.NotFound);
-                        };
+                        }
+
                         var o2mForeignKeyColumnName = foreignKeyContentType.Singular + "Id";
                         var o2mDuplicateCheck = this.dataContext.StructuredContent_ContentFields.Where(i => i.ContentTypeId == dto.BContentTypeId && (i.Name == o2mForeignKeyColumnName || i.ColumnName == o2mForeignKeyColumnName)).Any();
                         if (o2mDuplicateCheck)

@@ -4,7 +4,6 @@
 
 namespace Dnn.StructuredContent
 {
-
     using DotNetNuke.DependencyInjection;
     using global::StructuredContent.DAL;
     using Microsoft.Extensions.DependencyInjection;

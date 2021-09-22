@@ -6,11 +6,18 @@ namespace StructuredContent.DAL
 {
     using System;
 
+    /// <summary>
+    /// Extends the StructuredContent_ContentField database object.
+    /// </summary>
     [Serializable]
     public partial class StructuredContent_ContentField
     {
         // converts the enum name to SQL Server data type name
-        public string DataType_name
+
+        /// <summary>
+        /// Gets the DataType Name from the DataType Enum.
+        /// </summary>
+        public string DataTypeName
         {
             get
             {

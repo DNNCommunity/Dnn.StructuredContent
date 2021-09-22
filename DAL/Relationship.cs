@@ -6,21 +6,26 @@ namespace StructuredContent.DAL
 {
     using System;
 
+    /// <summary>
+    /// Extends the StructuredContent_Relationship database object.
+    /// </summary>
     [Serializable]
     public partial class StructuredContent_Relationship
     {
         private const string TablePrefix = "StructuredContent_ContentType_";
 
-        // derive the table name for the relationship
+        /// <summary>
+        /// Gets the name of the junction table for a many to many relationship.
+        /// </summary>
         public string TableName
         {
             get
             {
-                string a_TableName = TablePrefix + this.StructuredContent_ContentType.TableName;
-                string b_TableName = TablePrefix + this.StructuredContent_ContentType1.TableName;
-                string junction_TableName = a_TableName + "X" + b_TableName;
+                var aTableName = TablePrefix + this.StructuredContent_ContentType.TableName;
+                var bTableName = TablePrefix + this.StructuredContent_ContentType1.TableName;
+                var junctionTableName = aTableName + "X" + bTableName;
 
-                return junction_TableName;
+                return junctionTableName;
             }
         }
     }

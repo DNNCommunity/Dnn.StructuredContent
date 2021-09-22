@@ -4,12 +4,19 @@
 
 namespace StructuredContent
 {
-
     using DotNetNuke.Common.Utilities;
     using StructuredContent.DAL;
 
+    /// <summary>
+    /// Extends the ContentFieldTypeDto class to provide converters to/from the StructuredContent_ContentFieldType database object.
+    /// </summary>
     public static partial class ContentFieldTypeDtoExtensions
     {
+        /// <summary>
+        /// Converts a StructuredContent_ContentFieldType database object into a ContentFieldTypeDto.
+        /// </summary>
+        /// <param name="item">The StructuredContent_ContentFieldType object.</param>
+        /// <returns>A ContentFieldTypeDto object.</returns>
         public static ContentFieldTypeDto ToDto(this StructuredContent_ContentFieldType item)
         {
             var dto = new ContentFieldTypeDto
@@ -28,6 +35,12 @@ namespace StructuredContent
             return dto;
         }
 
+        /// <summary>
+        /// Converts a ContentFieldTypeDto into a StructuredContent_ContentFieldType database object.
+        /// </summary>
+        /// <param name="dto">The ContentFieldTypeDto.</param>
+        /// <param name="item">The StructuredContent_ContentFieldType.</param>
+        /// <returns>A StructuredContent_ContentFieldType.</returns>
         public static StructuredContent_ContentFieldType ToItem(this ContentFieldTypeDto dto, StructuredContent_ContentFieldType item)
         {
             if (item == null)

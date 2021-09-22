@@ -4,8 +4,16 @@
 
 namespace StructuredContent.DAL
 {
+    /// <summary>
+    /// Extends the VisualizerDto class to provide converters to/from the StructuredContent_Visualizer database object.
+    /// </summary>
     public static partial class VisualizerDtoExtensions
     {
+        /// <summary>
+        /// Converts a StructuredContent_Visualizer database object into a VisualizerDto.
+        /// </summary>
+        /// <param name="item">The StructuredContent_Visualizer object.</param>
+        /// <returns>A VisualizerDto object.</returns>
         public static VisualizerDto ToDto(this StructuredContent_Visualizer item)
         {
             var dto = new VisualizerDto
@@ -21,6 +29,12 @@ namespace StructuredContent.DAL
             return dto;
         }
 
+        /// <summary>
+        /// Converts a VisualizerDto into a StructuredContent_Visualizer database object.
+        /// </summary>
+        /// <param name="dto">The VisualizerDto.</param>
+        /// <param name="item">The StructuredContent_Visualizer.</param>
+        /// <returns>A StructuredContent_Visualizer.</returns>
         public static StructuredContent_Visualizer ToItem(this VisualizerDto dto, StructuredContent_Visualizer item)
         {
             if (item == null)

@@ -120,7 +120,7 @@ namespace StructuredContent.DAL
             {
                 var tableName = TablePrefix + contentField.StructuredContent_ContentType.TableName;
                 var columnName = contentField.ColumnName;
-                var dataType = contentField.DataType_name;
+                var dataType = contentField.DataTypeName;
                 var dataLength = contentField.DataLength;
                 var allowNull = contentField.AllowNull;
                 var defaultValue = contentField.DefaultValue;
@@ -192,7 +192,6 @@ namespace StructuredContent.DAL
             {
                 // both tables need to exist
                 // create the constraint on the child table
-
                 var sb = new StringBuilder();
                 sb.Append("ALTER TABLE [dbo].[" + TablePrefix + manyContentType.TableName + "]");
                 sb.Append(" ADD CONSTRAINT [FK_" + TablePrefix + oneContentType.TableName + "_" + TablePrefix + manyContentType.TableName + "]");

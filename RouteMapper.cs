@@ -8,6 +8,9 @@ namespace StructuredContent.DAL
 
     using DotNetNuke.Web.Api;
 
+    /// <summary>
+    /// Registers the routes used by this module.
+    /// </summary>
     public class RouteMapper : IServiceRouteMapper
     {
         /// <inheritdoc/>
