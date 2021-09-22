@@ -63,7 +63,6 @@
 
         contentTypeService.get($scope.contentType.id).then(
             function (response) {
-                console.log('getContentType', response.data);
                 $scope.contentType = response.data;
 
                 $q.all([getContentFields(), getRelationships()]).then(function () {
