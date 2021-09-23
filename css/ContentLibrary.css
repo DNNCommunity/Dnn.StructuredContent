@@ -27,21 +27,6 @@ body.modal-open {
     opacity: 1;
 }
 
-.layout-one-column > div {
-    float: left;
-    width: 100%;
-}
-
-.layout-two-column > div {
-    float: left;
-    width: 50%;
-}
-
-.layout-side-by-side > div {
-    float: left;
-    margin: 0 10px;
-}
-
 .modal-backdrop.fade {
     opacity: 0.5 !important;
 }
@@ -151,11 +136,6 @@ body.modal-open {
     min-height: 92px;
     font-size: 25px;
 }
-
-/*.dnn-structured-content .canvas .rows > .row {
-    padding-top: 10px;
-    padding-bottom: 10px;
-}*/
 
 .dnn-structured-content .canvas .card-item > .card-body {
     padding: 10px;

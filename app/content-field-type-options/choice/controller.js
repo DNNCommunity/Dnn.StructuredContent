@@ -2,14 +2,12 @@
 
     $scope.addChoice = function () {
         modalInstance = $uibModal.open({
-            templateUrl: '/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/choice/template.html?c=' + new Date().getTime(),
-            controller: 'contentFieldTypeChoiceController',
+            templateUrl: '/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/choice/edit/template.html?c=' + new Date().getTime(),
+            controller: 'contentFieldTypeChoiceEditController',
             size: 'md dnn-structured-content',
             backdrop: 'static',
             resolve: {
-                choice: function () {
-                    return null;
-                }
+                choice: null
             }
         });
 
@@ -29,19 +27,16 @@
             function () { }
         );
     };
-
     $scope.editChoice = function (choice) {
         var clone = $.extend({}, choice);
 
         var modalInstance = $uibModal.open({
-            templateUrl: '/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/choice/controller.html?c=' + new Date().getTime(),
-            controller: 'contentFieldTypeChoiceController',
+            templateUrl: '/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/choice/edit/template.html?c=' + new Date().getTime(),
+            controller: 'contentFieldTypeChoiceEditController',
             size: 'md dnn-structured-content',
             backdrop: 'static',
             resolve: {
-                choice: function () {
-                    return clone;
-                }
+                choice: clone
             }
         });
 
@@ -53,7 +48,6 @@
             function () { }
         );
     };
-
     $scope.deleteChoice = function (choice) {
         for (var x = 0; x < $scope.contentField.options.choices.length; x++) {
             var listChoice = $scope.contentField.options.choices[x];
@@ -68,9 +62,8 @@
     if (!$scope.contentField.options.controlType) {
         $scope.contentField.options.controlType = 'dropdown-list';
     }
-
     if (!$scope.contentField.options.layout) {
-        $scope.contentField.options.layout= 'layout-one-column';
+        $scope.contentField.options.layout = 'stacked';
     }
 
 }]);

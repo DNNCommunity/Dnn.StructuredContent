@@ -1,23 +1,38 @@
 ﻿
-<div class="form-floating mb-3" ng-if="contentField.options.controlType=='dropdown-list'">
+<div class="form-floating mb-3" ng-show="contentField.options.controlType=='dropdown-list' && contentField.options.allowOther==false">
     <select id="{{contentField.columnName}}" name="{{contentField.columnName}}" class="form-select" ng-model="contentItem[contentField.columnName]" ng-required="contentField.options.required" ng-class="{'is-invalid': form[contentField.columnName].$invalid && submitted,'is-valid': form[contentField.columnName].$valid && submitted}">
         <option value="">-select-</option>
         <option ng-repeat="choice in contentField.options.choices" value="{{choice.value}}">{{choice.text}}</option>
     </select>
     <label for="{{contentField.columnName}}" class="form-label">{{contentField.name}} <span class="text-danger" ng-show="contentField.options.required">*</span></label>
-    <div ng-messages="form[contentField.columnName].$error" ng-if="submitted" class="invalid-feedback" role="alert">
+    <div ng-messages="form[contentField.columnName].$error" ng-if="submitted" class="text-error" role="alert">
         <div ng-message="required">This field is required</div>
     </div>
     <small class="form-text" ng-show="contentField.helpText">{{contentField.helpText}}</small>
 </div>
 
+<div class="form-floating mb-3" ng-show="contentField.options.controlType=='dropdown-list' && contentField.options.allowOther==true">
+    <input class="form-control" list="dataListOptions" id="{{contentField.columnName}}" name="{{contentField.columnName}}" placeholder="Type to search" ng-model="contentItem[contentField.columnName]" />
+    <label for="{{contentField.columnName}}" class="form-label">{{contentField.name}} <span class="text-danger" ng-show="contentField.options.required">*</span></label>
+    <datalist id="dataListOptions">
+        <option ng-repeat="choice in contentField.options.choices" ng-value="choice.value"></option>
+    </datalist>
+    <div ng-messages="form[contentField.columnName].$error" ng-if="submitted" class="text-error" role="alert">
+        <div ng-message="required">This field is required</div>
+    </div>
+    <small class="form-text" ng-show="contentField.helpText">{{contentField.helpText}}</small>
+</div>
 
-<div class="mb-3" ng-if="contentField.options.controlType=='radio-button-list'">
+<div class="mb-3" ng-show="contentField.options.controlType=='radio-button-list'">
     <label class="form-label">{{contentField.name}} <span class="text-danger" ng-show="contentField.options.required">*</span></label>
     <div ng-class="contentField.options.layout">
-        <div class="form-check" ng-repeat="choice in contentField.options.choices">
+        <div class="form-check align-items-center" ng-repeat="choice in contentField.options.choices" ng-class="{'d-inline-flex form-check-inline':contentField.options.layout=='inline','d-flex':contentField.options.layout=='stacked'}">
             <input type="radio" name="{{contentField.columnName}}" id="{{contentField.columnName}}{{$index}}" class="form-check-input" ng-model="contentItem[contentField.columnName]" ng-value="choice.value" ng-required="contentField.options.required" ng-selected="choice.value==contentField.options.defaultValue" ng-class="{'is-invalid': form[contentField.columnName].$invalid && submitted,'is-valid': form[contentField.columnName].$valid && submitted}" />
-            <label class="form-check-label" for="{{contentField.columnName}}{{$index}}">{{choice.text}}</label>
+            <label class="form-check-label mx-1" for="{{contentField.columnName}}{{$index}}">{{choice.text}}</label>
+        </div>
+        <div class="form-check align-items-center" ng-show="contentField.options.allowOther" ng-class="{'d-inline-flex form-check-inline':contentField.options.layout=='inline' && contentField.options.allowOther,'d-flex':contentField.options.layout=='stacked' && contentField.options.allowOther}">
+            <input type="radio" name="{{contentField.columnName}}" id="{{contentField.columnName}}-other" class="form-check-input" ng-model="contentItem[contentField.columnName]" ng-value="otherValue" ng-required="contentField.options.required" ng-class="{'is-invalid': form[contentField.columnName].$invalid && submitted,'is-valid': form[contentField.columnName].$valid && submitted}" />
+            <input type="text" class="mx-1 form-control form-control-sm" ng-class="{'col-6': contentField.options.layout=='stacked'}" ng-model="otherValue" ng-keyup="radioOtherValueChanged()" />
         </div>
         <div ng-messages="form[contentField.columnName].$error" ng-if="submitted" class="text-danger" role="alert">
             <div ng-message="required">This field is required</div>
@@ -26,16 +41,22 @@
     </div>
 </div>
 
-<div class="mb-3" ng-if="contentField.options.controlType=='checkbox-list'">
+<div class="mb-3" ng-show="contentField.options.controlType=='checkbox-list'">
     <label class="form-label">{{contentField.name}} <span class="text-danger" ng-show="contentField.options.required">*</span></label>
     <div ng-class="contentField.options.layout">
-        <div class="form-check" ng-repeat="(key, choice) in contentField.options.choices">
-            <input type="checkbox" id="{{contentField.columnName}}{{$index}}" name="{{contentField.columnName}}" class="form-check-input" ng-model="selected[choice.value]" ng-required="contentField.options.required && !anySelected(selected)" ng-click="checkBoxClick(choice.value)" ng-class="{'is-invalid': form[contentField.columnName].$invalid && submitted,'is-valid': form[contentField.columnName].$valid && submitted}" />
-            <label class="form-check-label" for="{{contentField.columnName}}{{$index}}">{{choice.text}}</label>
+        <div class="form-check align-items-center" ng-repeat="choice in contentField.options.choices" ng-class="{'d-inline-flex form-check-inline':contentField.options.layout=='inline','d-flex':contentField.options.layout=='stacked'}">
+            <input type="checkbox" id="{{contentField.columnName}}{{$index}}" name="{{contentField.columnName}}" class="form-check-input" ng-model="choice.selected" ng-required="contentField.options.required && !anySelected(selected)" ng-class="{'is-invalid': form[contentField.columnName].$invalid && submitted,'is-valid': form[contentField.columnName].$valid && submitted}" ng-change="checkBoxChange(choice.value)" />
+            <label class="form-check-label mx-1" for="{{contentField.columnName}}{{$index}}">{{choice.text}}</label>
         </div>
+
+        <div class="form-check align-items-center" ng-show="contentField.options.allowOther" ng-class="{'d-inline-flex form-check-inline':contentField.options.layout=='inline' && contentField.options.allowOther,'d-flex':contentField.options.layout=='stacked' && contentField.options.allowOther}">
+            <input type="checkbox" id="{{contentField.columnName}}-other" name="{{contentField.columnName}}" class="form-check-input" ng-model="otherSelected" ng-value="otherValue" ng-required="contentField.options.required" ng-class="{'is-invalid': form[contentField.columnName].$invalid && submitted,'is-valid': form[contentField.columnName].$valid && submitted}" ng-change="checkBoxChange(choice.value)" />
+            <input type="text" placeholder="Other" class="mx-1 form-control form-control-sm" ng-class="{'col-6': contentField.options.layout=='stacked'}" ng-model="otherValue" ng-keyup="otherValueChanged()" />
+        </div>
+
         <div ng-messages="form[contentField.columnName].$error" ng-if="submitted" class="text-danger" role="alert">
             <div ng-message="required">This field is required</div>
         </div>
-        <small class="form-text" ng-show="contentField.helpText">{{contentField.helpText}}</small>
     </div>
+    <small class="form-text" ng-show="contentField.helpText">{{contentField.helpText}}</small>
 </div>
