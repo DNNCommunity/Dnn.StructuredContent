@@ -1,6 +1,6 @@
 ﻿app.controller('contentFieldTypeNumberController', ['$scope', function ($scope) {
 
-    //this build the list of choices for the dropdown control
+    //this builds the list of choices for the dropdown control
     $scope.contentField.choices = [];
 
     $scope.options = function () {
