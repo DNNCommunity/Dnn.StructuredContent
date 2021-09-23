@@ -33,4 +33,12 @@
             </div>
         </div>
     </div>
+
+    <div class="mb-3" ng-if="contentField.options.controlType=='textbox'">
+        <div class="form-floating">
+            <input type="text" name="inputMask" class="form-control" ng-model="contentField.options.inputMask" placeholder=" " />
+            <label class="form-label" for="inputMask">Input Mask</label>
+        </div>
+        <small class="form-t"><strong>9</strong> for numbers, <strong>w</strong> for characters</small>
+    </div>
 </div>
