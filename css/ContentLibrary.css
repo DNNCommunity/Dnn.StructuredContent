@@ -10,6 +10,10 @@
     font-size: 12px;
 }
 
+input[type=range] {
+    border: none;
+}
+
 .modal-full {
     position: absolute !important;
     top: 20px;

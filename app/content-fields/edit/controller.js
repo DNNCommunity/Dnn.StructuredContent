@@ -24,7 +24,6 @@
 
         contentFieldTypeService.get($scope.contentFieldType.id).then(
             function (response) {
-                console.log('contentFieldType', response.data);
                 $scope.contentFieldType = response.data;
                 deferred.resolve();
             },
@@ -44,7 +43,6 @@
 
         contentTypeService.get($scope.contentType.id).then(
             function (response) {
-                console.log('contentType', response.data);
                 $scope.contentType = response.data;
                 deferred.resolve();
             },
