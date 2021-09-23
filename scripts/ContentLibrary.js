@@ -23,9 +23,7 @@ define(
                             "/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/plugins/angular-toastr/angular-toastr.tpls.min.js",
                             "/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/plugins/ui.bootstrap/ui-bootstrap-tpls-2.5.0.min.js",
                             "/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/plugins/angular-drap-and-drop-lists/angular-drap-and-drop-lists.min.js",
-                            //"/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/plugins/tel-input/js/intlTelInput-jquery.min.js",
-                            //"/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/plugins/tel-input/js/utils.js",
-                            //"/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/plugins/tel-input/js/ng-intl-tel-input.min.js",
+                            "/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/plugins/ngMask/ngMask.js",                            
                             "/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/plugins/ace/ace.js",
                             "/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/app.js"
 

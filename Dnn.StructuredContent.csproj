@@ -227,6 +227,8 @@
     <Content Include="plugins\bootstrap\css\bootstrap.css" />
     <Content Include="plugins\bootstrap\css\bootstrap.min.css" />
     <Content Include="plugins\bootstrap\js\bootstrap.bundle.min.js" />
+    <Content Include="plugins\ngMask\ngMask.js" />
+    <Content Include="plugins\ngMask\ngMask.min.js" />
     <Content Include="plugins\pluralize\pluralize.js" />
     <Content Include="plugins\ui.bootstrap\ui-bootstrap-tpls-2.5.0.min.js" />
     <Content Include="scripts\ContentLibrary.js" />
@@ -274,6 +276,7 @@
     <None Include="module.web\src\components\sample-component\sample-component.scss" />
     <None Include="module.web\tsconfig.json" />
     <AdditionalFiles Include="stylecop.json" />
+    <None Include="plugins\ngMask\ngMask.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

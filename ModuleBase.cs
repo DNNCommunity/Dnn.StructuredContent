@@ -37,6 +37,7 @@ namespace StructuredContent
             ClientResourceManager.RegisterScript(this.Page, this.ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/plugins/angular-toastr/angular-toastr.tpls.min.js"), 5);
             ClientResourceManager.RegisterScript(this.Page, this.ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/plugins/ui.bootstrap/ui-bootstrap-tpls-2.5.0.min.js"), 6);
             ClientResourceManager.RegisterScript(this.Page, this.ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/plugins/angular-drap-and-drop-lists/angular-drap-and-drop-lists.min.js"), 5);
+            ClientResourceManager.RegisterScript(this.Page, this.ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/plugins/ngMask/ngMask.min.js"), 5);
 
             ClientResourceManager.RegisterScript(this.Page, this.ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/app.js"), 20);
 

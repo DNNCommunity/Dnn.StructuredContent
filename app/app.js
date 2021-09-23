@@ -1,4 +1,4 @@
-﻿var app = angular.module('StructuredContent', ['ngMessages', 'ngAnimate', 'ui.bootstrap', 'toastr', 'dndLists', 'ui.ace'], function ($locationProvider) {
+﻿var app = angular.module('StructuredContent', ['ngMessages', 'ngAnimate', 'ui.bootstrap', 'toastr', 'dndLists', 'ui.ace', 'ngMask'], function ($locationProvider) {
     $locationProvider.html5Mode({
         enabled: true,
         requireBase: false
@@ -20,10 +20,6 @@ app.config(function (toastrConfig) {
         toastClass: 'toastr'
     });
 });
-
-//app.config(function (ngIntlTelInputProvider) {
-//    ngIntlTelInputProvider.set({ initialCountry: 'us' });
-//});
 
 app.directive('convertToNumber', function () {
     return {

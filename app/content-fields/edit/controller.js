@@ -63,7 +63,6 @@
 
             $scope.contentField.options = angular.toJson($scope.contentField.options);
 
-            console.log($scope.contentType.urlSlug, $scope.contentField);
             contentFieldService.save($scope.contentType.urlSlug, $scope.contentField).then(
                 function (response) {
                     $scope.contentField.id = response.data.id;
