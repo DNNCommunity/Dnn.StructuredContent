@@ -1,4 +1,5 @@
 ﻿<div ng-form="formChoice">
+
     <div class="form-check form-switch mb-3">
         <input type="checkbox" class="form-check-input" id="required" ng-model="contentField.options.required">
         <label class="form-check-label" for="required">Required</label>
@@ -18,9 +19,8 @@
 
     <div class="form-floating mb-3" ng-if="contentField.options.controlType=='radio-button-list'|| contentField.options.controlType=='checkbox-list'">
         <select name="layout" id="layout" class="form-select" ng-model="contentField.options.layout" required ng-class="{'is-invalid': formChoice.layout.$invalid && submitted, 'is-valid': formChoice.layout.$valid && submitted}">
-            <option value="layout-one-column">One Column</option>
-            <option value="layout-two-column">Two Column</option>
-            <option value="layout-side-by-side">Side by Side</option>
+            <option value="stacked">Stacked</option>
+            <option value="inline">Inline</option>
         </select>
         <label class="form-label" for="layout">Layout</label>
         <div role="alert" ng-messages="formChoice.layout.$error" ng-if="submitted" class="invalid-feedback">
@@ -50,6 +50,11 @@
         </tbody>
     </table>
     <p class="alert alert-info" ng-show="contentField.options.choices.length==0">No choices defined yet</p>
+
+    <div class="form-check form-switch mb-3">
+        <input type="checkbox" class="form-check-input" id="allowOther" ng-model="contentField.options.allowOther">
+        <label class="form-check-label" for="allowOther">Allow 'Other'</label>
+    </div>
 
     <div class="form-floating mb-3">
         <select name="defaultValue" class="form-select" ng-model="contentField.options.defaultValue">
