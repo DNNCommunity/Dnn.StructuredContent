@@ -4,21 +4,41 @@
         <label class="form-check-label" for="required">Required</label>
     </div>
 
+    <div class="form-floating mb-3">
+        <select name="controlType" id="controlType" class="form-select" ng-model="contentField.options.controlType" required ng-class="{'is-invalid': formChoice.controlType.$invalid && submitted, 'is-valid': formChoice.controlType.$valid && submitted}">
+            <option value="textbox">Textbox</option>
+            <option value="range">Range</option>
+            <option value="dropdown">Dropdown</option>
+        </select>
+        <label class="form-label" for="controlType">Control Type</label>
+        <div role="alert" ng-messages="formChoice.controlType.$error" ng-if="submitted" class="invalid-feedback">
+            <div ng-message="required">This field is required</div>
+        </div>
+    </div>
+
     <div class="mb-3">
         <label class="form-label">Valid Range</label>
         <div class="row">
             <div class="col">
                 <div class="form-floating">
-                    <input type="number" name="minValue" class="form-control" ng-model="contentField.options.minValue" placeholder=" " />
+                    <input type="number" name="minValue" class="form-control" ng-model="contentField.options.minValue" placeholder=" " ng-change="buildChoices()" />
                     <label class="form-label" for="minValue">Min</label>
                 </div>
             </div>
             <div class="col">
                 <div class="form-floating">
-                    <input type="number" name="maxValue" class="form-control" ng-model="contentField.options.maxValue" placeholder=" " />
-                    <label class="form-label" for="maxValue">Min</label>
+                    <input type="number" name="maxValue" class="form-control" ng-model="contentField.options.maxValue" placeholder=" " ng-change="buildChoices()" />
+                    <label class="form-label" for="maxValue">Max</label>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="mb-3" ng-if="contentField.options.controlType=='range' || contentField.options.controlType=='dropdown'">
+        <div class="form-floating">
+            <input type="number" name="step" class="form-control" ng-model="contentField.options.step" placeholder=" " ng-change="buildChoices()" />
+            <label class="form-label" for="step">Step</label>
+        </div>
+    </div>
+
 </div>

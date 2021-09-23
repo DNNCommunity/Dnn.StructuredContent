@@ -22,7 +22,6 @@
         $scope.loading = true;
         contentItemService.get(contentType.urlSlug, $scope.contentItem.id).then(
             function (response) {
-                console.log(response.data);
                 $scope.contentItem = response.data;
                 $scope.loading = false;
                 deferred.resolve();
@@ -43,7 +42,6 @@
         $scope.loading = true;
         contentFieldService.search(contentType.urlSlug, true).then(
             function (response) {
-                console.log('contentFields', response.data);
                 $scope.contentFields = response.data;
                 $scope.loading = false;
                 deferred.resolve();
@@ -63,7 +61,6 @@
         $scope.loading = true;
         relationshipService.search($scope.contentType.id).then(
             function (response) {
-                console.log('relationships', response.data);
                 $scope.relationships = response.data;
                 $scope.loading = false;
                 deferred.resolve();

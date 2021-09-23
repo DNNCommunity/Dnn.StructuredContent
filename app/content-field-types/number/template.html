@@ -1,10 +1,37 @@
-﻿<div class="form-floating mb-3">
-    <input type="number" name="{{contentField.columnName}}" id="{{contentField.columnName}}" class="form-control" ng-model="contentItem[contentField.columnName]" ng-required="contentField.options.required" ng-min="contentField.options.minValue" ng-max="contentField.options.maxValue" min="{{contentField.options.minValue}}" max="{{contentField.options.maxValue}}" ng-if="contentField.options.numberSet!=2" ng-class="{'is-invalid': form[contentField.columnName].$invalid && submitted,'is-valid': form[contentField.columnName].$valid && submitted}" placeholder=" " />
+﻿<div class="form-floating mb-3" ng-if="contentField.options.controlType=='textbox'">
+    <input type="number" name="{{contentField.columnName}}" id="{{contentField.columnName}}" class="form-control" ng-model="contentItem[contentField.columnName]" ng-required="contentField.options.required" ng-min="contentField.options.minValue" ng-max="contentField.options.maxValue" min="{{contentField.options.minValue}}" max="{{contentField.options.maxValue}}" ng-class="{'is-invalid': form[contentField.columnName].$invalid && submitted,'is-valid': form[contentField.columnName].$valid && submitted}" placeholder=" " />
     <label for="{{contentField.columnName}}" class="form-label">{{contentField.name}} <span class="text-danger" ng-show="contentField.options.required">*</span></label>
     <div ng-messages="form[contentField.columnName].$error" ng-if="submitted" class="invalid-feedback" role="alert">
         <div ng-message="required">This field is required</div>
         <div ng-message="min">This field allows a minimum value of {{contentField.options.minValue}}</div>
         <div ng-message="max">This field allows a maximum value of {{contentField.options.maxValue}}</div>
     </div>
-    <small class="form-text" ng-show="contentField.helpText">{{contentField.helpText}}</small>    
+    <small class="form-text" ng-show="contentField.helpText">{{contentField.helpText}}</small>
 </div>
+
+<div class="mb-3" ng-if="contentField.options.controlType=='range'">
+    <label for="{{contentField.columnName}}" class="form-label">{{contentField.name}} <span class="text-danger" ng-show="contentField.options.required">*</span></label>
+    <input type="range" name="{{contentField.columnName}}" id="{{contentField.columnName}}" class="form-range" ng-model="contentItem[contentField.columnName]" ng-required="contentField.options.required" min="{{contentField.options.minValue}}" max="{{contentField.options.maxValue}}" step="{{contentField.options.step}}" ng-if="contentField.options.numberSet!=2" ng-class="{'is-invalid': form[contentField.columnName].$invalid && submitted,'is-valid': form[contentField.columnName].$valid && submitted}" placeholder=" " />
+    <div class="d-flex justify-content-between">
+        <span>{{contentField.options.minValue}}</span>
+        <span>{{contentItem[contentField.columnName]}}</span>
+        <span>{{contentField.options.maxValue}}</span>
+    </div>
+    <div ng-messages="form[contentField.columnName].$error" ng-if="submitted" class="invalid-feedback" role="alert">
+        <div ng-message="required">This field is required</div>
+    </div>
+    <small class="form-text" ng-show="contentField.helpText">{{contentField.helpText}}</small>
+</div>
+
+<div class="form-floating mb-3" ng-if="contentField.options.controlType=='dropdown'">
+    <select name="{{contentField.columnName}}" id="{{contentField.columnName}}" class="form-select" ng-model="contentItem[contentField.columnName]" ng-required="contentField.options.required" ng-class="{'is-invalid': form[contentField.columnName].$invalid && submitted,'is-valid': form[contentField.columnName].$valid && submitted}" placeholder=" ">
+        <option value="">-select-</option>
+        <option ng-repeat="option in options()" ng-value="option">{{option}}</option>
+    </select>
+    <label for="{{contentField.columnName}}" class="form-label">{{contentField.name}} <span class="text-danger" ng-show="contentField.options.required">*</span></label>
+    <div ng-messages="form[contentField.columnName].$error" ng-if="submitted" class="invalid-feedback" role="alert">
+        <div ng-message="required">This field is required</div>
+    </div>
+    <small class="form-text" ng-show="contentField.helpText">{{contentField.helpText}}</small>
+</div>
+
