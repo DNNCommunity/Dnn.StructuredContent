@@ -1,6 +1,6 @@
 ﻿app.factory('contentFieldTypeService', ['$http', function contentFieldTypeService($http) {
 
-    var base_path = "/api/contentFieldType";
+    var base_path = siteRoot + "api/contentFieldType";
         
     var service = {
         search: search,

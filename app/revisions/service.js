@@ -1,6 +1,6 @@
 ﻿app.factory('revisionService', ['$http', function contentFieldTypeService($http) {
 
-    var base_path = "/api/revision";
+    var base_path = siteRoot + "api/revision";
         
     var service = {
         search: search,

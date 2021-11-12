@@ -1,6 +1,6 @@
 ﻿app.factory('contentItemService', ['$http', function contentItemService($http) {
 
-    var base_path = "/api/content";
+    var base_path = siteRoot + "api/content";
 
     var service = {
         search: search,
