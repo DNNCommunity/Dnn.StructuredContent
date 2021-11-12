@@ -25,7 +25,7 @@ namespace StructuredContent
             {
                 base.Page_Load(sender, e);
 
-                ClientResourceManager.RegisterScript(this.Page, this.ResolveUrl("/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/plugins/ace/ui-ace.js"), 11);
+                ClientResourceManager.RegisterScript(this.Page, this.ResolveUrl("~/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/plugins/ace/ui-ace.js"), 11);
             }
             catch (Exception ex)
             {

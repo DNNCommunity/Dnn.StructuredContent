@@ -29,7 +29,7 @@
 
     $scope.addVisualizerTemplate = function () {
         var modalInstance = $uibModal.open({
-            templateUrl: '/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/visualizer-templates/edit/template.html?c=' + new Date().getTime(),
+            templateUrl: siteRoot + 'DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/visualizer-templates/edit/template.html?c=' + new Date().getTime(),
             controller: 'visualizerTemplateEditController',
             size: 'fullscreen dnn-structured-content',
             backdrop: 'static',
@@ -53,7 +53,7 @@
     };
     $scope.editVisualizerTemplate = function (id) {
         var modalInstance = $uibModal.open({
-            templateUrl: '/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/visualizer-templates/edit/template.html?c=' + new Date().getTime(),
+            templateUrl: siteRoot + 'DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/visualizer-templates/edit/template.html?c=' + new Date().getTime(),
             controller: 'visualizerTemplateEditController',
             size: 'fullscreen dnn-structured-content',
             backdrop: 'static',
@@ -76,7 +76,7 @@
     };
     $scope.deleteVisualizerTemplate = function (visualizerTemplate) {
         var modalInstance = $uibModal.open({
-            templateUrl: '/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/visualizer-templates/delete/template.html?c=' + new Date().getTime(),
+            templateUrl: siteRoot + 'DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/visualizer-templates/delete/template.html?c=' + new Date().getTime(),
             controller: 'visualizerTemplateDeleteController',
             size: 'lg dnn-structured-content',
             backdrop: 'static',

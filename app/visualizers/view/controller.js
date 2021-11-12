@@ -1,5 +1,6 @@
 ﻿app.controller('visualizerController', ['$scope', '$q', '$uibModal', '$sce', '$window', 'toastr', 'visualizerService', function ($scope, $q, $uibModal, $sce, $window, toastr, visualizerService) {
 
+    console.log('visualizerController', siteRoot);
     $scope.moduleId = ModuleId;
 
     $scope.visualizer = {
@@ -35,7 +36,7 @@
         var clone = $.extend({}, $scope.visualizer);
 
         var modalInstance = $uibModal.open({
-            templateUrl: '/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/visualizers/edit/template.html?c=' + new Date().getTime(),
+            templateUrl: siteRoot + 'DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/visualizers/edit/template.html?c=' + new Date().getTime(),
             controller: 'visualizerEditController',
             size: 'xl dnn-structured-content',
             backdrop: 'static',
@@ -61,7 +62,7 @@
         var modalInstance;
         if (id) {
             modalInstance = $uibModal.open({
-                templateUrl: '/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-items/list/template.html?c=' + new Date().getTime(),
+                templateUrl: siteRoot + 'DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-items/list/template.html?c=' + new Date().getTime(),
                 controller: 'contentItemListController',
                 size: 'xl dnn-structured-content',
                 backdrop: 'static',
@@ -75,7 +76,7 @@
         }
         else {
             modalInstance = $uibModal.open({
-                templateUrl: '/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-types/add/template.html?c=' + new Date().getTime(),
+                templateUrl: siteRoot + 'DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-types/add/template.html?c=' + new Date().getTime(),
                 controller: 'contentTypeAddController',
                 size: 'lg dnn-structured-content',
                 resolve: {}

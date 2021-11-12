@@ -31,7 +31,7 @@
 
     $scope.viewRevision = function (id) {
         var modalInstance = $uibModal.open({
-            templateUrl: '/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/revisions/view/template.html?c=' + new Date().getTime(),
+            templateUrl: siteRoot + 'DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/revisions/view/template.html?c=' + new Date().getTime(),
             controller: 'revisionViewController',
             size: 'xl dnn-structured-content',
             backdrop: 'static',

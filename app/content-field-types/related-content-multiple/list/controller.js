@@ -32,7 +32,7 @@
 
     $scope.addRelatedContentItem = function () {
         var modalInstance = $uibModal.open({
-            templateUrl: '/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/related-content-multiple/add/template.html?c=' + new Date().getTime(),
+            templateUrl: siteRoot + 'DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/related-content-multiple/add/template.html?c=' + new Date().getTime(),
             controller: 'contentFieldTypeRelatedContentMultipleAddController',
             size: 'md dnn-structured-content',
             resolve: {
@@ -55,7 +55,7 @@
         var contentItem = $scope.relatedContentItems[index];
 
         var modalInstance = $uibModal.open({
-            templateUrl: '/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/related-content-multiple/delete/template.html?c=' + new Date().getTime(),
+            templateUrl: siteRoot + 'DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/related-content-multiple/delete/template.html?c=' + new Date().getTime(),
             controller: 'contentFieldTypeRelatedContentMultipleDeleteController',
             size: 'lg dnn-structured-content',
             resolve: {
