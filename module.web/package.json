@@ -28,7 +28,7 @@
     "@stencil/core": "^2.8.1",
     "@stencil/eslint-plugin": "^0.3.1",
     "@stencil/sass": "^1.4.1",
-    "@stencil/store": "^1.4.1",
+    "@stencil/store": "^1.5.0",
     "@types/jest": "^27.0.2",
     "@typescript-eslint/eslint-plugin": "^4.32.0",
     "@typescript-eslint/parser": "^4.33.0",
