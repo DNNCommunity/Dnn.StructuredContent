@@ -30,7 +30,7 @@
     "@stencil/sass": "^1.4.1",
     "@stencil/store": "^1.4.1",
     "@types/jest": "^27.0.2",
-    "@typescript-eslint/eslint-plugin": "^4.32.0",
+    "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
     "eslint": "^7.32.0",
     "eslint-plugin-react": "^7.26.1",
