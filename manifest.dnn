@@ -16,7 +16,7 @@
         Release notes are available on &lt;a href="https://github.com/DNNCommunity/Dnn.StructuredContent/releases" target="_blank"&gt;GitHub&lt;/a&gt;.
       </releaseNotes>
       <dependencies>
-        <dependency type="CoreVersion">09.10.01</dependency>
+        <dependency type="CoreVersion">09.10.02</dependency>
       </dependencies>
       <azureCompatible>true</azureCompatible>
       <components>

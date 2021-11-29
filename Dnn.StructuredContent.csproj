@@ -314,10 +314,10 @@
       <Version>2.2.548</Version>
     </PackageReference>
     <PackageReference Include="DotNetNuke.Web.Client">
-      <Version>9.10.1</Version>
+      <Version>9.10.2</Version>
     </PackageReference>
     <PackageReference Include="DotNetNuke.WebApi">
-      <Version>9.10.1</Version>
+      <Version>9.10.2</Version>
     </PackageReference>
     <PackageReference Include="EntityFramework">
       <Version>6.4.4</Version>
