@@ -1,6 +1,5 @@
 ﻿app.controller('visualizerController', ['$scope', '$q', '$uibModal', '$sce', '$window', 'toastr', 'visualizerService', function ($scope, $q, $uibModal, $sce, $window, toastr, visualizerService) {
 
-    console.log('visualizerController', siteRoot);
     $scope.moduleId = ModuleId;
 
     $scope.visualizer = {

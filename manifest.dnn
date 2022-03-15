@@ -66,6 +66,14 @@
             </script>
           </scripts>
         </component>
+        <component type="ResourceFile">
+          <resourceFiles>
+            <basePath>bin</basePath>
+            <resourceFile>
+              <name>symbols.zip</name>
+            </resourceFile>
+          </resourceFiles>
+        </component>
         <component type="Assembly">
           <assemblies>
             <assembly>
