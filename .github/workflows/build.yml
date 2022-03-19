@@ -17,15 +17,15 @@ on:
 jobs:
   build:
     name: build
-    runs-on: windows-2019
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout source
         uses: actions/checkout@v2
 
       - name: Fetch unshallow
         run: git fetch --prune --tags --unshallow
-      - name: Run './build.ps1'
-        run: ./build.ps1 --github-token $GITHUB_TOKEN --target CI
+      - name: Run './build.sh'
+        run: ./build.sh --github-token $GITHUB_TOKEN --target CI
         env:
           GITHUB_TOKEN: ${{ github.token }}
       - name: Upload Build Artifact
