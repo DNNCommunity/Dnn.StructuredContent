@@ -22,20 +22,19 @@
     "test.watch": "stencil test --spec --e2e --watchAll",
     "generate": "stencil generate"
   },
-  "dependencies": {},
   "devDependencies": {
     "@dnncommunity/dnn-elements": "^0.14.1",
     "@stencil/core": "^2.14.2",
     "@stencil/eslint-plugin": "^0.4.0",
     "@stencil/sass": "^1.5.2",
     "@stencil/store": "^1.5.0",
-    "@types/jest": "^27.0.3",
+    "@types/jest": "^27.4.1",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
     "eslint": "^7.32.0",
     "eslint-plugin-react": "^7.29.4",
-    "jest": "^27.4.1",
-    "jest-cli": "^27.4.1",
+    "jest": "^27.5.1",
+    "jest-cli": "^27.5.1",
     "puppeteer": "^13.5.1",
     "typescript": "^4.6.2"
   },

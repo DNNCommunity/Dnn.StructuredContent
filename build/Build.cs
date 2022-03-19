@@ -95,7 +95,7 @@ class Build : NukeBuild
         .Executes(() =>
         {
             repositoryBranch = GitRepository.Branch.StartsWith("refs/") ? GitRepository.Branch.Substring(11) : GitRepository.Branch;
-            Logger.Info($"Set branch name to {repositoryBranch}");
+            Serilog.Log.Information($"Set branch name to {repositoryBranch}");
         });
 
     /// <summary>
@@ -148,13 +148,13 @@ class Build : NukeBuild
                     var version = package.Attributes["version"];
                     if (version != null)
                     {
-                        Logger.Normal($"Found package {package.Attributes["name"].Value} with version {version.Value}");
+                        Serilog.Log.Information($"Found package {package.Attributes["name"].Value} with version {version.Value}");
                         version.Value = $"{GitVersion.Major.ToString("00", CultureInfo.InvariantCulture)}.{GitVersion.Minor.ToString("00", CultureInfo.InvariantCulture)}.{GitVersion.Patch.ToString("00", CultureInfo.InvariantCulture)}";
-                        Logger.Normal($"Updated package {package.Attributes["name"].Value} to version {version.Value}");
+                        Serilog.Log.Information($"Updated package {package.Attributes["name"].Value} to version {version.Value}");
                     }
                 }
                 doc.Save(manifest);
-                Logger.Normal($"Saved {manifest}");
+                Serilog.Log.Information($"Saved {manifest}");
             }
         });
 
@@ -166,7 +166,7 @@ class Build : NukeBuild
         .DependsOn(SetBranch)
         .Executes(() =>
         {
-            Logger.Info($"We are on branch {repositoryBranch}");
+            Serilog.Log.Information($"We are on branch {repositoryBranch}");
             if (repositoryBranch == "master" || repositoryBranch.StartsWith("release"))
             {
                 repositoryOwner = GitRepository.Identifier.Split('/')[0];
@@ -188,7 +188,7 @@ class Build : NukeBuild
         .Executes(() =>
         {
             var version = repositoryBranch == "master" ? GitVersion.MajorMinorPatch : GitVersion.SemVer;
-            GitLogger = (type, output) => Logger.Info(output);
+            GitLogger = (type, output) => Serilog.Log.Information(output);
             Git($"tag v{version}");
             Git($"push --tags");
         });
@@ -295,7 +295,7 @@ class Build : NukeBuild
                     policy: FileExistsPolicy.Overwrite);
             }
 
-            Logger.Success("Packaging succeeded!");
+            Serilog.Log.Information("Packaging succeeded!");
         });
 
     Target DeployBinaries => _ => _
@@ -324,17 +324,17 @@ class Build : NukeBuild
            {
                if (type == OutputType.Std)
                {
-                   Logger.Info(output);
+                   Serilog.Log.Information(output);
                }
                if (type == OutputType.Err)
                {
                    if (output.StartsWith("npm WARN", StringComparison.OrdinalIgnoreCase))
                    {
-                       Logger.Warn(output);
+                       Serilog.Log.Warning(output);
                    }
                    else
                    {
-                       Logger.Error(output);
+                       Serilog.Log.Error(output);
                    }
                }
            };
@@ -388,12 +388,9 @@ class Build : NukeBuild
         .DependsOn(SetBranch)
         .Executes(() =>
         {
-            Logger.Info($"Original branch name is {GitRepository.Branch}");
-            Logger.Info($"We are on branch {repositoryBranch} and IsOnMasterBranch is {GitRepository.IsOnMasterBranch()} and the version will be {GitVersion.SemVer}");
-            using (var group = Logger.Block("GitVersion"))
-            {
-                Logger.Info(SerializationTasks.JsonSerialize(GitVersion));
-            }
+            Serilog.Log.Information($"Original branch name is {GitRepository.Branch}");
+            Serilog.Log.Information($"We are on branch {repositoryBranch} and IsOnMasterBranch is {GitRepository.IsOnMasterBranch()} and the version will be {GitVersion.SemVer}");
+            Serilog.Log.Information(SerializationTasks.JsonSerialize(GitVersion));
         });
 
     Target GenerateReleaseNotes => _ => _
@@ -409,12 +406,12 @@ class Build : NukeBuild
             var milestone = gitHubClient.Issue.Milestone.GetAllForRepository(repositoryOwner, repositoryName).Result.Where(m => m.Title == GitVersion.MajorMinorPatch).FirstOrDefault();
             if (milestone == null)
             {
-                Logger.Warn("Milestone not found for this version");
+                Serilog.Log.Warning("Milestone not found for this version");
                 releaseNotes = "No release notes for this version.";
                 return;
             }
 
-            Logger.Info($"Found {milestone.Title} milestone.");
+            Serilog.Log.Information($"Found {milestone.Title} milestone.");
 
             // Get the PRs
             var prRequest = new PullRequestRequest()
@@ -425,7 +422,7 @@ class Build : NukeBuild
                 p.Milestone?.Title == milestone.Title &&
                 p.Merged == true &&
                 p.Milestone?.Title == GitVersion.MajorMinorPatch);
-            Logger.Info($"Found {pullRequests.Count()} pull requests with that milestone.");
+            Serilog.Log.Information($"Found {pullRequests.Count()} pull requests with that milestone.");
 
             // Build release notes
             var releaseNotesBuilder = new StringBuilder();
@@ -448,10 +445,7 @@ class Build : NukeBuild
                 .Append(File.ReadAllText(ArtifactsDirectory / "checksums.md"));
 
             releaseNotes = releaseNotesBuilder.ToString();
-            using (Logger.Block("Release Notes"))
-            {
-                Logger.Info(releaseNotes);
-            }
+            Serilog.Log.Information(releaseNotes);
         });
 
     Target Release => _ => _
@@ -473,7 +467,7 @@ class Build : NukeBuild
                 Prerelease = repositoryBranch.StartsWith("release")
             };
             release = gitHubClient.Repository.Release.Create(repositoryOwner, repositoryName, newRelease).Result;
-            Logger.Info($"{release.Name} released !");
+            Serilog.Log.Information($"{release.Name} released !");
 
             var artifactFile = GlobFiles(RootDirectory, "artifacts/**/*.zip").FirstOrDefault();
             var artifact = File.OpenRead(artifactFile);
@@ -485,7 +479,7 @@ class Build : NukeBuild
                 RawData = artifact
             };
             var asset = gitHubClient.Repository.Release.UploadAsset(release, assetUpload).Result;
-            Logger.Info($"Asset {asset.Name} published at {asset.BrowserDownloadUrl}");
+            Serilog.Log.Information($"Asset {asset.Name} published at {asset.BrowserDownloadUrl}");
         });
 
     Target CI => _ => _
