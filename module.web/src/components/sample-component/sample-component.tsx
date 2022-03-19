@@ -1,6 +1,4 @@
 import { Component, Prop, h } from '@stencil/core';
-import { format } from '../../utils/utils';
-
 @Component({
   tag: 'sample-component',
   styleUrl: 'sample-component.scss',
@@ -22,11 +20,7 @@ export class SampleComponent {
    */
   @Prop() last: string;
 
-  private getText(): string {
-    return format(this.first, this.middle, this.last);
-  }
-
   render() {
-    return <div>Hello, World! I'm {this.getText()}</div>;
+    return <div>Hello, World! I'm {this.first} {this.middle} {this.last}</div>;
   }
 }
