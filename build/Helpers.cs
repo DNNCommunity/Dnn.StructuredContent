@@ -19,29 +19,28 @@ namespace BuildHelpers
             var destinationExists = destinationFile.Exists;
             var sameSize = destinationExists ? sourceFile.Length == destinationFile.Length : false;
             var sameContent = true;
-
-            Logger.Trace("{0} is {1} Bytes", sourceFile.FullName, sourceFile.Length);
+            Serilog.Log.Debug("{0} is {1} Bytes", sourceFile.FullName, sourceFile.Length);
             if (destinationExists)
             {
-                Logger.Trace("{0} exists and is {1} Bytes", destinationFile.FullName, destinationFile.Length);
+                Serilog.Log.Debug("{0} exists and is {1} Bytes", destinationFile.FullName, destinationFile.Length);
             }
 
             if (destinationExists && sameSize)
             {
                 sameContent = FilesAreEqual(sourceFile, destinationFile);
-                Logger.Trace(sameContent ? "Both files have the same content" : "The files have different contents");
+                Serilog.Log.Debug(sameContent ? "Both files have the same content" : "The files have different contents");
             }
 
             if (!destinationExists || !sameSize || !sameContent)
             {
                 CopyFileToDirectory(source, target, Nuke.Common.IO.FileExistsPolicy.OverwriteIfNewer);
-                Logger.Success("Copied {0} to {1}", sourceFile.Name, destinationFile.DirectoryName);
-                Logger.Trace("\n");
+                Serilog.Log.Information("Copied {0} to {1}", sourceFile.Name, destinationFile.DirectoryName);
+                Serilog.Log.Debug("\n");
             }
             else
             {
-                Logger.Info("Skipped {0} since it is unchanged.", sourceFile.Name);
-                Logger.Trace("\n");
+                Serilog.Log.Information("Skipped {0} since it is unchanged.", sourceFile.Name);
+                Serilog.Log.Debug("\n");
             }
         }
 
