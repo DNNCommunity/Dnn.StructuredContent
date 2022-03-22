@@ -1,6 +1,6 @@
 ﻿app.factory('relationshipService', ['$http', function relationshipService($http) {
 
-    var base_path = "/api/relationship";
+    var base_path = siteRoot + "api/relationship";
 
     var service = {
         search: search,

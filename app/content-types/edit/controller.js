@@ -163,7 +163,7 @@
         var clone = $.extend({}, contentField);
 
         var modalInstance = $uibModal.open({
-            templateUrl: '/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-fields/edit/template.html?c=' + new Date().getTime(),
+            templateUrl: siteRoot + 'DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-fields/edit/template.html?c=' + new Date().getTime(),
             controller: 'contentFieldEditController',
             size: 'lg dnn-structured-content',
             backdrop: 'static',
@@ -184,7 +184,7 @@
     };
     deleteContentField = function (contentField, column) {
         var modalInstance = $uibModal.open({
-            templateUrl: '/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-fields/delete/template.html?c=' + new Date().getTime(),
+            templateUrl: siteRoot + 'DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-fields/delete/template.html?c=' + new Date().getTime(),
             controller: 'contentFieldDeleteController',
             size: 'lg dnn-structured-content',
             backdrop: 'static',
@@ -232,7 +232,7 @@
     };
     editRelationship = function (relationship) {
         var modalInstance = $uibModal.open({
-            templateUrl: '/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/relationships/edit/template.html?c=' + new Date().getTime(),
+            templateUrl: siteRoot + 'DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/relationships/edit/template.html?c=' + new Date().getTime(),
             controller: 'relationshipEditController',
             size: 'lg dnn-structured-content',
             backdrop: 'static',
@@ -256,7 +256,7 @@
     };
     deleteRelationship = function (relationship, column) {
         var modalInstance = $uibModal.open({
-            templateUrl: '/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/relationships/delete/template.html?c=' + new Date().getTime(),
+            templateUrl: siteRoot + 'DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/relationships/delete/template.html?c=' + new Date().getTime(),
             controller: 'relationshipDeleteController',
             size: 'lg dnn-structured-content',
             backdrop: 'static',
@@ -423,7 +423,7 @@
                 };
 
                 var modalInstanceContentField = $uibModal.open({
-                    templateUrl: '/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-fields/edit/template.html?c=' + new Date().getTime(),
+                    templateUrl: siteRoot + 'DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-fields/edit/template.html?c=' + new Date().getTime(),
                     controller: 'contentFieldEditController',
                     size: 'xl dnn-structured-content',
                     backdrop: 'static',
@@ -460,7 +460,7 @@
                 };
 
                 var modalInstanceRelationship = $uibModal.open({
-                    templateUrl: '/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/relationships/edit/template.html?c=' + new Date().getTime(),
+                    templateUrl: siteRoot + 'DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/relationships/edit/template.html?c=' + new Date().getTime(),
                     controller: 'relationshipEditController',
                     size: 'lg dnn-structured-content',
                     backdrop: 'static',
@@ -517,7 +517,7 @@
                 };
 
                 var modalInstanceContentField = $uibModal.open({
-                    templateUrl: '/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-fields/edit/template.html?c=' + new Date().getTime(),
+                    templateUrl: siteRoot + 'DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-fields/edit/template.html?c=' + new Date().getTime(),
                     controller: 'contentFieldEditController',
                     size: 'lg dnn-structured-content',
                     backdrop: 'static',
@@ -553,7 +553,7 @@
                 };
 
                 var modalInstanceRelationship = $uibModal.open({
-                    templateUrl: '/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/relationships/edit/template.html?c=' + new Date().getTime(),
+                    templateUrl: siteRoot + 'DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/relationships/edit/template.html?c=' + new Date().getTime(),
                     controller: 'relationshipEditController',
                     size: 'lg dnn-structured-content',
                     backdrop: 'static',

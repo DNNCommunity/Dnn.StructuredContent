@@ -1,6 +1,6 @@
 ﻿app.factory('visualizerService', ['$http', function visualizerService($http) {
 
-    var base_path = "/api/visualizer";
+    var base_path = siteRoot + "api/visualizer";
         
     var service = {
         search: search,

@@ -2,7 +2,7 @@
 
     $scope.addChoice = function () {
         modalInstance = $uibModal.open({
-            templateUrl: '/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/choice/edit/template.html?c=' + new Date().getTime(),
+            templateUrl: siteRoot + 'DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/choice/edit/template.html?c=' + new Date().getTime(),
             controller: 'contentFieldTypeChoiceEditController',
             size: 'md dnn-structured-content',
             backdrop: 'static',
@@ -31,7 +31,7 @@
         var clone = $.extend({}, choice);
 
         var modalInstance = $uibModal.open({
-            templateUrl: '/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/choice/edit/template.html?c=' + new Date().getTime(),
+            templateUrl: siteRoot + 'DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-field-types/choice/edit/template.html?c=' + new Date().getTime(),
             controller: 'contentFieldTypeChoiceEditController',
             size: 'md dnn-structured-content',
             backdrop: 'static',

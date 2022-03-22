@@ -5,6 +5,7 @@
 </div>
 
 <script>
-    var ModuleId = <%= ModuleId %>;
+  var ModuleId = <%= ModuleId %>;
+  var siteRoot = "<%= this.ResolveUrl("~/") %>";
 </script>
 

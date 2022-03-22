@@ -10,7 +10,7 @@
 
     $scope.editContentType = function () {
         var modalInstance = $uibModal.open({
-            templateUrl: '/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-types/edit/template.html?c=' + new Date().getTime(),
+            templateUrl: siteRoot + 'DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-types/edit/template.html?c=' + new Date().getTime(),
             controller: 'contentTypeEditController',
             size: 'full dnn-structured-content',
             backdrop: 'static',
@@ -48,7 +48,7 @@
     };
     $scope.addContentItem = function () {
         var modalInstance = $uibModal.open({
-            templateUrl: '/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-items/edit/template.html?c=' + new Date().getTime(),
+            templateUrl: siteRoot + 'DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-items/edit/template.html?c=' + new Date().getTime(),
             controller: 'contentItemEditController',
             size: 'xl dnn-structured-content',
             backdrop: 'static',
@@ -70,7 +70,7 @@
     };
     $scope.editContentItem = function (id) {
         var modalInstance = $uibModal.open({
-            templateUrl: '/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-items/edit/template.html?c=' + new Date().getTime(),
+            templateUrl: siteRoot + 'DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-items/edit/template.html?c=' + new Date().getTime(),
             controller: 'contentItemEditController',
             size: 'xl dnn-structured-content',
             backdrop: 'static',
@@ -92,7 +92,7 @@
     };
     $scope.deleteContentItem = function (contentItem) {
         var modalInstance = $uibModal.open({
-            templateUrl: '/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-items/delete/template.html?c=' + new Date().getTime(),
+            templateUrl: siteRoot + 'DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/content-items/delete/template.html?c=' + new Date().getTime(),
             controller: 'contentItemDeleteController',
             size: 'lg dnn-structured-content',
             backdrop: 'static',
@@ -122,7 +122,7 @@
 
     $scope.viewRevisions = function (item) {
         var modalInstance = $uibModal.open({
-            templateUrl: '/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/revisions/list/template.html?c=' + new Date().getTime(),
+            templateUrl: siteRoot + 'DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.StructuredContent/app/revisions/list/template.html?c=' + new Date().getTime(),
             controller: 'revisionListController',
             size: 'lg dnn-structured-content',
             backdrop: 'static',
