@@ -23,7 +23,7 @@
     "generate": "stencil generate"
   },
   "devDependencies": {
-    "@dnncommunity/dnn-elements": "^0.14.1",
+    "@dnncommunity/dnn-elements": "^0.15.0",
     "@stencil/core": "^2.14.2",
     "@stencil/eslint-plugin": "^0.4.0",
     "@stencil/sass": "^1.5.2",
