@@ -311,7 +311,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="DotLiquid">
-      <Version>2.2.595</Version>
+      <Version>2.2.602</Version>
     </PackageReference>
     <PackageReference Include="DotNetNuke.Web.Client">
       <Version>9.10.2</Version>
