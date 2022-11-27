@@ -83,7 +83,7 @@
             <assembly>
               <name>DotLiquid.dll</name>
               <path>bin</path>
-              <version>2.2.595</version>
+              <version>2.2.656</version>
             </assembly>
           </assemblies>
         </component>
