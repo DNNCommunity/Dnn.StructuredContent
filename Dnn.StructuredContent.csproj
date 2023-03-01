@@ -314,7 +314,7 @@
       <Version>2.2.656</Version>
     </PackageReference>
     <PackageReference Include="DotNetNuke.Web.Client">
-      <Version>9.10.2</Version>
+      <Version>9.11.1</Version>
     </PackageReference>
     <PackageReference Include="DotNetNuke.WebApi">
       <Version>9.10.2</Version>
